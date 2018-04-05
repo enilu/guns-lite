@@ -26,6 +26,8 @@ service层也没办法共用了。想想以后要维护两套dao层和service层
 
  - guns-lite是在[guns](https://github.com/stylefeng/Guns)的基础上将数据库层由mybatis替换为spring data jpa的系统。
  - guns-lite是一个基于spring boot的后台管理系统。
+ - todo
+    - 代码生成功能
 
 ## 技术选型
 
