@@ -24,10 +24,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DateUtil {
 
 
+	private static final Object lock = new Object();
+
+	private static final Map<String, ThreadLocal<SimpleDateFormat>> pool = new HashMap<String, ThreadLocal<SimpleDateFormat>>();
 	/**
 	 * 获取YYYY格式
 	 *
@@ -168,12 +173,37 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Date parse(String date, String pattern) {
-		try {
-			return parse(date,pattern);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		if (date != null) {
+			if (pattern == null || "".equals(pattern)) {
+				return null;
+			}
+			DateFormat format = getDFormat(pattern);
+			try {
+				return format.parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
+		return null;
+	}
+	public static SimpleDateFormat getDFormat(String pattern) {
+		ThreadLocal<SimpleDateFormat> tl = pool.get(pattern);
+		if (tl == null) {
+			synchronized (lock) {
+				tl = pool.get(pattern);
+				if (tl == null) {
+					final String p = pattern;
+					tl = new ThreadLocal<SimpleDateFormat>() {
+						@Override
+						protected synchronized SimpleDateFormat initialValue() {
+							return new SimpleDateFormat(p);
+						}
+					};
+					pool.put(p, tl);
+				}
+			}
+		}
+		return tl.get();
 	}
 
 	/**

@@ -19,6 +19,7 @@ import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.bean.entity.system.User;
 import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.LogObjectHolder;
+import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.ToolUtil;
 import com.google.common.base.Strings;
@@ -33,9 +34,7 @@ import javax.annotation.Resource;
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 系统管理员控制器
@@ -56,6 +55,8 @@ public class UserMgrController extends BaseController {
 
     @Resource
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     /**
      * 跳转到查看管理员列表的页面
@@ -163,6 +164,10 @@ public class UserMgrController extends BaseController {
     @Permission
     @ResponseBody
     public Object list(@RequestParam(required = false) String name, @RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) Integer deptid) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("name",name);
+        params.put("beginTime",beginTime);
+        params.put("endTime",endTime);
         if (ShiroKit.isAdmin()) {
             User user = new User();
             if(!Strings.isNullOrEmpty(name)){
@@ -170,22 +175,14 @@ public class UserMgrController extends BaseController {
                 user.setAccount(name);
             }
             if(deptid!=null&&deptid!=0){
-                user.setDeptid(deptid);
+               params.put("deptid",deptid);
             }
-            //创建匹配器，即如何使用查询条件
-//            ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
-//                    .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
-//                    .withMatcher("account",ExampleMatcher.GenericPropertyMatchers.contains()); //姓名采用“开始匹配”的方式查询
-                      //忽略属性：是否关注。因为是基本类型，需要忽略掉
-//            Example<User> example = Example.of(user);
-            List<User> users = userRepository.findAll();
-//            List<Map<String, Object>> users = managerDao.selectUsers(null, name, beginTime, endTime, deptid);
+
+            List<User> users = userService.findAll(params);
             return new UserWarpper(BeanUtil.objectsToMaps(users)).warp();
         } else {
-//            DataScope dataScope = new DataScope(ShiroKit.getDeptDataScope());
-//            List<Map<String, Object>> users = managerDao.selectUsers(dataScope, name, beginTime, endTime, deptid);
-//            return new UserWarpper(users).warp();
-            List<User> users = userRepository.findAll();
+            params.put("deptid",deptid);
+            List<User> users = userService.findAll(params);
 
             return new UserWarpper(BeanUtil.objectsToMaps(users)).warp();
         }
