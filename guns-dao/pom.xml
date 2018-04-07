@@ -36,11 +36,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-recipes</artifactId>
-        </dependency>
-
         <!--test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

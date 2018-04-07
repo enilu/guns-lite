@@ -49,7 +49,7 @@ service层也没办法共用了。想想以后要维护两套dao层和service层
 - 导入idea或者eclipse
 - 创建数据库：guns-lite，将guns-admin/sql/guns-lite.sql导入数据库中，更改相应数据库配置
 - 启动guns-admin
-- 访问https://localhost:9090，登录，用户名密码:admin/admin
+- 访问 https://localhost:9090，   登录，用户名密码:admin/admin
 
 ## 感谢
 
