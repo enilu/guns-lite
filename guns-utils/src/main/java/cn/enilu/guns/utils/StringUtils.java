@@ -345,5 +345,62 @@ public class StringUtils {
     public static boolean isChineseName(String userName) {
         return !Strings.isNullOrEmpty(userName) && userName.matches("[\\u4e00-\\u9fa5]+·?[\\u4e00-\\u9fa5]+");
     }
+    /**
+     * <p>
+     * 包含大写字母
+     * </p>
+     *
+     * @param word 待判断字符串
+     * @return
+     */
+    public static boolean containsUpperCase(String word) {
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (Character.isUpperCase(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    /**
+     * <p>
+     * 是否为Boolean类型(包含普通类型)
+     * </p>
+     *
+     * @param propertyCls
+     * @return
+     */
+    public static Boolean isBoolean(Class<?> propertyCls) {
+        return propertyCls != null && (boolean.class.isAssignableFrom(propertyCls) || Boolean.class.isAssignableFrom(propertyCls));
+    }
+
+    /**
+     * <p>
+     * 第一个首字母小写,之后字符大小写的不变<br>
+     * StringUtils.firstCharToLower( "UserService" )     = userService
+     * StringUtils.firstCharToLower( "UserServiceImpl" ) = userServiceImpl
+     * </p>
+     *
+     * @param rawString 需要处理的字符串
+     * @return
+     */
+    public static String firstCharToLower(String rawString) {
+        return prefixToLower(rawString, 1);
+    }
+
+    /**
+     * <p>
+     * 前n个首字母小写,之后字符大小写的不变
+     * </p>
+     *
+     * @param rawString 需要处理的字符串
+     * @param index     多少个字符(从左至右)
+     * @return
+     */
+    public static String prefixToLower(String rawString, int index) {
+        String beforeChar = rawString.substring(0, index).toLowerCase();
+        String afterChar = rawString.substring(index, rawString.length());
+        return beforeChar + afterChar;
+    }
 }

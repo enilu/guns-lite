@@ -22,7 +22,6 @@
                 <artifactId>spring-boot-starter-tomcat</artifactId>
                 <scope>compile</scope>
             </dependency>
-
             <dependency>
                 <groupId>com.ibeetl</groupId>
                 <artifactId>beetl</artifactId>
