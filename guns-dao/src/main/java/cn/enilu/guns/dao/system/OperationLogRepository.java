@@ -20,6 +20,6 @@ public interface OperationLogRepository extends PagingAndSortingRepository<Opera
         ,JpaRepository<OperationLog,Integer> {
     @Modifying
     @Transactional
-    @Query(nativeQuery = true,value = "delte from t_sys_operation_log")
+    @Query(nativeQuery = true,value = "delete from t_sys_operation_log")
     int clear();
 }
