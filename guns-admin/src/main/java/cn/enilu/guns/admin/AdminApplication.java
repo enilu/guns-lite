@@ -44,6 +44,6 @@ public class AdminApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
         SpringApplication.run(AdminApplication.class, args);
-        logger.info("EduFinanceAdminApplication is success!");
+        logger.info("AdminApplication is success!");
     }
 }
