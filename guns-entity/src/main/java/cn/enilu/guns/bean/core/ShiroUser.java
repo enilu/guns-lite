@@ -17,7 +17,6 @@ public class ShiroUser implements Serializable {
     public String account;      // 账号
     public String name;         // 姓名
     public Integer deptId;      // 部门id
-    public Long eduOrgId;       //所属教育机构id
     public List<Integer> roleList; // 角色集
     public String deptName;        // 部门名称
     public List<String> roleNames; // 角色名称集
@@ -54,13 +53,6 @@ public class ShiroUser implements Serializable {
         this.deptId = deptId;
     }
 
-    public Long getEduOrgId() {
-        return eduOrgId;
-    }
-
-    public void setEduOrgId(Long eduOrgId) {
-        this.eduOrgId = eduOrgId;
-    }
 
     public List<Integer> getRoleList() {
         return roleList;

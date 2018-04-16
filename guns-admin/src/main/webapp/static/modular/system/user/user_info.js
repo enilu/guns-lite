@@ -139,45 +139,8 @@ UserInfoDlg.hideDeptSelectTree = function () {
 };
 
 
-
-
-/**
- * 点击部门input框时
- *
- * @param e
- * @param treeId
- * @param treeNode
- * @returns
- */
-UserInfoDlg.onClickEduOrg = function (e, treeId, treeNode) {
-    $("#eduOrgSel").attr("value", eduOrgInstance.getSelectedVal());
-    $("#eduorgid").attr("value", treeNode.id);
-};
-
-
-/**
- * 显示所属教育机构选择的树
- *
- * @returns
- */
-UserInfoDlg.showEduOrgSelectTree = function () {
-    var eduOrgObj = $("#eduOrgSel");
-    var eduOrgOffset = $("#eduOrgSel").offset();
-    $("#menuContentEduOrg").css({
-        left: eduOrgOffset.left + "px",
-        top: eduOrgOffset.top + eduOrgObj.outerHeight() + "px"
-    }).slideDown("fast");
-
-    $("body").bind("mousedown", onBodyDownEduOrg);
-};
-
-/**
- * 隐藏教育机构选择的树
- */
-UserInfoDlg.hideEduOrgSelectTree = function () {
-    $("#menuContentEduOrg").fadeOut("fast");
-    $("body").unbind("mousedown", onBodyDownEduOrg());// mousedown当鼠标按下就可以触发，不用弹起
-};
+ 
+  
 
 /**
  * 收集数据
@@ -286,13 +249,7 @@ function onBodyDown(event) {
         UserInfoDlg.hideDeptSelectTree();
     }
 }
-
-function onBodyDownEduOrg(event) {
-    if (!(  event.target.id == "menuContentEduOrg" || $(
-            event.target).parents("#menuContentEduOrg").length > 0)) {
-        UserInfoDlg.hideEduOrgSelectTree();
-    }
-}
+ 
 var instance = null;
 var eduOrgInstance = null;
 $(function () {
@@ -303,11 +260,7 @@ $(function () {
     ztree.init();
     instance = ztree;
 
-
-    var ztreeEduOrg = new $ZTree("treeDemoEduOrg", "/org/tree");
-    ztreeEduOrg.bindOnClick(UserInfoDlg.onClickEduOrg);
-    ztreeEduOrg.init();
-    eduOrgInstance = ztreeEduOrg;
+ 
     
     //初始化性别选项
     $("#sex").val($("#sexValue").val());

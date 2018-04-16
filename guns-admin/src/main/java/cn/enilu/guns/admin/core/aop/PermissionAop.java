@@ -41,10 +41,9 @@ public class PermissionAop {
 
     @Around("cutPermission()")
     public Object doPermission(ProceedingJoinPoint point) throws Throwable {
-        if(1==1){
-            //todo 暂时去掉
-            return point.proceed();
-        }
+//        if(1==1){
+//            return point.proceed();
+//        }
         MethodSignature ms = (MethodSignature) point.getSignature();
         Method method = ms.getMethod();
         Permission permission = method.getAnnotation(Permission.class);

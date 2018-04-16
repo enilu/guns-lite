@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -111,5 +112,10 @@ public class BaseController {
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", dfileName);
         return new ResponseEntity<byte[]>(fileBytes, headers, HttpStatus.CREATED);
+    }
+
+    @ModelAttribute("theme")
+    public String getTheme() {
+        return "classic";
     }
 }

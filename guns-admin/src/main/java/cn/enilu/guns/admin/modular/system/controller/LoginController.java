@@ -6,12 +6,10 @@ import cn.enilu.guns.admin.core.log.LogManager;
 import cn.enilu.guns.admin.core.log.factory.LogTaskFactory;
 import cn.enilu.guns.admin.core.shiro.ShiroKit;
 import cn.enilu.guns.admin.core.support.HttpKit;
-import cn.enilu.guns.admin.core.util.ApiMenuFilter;
 import cn.enilu.guns.admin.core.util.KaptchaUtil;
-import cn.enilu.guns.bean.vo.node.MenuNode;
 import cn.enilu.guns.bean.core.ShiroUser;
-import cn.enilu.guns.bean.entity.system.User;
 import cn.enilu.guns.dao.system.MenuRepository;
+import cn.enilu.guns.dao.system.SysNoticeRepository;
 import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.MenuService;
 import cn.enilu.guns.utils.ToolUtil;
@@ -44,6 +42,8 @@ public class LoginController extends BaseController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    SysNoticeRepository sysNoticeRepository;
 
     /**
      * 跳转到主页
@@ -57,21 +57,8 @@ public class LoginController extends BaseController {
             model.addAttribute("tips", "该用户没有角色，无法登陆");
             return "/login.html";
         }
-
-
-            List<MenuNode> menuNodes =  menuService.getMenusByRoleIds(roleList);
-            List<MenuNode> titles = MenuNode.buildTitle(menuNodes);
-            titles = ApiMenuFilter.build(titles);
-
-            model.addAttribute("titles", titles);
-
-
-        //获取用户头像
-        Long id = ShiroKit.getUser().getId();
-        User user = userRepository.findOne(id.intValue());
-        String avatar = user.getAvatar();
-        model.addAttribute("avatar", avatar);
-
+        List notices = (List) sysNoticeRepository.findAll();
+        model.addAttribute("noticeList",notices);
         return "/index.html";
     }
 

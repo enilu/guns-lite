@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit"/><!-- 让360浏览器默认选择webkit内核 -->
-
     <!-- 全局css -->
     <link rel="shortcut icon" href="${ctxPath}/static/favicon.ico">
     <link href="${ctxPath}/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
@@ -19,9 +18,12 @@
     <link href="${ctxPath}/static/css/plugins/webuploader/webuploader.css" rel="stylesheet">
     <link href="${ctxPath}/static/css/plugins/ztree/zTreeStyle.css" rel="stylesheet">
     <link href="${ctxPath}/static/css/plugins/jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet"/>
-    <link href="${ctxPath}/static/css/edu-finance.css" rel="stylesheet"/>
-    <!-- <link href="${ctxPath}/static/css/plugins/ztree/demo.css" rel="stylesheet"> -->
-
+    <link href="${ctxPath}/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .wrapper-content{
+            padding:0px;
+        }
+    </style>
     <!-- 全局js -->
     <script src="${ctxPath}/static/js/jquery.min.js?v=2.1.4"></script>
     <script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
@@ -53,9 +55,64 @@
 </head>
 
 <body class="gray-bg">
+
+<style>
+    .nav > li.active{
+        border-left:0px;
+    }
+    .navbar{
+        margin-bottom:0px;
+    }
+</style>
+<nav class="navbar navbar-default" role="navigation" >
+    <div class="container-fluid">
+        <div class="navbar-header" style="width: 200px;">
+            <a class="navbar-brand" href="#">后台管理</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li ><a href="${ctxPath}/">首页</a></li>
+                @for(title in titles){
+                @if(tool.isEmpty(title.children)){
+                <li ><a class="J_menuItem"  href="${ctxPath}${title.url}" name="tabMenuItem">${title.name}</a></li>
+                @}else{
+                <li class="dropdown">
+                    <a href="#"    class="dropdown-toggle" data-toggle="dropdown">
+                        ${title.name}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @for(subTitle in title.children){
+                        @if(tool.isEmpty(subTitle.children)){
+                        <li><a  class="J_menuItem" href="${ctxPath}${subTitle.url}" name="tabMenuItem">${subTitle.name}</a></li>
+                        @}
+                        @}
+                    </ul>
+                </li>
+                @}
+                @}
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <!--<li><a href="#">Link</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${shiro.getUser().name} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${ctxPath}/mgr/user_info">个人资料</a></li>
+                        <li><a href="${ctxPath}/mgr/user_chpwd">修改密码</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="${ctxPath}/logout">安全退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="wrapper wrapper-content animated fadeInRight">
     ${layoutContent}
 </div>
-<script src="${ctxPath}/static/js/content.js?v=1.0.0"></script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

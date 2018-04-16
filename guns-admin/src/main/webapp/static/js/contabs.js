@@ -107,7 +107,7 @@ $(function () {
 
     function menuItem() {
         // 获取标识数据
-        var dataUrl = $(this).attr('href'),
+        var dataUrl = $(this).attr('data-href'),
             dataIndex = $(this).data('index'),
             menuName = $.trim($(this).text()),
             flag = true;
@@ -129,7 +129,7 @@ $(function () {
                     });
                 }
                 flag = false;
-                return false;
+                return true;
             }
         });
 
@@ -153,7 +153,7 @@ $(function () {
             $('.J_menuTabs .page-tabs-content').append(str);
             scrollToTab($('.J_menuTab.active'));
         }
-        return false;
+        return true;
     }
 
     $('.J_menuItem').on('click', menuItem);
