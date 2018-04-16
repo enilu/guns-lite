@@ -53,7 +53,6 @@ public class ShiroUser implements Serializable {
         this.deptId = deptId;
     }
 
-
     public List<Integer> getRoleList() {
         return roleList;
     }

@@ -139,15 +139,13 @@ UserInfoDlg.hideDeptSelectTree = function () {
 };
 
 
- 
-  
 
 /**
  * 收集数据
  */
 UserInfoDlg.collectData = function () {
     this.set('id').set('account').set('sex').set('password').set('avatar')
-        .set('email').set('name').set('birthday').set('rePassword').set('deptid').set('phone').set('eduorgid');
+        .set('email').set('name').set('birthday').set('rePassword').set('deptid').set('phone');
 };
 
 /**
@@ -249,7 +247,7 @@ function onBodyDown(event) {
         UserInfoDlg.hideDeptSelectTree();
     }
 }
- 
+
 var instance = null;
 var eduOrgInstance = null;
 $(function () {
@@ -260,8 +258,7 @@ $(function () {
     ztree.init();
     instance = ztree;
 
- 
-    
+
     //初始化性别选项
     $("#sex").val($("#sexValue").val());
 
