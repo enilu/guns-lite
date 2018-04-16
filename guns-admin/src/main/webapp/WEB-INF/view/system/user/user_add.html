@@ -19,9 +19,6 @@
 					<#input id="roleid" name="角色" underline="false" disabled="disabled"/>
 
 					<#input id="email" name="邮箱" type="email"/>
-					<#input id="eduOrgSel" name="教育机构" underline="false" readonly="readonly" hidden="eduOrgId"
-							clickFun="UserInfoDlg.showEduOrgSelectTree(); return false;"
-							style="background-color: #ffffff !important;"/>
 				</div>
 				<div class="col-sm-6">
 					<div id="driverInfoContent">
@@ -45,12 +42,6 @@
 			<div id="menuContent" class="menuContent"
 				style="display: none; position: absolute; z-index: 200;">
 				<ul id="treeDemo" class="ztree tree-box" style="width: 249px !important;"></ul>
-			</div>
-
-			<!-- 这是教育机构选择的下拉框 -->
-			<div id="menuContentEduOrg" class="menuContent"
-				 style="display: none; position: absolute; z-index: 200;">
-				<ul id="treeDemoEduOrg" class="ztree tree-box" style="width: 249px !important;"></ul>
 			</div>
 
 			<div class="row btn-group-m-t">
