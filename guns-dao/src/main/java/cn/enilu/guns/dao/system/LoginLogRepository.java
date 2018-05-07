@@ -17,6 +17,6 @@ public interface LoginLogRepository extends PagingAndSortingRepository<LoginLog,
         ,JpaRepository<LoginLog,Integer>,JpaSpecificationExecutor<LoginLog> {
     @Modifying
     @Transactional
-    @Query(nativeQuery = true,value = "delete from t_sys_login_log")
+    @Query(nativeQuery = true,value = "delete from T_SYS_LOGIN_LOG")
     int clear();
 }

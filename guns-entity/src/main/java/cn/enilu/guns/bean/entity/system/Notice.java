@@ -9,7 +9,7 @@ import java.util.Date;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_notice")
+@Table(name = "T_SYS_NOTICE")
 public class Notice {
     private Integer id;
     private String title;
@@ -19,7 +19,9 @@ public class Notice {
     private Integer creater;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_NOTICE", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -29,7 +31,7 @@ public class Notice {
     }
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "TITLE")
     public String getTitle() {
         return title;
     }
@@ -39,7 +41,7 @@ public class Notice {
     }
 
     @Basic
-    @Column(name = "type")
+    @Column(name = "TYPE")
     public Integer getType() {
         return type;
     }
@@ -49,7 +51,7 @@ public class Notice {
     }
 
     @Basic
-    @Column(name = "content")
+    @Column(name = "CONTENT")
     public String getContent() {
         return content;
     }
@@ -59,7 +61,7 @@ public class Notice {
     }
 
     @Basic
-    @Column(name = "createtime")
+    @Column(name = "CREATETIME")
     public Date getCreatetime() {
         return createtime;
     }
@@ -69,7 +71,7 @@ public class Notice {
     }
 
     @Basic
-    @Column(name = "creater")
+    @Column(name = "CREATER")
     public Integer getCreater() {
         return creater;
     }

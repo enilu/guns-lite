@@ -9,7 +9,7 @@ import java.util.Date;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_operation_log")
+@Table(name = "T_SYS_OPERATION_LOG")
 public class OperationLog {
     private Integer id;
     private String logtype;
@@ -22,8 +22,9 @@ public class OperationLog {
     private String message;
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_OPERATION_LOG", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -33,7 +34,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "logtype")
+    @Column(name = "LOGTYPE")
     public String getLogtype() {
         return logtype;
     }
@@ -43,7 +44,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "logname")
+    @Column(name = "LOGNAME")
     public String getLogname() {
         return logname;
     }
@@ -53,7 +54,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "userid")
+    @Column(name = "USERID")
     public Integer getUserid() {
         return userid;
     }
@@ -63,7 +64,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "classname")
+    @Column(name = "CLASSNAME")
     public String getClassname() {
         return classname;
     }
@@ -73,7 +74,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "method")
+    @Column(name = "METHOD")
     public String getMethod() {
         return method;
     }
@@ -83,7 +84,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "createtime")
+    @Column(name = "CREATETIME")
     public Date getCreatetime() {
         return createtime;
     }
@@ -93,7 +94,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "succeed")
+    @Column(name = "SUCCEED")
     public String getSucceed() {
         return succeed;
     }
@@ -103,7 +104,7 @@ public class OperationLog {
     }
 
     @Basic
-    @Column(name = "message")
+    @Column(name = "MESSAGE")
     public String getMessage() {
         return message;
     }

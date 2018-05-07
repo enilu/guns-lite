@@ -9,7 +9,7 @@ import java.util.Date;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_login_log")
+@Table(name = "T_SYS_LOGIN_LOG")
 public class LoginLog {
     private Integer id;
     private String logname;
@@ -20,7 +20,8 @@ public class LoginLog {
     private String ip;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_LOGIN_LOG", initialValue=1, allocationSize=1)
     @Column(name = "id")
     public Integer getId() {
         return id;
@@ -31,7 +32,7 @@ public class LoginLog {
     }
 
     @Basic
-    @Column(name = "logname")
+    @Column(name = "LOGNAME")
     public String getLogname() {
         return logname;
     }
@@ -41,7 +42,7 @@ public class LoginLog {
     }
 
     @Basic
-    @Column(name = "userid")
+    @Column(name = "USERID")
     public Integer getUserid() {
         return userid;
     }
@@ -51,7 +52,7 @@ public class LoginLog {
     }
 
     @Basic
-    @Column(name = "createtime")
+    @Column(name = "CREATETIME")
     public Date getCreatetime() {
         return createtime;
     }
@@ -61,7 +62,7 @@ public class LoginLog {
     }
 
     @Basic
-    @Column(name = "succeed")
+    @Column(name = "SUCCEED")
     public String getSucceed() {
         return succeed;
     }
@@ -71,7 +72,7 @@ public class LoginLog {
     }
 
     @Basic
-    @Column(name = "message")
+    @Column(name = "MESSAGE")
     public String getMessage() {
         return message;
     }
@@ -81,7 +82,7 @@ public class LoginLog {
     }
 
     @Basic
-    @Column(name = "ip")
+    @Column(name = "IP")
     public String getIp() {
         return ip;
     }

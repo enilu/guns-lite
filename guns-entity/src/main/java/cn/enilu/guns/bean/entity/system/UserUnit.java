@@ -8,15 +8,16 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_user_unit")
+@Table(name = "T_SYS_USER_UNIT")
 public class UserUnit {
     private Long id;
     private String userId;
     private String unitId;
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_USER_UNIT", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Long getId() {
         return id;
     }
@@ -25,7 +26,7 @@ public class UserUnit {
         this.id = id;
     }
     @Basic
-    @Column(name = "userId")
+    @Column(name = "USER_ID")
     public String getUserId() {
         return userId;
     }
@@ -35,7 +36,7 @@ public class UserUnit {
     }
 
     @Basic
-    @Column(name = "unitId")
+    @Column(name = "UNIT_ID")
     public String getUnitId() {
         return unitId;
     }

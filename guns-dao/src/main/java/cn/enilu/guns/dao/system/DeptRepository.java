@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface DeptRepository extends PagingAndSortingRepository<Dept,Integer> {
     List<Dept> findByPidsLike(String pid);
-    @Query(nativeQuery = true,value = "SELECT id, pid AS pId, simplename AS NAME, ( CASE WHEN (pId = 0 OR pId IS NULL) THEN 'true' ELSE 'false' END ) AS isOpen FROM t_sys_dept")
+    @Query(nativeQuery = true,value = "SELECT ID, PID AS pId, SIMPLENAME AS NAME, ( CASE WHEN (pId = 0 OR pId IS NULL) THEN 'true' ELSE 'false' END ) AS isOpen FROM T_SYS_DEPT")
     List tree();
 
     List<Dept> findBySimplenameLikeOrFullnameLike(String name,String name2);

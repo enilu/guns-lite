@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,9 +61,9 @@ public class MenuServiceImpl implements MenuService {
                 menuNode.setParentId(Long.valueOf(source[2].toString()));
                 menuNode.setName(String.valueOf(source[3]));
                 menuNode.setUrl(String.valueOf(source[4]));
-                menuNode.setLevels((Integer) source[5]);
-                menuNode.setIsmenu((Integer) source[6]);
-                menuNode.setNum((Integer) source[7]);
+                menuNode.setLevels(((BigDecimal) source[5]).intValue());
+                menuNode.setIsmenu(((BigDecimal) source[6]).intValue());
+                menuNode.setNum(((BigDecimal) source[7]).intValue());
                 menuNodes.add(menuNode);
 
             }

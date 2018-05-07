@@ -9,7 +9,7 @@ import java.util.Date;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_user")
+@Table(name = "T_SYS_USER")
 public class User {
     private Integer id;
     private String avatar;
@@ -28,7 +28,9 @@ public class User {
     private Integer version;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_USER", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -38,7 +40,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "avatar")
+    @Column(name = "AVATAR")
     public String getAvatar() {
         return avatar;
     }
@@ -48,7 +50,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "account")
+    @Column(name = "ACCOUNT")
     public String getAccount() {
         return account;
     }
@@ -58,7 +60,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
@@ -68,7 +70,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "salt")
+    @Column(name = "SALT")
     public String getSalt() {
         return salt;
     }
@@ -78,7 +80,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -88,7 +90,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "birthday")
+    @Column(name = "BIRTHDAY")
     public Date getBirthday() {
         return birthday;
     }
@@ -98,7 +100,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "sex")
+    @Column(name = "SEX")
     public Integer getSex() {
         return sex;
     }
@@ -108,7 +110,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -118,7 +120,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "phone")
+    @Column(name = "PHONE")
     public String getPhone() {
         return phone;
     }
@@ -128,7 +130,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "roleid")
+    @Column(name = "ROLEID")
     public String getRoleid() {
         return roleid;
     }
@@ -138,7 +140,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "deptid")
+    @Column(name = "DEPTID")
     public Integer getDeptid() {
         return deptid;
     }
@@ -148,7 +150,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "status")
+    @Column(name = "STATUS")
     public Integer getStatus() {
         return status;
     }
@@ -168,7 +170,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "version")
+    @Column(name = "VERSION")
     public Integer getVersion() {
         return version;
     }

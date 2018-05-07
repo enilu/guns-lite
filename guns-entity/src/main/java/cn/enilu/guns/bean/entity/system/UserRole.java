@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_user_role")
+@Table(name = "T_SYS_USER_ROLE")
 public class UserRole {
 
     private Long id;
@@ -17,8 +17,9 @@ public class UserRole {
 
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_USER_ROLE", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Long getId() {
         return id;
     }
@@ -27,7 +28,7 @@ public class UserRole {
         this.id = id;
     }
     @Basic
-    @Column(name = "roleId")
+    @Column(name = "ROLE_ID")
     public String getRoleId() {
         return roleId;
     }
@@ -37,7 +38,7 @@ public class UserRole {
     }
 
     @Basic
-    @Column(name = "userId")
+    @Column(name = "USER_ID")
     public String getUserId() {
         return userId;
     }

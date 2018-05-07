@@ -12,4 +12,6 @@ import java.util.Map;
  */
 public interface UserService {
     List<User> findAll(Map<String,Object> params);
+
+    String export();
 }

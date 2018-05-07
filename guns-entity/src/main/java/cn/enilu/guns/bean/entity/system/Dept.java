@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_dept")
+@Table(name = "T_SYS_DEPT")
 public class Dept {
     private Integer id;
     private Integer num;
@@ -20,7 +20,9 @@ public class Dept {
     private Integer version;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_DEPT", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -30,7 +32,7 @@ public class Dept {
     }
 
     @Basic
-    @Column(name = "num")
+    @Column(name = "NUM")
     public Integer getNum() {
         return num;
     }
@@ -40,7 +42,7 @@ public class Dept {
     }
 
     @Basic
-    @Column(name = "pid")
+    @Column(name = "PID")
     public Integer getPid() {
         return pid;
     }
@@ -50,7 +52,7 @@ public class Dept {
     }
 
     @Basic
-    @Column(name = "pids")
+    @Column(name = "PIDS")
     public String getPids() {
         return pids;
     }
@@ -60,7 +62,7 @@ public class Dept {
     }
 
     @Basic
-    @Column(name = "simplename")
+    @Column(name = "SIMPLENAME")
     public String getSimplename() {
         return simplename;
     }
@@ -70,7 +72,7 @@ public class Dept {
     }
 
     @Basic
-    @Column(name = "fullname")
+    @Column(name = "FULLNAME")
     public String getFullname() {
         return fullname;
     }
@@ -80,7 +82,7 @@ public class Dept {
     }
 
     @Basic
-    @Column(name = "tips")
+    @Column(name = "TIPS")
     public String getTips() {
         return tips;
     }
@@ -90,7 +92,7 @@ public class Dept {
     }
 
     @Basic
-    @Column(name = "version")
+    @Column(name = "VERSION")
     public Integer getVersion() {
         return version;
     }

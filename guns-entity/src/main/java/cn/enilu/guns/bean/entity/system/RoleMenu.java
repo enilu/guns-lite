@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_role_menu")
+@Table(name = "T_SYS_ROLE_MENU")
 public class RoleMenu {
     private Long id;
     private String roleId;
@@ -16,8 +16,9 @@ public class RoleMenu {
 
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_ROLE_MENU", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Long getId() {
         return id;
     }
@@ -26,7 +27,7 @@ public class RoleMenu {
         this.id = id;
     }
     @Basic
-    @Column(name = "roleId")
+    @Column(name = "ROLE_ID")
     public String getRoleId() {
         return roleId;
     }
@@ -36,7 +37,7 @@ public class RoleMenu {
     }
 
     @Basic
-    @Column(name = "menuId")
+    @Column(name = "MENU_ID")
     public String getMenuId() {
         return menuId;
     }

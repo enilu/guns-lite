@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_cfg")
+@Table(name = "T_SYS_CFG")
 public class Cfg {
     private Long id;
     private String cfgName;
@@ -16,7 +16,9 @@ public class Cfg {
     private String cfgDesc;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_CFG", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Long getId() {
         return id;
     }
@@ -26,7 +28,7 @@ public class Cfg {
     }
 
     @Basic
-    @Column(name = "cfg_name")
+    @Column(name = "CFG_NAME")
     public String getCfgName() {
         return cfgName;
     }
@@ -36,7 +38,7 @@ public class Cfg {
     }
 
     @Basic
-    @Column(name = "cfg_value")
+    @Column(name = "CFG_VALUE")
     public String getCfgValue() {
         return cfgValue;
     }
@@ -46,7 +48,7 @@ public class Cfg {
     }
 
     @Basic
-    @Column(name = "cfg_desc")
+    @Column(name = "CFG_DESC")
     public String getCfgDesc() {
         return cfgDesc;
     }

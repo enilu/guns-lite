@@ -14,6 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface RelationRepository extends PagingAndSortingRepository<Relation,Integer> {
     @Transactional
     @Modifying
-    @Query(nativeQuery = true,value = "delete from t_sys_relation where roleid=?1")
+    @Query(nativeQuery = true,value = "delete from T_SYS_RELATION where ROLEID=?1")
     int deleteByRoleId(Integer roleId);
 }

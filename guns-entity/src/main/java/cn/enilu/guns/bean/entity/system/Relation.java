@@ -8,14 +8,16 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_relation")
+@Table(name = "T_SYS_RELATION")
 public class Relation {
     private Integer id;
     private Long menuid;
     private Integer roleid;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_RELATION", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -25,7 +27,7 @@ public class Relation {
     }
 
     @Basic
-    @Column(name = "menuid")
+    @Column(name = "MENUID")
     public Long getMenuid() {
         return menuid;
     }
@@ -35,7 +37,7 @@ public class Relation {
     }
 
     @Basic
-    @Column(name = "roleid")
+    @Column(name = "ROLEID")
     public Integer getRoleid() {
         return roleid;
     }

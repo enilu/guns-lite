@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_menu")
+@Table(name = "T_SYS_MENU")
 public class Menu {
     private Long id;
     private String code;
@@ -25,7 +25,9 @@ public class Menu {
     private Integer isopen;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_MENU", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Long getId() {
         return id;
     }
@@ -35,7 +37,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "code")
+    @Column(name = "CODE")
     public String getCode() {
         return code;
     }
@@ -45,7 +47,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "pcode")
+    @Column(name = "PCODE")
     public String getPcode() {
         return pcode;
     }
@@ -55,7 +57,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "pcodes")
+    @Column(name = "PCODES")
     public String getPcodes() {
         return pcodes;
     }
@@ -65,7 +67,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -75,7 +77,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "icon")
+    @Column(name = "ICON")
     public String getIcon() {
         return icon;
     }
@@ -85,7 +87,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "url")
+    @Column(name = "URL")
     public String getUrl() {
         return url;
     }
@@ -95,7 +97,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "num")
+    @Column(name = "NUM")
     public Integer getNum() {
         return num;
     }
@@ -105,7 +107,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "levels")
+    @Column(name = "LEVELS")
     public Integer getLevels() {
         return levels;
     }
@@ -115,7 +117,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "ismenu")
+    @Column(name = "ISMENU")
     public Integer getIsmenu() {
         return ismenu;
     }
@@ -125,7 +127,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "tips")
+    @Column(name = "TIPS")
     public String getTips() {
         return tips;
     }
@@ -135,7 +137,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "status")
+    @Column(name = "STATUS")
     public Integer getStatus() {
         return status;
     }
@@ -145,7 +147,7 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "isopen")
+    @Column(name = "ISOPEN")
     public Integer getIsopen() {
         return isopen;
     }

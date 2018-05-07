@@ -5,7 +5,9 @@ import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.utils.DateUtil;
 import com.google.common.base.Strings;
+import net.sf.jxls.transformer.XLSTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 /**
  * Created  on 2018/4/7 0007.
@@ -25,6 +25,8 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    @Value("${guns.download}")
+    private String downloadReportPath;
     @Autowired
     private UserRepository userRepository;
     @Override
@@ -52,5 +54,26 @@ public class UserServiceImpl implements UserService {
             }
         });
 
+    }
+
+    @Override
+    public String export() {
+        List<User> list = userRepository.findAll();
+        Map beans = new HashMap();
+        beans.put("title","用户列表");
+        beans.put("dataList",list);
+        beans.put("fbdate",DateUtil.format(new Date(),"yyyy-MM-dd"));
+        XLSTransformer xlsTransformer = new XLSTransformer();
+        String fileName = "user_"+beans.get("fbdate").toString()+".xls";
+
+        String templateFile = getClass().getClassLoader().getResource("templates/user.xls").getPath();
+        try {
+            xlsTransformer.transformXLS(
+                    templateFile,
+                    beans, downloadReportPath + File.separator + fileName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return fileName;
     }
 }

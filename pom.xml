@@ -62,6 +62,8 @@
         <flowable.version>6.2.0</flowable.version>
         <hutool.version>4.0.0</hutool.version>
         <github.kaptcha.version>1.0.0</github.kaptcha.version>
+        <jxls-version>1.0.1</jxls-version>
+        <poi-version>3.8</poi-version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -103,6 +105,12 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.connector.java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc14</artifactId>
+                <version>10.2.0.4.0</version>
             </dependency>
             <!--admin-->
             <dependency>
@@ -329,6 +337,32 @@
                 <groupId>nl.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>1.2.4</version>
+            </dependency>
+            <!--excel -->
+            <dependency>
+                <groupId>net.sf.jxls</groupId>
+                <artifactId>jxls-core</artifactId>
+                <version>${jxls-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.jxls</groupId>
+                <artifactId>jxls-reader</artifactId>
+                <version>${jxls-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-jexl</artifactId>
+                <version>2.0</version>
             </dependency>
 
             <dependency>

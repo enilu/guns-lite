@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_dict")
+@Table(name = "T_SYS_DICT")
 public class Dict {
     private Integer id;
     private String num;
@@ -17,7 +17,9 @@ public class Dict {
     private String tips;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_DICT", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -27,7 +29,7 @@ public class Dict {
     }
 
     @Basic
-    @Column(name = "num")
+    @Column(name = "NUM")
     public String getNum() {
         return num;
     }
@@ -37,7 +39,7 @@ public class Dict {
     }
 
     @Basic
-    @Column(name = "pid")
+    @Column(name = "PID")
     public Integer getPid() {
         return pid;
     }
@@ -47,7 +49,7 @@ public class Dict {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -57,7 +59,7 @@ public class Dict {
     }
 
     @Basic
-    @Column(name = "tips")
+    @Column(name = "TIPS")
     public String getTips() {
         return tips;
     }

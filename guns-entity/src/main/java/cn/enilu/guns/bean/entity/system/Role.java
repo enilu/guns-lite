@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_role")
+@Table(name = "T_SYS_ROLE")
 public class Role {
     private Integer id;
     private Integer num;
@@ -19,7 +19,9 @@ public class Role {
     private Integer version;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_ROLE", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -29,7 +31,7 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "num")
+    @Column(name = "NUM")
     public Integer getNum() {
         return num;
     }
@@ -39,7 +41,7 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "pid")
+    @Column(name = "PID")
     public Integer getPid() {
         return pid;
     }
@@ -49,7 +51,7 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -59,7 +61,7 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "deptid")
+    @Column(name = "DEPTID")
     public Integer getDeptid() {
         return deptid;
     }
@@ -69,7 +71,7 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "tips")
+    @Column(name = "TIPS")
     public String getTips() {
         return tips;
     }
@@ -79,7 +81,7 @@ public class Role {
     }
 
     @Basic
-    @Column(name = "version")
+    @Column(name = "VERSION")
     public Integer getVersion() {
         return version;
     }

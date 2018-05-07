@@ -10,7 +10,7 @@ import java.util.Date;
  * @author enilu
  */
 @Entity
-@Table(name = "t_sys_expense")
+@Table(name = "T_SYS_EXPENSE")
 public class SysExpense {
     private Integer id;
     private BigDecimal money;
@@ -21,7 +21,9 @@ public class SysExpense {
     private String processId;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    @SequenceGenerator(name="sequence",sequenceName = "SEQ_SYS_EXPENSE", initialValue=1, allocationSize=1)
+    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
@@ -31,7 +33,7 @@ public class SysExpense {
     }
 
     @Basic
-    @Column(name = "money")
+    @Column(name = "MONEY")
     public BigDecimal getMoney() {
         return money;
     }
@@ -51,7 +53,7 @@ public class SysExpense {
     }
 
     @Basic
-    @Column(name = "createtime")
+    @Column(name = "CREATETIME")
     public Date getCreatetime() {
         return createtime;
     }
@@ -61,7 +63,7 @@ public class SysExpense {
     }
 
     @Basic
-    @Column(name = "state")
+    @Column(name = "STATE")
     public Integer getState() {
         return state;
     }
@@ -71,7 +73,7 @@ public class SysExpense {
     }
 
     @Basic
-    @Column(name = "userid")
+    @Column(name = "USERID")
     public Integer getUserid() {
         return userid;
     }
@@ -81,7 +83,7 @@ public class SysExpense {
     }
 
     @Basic
-    @Column(name = "processId")
+    @Column(name = "PROCESS_ID")
     public String getProcessId() {
         return processId;
     }
