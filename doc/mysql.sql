@@ -402,8 +402,10 @@ INSERT INTO `t_sys_role` VALUES ('1', '1', '0', '超级管理员', '24', 'admini
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_role_menu`;
 CREATE TABLE `t_sys_role_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `roleId` varchar(32) DEFAULT NULL,
-  `menuId` varchar(32) DEFAULT NULL
+  `menuId` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色菜单关系';
 
 -- ----------------------------
@@ -560,8 +562,10 @@ INSERT INTO `t_sys_user` VALUES ('46', null, 'manager', 'b53cac62e7175637d4beb3b
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_user_role`;
 CREATE TABLE `t_sys_user_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `roleId` varchar(32) DEFAULT NULL,
-  `userId` varchar(32) DEFAULT NULL
+  `userId` varchar(32) DEFAULT NULL,
+   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色关系';
 
 -- ----------------------------
@@ -574,8 +578,10 @@ INSERT INTO `t_sys_user_role` VALUES ('c4de3cf1a62e41378d9f1205293485a3', '43e6c
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_user_unit`;
 CREATE TABLE `t_sys_user_unit` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `userId` varchar(32) DEFAULT NULL,
-  `unitId` varchar(32) DEFAULT NULL
+  `unitId` varchar(32) DEFAULT NULL,
+   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

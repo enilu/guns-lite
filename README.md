@@ -32,6 +32,8 @@ service层也没办法共用了。想想以后要维护两套dao层和service层
 
  ![flat](https://user-images.githubusercontent.com/3115814/38806871-49f57248-41ad-11e8-932b-e06dc1941107.jpg)
 
+- oracle, 该分支将底层数据使用oracle。
+
 ## 目录说明
 - guns-admin 后台管理系统（web项目）
 - guns-dao 数据库层模块
