@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.core.config;
+package cn.enilu.guns.admin.config;
 
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -46,7 +46,8 @@ public class DefaultFastjsonConfig {
         fastJsonConfig.setSerializerFeatures(
                 SerializerFeature.PrettyFormat,
                 SerializerFeature.WriteMapNullValue,
-                SerializerFeature.WriteEnumUsingToString
+                SerializerFeature.WriteEnumUsingToString,
+                SerializerFeature.DisableCircularReferenceDetect
         );
         fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
         ValueFilter valueFilter = new ValueFilter() {
