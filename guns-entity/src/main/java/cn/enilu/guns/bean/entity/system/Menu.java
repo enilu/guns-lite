@@ -25,6 +25,7 @@ public class Menu {
     private Integer isopen;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public Long getId() {
         return id;
