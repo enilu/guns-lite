@@ -67,7 +67,3 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
   * [缓存变更管理](cache/change.md)
   
     
-    
-## 本书籍编写及部署方式
-
-gitbook -serve 生成_book目录，将book目录上传到gh-pages分支
