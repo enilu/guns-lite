@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'guns-lite使用向导',
+    title: 'guns-lite',
     description: '快速使用guns-lite构建web应用程序',
     base:'/guns-lite/',
     evergreen:true,
