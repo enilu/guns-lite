@@ -17,6 +17,7 @@ public class Dict {
     private String tips;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public Integer getId() {
         return id;

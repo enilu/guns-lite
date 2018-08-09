@@ -19,6 +19,7 @@ public class Notice {
     private Integer creater;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public Integer getId() {
         return id;

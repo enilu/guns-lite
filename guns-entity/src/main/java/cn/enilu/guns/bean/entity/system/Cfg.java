@@ -16,6 +16,7 @@ public class Cfg {
     private String cfgDesc;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public Long getId() {
         return id;
@@ -55,27 +56,4 @@ public class Cfg {
         this.cfgDesc = cfgDesc;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Cfg tSysCfg = (Cfg) o;
-
-        if (id != null ? !id.equals(tSysCfg.id) : tSysCfg.id != null) return false;
-        if (cfgName != null ? !cfgName.equals(tSysCfg.cfgName) : tSysCfg.cfgName != null) return false;
-        if (cfgValue != null ? !cfgValue.equals(tSysCfg.cfgValue) : tSysCfg.cfgValue != null) return false;
-        if (cfgDesc != null ? !cfgDesc.equals(tSysCfg.cfgDesc) : tSysCfg.cfgDesc != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (cfgName != null ? cfgName.hashCode() : 0);
-        result = 31 * result + (cfgValue != null ? cfgValue.hashCode() : 0);
-        result = 31 * result + (cfgDesc != null ? cfgDesc.hashCode() : 0);
-        return result;
-    }
 }
