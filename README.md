@@ -52,6 +52,8 @@ service层也没办法共用了。想想以后要维护两套dao层和service层
 - 访问 https://localhost:8080，   登录，用户名密码:admin/admin
 - ![demo](docs/demo.gif)
 
+## 文档
+[http://www.enilu.cn/guns-lite/](http://www.enilu.cn/guns-lite/)
 ## 感谢
 
 - [stylefeng](https://github.com/stylefeng) 没有他就没有guns，没有guns就没有这个guns-lite
@@ -59,3 +61,4 @@ service层也没办法共用了。想想以后要维护两套dao层和service层
 ## 交流
 - 欢迎提issue [https://github.com/enilu/guns-lite/issues/new](https://github.com/enilu/guns-lite/issues/new)
 - 欢迎加入qq交流群：740230743
+
