@@ -5,7 +5,7 @@
 ```properties
 server.port=8080
 ```
-- 启动成功如下图所示
+- 启动成功后访问http://localhost:8080 如下图所示
 ![login](login.jpg)
 - 输入用户名/密码：admin/admin即可登录：
 ![index](index.jpg)
