@@ -28,6 +28,7 @@ public class User {
     private Integer version;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public Integer getId() {
         return id;

@@ -21,6 +21,7 @@ public class SysExpense {
     private String processId;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     public Integer getId() {
         return id;
