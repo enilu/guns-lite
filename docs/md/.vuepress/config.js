@@ -2,6 +2,7 @@ module.exports = {
     title: 'guns-lite使用向导',
     description: '快速使用guns-lite构建web应用程序',
     base:'/guns-lite/',
+    evergreen:true,
     themeConfig: {
         nav: [
             { text: '文档', link: '/' },
@@ -12,7 +13,6 @@ module.exports = {
                 title: '基本准备',
                 collapsable: false,
                 children:[
-                    '/base/base',
                    '/base/jdkAndMaven'
                 ]
             },
@@ -29,7 +29,7 @@ module.exports = {
                 ]
             },
             {
-                title: '开发第一个功能',
+                title: '开发第一个功能-参数管理',
                 collapsable: false,
                 children: [
                     '/hello_guns/hello_guns',

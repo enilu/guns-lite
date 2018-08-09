@@ -1,7 +1,7 @@
 
 # guns-lite使用向导
 
-* [基本准备](base/base.md)
+* 基本准备
   * [基本环境准备](base/jdkAndMaven.md)
 
 * [30分钟将本项目跑起来](quickstart/quickstart.md)
