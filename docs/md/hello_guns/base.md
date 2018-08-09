@@ -1,6 +1,6 @@
 # 基础代码
 
-## 实体Entity：
+## 实体Entity
 
 ```java
 @Entity
@@ -55,7 +55,7 @@ public class Cfg {
 }
 ```
 
-## 数据库操作Repository：
+## 数据库操作Repository
 
 ```java
 public interface CfgRepository extends JpaRepository<Cfg, Long> {
@@ -63,7 +63,7 @@ public interface CfgRepository extends JpaRepository<Cfg, Long> {
 }
 ```
 
-## controller：
+## controller
 
 ```java
 

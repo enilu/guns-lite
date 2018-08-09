@@ -30,17 +30,17 @@
 - 修改系统参数
 - 删除系统参数
 
-![menu](menu.jpg)
+![menu](./menu.jpg)
 
 ## 为角色配置菜单项
 
-![role](role.jpg)
+![role](./role.jpg)
 
 ## 为用户配置角色
 
 因为默认的admin账户本身已经有超级管理员角色，所以不需要配置了，不过这里依然列出配置步骤：
 
-![account](account.jpg)
+![account](./account.jpg)
 
 
 

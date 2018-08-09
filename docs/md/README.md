@@ -20,13 +20,13 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
   * [启动项目](quickstart/startup.md)
 
 * 开发第一个功能
- * [建表](hello_guns/create_table.md)
- * [基础代码](hello_guns/base.md)
- * [list](hello_guns/list.md)
- * [add](hello_guns/add.md)
- * [delete](hello_guns/delete.md)
- * [update](hello_guns/update.md)
- * [添加菜单和分配权限](hello_guns/menuAndPermission.md)
+  * [建表](hello_guns/create_table.md)
+  * [基础代码](hello_guns/base.md)
+  * [list](hello_guns/list.md)
+  * [add](hello_guns/add.md)
+  * [delete](hello_guns/delete.md)
+  * [update](hello_guns/update.md)
+  * [添加菜单和分配权限](hello_guns/menuAndPermission.md)
  
 * 项目基本功能介绍
   * [模块介绍](feature/modules.md)
