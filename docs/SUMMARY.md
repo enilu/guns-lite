@@ -11,7 +11,7 @@
   * [启动项目](quickstart/startup.md)
 
 * 开发第一个功能
- * [建表](hello_guns/createTable.md)
+ * [建表](hello_guns/create_table.md)
  * [基础代码](hello_guns/base.md)
  * [list](hello_guns/list.md)
  * [add](hello_guns/add.md)
@@ -26,15 +26,6 @@
   * [部门管理](feature/dept.md)
   * [系统配置](feature/sysConfig.md)
 
-* 来个增删改查
-  * [创建表](crud/permissionMgr.md)
-  * [创建对应实体](crud/log.md)
-  * [dao层](crud/dept.md)
-  * [add](crud/add.md)
-  * [update](crud/add.md)
-  * [delete](crud/add.md)
-  * [query](crud/add.md)
-  * [add](crud/add.md)
 * 分页查询
   * [简单查询](page/simple.md)
   * [复杂查询](page/complex.md)
