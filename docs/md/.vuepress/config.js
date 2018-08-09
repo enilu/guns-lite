@@ -1,6 +1,7 @@
 module.exports = {
     title: 'guns-lite使用向导',
     description: '快速使用guns-lite构建web应用程序',
+    base:'/guns-lite/',
     themeConfig: {
         nav: [
             { text: '文档', link: '/' },
