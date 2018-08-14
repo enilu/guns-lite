@@ -30,10 +30,9 @@ public class MenuServiceImpl implements MenuService {
 
         //删除菜单
         this.menuRepository.delete(menuId);
-
         //删除关联的relation
-//        this.menuDao.deleteRelationByMenu(menuId);
-        int a = 1/0;
+        this.menuRepository.deleteRelationByMenu(menuId);
+
     }
 
     @Override

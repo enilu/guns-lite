@@ -1,19 +1,20 @@
 module.exports = {
     title: 'guns-lite',
-    description: '快速使用guns-lite构建web应用程序',
-    base:'/guns-lite/',
-    evergreen:true,
+    description: '使用guns-lite快速构建web应用程序',
+    base: '/guns-lite/',
+    evergreen: true,
+    port: 8081,
     themeConfig: {
         nav: [
-            { text: '文档', link: '/' },
-            { text: '项目主页', link: 'https://github.com/enilu/guns-lite' },
+            {text: '文档', link: '/'},
+            {text: '项目主页', link: 'https://github.com/enilu/guns-lite'},
         ],
         sidebar: [
             {
                 title: '基本准备',
                 collapsable: false,
-                children:[
-                   '/base/jdkAndMaven'
+                children: [
+                    '/base/jdkAndMaven'
                 ]
             },
 
@@ -29,7 +30,7 @@ module.exports = {
                 ]
             },
             {
-                title: '开发第一个功能-参数管理',
+                title: '开发第一个功能',
                 collapsable: false,
                 children: [
                     '/hello_guns/hello_guns',
@@ -40,6 +41,19 @@ module.exports = {
                     '/hello_guns/delete',
                     '/hello_guns/update',
                     '/hello_guns/menuAndPermission'
+                ]
+            },
+            {
+                title: '基本功能介绍',
+                collapsable: false,
+                children: [
+                    '/feature/modules',
+                    '/feature/menu',
+                    '/feature/dict',
+                    '/feature/log',
+                    '/feature/permissionMgr',
+                    '/feature/monitor',
+                    '/feature/sysConfig'
                 ]
             }
         ]

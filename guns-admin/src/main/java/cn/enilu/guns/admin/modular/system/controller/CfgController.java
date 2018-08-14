@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CfgController extends BaseController {
     @Autowired
     private CfgRepository cfgRepository;
-    private static String PREFIX = "/cfg/cfg/";
+    private static String PREFIX = "/system/cfg/";
     /**
      * 跳转到参数首页
      */

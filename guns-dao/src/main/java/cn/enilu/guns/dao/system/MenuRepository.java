@@ -1,8 +1,10 @@
 package cn.enilu.guns.dao.system;
 
 import cn.enilu.guns.bean.entity.system.Menu;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,4 +31,8 @@ public interface MenuRepository extends PagingAndSortingRepository<Menu,Long> {
     List<Menu> findByNameLike(String name);
 
     List<Menu> findByLevels(Integer level);
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "delete from t_sys_relation where menuid=?1")
+    void deleteRelationByMenu(Long menuId);
 }

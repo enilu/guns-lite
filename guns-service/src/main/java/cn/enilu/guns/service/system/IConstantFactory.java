@@ -2,6 +2,7 @@ package cn.enilu.guns.service.system;
 
 
 import cn.enilu.guns.bean.entity.system.Dict;
+import cn.enilu.guns.bean.vo.DictVo;
 
 import java.util.List;
 
@@ -64,6 +65,12 @@ public interface IConstantFactory {
      */
     String getMenuNameByCode(String code);
 
+    /**
+     * 根据字典名称获取字典列表
+     * @param dictName
+     * @return
+     */
+    List<DictVo> findByDictName(String dictName);
     /**
      * 获取字典名称
      */

@@ -7,4 +7,9 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 
 但是考虑到有的开发者可能初次使用上述组件，有的甚至刚接触java不久，那么本文当将引导你一步步使用本系统搭建一个后台管理系统，并做二次开发。
 
+文档目前还在编写中,并没有完成。
+你也许赞赏下，我就有动力加快进度了^_^
+![赞一下](./zanshan.jpg)
+
+不赞赏不要紧，也欢迎你在github给该项目点个赞：https://github.com/enilu/guns-lite
  

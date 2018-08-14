@@ -1,18 +1,19 @@
 package cn.enilu.guns.service.system.impl;
 
-import cn.enilu.guns.bean.vo.SpringContextHolder;
 import cn.enilu.guns.bean.constant.cache.Cache;
 import cn.enilu.guns.bean.constant.cache.CacheKey;
 import cn.enilu.guns.bean.constant.state.ManagerStatus;
 import cn.enilu.guns.bean.constant.state.MenuStatus;
 import cn.enilu.guns.bean.entity.system.*;
-import cn.enilu.guns.utils.cache.TimeCacheMap;
+import cn.enilu.guns.bean.vo.DictVo;
+import cn.enilu.guns.bean.vo.SpringContextHolder;
 import cn.enilu.guns.dao.system.*;
 import cn.enilu.guns.service.system.IConstantFactory;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.utils.Convert;
 import cn.enilu.guns.utils.StrKit;
 import cn.enilu.guns.utils.ToolUtil;
+import cn.enilu.guns.utils.cache.TimeCacheMap;
 import com.google.common.base.Strings;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -216,7 +217,21 @@ public class ConstantFactory implements IConstantFactory {
             }
         }
     }
-
+    @Override
+    public List<DictVo> findByDictName(String dictName) {
+        Dict dictParent = dictRepository.findByName(dictName);
+        List<DictVo> list = new ArrayList<DictVo>();
+        if(dictParent==null){
+            return list;
+        }
+        List<Dict> dicts = dictRepository.findByPid(dictParent.getId());
+        for(int i=0;i<dicts.size();i++){
+            Dict dict = dicts.get(i);
+            DictVo dictVo = new DictVo(dict.getNum(),dict.getName());
+            list.add(dictVo);
+        }
+        return list;
+    }
     /**
      * 获取字典名称
      */

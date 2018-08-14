@@ -19,11 +19,13 @@
  * [update](hello_guns/update.md)
  * [添加菜单和分配权限](hello_guns/menuAndPermission.md)
  
-* 项目基本功能介绍
+* 基本功能介绍
   * [模块介绍](feature/modules.md)
-  * [权限管理](feature/permissionMgr.md)
+  * [菜单管理](feature/menu.md)
+  * [字典管理](feature/dict.md)
   * [日志管理](feature/log.md)
-  * [部门管理](feature/dept.md)
+  * [权限管理](feature/permissionMgr.md)
+  * [监控管理](feature/monitor.md)
   * [系统配置](feature/sysConfig.md)
 
 * 分页查询
