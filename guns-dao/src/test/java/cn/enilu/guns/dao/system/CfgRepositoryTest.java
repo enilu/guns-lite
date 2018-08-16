@@ -19,7 +19,9 @@ public class CfgRepositoryTest  extends BaseApplicationStartTest{
 
     @Test
     public void findByCfgName() {
-        Cfg cfg = cfgRepository.findByCfgName("ACCESS_TOKEN");
+        Cfg cfg = cfgRepository.findByCfgName("JS_API_TICKET");
         System.out.println(JSON.toJSON(cfg));
+        Cfg cfg2 = cfgRepository.findByCfgName("JS_API_TICKET");
+        System.out.println(JSON.toJSON(cfg2));
     }
 }

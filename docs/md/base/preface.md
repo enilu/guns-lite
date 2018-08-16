@@ -11,5 +11,5 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 你也许赞赏下，我就有动力加快进度了^_^
 ![赞一下](./zanshan.jpg)
 
-不赞赏不要紧，也欢迎你在github给该项目点个赞：https://github.com/enilu/guns-lite
+不赞赏不要紧，也欢迎你在github给该项目点个赞：[https://github.com/enilu/guns-lite](https://github.com/enilu/guns-lite)
  
