@@ -2,8 +2,10 @@
 
 这是一个基于vue-admin-template的vue后台管理项目
 克隆自：https://github.com/PanJiaChen/vue-admin-template
+开发过程可以参考这个：https://panjiachen.gitee.io/vue-element-admin ，该站点是一个集成后台，有很多功能可以参考服用
 
 下面是原项目文档：
+
 
 
 > 这是一个 极简的 vue admin 管理后台 它只包含了 Element UI & axios & iconfont & permission control & lint，这些搭建后台必要的东西。
