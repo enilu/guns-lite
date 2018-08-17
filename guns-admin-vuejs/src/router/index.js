@@ -63,7 +63,8 @@ export const constantRouterMap = [
     children: [
       {
         path: 'menuMgr',
-        component: () => import('@/views/nested/menu2/index'),
+        name:'菜單管理',
+        component: () => import('@/views/menu/index'),
         meta: { title: '菜单管理' }
       },
       {
@@ -143,4 +144,3 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
-
