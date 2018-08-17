@@ -1,0 +1,8 @@
+*.iml
+.vuepress/*
+.idea/*
+./**/target/*
+docs/md/node_modules/*
+docs/md/*.log
+docs/md/dist/*
+**/target/*
