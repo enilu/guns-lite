@@ -7,5 +7,4 @@ docs/md/*.log
 docs/md/dist/*
 **/target/*
 
-guns-admin-vue/node_modules/*
-
+guns-admin-vuejs/node_modules/*
