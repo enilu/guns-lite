@@ -6,3 +6,6 @@ docs/md/node_modules/*
 docs/md/*.log
 docs/md/dist/*
 **/target/*
+
+guns-admin-vue/node_modules/*
+
