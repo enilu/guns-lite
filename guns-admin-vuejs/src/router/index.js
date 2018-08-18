@@ -54,7 +54,7 @@ export const constantRouterMap = [
   {
     path: '/nested',
     component: Layout,
-    redirect: '/nested/menu1',
+    redirect: '#',
     name: '系统管理',
     meta: {
       title: '系统管理',
@@ -69,47 +69,56 @@ export const constantRouterMap = [
       },
       {
         path: 'deptMgr',
+        name: '部门管理',
         component: () => import('@/views/nested/menu2/index'),
         meta: { title: '部门管理' }
       },
       {
         path: 'userMgr',
-          component: () => import('@/views/nested/menu2/index'),
+        name: '用户管理',
+        component: () => import('@/views/user/index'),
         meta: { title: '用户管理' }
       },
         {
           path: 'roleMgr',
-            component: () => import('@/views/nested/menu2/index'),
+          name: '角色管理',
+          component: () => import('@/views/nested/menu2/index'),
           meta: { title: '角色管理' }
         },
       {
         path: 'dictMgr',
-          component: () => import('@/views/nested/menu2/index'),
+        name: '字典管理',
+        component: () => import('@/views/nested/menu2/index'),
         meta: { title: '字典管理' }
       },
       {
         path: 'loginLog',
-          component: () => import('@/views/nested/menu2/index'),
+        name: '登录日志',
+        component: () => import('@/views/nested/menu2/index'),
         meta: { title: '登录日志' }
       },
       {
         path: 'businessLog',
-          component: () => import('@/views/nested/menu2/index'),
+        name: '业务日志',
+        component: () => import('@/views/nested/menu2/index'),
         meta: { title: '业务日志' }
       },
       {
         path: 'monitor',
-          component: () => import('@/views/nested/menu2/index'),
+        name: '监控管理',
+        component: () => import('@/views/nested/menu2/index'),
         meta: { title: '监控管理' }
       },
       {
         path: 'noticeMgr',
-          component: () => import('@/views/nested/menu2/index'),
+        name: '通知管理',
+        component: () => import('@/views/nested/menu2/index'),
         meta: { title: '通知管理' }
       },
       {
         path: 'sysCfg',
-          component: () => import('@/views/nested/menu2/index'),
+        name: '参数管理',
+        component: () => import('@/views/nested/menu2/index'),
         meta: { title: '参数管理' }
       }
   ]
