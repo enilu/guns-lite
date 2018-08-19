@@ -8,12 +8,23 @@ export function getList(params) {
   })
 }
 
+
+export function test1(id) {
+  return request({
+    url: '/user/delete',
+    method: 'post',
+    data: {
+      id
+    }
+  })
+}
+
 export function deleteUser(id) {
   return request({
     url: '/user/delete',
     method: 'post',
     data: {
-      id,
+      id
     }
   })
 }

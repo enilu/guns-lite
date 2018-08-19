@@ -72,7 +72,7 @@
 </template>
 
 <script>
-  import { getList, deleteUser } from '@/api/user'
+  import * as userApi from '@/api/user'
 
   export default {
     data() {
@@ -101,9 +101,10 @@
     },
     methods: {
       fetchData() {
+
         this.listLoading = true
         this.listQuery = {pageSize:this.pageSize,page:this.currentPage}
-        getList(this.listQuery).then(response => {
+        userApi.getList(this.listQuery).then(response => {
             this.list = response.data.items
             this.listLoading = false
             this.total = response.data.total
@@ -148,10 +149,15 @@
         }
       },
       remove(){
+        userApi.deleteUser(id).then(response => {
+            console.log(response.data)
+        })
+        return
          if(this.checkSel()){
            console.log(this.selRow)
            var id = this.selRow.id
-           deleteUser(id).then(response => {
+           console.log(userApi)
+           userApi.test1(id).then(response => {
                console.log(response.data)
            })
          }
