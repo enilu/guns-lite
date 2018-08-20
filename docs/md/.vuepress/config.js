@@ -4,7 +4,7 @@ module.exports = {
     base: '/guns-lite/',
     evergreen: true,
     port: 8081,
-    editLinkText:'在github上编辑此页',
+    ga: 'UA-71886989-13',
     themeConfig: {
         nav: [
             {text: '文档', link: '/'},
