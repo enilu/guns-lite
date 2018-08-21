@@ -1,10 +1,12 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-button type="primary" icon="el-icon-plus" @click.native="add">添加</el-button>
-      <el-button type="info" icon="el-icon-edit" @click.native="edit">修改</el-button>
+      <el-button type="success" icon="el-icon-plus" @click.native="add">添加</el-button>
+      <el-button type="primary" icon="el-icon-edit" @click.native="edit">修改</el-button>
       <el-button type="danger" icon="el-icon-delete" @click.native="remove">删除</el-button>
     </div>
+
+
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row  highlight-current-row
     @current-change="handleCurrentChange">
 
@@ -61,26 +63,118 @@
       background
       layout="total, sizes, prev, pager, next, jumper"
       :page-sizes="[10, 20, 50, 100,500]"
-      :page-size="pageSize"
+      :page-size="listQuery.limit"
       :total="total"
       @size-change="changeSize"
       @current-change="fetchPage"
       @prev-click="fetchPrev"
       @next-click="fetchNext">
     </el-pagination>
+
+    <el-dialog
+      :title="formTitle"
+      :visible.sync="formVisible"
+      width="70%">
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="账户">
+              <el-input v-model="form.account"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="姓名">
+              <el-input v-model="form.userName"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12">
+            <el-form-item label="性别">
+              <el-radio-group v-model="form.sex">
+                <el-radio label="1">男</el-radio>
+                <el-radio label="0">女</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="邮箱">
+              <el-input v-model="form.email"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="密码">
+              <el-input v-model="form.password"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="确认密码">
+              <el-input v-model="form.rePassword"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="电话">
+              <el-input v-model="form.phone"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="部门">
+              <el-select v-model="form.dept" placeholder="请选择性别">
+                <el-option label="男" value="1"></el-option>
+                <el-option label="女" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否启用">
+              <el-switch v-model="form.state"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="出生日期">
+                <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday" style="width: 100%;"></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item>
+          <el-button type="primary" @click="saveUser">提交</el-button>
+          <el-button @click.native="formVisible = false">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-  import * as userApi from '@/api/user'
+  import { deleteUser , getList }  from '@/api/user'
+
+
 
   export default {
     data() {
       return {
-        listQuery:{},
+        formVisible: false,
+        formTitle: '添加用户',
+        form: {
+          state: true,
+          account: '',
+          usreName: '',
+          birthday: '',
+          sex: '',
+          email: '',
+          password: '',
+          rePassword: '',
+          dept: '',
+          state: ''
+        },
+        listQuery: {
+          page: 1,
+          limit: 20,
+          importance: undefined,
+          title: undefined,
+          type: undefined,
+          sort: '+id'
+        },
         total:0,
-        currentPage:1,
-        pageSize:10,
         list: null,
         listLoading: true,
         selRow:{}
@@ -101,64 +195,72 @@
     },
     methods: {
       fetchData() {
-
         this.listLoading = true
-        this.listQuery = {pageSize:this.pageSize,page:this.currentPage}
-        userApi.getList(this.listQuery).then(response => {
+        getList(this.listQuery).then(response => {
             this.list = response.data.items
             this.listLoading = false
             this.total = response.data.total
         })
       },
+      handleFilter() {
+        this.listQuery.page = 1
+        this.getList()
+      },
+      handleClose() {
+
+      },
       fetchNext(){
-        this.currentPage = this.currentPage + 1
+        this.listQuery.page = this.listQuery.page + 1
         this.fetchData();
       },
       fetchPrev(){
-        this.currentPage = this.currentPage - 1
+        this.listQuery.page = this.listQuery.page - 1
         this.fetchData();
       },
       fetchPage(page){
-        this.currentPage = page
+        this.listQuery.page = page
         this.fetchData()
       },
-      changeSize(pageSize){
-        this.pageSize = pageSize;
+      changeSize(limit){
+        this.listQuery.limit = limit;
         this.fetchData();
       },
       handleCurrentChange(currentRow,oldCurrentRow){
         this.selRow = currentRow
       },
-      add(){
+      add() {
+        this.formTitle = '添加用户'
+        this.formVisible = true
+      },
+      saveUser() {
 
       },
       checkSel(){
-        if(!this.selRow.id){
-          console.log('没有选中')
-          this.$message({
-            message: '请选中操作项',
-            type: 'warning'
-          });
-          return false
+        if(this.selRow && this.selRow.id){
+          return true
         }
-        return true
+        this.$message({
+          message: '请选中操作项',
+          type: 'warning'
+        });
+        return false
       },
       edit(){
         if(this.checkSel()){
           console.log(this.selRow)
+          this.formTitle = '修改用户'
+          this.formVisible = true
         }
       },
       remove(){
-        userApi.deleteUser(id).then(response => {
-            console.log(response.data)
-        })
-        return
          if(this.checkSel()){
-           console.log(this.selRow)
            var id = this.selRow.id
-           console.log(userApi)
-           userApi.test1(id).then(response => {
-               console.log(response.data)
+           deleteUser(id).then(response => {
+             this.$message({
+               message: response.data.msg,
+               type: 'info'
+             });
+             this.fetchData()
            })
          }
 

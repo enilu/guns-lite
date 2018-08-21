@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
       <div class="block">
-    <el-button type="primary" icon="el-icon-plus">添加</el-button>
-    <el-button type="info" icon="el-icon-edit">修改</el-button>
+    <el-button type="success" icon="el-icon-plus">添加</el-button>
+    <el-button type="primary" icon="el-icon-edit">修改</el-button>
     <el-button type="danger" icon="el-icon-delete">删除</el-button>
   </div>
 
@@ -67,8 +67,8 @@ export default {
       selRow: {}
     }
   },
-  created(){
-    this.fetchData();
+  created() {
+    this.fetchData()
   },
   methods: {
     fetchData() {
@@ -76,15 +76,15 @@ export default {
       getList(this.listQuery).then(response => {
         this.data = response.data.items
         this.listLoading = false
-    })
-  },
-  setCurrent(row) {
-        this.$refs.menuTree.setCurrentRow(row);
-      },
-  handleCurrentChange(val) {
-        alert(val);
-        this.selRow = val;
-      }
+      })
+    },
+    setCurrent(row) {
+      this.$refs.menuTree.setCurrentRow(row)
+    },
+    handleCurrentChange(val) {
+      alert(val)
+      this.selRow = val
+    }
   }
 }
 </script>
