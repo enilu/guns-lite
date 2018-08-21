@@ -1,9 +1,26 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-button type="success" icon="el-icon-plus" @click.native="add">添加</el-button>
-      <el-button type="primary" icon="el-icon-edit" @click.native="edit">修改</el-button>
-      <el-button type="danger" icon="el-icon-delete" @click.native="remove">删除</el-button>
+      <el-row  :gutter="20">
+        <el-col :span="6">
+          <el-input v-model="listQuery.account" placeholder="请输入帐号"></el-input>
+        </el-col>
+        <el-col :span="6">
+          <el-input v-model="listQuery.name" placeholder="请输入姓名"></el-input>
+        </el-col>
+        <el-col :span="6">
+          <el-button type="success" icon="el-icon-search" @click.native="add">搜索</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click.native="edit">重置</el-button>
+        </el-col>
+      </el-row>
+      <br>
+      <el-row>
+        <el-col :span="24">
+          <el-button type="success" icon="el-icon-plus" @click.native="add">添加</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click.native="edit">修改</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click.native="remove">删除</el-button>
+        </el-col>
+      </el-row>
     </div>
 
 
@@ -84,15 +101,15 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="姓名">
-              <el-input v-model="form.userName"></el-input>
+              <el-input v-model="form.name"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="性别">
               <el-radio-group v-model="form.sex">
-                <el-radio label="1">男</el-radio>
-                <el-radio label="0">女</el-radio>
+                <el-radio :label="1">男</el-radio>
+                <el-radio :label="2">女</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -103,12 +120,12 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="密码">
-              <el-input v-model="form.password"></el-input>
+              <el-input v-model="form.password"  type="password"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="确认密码">
-              <el-input v-model="form.rePassword"></el-input>
+              <el-input v-model="form.rePassword"  type="password"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -118,15 +135,19 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="部门">
-              <el-select v-model="form.dept" placeholder="请选择性别">
-                <el-option label="男" value="1"></el-option>
-                <el-option label="女" value="2"></el-option>
+              <el-select v-model="form.deptid" placeholder="请选择部门">
+                <el-option
+                  v-for="item in deptList"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="是否启用">
-              <el-switch v-model="form.state"></el-switch>
+              <el-switch v-model="form.status"></el-switch>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -146,6 +167,7 @@
 
 <script>
   import { deleteUser , getList }  from '@/api/user'
+  import { getAll }  from '@/api/dept'
 
 
 
@@ -154,25 +176,25 @@
       return {
         formVisible: false,
         formTitle: '添加用户',
+        deptList:[],
         form: {
           state: true,
           account: '',
-          usreName: '',
+          name: '',
           birthday: '',
           sex: '',
           email: '',
           password: '',
           rePassword: '',
           dept: '',
-          state: ''
+          status: true,
+          deptid:1
         },
         listQuery: {
           page: 1,
           limit: 20,
-          importance: undefined,
-          title: undefined,
-          type: undefined,
-          sort: '+id'
+          account: undefined,
+          name: undefined
         },
         total:0,
         list: null,
@@ -197,9 +219,12 @@
       fetchData() {
         this.listLoading = true
         getList(this.listQuery).then(response => {
-            this.list = response.data.items
-            this.listLoading = false
-            this.total = response.data.total
+          this.list = response.data.items
+          this.listLoading = false
+          this.total = response.data.total
+        })
+        getAll().then(response => {
+          this.deptList = response.data.items
         })
       },
       handleFilter() {
@@ -248,6 +273,9 @@
       edit(){
         if(this.checkSel()){
           console.log(this.selRow)
+          this.form = this.selRow
+          this.form.status = this.selRow.statusName == '启用'
+          this.form.password = ''
           this.formTitle = '修改用户'
           this.formVisible = true
         }
