@@ -60,6 +60,14 @@ service层也没办法共用了。想想以后要维护两套dao层和service层
 - 访问 https://localhost:8080，   登录，用户名密码:admin/admin
 - ![demo](docs/md/demo.gif)
 
+## 核心模块：
+- guns-admin 一个成熟的后台管理系统，完全具备了后台管理系统的基本功能
+- guns-admin-vuejs 基于vuejs的后台（开发中）
+- guns-utils 工具包
+- guns-dao  dao层
+- guns-entity 实体层
+- guns-service 服务层
+
 ## 文档
 [http://www.enilu.cn/guns-lite/](http://www.enilu.cn/guns-lite/)
 ## 感谢
