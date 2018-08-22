@@ -16,7 +16,6 @@
         <module>guns-admin</module>
     </modules>
 
-
     <properties>
         <!-- Common libs -->
         <springframework.version>4.3.5.RELEASE</springframework.version>
