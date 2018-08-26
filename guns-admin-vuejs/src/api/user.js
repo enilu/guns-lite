@@ -9,13 +9,11 @@ export function getList(params) {
 }
 
 
-export function test1(id) {
+export function saveUser(params) {
   return request({
-    url: '/user/delete',
+    url: '/user/save',
     method: 'post',
-    data: {
-      id
-    }
+    params
   })
 }
 

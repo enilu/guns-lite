@@ -70,7 +70,7 @@ export const constantRouterMap = [
       {
         path: 'deptMgr',
         name: '部门管理',
-        component: () => import('@/views/nested/menu2/index'),
+        component: () => import('@/views/dept/index'),
         meta: { title: '部门管理' }
       },
       {

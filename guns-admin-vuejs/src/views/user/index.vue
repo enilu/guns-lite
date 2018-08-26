@@ -9,8 +9,8 @@
           <el-input v-model="listQuery.name" placeholder="请输入姓名"></el-input>
         </el-col>
         <el-col :span="6">
-          <el-button type="success" icon="el-icon-search" @click.native="add">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click.native="edit">重置</el-button>
+          <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">重置</el-button>
         </el-col>
       </el-row>
       <br>
@@ -92,16 +92,16 @@
       :title="formTitle"
       :visible.sync="formVisible"
       width="70%">
-      <el-form ref="form" :model="form" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="账户">
-              <el-input v-model="form.account"></el-input>
+            <el-form-item label="账户" prop="account">
+              <el-input v-model="form.account" minlength=1></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="姓名">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name"  minlength=1></el-input>
             </el-form-item>
           </el-col>
 
@@ -114,22 +114,22 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="邮箱">
+            <el-form-item label="邮箱" prop="email">
               <el-input v-model="form.email"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="密码">
+          <el-col :span="12" v-show="isAdd">
+            <el-form-item label="密码" prop="password">
               <el-input v-model="form.password"  type="password"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="确认密码">
+          <el-col :span="12" v-show="isAdd">
+            <el-form-item label="确认密码" prop="rePassword">
               <el-input v-model="form.rePassword"  type="password"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="电话">
+            <el-form-item label="电话" prop="phone">
               <el-input v-model="form.phone"></el-input>
             </el-form-item>
           </el-col>
@@ -146,7 +146,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="是否启用">
+            <el-form-item label="是否启用" prop="status">
               <el-switch v-model="form.status"></el-switch>
             </el-form-item>
           </el-col>
@@ -166,8 +166,8 @@
 </template>
 
 <script>
-  import { deleteUser , getList }  from '@/api/user'
-  import { getAll }  from '@/api/dept'
+  import { deleteUser , getList , saveUser }  from '@/api/user'
+  import { getDeptTree }  from '@/api/dept'
 
 
 
@@ -177,18 +177,34 @@
         formVisible: false,
         formTitle: '添加用户',
         deptList:[],
+        isAdd: true,
         form: {
-          state: true,
           account: '',
           name: '',
           birthday: '',
-          sex: '',
+          sex: 1,
           email: '',
           password: '',
           rePassword: '',
           dept: '',
           status: true,
           deptid:1
+        },
+        rules: {
+          account: [
+            { required: true, message: '请输入登录账号', trigger: 'blur' },
+            { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+          ],
+          name: [
+            { required: true, message: '请输入用户名', trigger: 'blur' },
+            { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+          ],
+          email: [
+            { required: true, message: '请输入email', trigger: 'blur' }
+          ],
+          phone: [
+            { required: true, message: '请输入联系电话', trigger: 'blur' }
+          ]
         },
         listQuery: {
           page: 1,
@@ -213,9 +229,15 @@
       }
     },
     created() {
-      this.fetchData()
+      this.init()
     },
     methods: {
+      init() {
+        getDeptTree().then(response => {
+          this.deptList = response.data.items
+        })
+        this.fetchData()
+      },
       fetchData() {
         this.listLoading = true
         getList(this.listQuery).then(response => {
@@ -223,9 +245,13 @@
           this.listLoading = false
           this.total = response.data.total
         })
-        getAll().then(response => {
-          this.deptList = response.data.items
-        })
+      },
+      search() {
+        this.fetchData()
+      },
+      reset() {
+        this.listQuery.account = ''
+        this.listQuery.name = ''
       },
       handleFilter() {
         this.listQuery.page = 1
@@ -256,8 +282,53 @@
       add() {
         this.formTitle = '添加用户'
         this.formVisible = true
+        this.isAdd = true
+      },
+      validPasswd() {
+        if(!this.isAdd){
+          return true
+        }
+        if(this.form.password != this.form.rePassword){
+          console.log('password is not right')
+          return false
+        }
+        if(this.form.password == '' || this.form.rePassword == ''){
+          console.log('password is null')
+          return false
+        }
+        return true
       },
       saveUser() {
+        console.log(this.form)
+        var self = this
+        this.$refs['form'].validate((valid) => {
+          if (valid) {
+
+            if(this.validPasswd()){
+              saveUser(this.form).then(response => {
+                console.log(response)
+                  this.$message({
+                    message: '提交成功',
+                    type: 'success'
+                  })
+                  this.fetchData()
+                  this.formVisible = false
+
+              })
+
+            }else{
+              this.$message({
+                message: '提交失败',
+                type: 'error'
+              });
+            }
+
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
+
 
       },
       checkSel(){
@@ -272,6 +343,7 @@
       },
       edit(){
         if(this.checkSel()){
+          this.isAdd = false
           console.log(this.selRow)
           this.form = this.selRow
           this.form.status = this.selRow.statusName == '启用'
@@ -283,19 +355,31 @@
       remove(){
          if(this.checkSel()){
            var id = this.selRow.id
-           deleteUser(id).then(response => {
-             this.$message({
-               message: response.data.msg,
-               type: 'info'
-             });
-             this.fetchData()
-           })
+
+           this.$confirm('确定删除该记录?', '提示', {
+             confirmButtonText: '确定',
+             cancelButtonText: '取消',
+             type: 'warning'
+           }).then(() => {
+
+             deleteUser(id).then(response => {
+               this.$message({
+                 message: response.data.msg,
+                 type: 'success'
+               });
+               this.fetchData()
+             })
+
+           }).catch(() => {
+
+           });
+
+
+
+
+
          }
-
       }
-
-
-
 
     }
   }
