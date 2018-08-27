@@ -24,7 +24,7 @@
     </div>
 
 
-    <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row  highlight-current-row
+    <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row 
     @current-change="handleCurrentChange">
 
       <el-table-column label="账号">
@@ -277,6 +277,8 @@
         this.fetchData();
       },
       handleCurrentChange(currentRow,oldCurrentRow){
+        console.log('-------')
+        console.log(currentRow)
         this.selRow = currentRow
       },
       add() {
@@ -299,7 +301,6 @@
         return true
       },
       saveUser() {
-        console.log(this.form)
         var self = this
         this.$refs['form'].validate((valid) => {
           if (valid) {
