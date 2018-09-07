@@ -11,7 +11,7 @@ export function getList(params) {
 
 export function saveUser(params) {
   return request({
-    url: '/user/save',
+    url: '/user',
     method: 'post',
     params
   })
@@ -19,8 +19,8 @@ export function saveUser(params) {
 
 export function deleteUser(id) {
   return request({
-    url: '/user/delete',
-    method: 'post',
+    url: '/user',
+    method: 'delete',
     data: {
       id
     }

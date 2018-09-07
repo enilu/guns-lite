@@ -7,3 +7,21 @@ export function getList(params) {
     params
   })
 }
+
+export function save(params) {
+  return request({
+    url: '/menu',
+    method: 'post',
+    params
+  })
+}
+
+export function delMenu(id) {
+  return request({
+    url: '/menu',
+    method: 'delete',
+    data: {
+      id
+    }
+  })
+}

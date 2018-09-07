@@ -7,9 +7,14 @@
     <tree-table
     :data="data"
     :expandAll="expandAll"
-    @current-change="handleCurrentChange"
     highlight-current-row
     border>
+
+    <el-table-column label="操作" width="200">
+      <template slot-scope="scope">
+        <el-button type="text" @click="remove(scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
       <el-table-column label="简称" width="200">
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{scope.row.simplename}}</el-button>
@@ -29,11 +34,6 @@
       <el-table-column label="顺序" width="200">
         <template slot-scope="scope">
           <span >{{scope.row.num}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="200">
-        <template slot-scope="scope">
-          <el-button type="text" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </tree-table>
@@ -138,21 +138,6 @@ export default {
     message(row) {
       console.log(row)
     },
-    handleCurrentChange(currentRow,oldCurrentRow){
-      console.log('-------')
-      console.log(currentRow)
-      this.selRow = currentRow
-    },
-    checkSel(){
-      if(this.selRow && this.selRow.id){
-        return true
-      }
-      this.$message({
-        message: '请选中操作项',
-        type: 'warning'
-      });
-      return false
-    },
     add() {
       this.formTitle = '添加菜单'
       this.formVisible = true
@@ -161,7 +146,7 @@ export default {
     edit(row) {
       console.log(row)
       this.form = row
-      this.formTitle = '编辑菜单'
+      this.formTitle = '编辑部门'
       this.formVisible = true
       this.isAdd = false
     },

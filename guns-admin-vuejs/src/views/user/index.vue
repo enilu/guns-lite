@@ -24,7 +24,7 @@
     </div>
 
 
-    <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row 
+    <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
     @current-change="handleCurrentChange">
 
       <el-table-column label="账号">
@@ -374,10 +374,6 @@
            }).catch(() => {
 
            });
-
-
-
-
 
          }
       }
