@@ -82,7 +82,7 @@ export const constantRouterMap = [
         {
           path: 'roleMgr',
           name: '角色管理',
-          component: () => import('@/views/nested/menu2/index'),
+          component: () => import('@/views/role/index'),
           meta: { title: '角色管理' }
         },
       {
