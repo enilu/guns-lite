@@ -45,7 +45,7 @@ export const constantRouterMap = [
       {
         path: 'index',
         name: '通知',
-        component: () => import('@/views/notice/index'),
+        component: () => import('@/views/system/notice/index'),
         meta: { title: '通知', icon: 'message' }
       }
     ]
@@ -64,25 +64,25 @@ export const constantRouterMap = [
       {
         path: 'menuMgr',
         name:'菜單管理',
-        component: () => import('@/views/menu/index'),
+        component: () => import('@/views/system/menu/index'),
         meta: { title: '菜单管理' }
       },
       {
         path: 'deptMgr',
         name: '部门管理',
-        component: () => import('@/views/dept/index'),
+        component: () => import('@/views/system/dept/index'),
         meta: { title: '部门管理' }
       },
       {
         path: 'userMgr',
         name: '用户管理',
-        component: () => import('@/views/user/index'),
+        component: () => import('@/views/system/user/index'),
         meta: { title: '用户管理' }
       },
         {
           path: 'roleMgr',
           name: '角色管理',
-          component: () => import('@/views/role/index'),
+          component: () => import('@/views/system/role/index'),
           meta: { title: '角色管理' }
         },
       {
@@ -94,7 +94,7 @@ export const constantRouterMap = [
       {
         path: 'loginLog',
         name: '登录日志',
-        component: () => import('@/views/nested/menu2/index'),
+        component: () => import('@/views/system/loginLog/index'),
         meta: { title: '登录日志' }
       },
       {
@@ -102,12 +102,6 @@ export const constantRouterMap = [
         name: '业务日志',
         component: () => import('@/views/system/log/index'),
         meta: { title: '业务日志' }
-      },
-      {
-        path: 'monitor',
-        name: '监控管理',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: '监控管理' }
       },
       {
         path: 'noticeMgr',
@@ -118,7 +112,7 @@ export const constantRouterMap = [
       {
         path: 'sysCfg',
         name: '参数管理',
-        component: () => import('@/views/nested/menu2/index'),
+        component: () => import('@/views/system/cfg/index'),
         meta: { title: '参数管理' }
       }
   ]

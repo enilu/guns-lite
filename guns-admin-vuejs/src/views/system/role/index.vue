@@ -147,8 +147,8 @@
 </template>
 
 <script>
-  import { remove , getList , save , getRoleTree ,getPermissons , savePermissons }  from '@/api/role'
-  import { getDeptTree }  from '@/api/dept'
+  import { remove , getList , save , getRoleTree ,getPermissons , savePermissons }  from '@/api/system/role'
+  import { getDeptTree }  from '@/api/system/dept'
 
 
 

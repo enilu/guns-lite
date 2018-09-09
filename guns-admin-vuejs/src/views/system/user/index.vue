@@ -166,8 +166,8 @@
 </template>
 
 <script>
-  import { deleteUser , getList , saveUser }  from '@/api/user'
-  import { getDeptTree }  from '@/api/dept'
+  import { deleteUser , getList , saveUser }  from '@/api/system/user'
+  import { getDeptTree }  from '@/api/system/dept'
 
 
 
