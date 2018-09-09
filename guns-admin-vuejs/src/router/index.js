@@ -88,7 +88,7 @@ export const constantRouterMap = [
       {
         path: 'dictMgr',
         name: '字典管理',
-        component: () => import('@/views/nested/menu2/index'),
+        component: () => import('@/views/system/dict/index'),
         meta: { title: '字典管理' }
       },
       {
@@ -100,7 +100,7 @@ export const constantRouterMap = [
       {
         path: 'businessLog',
         name: '业务日志',
-        component: () => import('@/views/nested/menu2/index'),
+        component: () => import('@/views/system/log/index'),
         meta: { title: '业务日志' }
       },
       {
