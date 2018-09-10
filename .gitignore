@@ -1,9 +1,5 @@
 *.iml
 .vuepress/*
-.settings/*
-
-.vscode/*
-.idea/*
 ./**/target/*
 docs/md/node_modules/*
 docs/md/*.log
@@ -14,3 +10,6 @@ guns-admin-vuejs/node_modules/*
 *.classpath
 *.factorypath
 */.settings/*
+.settings/*
+.vscode/*
+.idea/*

@@ -13,7 +13,6 @@ import java.util.Map;
  * @author enilu
  */
 public class Page<T>  {
-    private static final long serialVersionUID = 1L;
     /**
      * 该操作只是为了忽略RowBounds属性
      *

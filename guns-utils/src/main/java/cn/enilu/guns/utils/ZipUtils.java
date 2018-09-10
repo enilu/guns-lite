@@ -24,10 +24,6 @@ public class ZipUtils {
 	 * 每次读入大小
 	 */
 	private static final int BUFFER = 4096;
-	/**
-	 * 字符编码
-	 */
-	private static final String ENCODING = "UTF-8";
 
 	/**
 	 * 做成压缩文件
@@ -129,11 +125,12 @@ public class ZipUtils {
 	 * @return 是否成功
 	 */
 	public static boolean upZipFile(String zipName, String targetDirName) {
+		ZipFile zipFile =null;
 		try {
+			zipFile = new ZipFile(zipName);
 			if (!targetDirName.endsWith(File.separator)) {
 				targetDirName += File.separator;
 			}
-			ZipFile zipFile = new ZipFile(zipName);
 			ZipEntry zn = null;
 			String entryName = null;
 			String targetFileName = null;
@@ -168,6 +165,10 @@ public class ZipUtils {
 			return true;
 		} catch (Exception e) {
 //			log.error("解压缩错误:错误原因如下:" + e.getMessage());
+		}finally{
+			try{
+			zipFile.close();
+			}catch(Exception e){}
 		}
 		return false;
 	}
