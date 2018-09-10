@@ -16,8 +16,9 @@
                             style="background-color: #ffffff !important;"
                             selectFlag="true" selectId="pcodeTreeDiv" selectTreeId="pcodeTree" selectStyle="width:244px !important;"/>
                     <#select id="ismenu" name="是否是菜单">
-                        <option value="1">是</option>
-                        <option value="0">不是</option>
+                        @for(dict in constant.getDicts('是否')){
+                        <option value="${dict.num}">${dict.name}</option>
+                        @}
                     </#select>
 
                 </div>
