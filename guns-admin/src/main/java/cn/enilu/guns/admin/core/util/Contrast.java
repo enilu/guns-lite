@@ -2,8 +2,8 @@ package cn.enilu.guns.admin.core.util;
 
 import cn.enilu.guns.admin.common.constant.dictmap.base.AbstractDictMap;
 import cn.enilu.guns.admin.common.constant.dictmap.factory.DictFieldWarpperFactory;
-import cn.enilu.guns.admin.core.support.StrKit;
 import cn.enilu.guns.utils.DateUtil;
+import cn.enilu.guns.utils.StrKit;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;

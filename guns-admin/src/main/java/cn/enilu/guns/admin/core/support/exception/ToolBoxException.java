@@ -15,7 +15,8 @@
  */
 package cn.enilu.guns.admin.core.support.exception;
 
-import cn.enilu.guns.admin.core.support.StrKit;
+
+import cn.enilu.guns.utils.StrKit;
 
 /**
  * 工具类初始化异常
