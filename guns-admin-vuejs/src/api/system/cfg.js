@@ -2,25 +2,25 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/user/list',
+    url: '/cfg/list',
     method: 'get',
     params
   })
 }
 
 
-export function saveUser(params) {
+export function save(params) {
   return request({
-    url: '/user/save',
+    url: '/cfg',
     method: 'post',
     params
   })
 }
 
-export function deleteUser(id) {
+export function remove(id) {
   return request({
-    url: '/user/delete',
-    method: 'post',
+    url: '/cfg',
+    method: 'delete',
     data: {
       id
     }

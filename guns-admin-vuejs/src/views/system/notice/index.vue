@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/notice'
+  import { getList } from '@/api/system/notice'
 
   export default {
     data() {

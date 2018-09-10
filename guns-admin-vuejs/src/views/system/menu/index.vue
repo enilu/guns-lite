@@ -2,14 +2,58 @@
   <div class="app-container">
     <div class="block">
       <el-button type="success" icon="el-icon-plus"  @click.native="add">添加</el-button>
-      <el-button type="primary" icon="el-icon-edit"  @click.native="edit">修改</el-button>
-      <el-button type="danger" icon="el-icon-delete"  @click.native="remove">删除</el-button>
     </div>
 
-    <tree-table ref="menuTree" :data="data" :columns="columns" :expandAll="expandAll"   border highlight-current-row
-    @current-change="handleCurrentChange"></tree-table>
 
-      <el-button @click="setCurrent()">取消选择</el-button>
+    <tree-table
+    :data="data"
+    :expandAll="expandAll"
+    highlight-current-row
+    border>
+    <el-table-column label="操作" width="200">
+      <template slot-scope="scope">
+        <el-button type="text" @click="remove(scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
+      <el-table-column label="名称" width="200">
+        <template slot-scope="scope">
+          <el-button type="text" @click="edit(scope.row)">{{scope.row.name}}</el-button>
+
+        </template>
+      </el-table-column>
+      <el-table-column label="编码" width="200">
+        <template slot-scope="scope">
+          <span >{{scope.row.code}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="ID" width="200">
+        <template slot-scope="scope">
+          <span >{{scope.row.id}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否是菜单" width="200">
+        <template slot-scope="scope">
+          <span >{{scope.row.isMenuName}}</span>
+        </template>
+      </el-table-column>
+        <el-table-column label="URL" width="200">
+          <template slot-scope="scope">
+            <span >{{scope.row.url}}</span>
+          </template>
+      </el-table-column>
+      <el-table-column label="是否启用" width="200">
+        <template slot-scope="scope">
+          <span >{{scope.row.statusName}}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="顺序" width="200">
+        <template slot-scope="scope">
+          <span >{{scope.row.statusName}}</span>
+        </template>
+      </el-table-column>
+
+    </tree-table>
 
       <el-dialog
         :title="formTitle"
@@ -68,7 +112,7 @@
 
           </el-row>
           <el-form-item>
-            <el-button type="primary" @click="saveUser">提交</el-button>
+            <el-button type="primary" @click="save">提交</el-button>
             <el-button @click.native="formVisible = false">取消</el-button>
           </el-form-item>
         </el-form>
@@ -82,7 +126,7 @@
   Created: 2018/1/19-14:54
 */
 import treeTable from '@/components/TreeTable'
-import { getList } from '@/api/menu'
+import { getList , save , delMenu } from '@/api/system/menu'
 
 export default {
   name: 'treeTableDemo',
@@ -119,41 +163,6 @@ export default {
           { required: true, message: '请输入排序', trigger: 'blur' }
         ]
       },
-      columns: [
-        {
-          text: '菜单名称',
-          value: 'name',
-          width: 200
-        },
-        {
-          text: 'ID',
-          value: 'id'
-        },
-        {
-          text: '菜单编号',
-          value: 'code'
-        },
-        {
-          text: '请求地址',
-          value: 'url'
-        },
-        {
-          text: '排序',
-          value: 'num'
-        },
-        {
-          text: '层级',
-          value: 'levels'
-        },
-        {
-          text: '是否是菜单',
-          value: 'isMenuName'
-        },
-        {
-          text: '状态',
-          value: 'statusName'
-        }
-      ],
       data: [],
       selRow: {}
     }
@@ -172,14 +181,6 @@ export default {
         this.listLoading = false
       })
     },
-    setCurrent(row) {
-      this.$refs.menuTree.setCurrentRow(row)
-    },
-    handleCurrentChange(currentRow,oldCurrentRow){
-      console.log('-------')
-      console.log(currentRow)
-      this.selRow = currentRow
-    },
     checkSel(){
       if(this.selRow && this.selRow.id){
         return true
@@ -195,15 +196,69 @@ export default {
       this.formVisible = true
       this.isAdd = true
     },
-    edit() {
-      if(this.checkSel()){
-        console.log(this.selRow)
-      }
+    save() {
+
+        var self = this
+        this.$refs['form'].validate((valid) => {
+          if (valid) {
+              save(this.form).then(response => {
+                console.log(response)
+                  this.$message({
+                    message: '提交成功',
+                    type: 'success'
+                  })
+                  this.fetchData()
+                  this.formVisible = false
+
+              })
+
+
+
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
     },
-    remove() {
-      if(this.checkSel()){
-        console.log(this.selRow)
+    edit(row) {
+      console.log(row)
+      this.form = row
+      if(row.isMenuName == '是'){
+        this.form.ismenu = 1
+      }else{
+        this.form.ismenu = 0
       }
+      if(row.parent){
+        this.form.pcode = row.parent.code
+      }
+      console.log(this.form.pcode)
+      this.formTitle = '编辑菜单'
+      this.formVisible = true
+      this.isAdd = false
+    },
+    remove(row) {
+        console.log(row)
+
+
+       this.$confirm('确定删除该记录?', '提示', {
+         confirmButtonText: '确定',
+         cancelButtonText: '取消',
+         type: 'warning'
+       }).then(() => {
+          console.log(row.id)
+         delMenu(row.id).then(response => {
+           this.$message({
+             message: response.data.msg,
+             type: 'success'
+           });
+           this.fetchData()
+         })
+
+       }).catch(() => {
+
+       });
+
+
     }
   }
 }
