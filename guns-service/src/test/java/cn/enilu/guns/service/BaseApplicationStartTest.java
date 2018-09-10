@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Time: 16:26<br>
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AppConfiguration.class)
+@SpringBootTest(classes = ServiceConfiguration.class)
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = "cn.enilu.guns")
 @TestPropertySource(locations = {"classpath:application-test.properties"})

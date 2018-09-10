@@ -84,10 +84,13 @@ public class MenuController extends BaseController {
         //如果父级是顶级菜单
         if (pMenu == null) {
             menu.setPcode("0");
-        } else {
-            //设置父级菜单的code为父级菜单的id
-            menu.setPcode(String.valueOf(pMenu.getId()));
         }
+//
+//
+// else {
+//            //设置父级菜单的code为父级菜单的id
+//            menu.setPcode(String.valueOf(pMenu.getId()));
+//        }
 
         Map<String, Object> menuMap = BeanKit.beanToMap(menu);
         menuMap.put("pcodeName", ConstantFactory.me().getMenuNameByCode(menu.getPcode()));
@@ -109,7 +112,7 @@ public class MenuController extends BaseController {
         }
         //设置父级菜单编号
         menuSetPcode(menu);
-
+        menu.setStatus(MenuStatus.ENABLE.getCode());
         this.menuRepository.save(menu);
         return SUCCESS_TIP;
     }
@@ -243,8 +246,8 @@ public class MenuController extends BaseController {
             menu.setPcodes("[0],");
             menu.setLevels(1);
         } else {
-            int code = Integer.parseInt(menu.getPcode());
-            Menu pMenu = menuRepository.findOne(Long.valueOf(code));
+
+            Menu pMenu = menuRepository.findByCode(menu.getPcode());
             Integer pLevels = pMenu.getLevels();
             menu.setPcode(pMenu.getCode());
 

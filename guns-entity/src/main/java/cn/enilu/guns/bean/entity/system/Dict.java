@@ -1,6 +1,7 @@
 package cn.enilu.guns.bean.entity.system;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created  on 2018/4/2 0002.
@@ -9,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_sys_dict")
-public class Dict {
+public class Dict implements Serializable {
     private Integer id;
     private String num;
     private Integer pid;
