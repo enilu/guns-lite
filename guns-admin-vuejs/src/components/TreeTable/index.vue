@@ -1,21 +1,21 @@
 <template>
   <el-table :data="formatData" :row-style="showRow" v-bind="$attrs">
-    <el-table-column v-if="columns.length===0" width="150">
+    <el-table-column v-if="columns.length===0" width="80">
       <template slot-scope="scope">
         <span v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span>
         <span class="tree-ctrl" v-if="iconShow(0,scope.row)" @click="toggleExpanded(scope.$index)">
-          <i v-if="!scope.row._expanded" class="el-icon-plus"></i>
-          <i v-else class="el-icon-minus"></i>
+          <i v-if="!scope.row._expanded" class="el-icon-arrow-right"></i>
+          <i v-else class="el-icon-arrow-down"></i>
         </span>
-        {{scope.$index}}
+        <!--{{scope.$index}}-->
       </template>
     </el-table-column>
     <el-table-column v-else v-for="(column, index) in columns" :key="column.value" :label="column.text" :width="column.width">
       <template slot-scope="scope">
         <span v-if="index === 0" v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span>
         <span class="tree-ctrl" v-if="iconShow(index,scope.row)" @click="toggleExpanded(scope.$index)">
-          <i v-if="!scope.row._expanded" class="el-icon-plus"></i>
-          <i v-else class="el-icon-minus"></i>
+          <i v-if="!scope.row._expanded" class="el-icon-arrow-right"></i>
+          <i v-else class="el-icon-arrow-down"></i>
         </span>
         {{scope.row[column.value]}}
       </template>
@@ -112,7 +112,7 @@ export default {
     height: 100%;
   }
   table td {
-    line-height: 26px;
+    line-height: 20px;
   }
 
   .tree-ctrl{

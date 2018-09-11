@@ -10,28 +10,28 @@
     highlight-current-row
     border>
 
-    <el-table-column label="操作" width="200">
+    <el-table-column label="操作" >
       <template slot-scope="scope">
         <el-button type="text" @click="remove(scope.row)">删除</el-button>
       </template>
     </el-table-column>
-      <el-table-column label="简称" width="200">
+      <el-table-column label="简称" >
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{scope.row.simplename}}</el-button>
 
         </template>
       </el-table-column>
-      <el-table-column label="ID" width="200">
+      <el-table-column label="ID" >
         <template slot-scope="scope">
           <span >{{scope.row.id}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="全称" width="200">
+      <el-table-column label="全称" >
         <template slot-scope="scope">
           <span >{{scope.row.fullname}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="顺序" width="200">
+      <el-table-column label="顺序" >
         <template slot-scope="scope">
           <span >{{scope.row.num}}</span>
         </template>
@@ -106,6 +106,7 @@ export default {
         simplename: '',
         fullname: '',
         pid: '',
+        num:'',
         tips: ''
       },
       rules: {
@@ -144,7 +145,6 @@ export default {
       this.isAdd = true
     },
     edit(row) {
-      console.log(row)
       this.form = row
       this.formTitle = '编辑部门'
       this.formVisible = true

@@ -10,46 +10,45 @@
     :expandAll="expandAll"
     highlight-current-row
     border>
-    <el-table-column label="操作" width="200">
+    <el-table-column label="操作" >
       <template slot-scope="scope">
         <el-button type="text" @click="remove(scope.row)">删除</el-button>
       </template>
     </el-table-column>
-      <el-table-column label="名称" width="200">
+      <el-table-column label="名称" >
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{scope.row.name}}</el-button>
 
         </template>
       </el-table-column>
-      <el-table-column label="编码" width="200">
+      <el-table-column label="编码" >
         <template slot-scope="scope">
           <span >{{scope.row.code}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="ID" width="200">
+      <el-table-column label="ID" >
         <template slot-scope="scope">
           <span >{{scope.row.id}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否是菜单" width="200">
+      <el-table-column label="是否是菜单" >
         <template slot-scope="scope">
           <span >{{scope.row.isMenuName}}</span>
         </template>
       </el-table-column>
-        <el-table-column label="URL" width="200">
+        <el-table-column label="URL">
           <template slot-scope="scope">
             <span >{{scope.row.url}}</span>
           </template>
       </el-table-column>
-      <el-table-column label="是否启用" width="200">
+      <el-table-column label="是否启用">
         <template slot-scope="scope">
           <span >{{scope.row.statusName}}</span>
         </template>
       </el-table-column>
-
-      <el-table-column label="顺序" width="200">
+      <el-table-column label="顺序">
         <template slot-scope="scope">
-          <span >{{scope.row.statusName}}</span>
+          <span >{{scope.row.num}}</span>
         </template>
       </el-table-column>
 
@@ -134,7 +133,7 @@ export default {
   data() {
     return {
       listLoading: true,
-      expandAll: true,
+      expandAll: false,
       formTitle: '',
       formVisible: false,
       isAdd: false,
