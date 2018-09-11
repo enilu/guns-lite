@@ -1,0 +1,15 @@
+*.iml
+.vuepress/*
+./**/target/*
+docs/md/node_modules/*
+docs/md/*.log
+docs/md/dist/*
+**/target/*
+guns-admin-vuejs/node_modules/*
+*.project
+*.classpath
+*.factorypath
+*/.settings/*
+.settings/*
+.vscode/*
+.idea/*
