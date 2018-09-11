@@ -1,5 +1,5 @@
 import Vue from 'vue'
-
+import ECharts from 'vue-echarts/components/ECharts.vue'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
@@ -17,7 +17,7 @@ import '@/icons' // icon
 import '@/permission' // permission control
 
 Vue.use(ElementUI, { locale })
-
+Vue.component('v-chart', ECharts)
 Vue.config.productionTip = false
 
 new Vue({
