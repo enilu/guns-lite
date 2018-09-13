@@ -37,6 +37,9 @@ public class MenuNode implements Comparable {
      * 按钮级别
      */
     private Integer ismenu;
+    private String isMenuName;
+    private Integer status;
+    private String statusName;
 
     /**
      * 按钮的排序
@@ -52,11 +55,14 @@ public class MenuNode implements Comparable {
      * 节点图标
      */
     private String icon;
-
+    /**
+     * 菜单编码
+     */
+    private String code;
     /**
      * 子节点的集合
      */
-    private List<MenuNode> children;
+    private List<MenuNode> children = new ArrayList<>(10);
 
     /**
      * 查询子节点时候的临时集合
@@ -71,6 +77,14 @@ public class MenuNode implements Comparable {
         super();
         this.id = id;
         this.parentId = parentId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getLevels() {
@@ -147,6 +161,31 @@ public class MenuNode implements Comparable {
 
     public void setIsmenu(Integer ismenu) {
         this.ismenu = ismenu;
+    }
+
+    public String getIsMenuName() {
+
+        return ismenu == 1 ?"是":"否";
+    }
+
+    public void setIsMenuName(String isMenuName) {
+        this.isMenuName = isMenuName;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getStatusName() {
+        return status == 1 ?"启用":"禁用";
+    }
+
+    public void setStatusName(String statusName) {
+       this.statusName = statusName;
     }
 
     @Override

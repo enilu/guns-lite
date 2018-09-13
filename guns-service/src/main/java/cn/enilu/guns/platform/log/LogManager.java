@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.core.log;
+package cn.enilu.guns.platform.log;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;

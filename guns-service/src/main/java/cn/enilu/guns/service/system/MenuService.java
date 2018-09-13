@@ -28,7 +28,19 @@ public interface MenuService {
      * @Date 2017/6/13 22:02
      */
     void delMenuContainSubMenus(Long menuId);
+
+    /**
+     * 根据角色列表查询菜单树
+     * @param roleList
+     * @return
+     */
     List<MenuNode> getMenusByRoleIds(List<Integer> roleList);
+    List<MenuNode> getMenusTreeByRoleIds(List<Integer> roleList);
+
+    /**
+     * 查询菜单树
+     */
+    List<MenuNode> getMenus();
 
     List<ZTreeNode> menuTreeList();
 

@@ -15,7 +15,7 @@
  */
 package cn.enilu.guns.admin.core.shiro;
 
-import cn.enilu.guns.admin.common.constant.Const;
+import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.ToolUtil;

@@ -3,6 +3,9 @@ package cn.enilu.guns.utils;
 
 import com.google.common.base.Strings;
 import org.apache.commons.io.IOUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +26,14 @@ public class MD5 {
 	 * 16进制字符集
 	 */
 	private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
+	/**
+	 * 循环次数
+	 */
+	public final static int hashIterations = 1024;
+	/**
+	 * 加盐参数
+	 */
+	public final static String hashAlgorithmName = "MD5";
 	/**
 	 * 指定算法为MD5的MessageDigest
 	 */
@@ -136,4 +146,17 @@ public class MD5 {
 		return HEX_DIGITS[(bt & 0xf0) >> 4] + "" + HEX_DIGITS[bt & 0xf];
 	}
 
+
+
+	/**
+	 * shiro密码加密工具类
+	 *
+	 * @param credentials 密码
+	 * @param saltSource 密码盐
+	 * @return
+	 */
+	public static String md5(String credentials, String saltSource) {
+		ByteSource salt = new Md5Hash(saltSource);
+		return new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations).toString();
+	}
 }

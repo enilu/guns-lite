@@ -8,7 +8,6 @@ export function getList(params) {
   })
 }
 
-
 export function saveUser(params) {
   return request({
     url: '/user',

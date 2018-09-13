@@ -1,10 +1,9 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getList() {
   return request({
     url: '/menu/list',
-    method: 'get',
-    params
+    method: 'get'
   })
 }
 
@@ -12,7 +11,7 @@ export function save(params) {
   return request({
     url: '/menu',
     method: 'post',
-    params
+    params:params
   })
 }
 
@@ -20,8 +19,8 @@ export function delMenu(id) {
   return request({
     url: '/menu',
     method: 'delete',
-    data: {
-      id
+    params: {
+      id:id
     }
   })
 }

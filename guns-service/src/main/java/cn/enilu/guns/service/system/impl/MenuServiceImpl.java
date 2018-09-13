@@ -1,8 +1,8 @@
 package cn.enilu.guns.service.system.impl;
 
+import cn.enilu.guns.bean.entity.system.Menu;
 import cn.enilu.guns.bean.vo.node.MenuNode;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
-import cn.enilu.guns.bean.entity.system.Menu;
 import cn.enilu.guns.dao.system.MenuRepository;
 import cn.enilu.guns.service.system.MenuService;
 import org.slf4j.Logger;
@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created  on 2018/3/23 0023.
@@ -49,6 +48,72 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuNode> getMenusByRoleIds(List<Integer> roleList) {
         List menus = menuRepository.getMenusByRoleIds(roleList);
+       return transferMenuNode(menus);
+
+    }
+
+    @Override
+    public List<MenuNode> getMenusTreeByRoleIds(List<Integer> roleList) {
+        List menus = menuRepository.getMenusByRoleIds(roleList);
+        List<MenuNode> result =  generateTree(transferMenuNode(menus));
+        for(MenuNode menuNode:result){
+            if(!menuNode.getChildren().isEmpty()){
+                sortTree(menuNode.getChildren());
+                for(MenuNode menuNode1: menuNode.getChildren()){
+                    if(!menuNode1.getChildren().isEmpty()) {
+                        sortTree(menuNode1.getChildren());
+                    }
+                }
+            }
+        }
+        sortTree(result);
+        return result;
+    }
+
+    @Override
+    public List<MenuNode> getMenus() {
+        List<MenuNode> list =  transferMenuNode(menuRepository.getMenus());
+        List<MenuNode> result =  generateTree(list);
+
+
+        for(MenuNode menuNode:result){
+            if(!menuNode.getChildren().isEmpty()){
+                sortTree(menuNode.getChildren());
+                for(MenuNode menuNode1: menuNode.getChildren()){
+                    if(!menuNode1.getChildren().isEmpty()) {
+                        sortTree(menuNode1.getChildren());
+                    }
+                }
+            }
+        }
+        sortTree(result);
+        return result;
+    }
+    private void sortTree(List<MenuNode> list){
+        Collections.sort(list, new Comparator<MenuNode>() {
+            @Override
+            public int compare(MenuNode o1, MenuNode o2) {
+                return o1.getNum()-o2.getNum();
+            }
+        });
+    }
+    private List<MenuNode> generateTree(List<MenuNode> list){
+        List<MenuNode> result = new ArrayList<>(20);
+        Map<Long,MenuNode> map = cn.enilu.guns.utils.Lists.toMap(list,"id");
+        for(Map.Entry<Long,MenuNode> entry:map.entrySet()){
+            MenuNode menuNode = entry.getValue();
+
+            if(menuNode.getParentId().intValue()!=0){
+                MenuNode parentNode = map.get(menuNode.getParentId());
+                parentNode.getChildren().add(menuNode);
+            }else{
+                result.add(menuNode);
+            }
+        }
+        return result;
+
+    }
+    private List<MenuNode> transferMenuNode(List menus){
         List<MenuNode> menuNodes = new ArrayList<>();
         try {
             for(int i=0;i<menus.size();i++){
@@ -62,6 +127,8 @@ public class MenuServiceImpl implements MenuService {
                 menuNode.setLevels((Integer) source[5]);
                 menuNode.setIsmenu((Integer) source[6]);
                 menuNode.setNum((Integer) source[7]);
+                menuNode.setCode(String.valueOf(source[8]));
+                menuNode.setStatus((Integer)source[9]);
                 menuNodes.add(menuNode);
 
             }
@@ -69,9 +136,7 @@ public class MenuServiceImpl implements MenuService {
             logger.error(e.getMessage(),e);
         }
         return menuNodes;
-
     }
-
     @Override
     public List<ZTreeNode> menuTreeList() {
         List list = menuRepository.menuTreeList();

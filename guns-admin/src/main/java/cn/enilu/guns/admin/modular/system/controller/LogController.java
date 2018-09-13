@@ -2,7 +2,7 @@ package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.common.annotion.BussinessLog;
 import cn.enilu.guns.admin.common.annotion.Permission;
-import cn.enilu.guns.admin.common.constant.Const;
+import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.admin.common.constant.factory.PageFactory;
 import cn.enilu.guns.admin.common.constant.state.BizLogType;
 import cn.enilu.guns.admin.core.base.controller.BaseController;

@@ -1,22 +1,19 @@
-package cn.enilu.guns.admin.common.constant.state;
+package cn.enilu.guns.bean.constant.state;
 
 /**
- * 日志类型
+ * 业务是否成功的日志记录
  *
  * @author fengshuonan
  * @Date 2017年1月22日 下午12:14:59
  */
-public enum LogType {
+public enum LogSucceed {
 
-    LOGIN("登录日志"),
-    LOGIN_FAIL("登录失败日志"),
-    EXIT("退出日志"),
-    EXCEPTION("异常日志"),
-    BUSSINESS("业务日志");
+    SUCCESS("成功"),
+    FAIL("失败");
 
     String message;
 
-    LogType(String message) {
+    LogSucceed(String message) {
         this.message = message;
     }
 

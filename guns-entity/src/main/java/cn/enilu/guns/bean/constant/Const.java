@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.common.constant;
+package cn.enilu.guns.bean.constant;
 
 /**
  * 系统常量

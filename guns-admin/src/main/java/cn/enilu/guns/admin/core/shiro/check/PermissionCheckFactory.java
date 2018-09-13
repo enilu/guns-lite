@@ -18,7 +18,7 @@ package cn.enilu.guns.admin.core.shiro.check;
 import cn.enilu.guns.admin.core.listener.ConfigListener;
 import cn.enilu.guns.admin.core.shiro.ShiroKit;
 import cn.enilu.guns.admin.core.support.CollectionKit;
-import cn.enilu.guns.admin.core.support.HttpKit;
+import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.bean.vo.SpringContextHolder;
 import cn.enilu.guns.bean.core.ShiroUser;
 import org.springframework.context.annotation.DependsOn;

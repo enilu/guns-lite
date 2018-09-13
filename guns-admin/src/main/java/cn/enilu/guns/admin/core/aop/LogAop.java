@@ -2,10 +2,10 @@ package cn.enilu.guns.admin.core.aop;
 
 import cn.enilu.guns.admin.common.annotion.BussinessLog;
 import cn.enilu.guns.admin.common.constant.dictmap.base.AbstractDictMap;
-import cn.enilu.guns.admin.core.log.LogManager;
-import cn.enilu.guns.admin.core.log.factory.LogTaskFactory;
+import cn.enilu.guns.platform.log.LogManager;
+import cn.enilu.guns.platform.log.LogTaskFactory;
 import cn.enilu.guns.admin.core.shiro.ShiroKit;
-import cn.enilu.guns.admin.core.support.HttpKit;
+import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.admin.core.util.Contrast;
 import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.service.system.LogObjectHolder;

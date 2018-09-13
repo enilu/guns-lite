@@ -2,13 +2,12 @@ package cn.enilu.guns.bean.vo.front;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
 public class Ret<T> {
 
-    private String code;
+    private Integer code;
     private String msg;
     private T data;
     private boolean success;
@@ -17,7 +16,7 @@ public class Ret<T> {
 
     }
 
-    public Ret(String code, String msg, T data) {
+    public Ret(Integer code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;

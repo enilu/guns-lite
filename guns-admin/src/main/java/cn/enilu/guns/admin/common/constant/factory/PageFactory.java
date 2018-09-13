@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.common.constant.factory;
 
 import cn.enilu.guns.admin.common.constant.state.Order;
-import cn.enilu.guns.admin.core.support.HttpKit;
+import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.utils.factory.Page;
 import cn.enilu.guns.utils.ToolUtil;
 

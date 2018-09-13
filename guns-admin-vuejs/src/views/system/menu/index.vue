@@ -4,21 +4,15 @@
       <el-button type="success" icon="el-icon-plus"  @click.native="add">添加</el-button>
     </div>
 
-
     <tree-table
     :data="data"
     :expandAll="expandAll"
     highlight-current-row
     border>
-    <el-table-column label="操作" >
-      <template slot-scope="scope">
-        <el-button type="text" @click="remove(scope.row)">删除</el-button>
-      </template>
-    </el-table-column>
+
       <el-table-column label="名称" >
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{scope.row.name}}</el-button>
-
         </template>
       </el-table-column>
       <el-table-column label="编码" >
@@ -49,6 +43,11 @@
       <el-table-column label="顺序">
         <template slot-scope="scope">
           <span >{{scope.row.num}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" >
+        <template slot-scope="scope">
+          <el-button type="text" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
 
@@ -96,15 +95,22 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="父级菜单">
-                <el-select v-model="form.pcode" placeholder="请选择父菜单">
-                  <el-option
-                    v-for="item in data"
-                    :key="item.code"
-                    :label="item.name"
-                    :value="item.code">
-                  </el-option>
-                </el-select>
+              <el-form-item label="父菜单" >
+                <el-input
+                  placeholder="请选择父菜单"
+                  v-model="form.pname"
+                  readonly="readonly"
+                  @click.native="showTree = !showTree">
+                </el-input>
+                <el-tree v-if="showTree"
+                         empty-text="暂无数据"
+                         :expand-on-click-node="false"
+                         :data="data"
+                         :props="defaultProps"
+                         @node-click="handleNodeClick"
+                         class="tree">
+                </el-tree>
+
               </el-form-item>
             </el-col>
 
@@ -132,13 +138,20 @@ export default {
   components: { treeTable },
   data() {
     return {
+      showTree:false,
+      defaultProps: {
+        id: "code",
+        label: 'name',
+        children: 'children'
+      },
+
       listLoading: true,
       expandAll: false,
       formTitle: '',
       formVisible: false,
       isAdd: false,
-      menuList: [],
       form: {
+        pname:'',
         name: '',
         code: '',
         url: '',
@@ -170,13 +183,27 @@ export default {
     this.init()
   },
   methods: {
+    // 2.方法
+    // 点击巡检对象的选择器的树节点
+    handleNodeClick(data, node) {
+      console.log(data)
+      this.form.pcode = data.code
+      this.form.pname = data.name
+      // 关闭选择器
+      this.showTree = false;
+    },
+    // 加载树结点
+    loadNode(node, resolve) {
+      console.log(node)
+    },
+
     init() {
       this.fetchData()
     },
     fetchData() {
       this.listLoading = true
-      getList(this.listQuery).then(response => {
-        this.data = response.data.items
+      getList().then(response => {
+        this.data = response.data
         this.listLoading = false
       })
     },
@@ -268,6 +295,15 @@ export default {
 <style scoped>
 .block {
   padding: 10px 0px;
+}
+.tree {
+  position: absolute;
+  overflow: auto;
+  z-index: 1000;
+  width: 100%;
+  height: auto;
+  border: 1px solid #ebeef5;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 }
 
 </style>

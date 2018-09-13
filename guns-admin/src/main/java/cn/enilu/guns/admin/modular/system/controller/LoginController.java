@@ -2,10 +2,10 @@ package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.common.exception.InvalidKaptchaException;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
-import cn.enilu.guns.admin.core.log.LogManager;
-import cn.enilu.guns.admin.core.log.factory.LogTaskFactory;
+import cn.enilu.guns.platform.log.LogManager;
+import cn.enilu.guns.platform.log.LogTaskFactory;
 import cn.enilu.guns.admin.core.shiro.ShiroKit;
-import cn.enilu.guns.admin.core.support.HttpKit;
+import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.admin.core.util.ApiMenuFilter;
 import cn.enilu.guns.admin.core.util.KaptchaUtil;
 import cn.enilu.guns.bean.vo.node.MenuNode;

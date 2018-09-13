@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.core.intercept;
 
 import cn.enilu.guns.admin.core.shiro.ShiroKit;
-import cn.enilu.guns.admin.core.support.HttpKit;
+import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import org.apache.shiro.session.InvalidSessionException;
 import org.aspectj.lang.ProceedingJoinPoint;

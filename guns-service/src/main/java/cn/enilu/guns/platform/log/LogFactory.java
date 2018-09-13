@@ -1,7 +1,7 @@
-package cn.enilu.guns.admin.core.log.factory;
+package cn.enilu.guns.platform.log;
 
-import cn.enilu.guns.admin.common.constant.state.LogSucceed;
-import cn.enilu.guns.admin.common.constant.state.LogType;
+import cn.enilu.guns.bean.constant.state.LogSucceed;
+import cn.enilu.guns.bean.constant.state.LogType;
 import cn.enilu.guns.bean.entity.system.LoginLog;
 import cn.enilu.guns.bean.entity.system.OperationLog;
 

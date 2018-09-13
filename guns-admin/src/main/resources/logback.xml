@@ -2,7 +2,7 @@
 
 <configuration scan="true" scanPeriod="10 seconds" debug="false">
 	<!-- 应用名称 -->
-	<contextName>edu-finance-admin</contextName>
+	<contextName>admin</contextName>
 
 	<!-- 向控制台输出日志 -->
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">

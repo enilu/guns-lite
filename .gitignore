@@ -13,3 +13,4 @@ guns-admin-vuejs/node_modules/*
 .settings/*
 .vscode/*
 .idea/*
+guns-admin-vuejs/.idea/*

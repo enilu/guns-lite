@@ -2,7 +2,7 @@ package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.common.annotion.BussinessLog;
 import cn.enilu.guns.admin.common.annotion.Permission;
-import cn.enilu.guns.admin.common.constant.Const;
+import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.admin.common.constant.dictmap.UserDict;
 import cn.enilu.guns.admin.common.exception.BizExceptionEnum;
 import cn.enilu.guns.admin.config.properties.GunsProperties;
@@ -21,6 +21,7 @@ import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
+import cn.enilu.guns.utils.MD5;
 import cn.enilu.guns.utils.ToolUtil;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,9 +147,9 @@ public class UserMgrController extends BaseController {
         }
         Long userId = ShiroKit.getUser().getId();
         User user = userRepository.findOne(userId.intValue());
-        String oldMd5 = ShiroKit.md5(oldPwd, user.getSalt());
+        String oldMd5 = MD5.md5(oldPwd, user.getSalt());
         if (user.getPassword().equals(oldMd5)) {
-            String newMd5 = ShiroKit.md5(newPwd, user.getSalt());
+            String newMd5 = MD5.md5(newPwd, user.getSalt());
             user.setPassword(newMd5);
           userRepository.save(user);
             return SUCCESS_TIP;
@@ -207,8 +208,8 @@ public class UserMgrController extends BaseController {
         }
 
         // 完善账号信息
-        user.setSalt(ShiroKit.getRandomSalt(5));
-        user.setPassword(ShiroKit.md5(user.getPassword(), user.getSalt()));
+        user.setSalt(ToolUtil.getRandomString(5));
+        user.setPassword(MD5.md5(user.getPassword(), user.getSalt()));
         user.setStatus(ManagerStatus.OK.getCode());
         user.setCreatetime(new Date());
 
@@ -293,8 +294,8 @@ public class UserMgrController extends BaseController {
         }
         assertAuth(userId);
         User user = this.userRepository.findOne(userId);
-        user.setSalt(ShiroKit.getRandomSalt(5));
-        user.setPassword(ShiroKit.md5(Const.DEFAULT_PWD, user.getSalt()));
+        user.setSalt(ToolUtil.getRandomString(5));
+        user.setPassword(MD5.md5(Const.DEFAULT_PWD, user.getSalt()));
         this.userRepository.save(user);
         return SUCCESS_TIP;
     }

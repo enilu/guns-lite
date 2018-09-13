@@ -2,7 +2,7 @@ package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.common.annotion.BussinessLog;
 import cn.enilu.guns.admin.common.annotion.Permission;
-import cn.enilu.guns.admin.common.constant.Const;
+import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.admin.common.constant.dictmap.RoleDict;
 import cn.enilu.guns.admin.common.exception.BizExceptionEnum;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
