@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.core.exception;
+package cn.enilu.guns.bean.exception;
 
 /**
  * Guns异常枚举

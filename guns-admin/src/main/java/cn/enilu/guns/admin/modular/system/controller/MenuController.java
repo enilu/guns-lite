@@ -4,10 +4,10 @@ import cn.enilu.guns.admin.common.annotion.BussinessLog;
 import cn.enilu.guns.admin.common.annotion.Permission;
 import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.admin.common.constant.dictmap.MenuDict;
-import cn.enilu.guns.admin.common.exception.BizExceptionEnum;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.admin.core.base.tips.Tip;
-import cn.enilu.guns.admin.core.exception.GunsException;
+import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.admin.core.support.BeanKit;
 import cn.enilu.guns.admin.core.util.BeanUtil;
 import cn.enilu.guns.admin.modular.system.warpper.MenuWarpper;
@@ -111,7 +111,7 @@ public class MenuController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         //设置父级菜单编号
-        menuSetPcode(menu);
+        menuService.menuSetPcode(menu);
         menu.setStatus(MenuStatus.ENABLE.getCode());
         this.menuRepository.save(menu);
         return SUCCESS_TIP;
@@ -160,7 +160,7 @@ public class MenuController extends BaseController {
         }
 
         //设置父级菜单编号
-        menuSetPcode(menu);
+        menuService.menuSetPcode(menu);
 
         menu.setStatus(MenuStatus.ENABLE.getCode());
         this.menuRepository.save(menu);
@@ -237,28 +237,5 @@ public class MenuController extends BaseController {
         }
     }
 
-    /**
-     * 根据请求的父级菜单编号设置pcode和层级
-     */
-    private void menuSetPcode(@Valid Menu menu) {
-        if (ToolUtil.isEmpty(menu.getPcode()) || menu.getPcode().equals("0")) {
-            menu.setPcode("0");
-            menu.setPcodes("[0],");
-            menu.setLevels(1);
-        } else {
-
-            Menu pMenu = menuRepository.findByCode(menu.getPcode());
-            Integer pLevels = pMenu.getLevels();
-            menu.setPcode(pMenu.getCode());
-
-            //如果编号和父编号一致会导致无限递归
-            if (menu.getCode().equals(menu.getPcode())) {
-                throw new GunsException(BizExceptionEnum.MENU_PCODE_COINCIDENCE);
-            }
-
-            menu.setLevels(pLevels + 1);
-            menu.setPcodes(pMenu.getPcodes() + "[" + pMenu.getCode() + "],");
-        }
-    }
 
 }

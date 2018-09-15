@@ -79,6 +79,14 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
+              <el-form-item label="是否启用">
+                <el-radio-group v-model="form.status">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
               <el-form-item label="菜单编号" prop="code">
                 <el-input v-model="form.code"></el-input>
               </el-form-item>
@@ -162,7 +170,7 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入菜单名称', trigger: 'blur' },
-          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
         ],
         code: [
           { required: true, message: '请输入编码', trigger: 'blur' },
@@ -223,39 +231,42 @@ export default {
       this.isAdd = true
     },
     save() {
-
-        var self = this
-        this.$refs['form'].validate((valid) => {
-          if (valid) {
-              save(this.form).then(response => {
-                console.log(response)
-                  this.$message({
-                    message: '提交成功',
-                    type: 'success'
-                  })
-                  this.fetchData()
-                  this.formVisible = false
-
-              })
-
-
-
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
+      var self = this
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          console.log('form',self.form)
+          let menuData  = self.form
+          menuData.parent = null
+          save(menuData).then(response => {
+            console.log(response)
+            this.$message({
+              message: '提交成功',
+              type: 'success'
+            })
+            self.fetchData()
+            self.formVisible = false
+          })
+        } else {
+          return false
+        }
+      })
     },
     edit(row) {
       console.log(row)
       this.form = row
-      if(row.isMenuName == '是'){
+      if (row.isMenuName == '是') {
         this.form.ismenu = 1
-      }else{
+      } else {
         this.form.ismenu = 0
+      }
+      if (row.statusName == '启用') {
+        this.form.status = 1
+      }else{
+        this.form.status = 0
       }
       if(row.parent){
         this.form.pcode = row.parent.code
+        this.form.pname = row.parent.name
       }
       console.log(this.form.pcode)
       this.formTitle = '编辑菜单'
@@ -263,26 +274,20 @@ export default {
       this.isAdd = false
     },
     remove(row) {
-        console.log(row)
-
-
-       this.$confirm('确定删除该记录?', '提示', {
-         confirmButtonText: '确定',
-         cancelButtonText: '取消',
-         type: 'warning'
-       }).then(() => {
-          console.log(row.id)
-         delMenu(row.id).then(response => {
-           this.$message({
-             message: response.data.msg,
-             type: 'success'
-           });
-           this.fetchData()
-         })
-
-       }).catch(() => {
-
-       });
+      console.log(row)
+      this.$confirm('确定删除该记录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        delMenu(row.id).then(response => {
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+          this.fetchData()
+        })
+      })
 
 
     }

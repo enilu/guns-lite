@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.core.exception;
+package cn.enilu.guns.bean.exception;
 
 /**
  * 抽象接口

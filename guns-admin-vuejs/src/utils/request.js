@@ -6,20 +6,20 @@ import { getToken } from '@/utils/auth'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
-  timeout: 5000  // 请求超时时间,
+  timeout: 5000
 
 })
-
 
 
 // request拦截器
 service.interceptors.request.use(
   config => {
+    var token = getToken()
+    if (token) {
+      config.headers['Authorization'] = token // 让每个请求携带自定义token 请根据实际情况自行修改
+    }
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-    var token  = getToken()
-    console.log('token:'+token)
-    config.headers['Authorization'] = token // 让每个请求携带自定义token 请根据实际情况自行修改
-    console.log(config)
+    console.log('config', config)
     return config
   },
   error => {
@@ -65,12 +65,21 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    //debug
+    console.log('err ' + JSON.stringify(error))
+    if(error.response && error.response.data.message) {
+      Message({
+        message: error.response.data.message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+    }else{
+      Message({
+        message: error.message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+    }
     return Promise.reject(error)
   }
 )

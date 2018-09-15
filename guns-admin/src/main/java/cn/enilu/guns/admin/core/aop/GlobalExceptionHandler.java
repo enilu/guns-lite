@@ -1,12 +1,12 @@
 package cn.enilu.guns.admin.core.aop;
 
-import cn.enilu.guns.admin.common.exception.BizExceptionEnum;
-import cn.enilu.guns.admin.core.exception.GunsException;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.platform.log.LogManager;
 import cn.enilu.guns.platform.log.LogTaskFactory;
 import cn.enilu.guns.admin.core.shiro.ShiroKit;
 import cn.enilu.guns.utils.HttpKit;
-import cn.enilu.guns.admin.common.exception.InvalidKaptchaException;
+import cn.enilu.guns.bean.exception.InvalidKaptchaException;
 import cn.enilu.guns.admin.core.base.tips.ErrorTip;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.CredentialsException;

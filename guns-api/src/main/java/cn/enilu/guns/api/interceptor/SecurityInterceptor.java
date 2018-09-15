@@ -32,12 +32,12 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
         //如果用户是非登录用户，则拒绝用户请求
         String method = request.getMethod();
-        logger.info("method:{}",method);
+        logger.debug("method:{}",method);
         if("OPTIONS".equals(method)){
             return true;
         }
         String token = request.getHeader("Authorization");
-        logger.info("token:{}",token);
+        logger.debug("token:{}",token);
         if (token == null) {
             this.printResponse(httpServletResponse);
             return false;

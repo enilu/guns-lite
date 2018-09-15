@@ -11,7 +11,7 @@ export function save(params) {
   return request({
     url: '/menu',
     method: 'post',
-    params:params
+    params: params
   })
 }
 
@@ -20,7 +20,7 @@ export function delMenu(id) {
     url: '/menu',
     method: 'delete',
     params: {
-      id:id
+      id: id
     }
   })
 }

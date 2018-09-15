@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.common.exception;
+package cn.enilu.guns.bean.exception;
 
 /**
  * 验证码错误异常

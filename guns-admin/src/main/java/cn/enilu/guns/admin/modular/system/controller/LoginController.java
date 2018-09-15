@@ -1,6 +1,6 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
-import cn.enilu.guns.admin.common.exception.InvalidKaptchaException;
+import cn.enilu.guns.bean.exception.InvalidKaptchaException;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.platform.log.LogManager;
 import cn.enilu.guns.platform.log.LogTaskFactory;

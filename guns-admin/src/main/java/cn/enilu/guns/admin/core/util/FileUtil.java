@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.core.util;
 
-import cn.enilu.guns.admin.core.exception.GunsException;
-import cn.enilu.guns.admin.core.exception.GunsExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
+import cn.enilu.guns.bean.exception.GunsExceptionEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

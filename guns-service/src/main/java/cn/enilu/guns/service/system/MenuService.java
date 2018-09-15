@@ -1,6 +1,7 @@
 package cn.enilu.guns.service.system;
 
 
+import cn.enilu.guns.bean.entity.system.Menu;
 import cn.enilu.guns.bean.vo.node.MenuNode;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 
@@ -45,4 +46,10 @@ public interface MenuService {
     List<ZTreeNode> menuTreeList();
 
     List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds);
+
+    /**
+     * 设置menu的pcodes
+     * @param menu
+     */
+    void menuSetPcode( Menu menu);
 }

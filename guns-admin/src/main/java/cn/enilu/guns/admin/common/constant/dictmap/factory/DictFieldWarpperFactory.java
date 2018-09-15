@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.common.constant.dictmap.factory;
 
-import cn.enilu.guns.admin.common.exception.BizExceptionEnum;
-import cn.enilu.guns.admin.core.exception.GunsException;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.service.system.IConstantFactory;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 

@@ -1,8 +1,8 @@
 package cn.enilu.guns.admin.core.util;
 
-import cn.enilu.guns.admin.core.exception.GunsException;
+import cn.enilu.guns.bean.exception.GunsException;
 import com.alibaba.fastjson.JSON;
-import cn.enilu.guns.admin.core.exception.GunsExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsExceptionEnum;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

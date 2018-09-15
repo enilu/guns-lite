@@ -1,6 +1,6 @@
-package cn.enilu.guns.admin.common.exception;
+package cn.enilu.guns.bean.enumeration;
 
-import cn.enilu.guns.admin.core.exception.ServiceExceptionEnum;
+import cn.enilu.guns.bean.exception.ServiceExceptionEnum;
 
 /**
  * @Description 所有业务异常的枚举

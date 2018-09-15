@@ -1,10 +1,13 @@
 package cn.enilu.guns.service.system.impl;
 
 import cn.enilu.guns.bean.entity.system.Menu;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.vo.node.MenuNode;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.MenuRepository;
 import cn.enilu.guns.service.system.MenuService;
+import cn.enilu.guns.utils.ToolUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void delMenu(Long menuId) {
-
         //删除菜单
         this.menuRepository.delete(menuId);
         //删除关联的relation
@@ -40,7 +42,6 @@ public class MenuServiceImpl implements MenuService {
         //删除所有子菜单
         List<Menu> menus = menuRepository.findByPcodesLike("%[" + menu.getCode() + "]%");
         menuRepository.delete(menus);
-
         //删除当前菜单
         delMenu(menuId);
 
@@ -168,6 +169,28 @@ public class MenuServiceImpl implements MenuService {
             nodes.add(node);
         }
         return nodes;
+    }
+
+    @Override
+    public void menuSetPcode(Menu menu) {
+        if (ToolUtil.isEmpty(menu.getPcode()) || menu.getPcode().equals("0")) {
+            menu.setPcode("0");
+            menu.setPcodes("[0],");
+            menu.setLevels(1);
+        } else {
+
+            Menu pMenu = menuRepository.findByCode(menu.getPcode());
+            Integer pLevels = pMenu.getLevels();
+            menu.setPcode(pMenu.getCode());
+
+            //如果编号和父编号一致会导致无限递归
+            if (menu.getCode().equals(menu.getPcode())) {
+                throw new GunsException(BizExceptionEnum.MENU_PCODE_COINCIDENCE);
+            }
+
+            menu.setLevels(pLevels + 1);
+            menu.setPcodes(pMenu.getPcodes() + "[" + pMenu.getCode() + "],");
+        }
     }
 
 }
