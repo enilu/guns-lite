@@ -1,12 +1,12 @@
 package cn.enilu.guns.admin.core.aop;
 
 import cn.enilu.guns.admin.common.annotion.BussinessLog;
-import cn.enilu.guns.admin.common.constant.dictmap.base.AbstractDictMap;
+import cn.enilu.guns.bean.dictmap.base.AbstractDictMap;
 import cn.enilu.guns.platform.log.LogManager;
 import cn.enilu.guns.platform.log.LogTaskFactory;
 import cn.enilu.guns.admin.core.shiro.ShiroKit;
 import cn.enilu.guns.utils.HttpKit;
-import cn.enilu.guns.admin.core.util.Contrast;
+import cn.enilu.guns.factory.Contrast;
 import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.core.base.warpper;
+package cn.enilu.guns.warpper;
 
 import java.util.List;
 import java.util.Map;

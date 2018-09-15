@@ -9,21 +9,10 @@
     :expandAll="expandAll"
     highlight-current-row
     border>
-
-    <el-table-column label="操作" >
-      <template slot-scope="scope">
-        <el-button type="text" @click="remove(scope.row)">删除</el-button>
-      </template>
-    </el-table-column>
       <el-table-column label="简称" >
         <template slot-scope="scope">
           <el-button type="text" @click="edit(scope.row)">{{scope.row.simplename}}</el-button>
 
-        </template>
-      </el-table-column>
-      <el-table-column label="ID" >
-        <template slot-scope="scope">
-          <span >{{scope.row.id}}</span>
         </template>
       </el-table-column>
       <el-table-column label="全称" >
@@ -34,6 +23,11 @@
       <el-table-column label="顺序" >
         <template slot-scope="scope">
           <span >{{scope.row.num}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" >
+        <template slot-scope="scope">
+          <el-button type="text" @click="remove(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </tree-table>
@@ -61,22 +55,29 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="父部门">
-              <el-select v-model="form.pid" placeholder="请选择父部门">
-                <el-option
-                  v-for="item in data"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
+            <el-form-item label="父部门" >
+              <el-input
+                placeholder="请选择父部门"
+                v-model="form.pname"
+                readonly="readonly"
+                @click.native="showTree = !showTree">
+              </el-input>
+              <el-tree v-if="showTree"
+                       empty-text="暂无数据"
+                       :expand-on-click-node="false"
+                       :data="data"
+                       :props="defaultProps"
+                       @node-click="handleNodeClick"
+                       class="input-tree">
+              </el-tree>
+
             </el-form-item>
           </el-col>
 
 
         </el-row>
         <el-form-item>
-          <el-button type="primary" @click="saveUser">提交</el-button>
+          <el-button type="primary" @click="save">提交</el-button>
           <el-button @click.native="formVisible = false">取消</el-button>
         </el-form-item>
       </el-form>
@@ -90,7 +91,7 @@
   Created: 2018/1/19-14:54
 */
 import treeTable from '@/components/TreeTable'
-import { getDeptList } from '@/api/system/dept'
+import { list,save,del } from '@/api/system/dept'
 export default {
   name: 'customTreeTableDemo',
   components: { treeTable },
@@ -101,6 +102,13 @@ export default {
       formVisible: false,
       formTitle: '',
       isAdd: false,
+
+      showTree: false,
+      defaultProps: {
+        id: "id",
+        label: 'simplename',
+        children: 'children'
+      },
       form: {
         id:'',
         simplename: '',
@@ -131,28 +139,89 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getDeptList(this.listQuery).then(response => {
-        this.data = response.data.items
+      list().then(response => {
+        this.data = response.data
         this.listLoading = false
       })
     },
-    message(row) {
-      console.log(row)
+    handleNodeClick(data, node) {
+      console.log(data)
+      this.form.pid = data.id
+      this.form.pname = data.simplename
+      this.showTree = false;
+    },
+    checkSel() {
+      if (this.selRow && this.selRow.id) {
+        return true
+      }
+      this.$message({
+        message: '请选中操作项',
+        type: 'warning'
+      });
+      return false
     },
     add() {
       this.formTitle = '添加菜单'
       this.formVisible = true
       this.isAdd = true
     },
+    save() {
+      var self = this
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          console.log('form', self.form)
+          let menuData = self.form
+          menuData.parent = null
+          save(menuData).then(response => {
+            console.log(response)
+            this.$message({
+              message: '提交成功',
+              type: 'success'
+            })
+            self.fetchData()
+            self.formVisible = false
+          })
+        } else {
+          return false
+        }
+      })
+    },
     edit(row) {
+      console.log(row)
       this.form = row
+
+      if (row.parent) {
+        this.form.pid = row.parent.id
+        this.form.pname = row.parent.simplename
+      }
       this.formTitle = '编辑部门'
       this.formVisible = true
       this.isAdd = false
     },
     remove(row) {
-       console.log(row)
+      console.log(row)
+      this.$confirm('确定删除该记录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        del(row.id).then(response => {
+          this.$message({
+            message: '删除成功',
+            type: 'success'
+          })
+          this.fetchData()
+        })
+      })
+
     }
   }
 }
 </script>
+
+<style scoped>
+  .block {
+    padding: 10px 0px;
+  }
+
+</style>

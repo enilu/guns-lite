@@ -1,6 +1,6 @@
-package cn.enilu.guns.admin.common.constant.dictmap;
+package cn.enilu.guns.bean.dictmap;
 
-import cn.enilu.guns.admin.common.constant.dictmap.base.AbstractDictMap;
+import cn.enilu.guns.bean.dictmap.base.AbstractDictMap;
 
 /**
  * 角色的字典

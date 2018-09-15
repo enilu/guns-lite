@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.core.util;
+package cn.enilu.guns.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

@@ -1,10 +1,13 @@
 package cn.enilu.guns.service.system.impl;
 
-import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.bean.entity.system.Dept;
+import cn.enilu.guns.bean.vo.node.DeptNode;
+import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.DeptRepository;
 import cn.enilu.guns.service.system.DeptService;
+import cn.enilu.guns.utils.ToolUtil;
 import com.google.common.base.Strings;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +44,7 @@ public class DeptServiceImpl  implements DeptService {
         return node;
     }
     @Override
-    public List<Dept> list(String condition) {
+    public List<Dept> query(String condition) {
         List<Dept> list = new ArrayList<>();
         if(Strings.isNullOrEmpty(condition)){
              list = (List<Dept>) deptRepository.findAll();
@@ -59,6 +62,53 @@ public class DeptServiceImpl  implements DeptService {
         List<Dept> subDepts = deptRepository.findByPidsLike("%[" + dept.getId() + "]%");
         deptRepository.delete(subDepts);
         deptRepository.delete(dept);
+    }
+
+    @Override
+    public List<DeptNode> queryAll() {
+        List<Dept> list = (List<Dept>) deptRepository.findAll();
+
+        return generateTree(list);
+    }
+
+    @Override
+    public void deptSetPids(Dept dept) {
+        if (ToolUtil.isEmpty(dept.getPid()) || dept.getPid().equals(0)) {
+            dept.setPid(0);
+            dept.setPids("[0],");
+        } else {
+            int pid = dept.getPid();
+            Dept temp = deptRepository.findOne(pid);
+            String pids = temp.getPids();
+            dept.setPid(pid);
+            dept.setPids(pids + "[" + pid + "],");
+        }
+    }
+
+    private List<DeptNode> generateTree(List<Dept> list){
+
+        List<DeptNode> nodes = new ArrayList<>(20);
+        for(Dept dept:list){
+            DeptNode deptNode = new DeptNode();
+            BeanUtils.copyProperties(dept,deptNode);
+            nodes.add(deptNode);
+        }
+        for(DeptNode deptNode:nodes){
+            for(DeptNode child:nodes){
+                if(child.getPid().intValue() == deptNode.getId().intValue()){
+                    deptNode.getChildren().add(child);
+                }
+            }
+        }
+        List<DeptNode> result = new ArrayList<>(20);
+        for(DeptNode node:nodes){
+            if(node.getPid().intValue() == 0){
+                result.add(node);
+            }
+        }
+        return result;
+
+
     }
 
 

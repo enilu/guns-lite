@@ -1,7 +1,6 @@
-package cn.enilu.guns.admin.core.util;
+package cn.enilu.guns.factory;
 
-import cn.enilu.guns.admin.common.constant.dictmap.base.AbstractDictMap;
-import cn.enilu.guns.admin.common.constant.dictmap.factory.DictFieldWarpperFactory;
+import cn.enilu.guns.bean.dictmap.base.AbstractDictMap;
 import cn.enilu.guns.utils.DateUtil;
 import cn.enilu.guns.utils.StrKit;
 

@@ -1,4 +1,6 @@
-package cn.enilu.guns.admin.common.constant.dictmap.base;
+package cn.enilu.guns.bean.dictmap;
+
+import cn.enilu.guns.bean.dictmap.base.AbstractDictMap;
 
 /**
  * 系统相关的字典

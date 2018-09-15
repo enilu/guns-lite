@@ -76,3 +76,13 @@ a:hover {
 .app-container {
   padding: 20px;
 }
+
+.input-tree {
+  position: absolute;
+  overflow: auto;
+  z-index: 1000;
+  width: 100%;
+  height: auto;
+  border: 1px solid #ebeef5;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+}

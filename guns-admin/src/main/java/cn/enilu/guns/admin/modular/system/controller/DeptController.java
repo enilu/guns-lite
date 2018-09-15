@@ -2,12 +2,12 @@ package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.common.annotion.BussinessLog;
 import cn.enilu.guns.admin.common.annotion.Permission;
-import cn.enilu.guns.admin.common.constant.dictmap.DeptDict;
+import cn.enilu.guns.bean.dictmap.DeptDict;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.bean.exception.GunsException;
-import cn.enilu.guns.admin.core.util.BeanUtil;
-import cn.enilu.guns.admin.modular.system.warpper.DeptWarpper;
+import cn.enilu.guns.utils.BeanUtil;
+import cn.enilu.guns.warpper.DeptWarpper;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.bean.entity.system.Dept;
 import cn.enilu.guns.dao.system.DeptRepository;
@@ -96,7 +96,7 @@ public class DeptController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         //完善pids,根据pid拿到pid的pids
-        deptSetPids(dept);
+        deptService.deptSetPids(dept);
         return this.deptRepository.save(dept);
     }
 
@@ -107,7 +107,7 @@ public class DeptController extends BaseController {
     @Permission
     @ResponseBody
     public Object list(String condition) {
-        List<Dept> list = this.deptService.list(condition);
+        List<Dept> list = this.deptService.query(condition);
         return super.warpObject(new DeptWarpper(BeanUtil.objectsToMaps(list)));
     }
 
@@ -132,7 +132,7 @@ public class DeptController extends BaseController {
         if (ToolUtil.isEmpty(dept) || dept.getId() == null) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        deptSetPids(dept);
+        deptService.deptSetPids(dept);
         deptRepository.save(dept);
         return SUCCESS_TIP;
     }
@@ -145,25 +145,10 @@ public class DeptController extends BaseController {
     @Permission
     @ResponseBody
     public Object delete(@RequestParam Integer deptId) {
-
         //缓存被删除的部门名称
         LogObjectHolder.me().set(ConstantFactory.me().getDeptName(deptId));
-
         deptService.deleteDept(deptId);
-
         return SUCCESS_TIP;
     }
 
-    private void deptSetPids(Dept dept) {
-        if (ToolUtil.isEmpty(dept.getPid()) || dept.getPid().equals(0)) {
-            dept.setPid(0);
-            dept.setPids("[0],");
-        } else {
-            int pid = dept.getPid();
-            Dept temp = deptRepository.findOne(pid);
-            String pids = temp.getPids();
-            dept.setPid(pid);
-            dept.setPids(pids + "[" + pid + "],");
-        }
-    }
 }

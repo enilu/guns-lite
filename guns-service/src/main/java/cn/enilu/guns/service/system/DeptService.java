@@ -1,5 +1,6 @@
 package cn.enilu.guns.service.system;
 
+import cn.enilu.guns.bean.vo.node.DeptNode;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.bean.entity.system.Dept;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public interface DeptService {
     List<ZTreeNode> tree();
 
-    List<Dept> list(String condition);
+    List<Dept> query(String condition);
     void deleteDept(Integer deptId);
+    List<DeptNode> queryAll();
+    void deptSetPids(Dept dept);
 }

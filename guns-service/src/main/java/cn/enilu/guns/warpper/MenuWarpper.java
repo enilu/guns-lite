@@ -1,7 +1,6 @@
-package cn.enilu.guns.admin.modular.system.warpper;
+package cn.enilu.guns.warpper;
 
-import cn.enilu.guns.admin.common.constant.state.IsMenu;
-import cn.enilu.guns.admin.core.base.warpper.BaseControllerWarpper;
+import cn.enilu.guns.bean.vo.node.IsMenu;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 
 import java.util.List;

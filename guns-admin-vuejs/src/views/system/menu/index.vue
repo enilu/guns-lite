@@ -116,7 +116,7 @@
                          :data="data"
                          :props="defaultProps"
                          @node-click="handleNodeClick"
-                         class="tree">
+                         class="input-tree">
                 </el-tree>
 
               </el-form-item>
@@ -191,20 +191,6 @@ export default {
     this.init()
   },
   methods: {
-    // 2.方法
-    // 点击巡检对象的选择器的树节点
-    handleNodeClick(data, node) {
-      console.log(data)
-      this.form.pcode = data.code
-      this.form.pname = data.name
-      // 关闭选择器
-      this.showTree = false;
-    },
-    // 加载树结点
-    loadNode(node, resolve) {
-      console.log(node)
-    },
-
     init() {
       this.fetchData()
     },
@@ -214,6 +200,12 @@ export default {
         this.data = response.data
         this.listLoading = false
       })
+    },
+    handleNodeClick(data, node) {
+      console.log(data)
+      this.form.pcode = data.code
+      this.form.pname = data.name
+      this.showTree = false;
     },
     checkSel(){
       if(this.selRow && this.selRow.id){
@@ -229,6 +221,7 @@ export default {
       this.formTitle = '添加菜单'
       this.formVisible = true
       this.isAdd = true
+
     },
     save() {
       var self = this
@@ -300,15 +293,6 @@ export default {
 <style scoped>
 .block {
   padding: 10px 0px;
-}
-.tree {
-  position: absolute;
-  overflow: auto;
-  z-index: 1000;
-  width: 100%;
-  height: auto;
-  border: 1px solid #ebeef5;
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 }
 
 </style>

@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.common.constant.dictmap.factory;
+package cn.enilu.guns.factory;
 
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;

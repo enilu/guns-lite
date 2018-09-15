@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.common.annotion;
 
-import cn.enilu.guns.admin.common.constant.dictmap.base.AbstractDictMap;
-import cn.enilu.guns.admin.common.constant.dictmap.base.SystemDict;
+import cn.enilu.guns.bean.dictmap.base.AbstractDictMap;
+import cn.enilu.guns.bean.dictmap.SystemDict;
 
 import java.lang.annotation.*;
 

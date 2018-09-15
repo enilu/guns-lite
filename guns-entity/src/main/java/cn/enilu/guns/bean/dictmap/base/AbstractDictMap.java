@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.common.constant.dictmap.base;
+package cn.enilu.guns.bean.dictmap.base;
 
 import java.util.HashMap;
 
