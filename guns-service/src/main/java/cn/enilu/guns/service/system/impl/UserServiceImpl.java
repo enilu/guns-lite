@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public List<User> findAll(Map<String, Object> params) {
+    public List<User> findAll(final Map<String, Object> params) {
         return userRepository.findAll(new Specification<User>(){
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {

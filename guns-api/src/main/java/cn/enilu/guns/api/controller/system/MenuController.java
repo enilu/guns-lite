@@ -60,7 +60,7 @@ public class MenuController extends BaseController {
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
-    public Object delete(Long id){
+    public Object remove(Long id){
         logger.info("id:{}",id);
         if (ToolUtil.isEmpty(id)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);

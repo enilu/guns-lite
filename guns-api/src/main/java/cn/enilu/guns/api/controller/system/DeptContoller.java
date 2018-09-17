@@ -54,7 +54,7 @@ public class DeptContoller extends BaseController {
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
-    public Object delete(Integer id){
+    public Object remove(Integer id){
         logger.info("id:{}",id);
         if (ToolUtil.isEmpty(id)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);

@@ -48,17 +48,6 @@
 
     </el-table>
 
-    <el-pagination
-      background
-      layout="total, sizes, prev, pager, next, jumper"
-      :page-sizes="[10, 20, 50, 100,500]"
-      :page-size="listQuery.limit"
-      :total="total"
-      @size-change="changeSize"
-      @current-change="fetchPage"
-      @prev-click="fetchPrev"
-      @next-click="fetchNext">
-    </el-pagination>
 
     <el-dialog
       :title="formTitle"
@@ -148,7 +137,7 @@
 
 <script>
   import { remove , getList , save , getRoleTree ,getPermissons , savePermissons }  from '@/api/system/role'
-  import { getDeptTree }  from '@/api/system/dept'
+  import { getList as getDeptList }  from '@/api/system/dept'
 
 
 
@@ -161,6 +150,11 @@
         roleList:[],
         isAdd: true,
         permissons:[],
+        defaultProps: {
+          id: "id",
+          label: 'name',
+          children: 'children'
+        },
         permissonVisible:false,
         form: {
           tips: '',
@@ -184,8 +178,6 @@
           ]
         },
         listQuery: {
-          page: 1,
-          limit: 20,
           name: undefined
         },
         total:0,
@@ -209,20 +201,19 @@
     },
     methods: {
       init() {
-        getDeptTree().then(response => {
-          this.deptList = response.data.items
-        })
-        getRoleTree().then(response => {
-          this.roleList = response.data.items
-        })
+//        getDeptList().then(response => {
+//          this.deptList = response.data.items
+//        })
+//        getRoleTree().then(response => {
+//          this.roleList = response.data.items
+//        })
         this.fetchData()
       },
       fetchData() {
         this.listLoading = true
         getList(this.listQuery).then(response => {
-          this.list = response.data.items
+          this.list = response.data
           this.listLoading = false
-          this.total = response.data.total
         })
       },
       search() {
@@ -233,27 +224,10 @@
         this.fetchData()
       },
       handleFilter() {
-        this.listQuery.page = 1
         this.getList()
       },
       handleClose() {
 
-      },
-      fetchNext(){
-        this.listQuery.page = this.listQuery.page + 1
-        this.fetchData();
-      },
-      fetchPrev(){
-        this.listQuery.page = this.listQuery.page - 1
-        this.fetchData();
-      },
-      fetchPage(page){
-        this.listQuery.page = page
-        this.fetchData()
-      },
-      changeSize(limit){
-        this.listQuery.limit = limit;
-        this.fetchData();
       },
       handleCurrentChange(currentRow,oldCurrentRow){
         console.log('-------')

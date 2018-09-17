@@ -28,7 +28,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
     private TokenCache tokenCache;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        logger.debug("requestURL:" + request.getRequestURL().toString());
+        logger.info("requestURL:" + request.getRequestURL().toString());
 
         //如果用户是非登录用户，则拒绝用户请求
         String method = request.getMethod();
