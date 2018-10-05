@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.common.constant.state;
+package cn.enilu.guns.bean.constant.state;
 
 /**
  * 业务日志类型

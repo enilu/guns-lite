@@ -3,8 +3,17 @@
     <div class="block">
       <el-row  :gutter="20">
         <el-col :span="6">
-          <el-input v-model="listQuery.userName" placeholder="请输入用户名"></el-input>
+          <el-date-picker type="date" placeholder="起始日期" v-model="listQuery.beginTime" value-format="yyyy-MM-dd"
+                          style="width: 100%;"></el-date-picker>
         </el-col>
+        <el-col :span="6">
+          <el-date-picker type="date" placeholder="结束日期" v-model="listQuery.endTime"  value-format="yyyy-MM-dd"
+                          style="width: 100%;"></el-date-picker>
+        </el-col>
+        <el-col :span="6">
+          <el-input v-model="listQuery.logname" placeholder="日志名称"></el-input>
+        </el-col>
+
         <el-col :span="6">
           <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
           <el-button type="primary" icon="el-icon-refresh" @click.native="reset">重置</el-button>
@@ -13,8 +22,7 @@
       <br>
       <el-row>
         <el-col :span="24">
-          <el-button type="primary" icon="el-icon-edit" @click.native="view">查看</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native="clear">清空</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click.native="clear">清空日志</el-button>
         </el-col>
       </el-row>
     </div>
@@ -24,8 +32,8 @@
      <el-table-column type="expand">
        <template slot-scope="props">
          <el-form label-position="left" inline class="demo-table-expand">
-           <el-form-item label="日志类型">
-             <span>{{ props.row.logtype }}</span>
+           <el-form-item label="用户id">
+             <span>{{ props.row.userid }}</span>
            </el-form-item>
            <el-form-item label="日志名称">
              <span>{{ props.row.logname }}</span>
@@ -33,11 +41,11 @@
            <el-form-item label="用户">
              <span>{{ props.row.userName }}</span>
            </el-form-item>
-           <el-form-item label="类名">
-             <span>{{ props.row.classname }}</span>
+           <el-form-item label="IP">
+             <span>{{ props.row.ip }}</span>
            </el-form-item>
-           <el-form-item label="方法名">
-             <span>{{ props.row.method }}</span>
+           <el-form-item label="结果">
+             <span>{{ props.row.succeed }}</span>
            </el-form-item>
            <el-form-item label="时间">
              <span>{{ props.row.createtime }}</span>
@@ -54,8 +62,8 @@
        prop="userName">
      </el-table-column>
      <el-table-column
-       label="日志类型"
-       prop="logtype">
+       label="IP"
+       prop="ip">
      </el-table-column>
      <el-table-column
        label="日志名称"
@@ -89,21 +97,15 @@
   export default {
     data() {
       return {
-        formVisible: false,
-        formTitle: '查看详情',
-        deptList:[],
-        roleList:[],
-        isAdd: true,
-        permissons:[],
-        permissonVisible:false,
         form: {
-          name: '',
-          id: '',
+          logname: '',
         },
         listQuery: {
           page: 1,
           limit: 20,
-          userName: undefined
+          logname: undefined,
+          beginTime: undefined,
+          endTime: undefined
         },
         total:0,
         list: null,
@@ -121,7 +123,7 @@
       fetchData() {
         this.listLoading = true
         getList(this.listQuery).then(response => {
-          this.list = response.data.items
+          this.list = response.data.records
           this.listLoading = false
           this.total = response.data.total
         })
@@ -130,7 +132,9 @@
         this.fetchData()
       },
       reset() {
-        this.listQuery.userName = ''
+        this.listQuery.logname = ''
+        this.listQuery.beginTime = ''
+        this.listQuery.endTime = ''
         this.fetchData()
       },
       handleFilter() {
@@ -153,33 +157,7 @@
         this.listQuery.limit = limit;
         this.fetchData();
       },
-      handleCurrentChange(currentRow,oldCurrentRow){
-        console.log('-------')
-        console.log(currentRow)
-        this.selRow = currentRow
-      },
-      checkSel(){
-        if(this.selRow && this.selRow.id){
-          return true
-        }
-        this.$message({
-          message: '请选中操作项',
-          type: 'warning'
-        });
-        return false
-      },
-      view(){
-        if(this.checkSel()){
-          this.isAdd = false
-          console.log(this.selRow)
-          this.form = this.selRow
-          this.form.status = this.selRow.statusName == '启用'
-          this.form.password = ''
-          this.formTitle = '日志详情'
-          this.formVisible = true
-        }
-      },
-      clear() {
+      clear(){
         this.$confirm('确定清空数据?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -197,6 +175,8 @@
 
         });
       }
+
+
 
     }
   }

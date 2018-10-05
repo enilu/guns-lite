@@ -2,8 +2,10 @@ package cn.enilu.guns.warpper;
 
 import cn.enilu.guns.factory.Contrast;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
+import cn.enilu.guns.utils.DateUtil;
 import cn.enilu.guns.utils.ToolUtil;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,7 +32,7 @@ public class LogWarpper extends BaseControllerWarpper {
             String subMessage = message.substring(0, 100) + "...";
             map.put("message", subMessage);
         }
-
+        map.put("createtime",DateUtil.format((Date) map.get("createtime"),"yyyy-MM-dd hh:MM:ss"));
         //如果信息中包含分割符号;;;   则分割字符串返给前台
         if (ToolUtil.isNotEmpty(message) && message.indexOf(Contrast.separator) != -1) {
             String[] msgs = message.split(Contrast.separator);

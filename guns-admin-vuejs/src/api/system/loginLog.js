@@ -8,7 +8,7 @@ export function getList(params) {
   })
 }
 
-export function clear(id) {
+export function clear() {
   return request({
     url: '/loginLog',
     method: 'delete'

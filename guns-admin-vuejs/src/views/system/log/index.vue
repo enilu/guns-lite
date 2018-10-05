@@ -1,9 +1,27 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-row  :gutter="20">
+      <el-row  :gutter="24">
         <el-col :span="6">
-          <el-input v-model="listQuery.userName" placeholder="请输入用户名"></el-input>
+          <el-date-picker type="date" placeholder="起始日期" v-model="listQuery.beginTime" value-format="yyyy-MM-dd"
+                          style="width: 100%;"></el-date-picker>
+        </el-col>
+        <el-col :span="6">
+          <el-date-picker type="date" placeholder="结束日期" v-model="listQuery.endTime"  value-format="yyyy-MM-dd"
+                          style="width: 100%;"></el-date-picker>
+        </el-col>
+        <el-col :span="6">
+          <el-input v-model="listQuery.logName" placeholder="日志名称"></el-input>
+        </el-col>
+        <el-col :span="6">
+          <el-select v-model="listQuery.logType" placeholder="日志类型">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-col>
         <el-col :span="6">
           <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
@@ -13,8 +31,7 @@
       <br>
       <el-row>
         <el-col :span="24">
-          <el-button type="primary" icon="el-icon-edit" @click.native="view">查看</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native="clear">清空</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click.native="clear">清空日志</el-button>
         </el-col>
       </el-row>
     </div>
@@ -89,21 +106,25 @@
   export default {
     data() {
       return {
-        formVisible: false,
-        formTitle: '查看详情',
-        deptList:[],
-        roleList:[],
-        isAdd: true,
-        permissons:[],
-        permissonVisible:false,
-        form: {
+        options: [{
+              value: '1',
+              label: '业务日志'
+            },{
+              value: '2',
+              label: '异常日志'
+            }
+          ],
+          form: {
           name: '',
           id: '',
         },
         listQuery: {
           page: 1,
           limit: 20,
-          userName: undefined
+          beginTime: undefined,
+          endTime: undefined,
+          logName: undefined,
+          logType:undefined
         },
         total:0,
         list: null,
@@ -121,7 +142,7 @@
       fetchData() {
         this.listLoading = true
         getList(this.listQuery).then(response => {
-          this.list = response.data.items
+          this.list = response.data.records
           this.listLoading = false
           this.total = response.data.total
         })
@@ -130,7 +151,10 @@
         this.fetchData()
       },
       reset() {
-        this.listQuery.userName = ''
+        this.listQuery.beginTime = ''
+        this.listQuery.endTime = ''
+        this.listQuery.logName = ''
+        this.listQuery.logType = ''
         this.fetchData()
       },
       handleFilter() {
@@ -152,32 +176,6 @@
       changeSize(limit){
         this.listQuery.limit = limit;
         this.fetchData();
-      },
-      handleCurrentChange(currentRow,oldCurrentRow){
-        console.log('-------')
-        console.log(currentRow)
-        this.selRow = currentRow
-      },
-      checkSel(){
-        if(this.selRow && this.selRow.id){
-          return true
-        }
-        this.$message({
-          message: '请选中操作项',
-          type: 'warning'
-        });
-        return false
-      },
-      view(){
-        if(this.checkSel()){
-          this.isAdd = false
-          console.log(this.selRow)
-          this.form = this.selRow
-          this.form.status = this.selRow.statusName == '启用'
-          this.form.password = ''
-          this.formTitle = '日志详情'
-          this.formVisible = true
-        }
       },
       clear() {
         this.$confirm('确定清空数据?', '提示', {

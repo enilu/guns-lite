@@ -1,5 +1,7 @@
 package cn.enilu.guns.bean.entity.system;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -52,6 +54,7 @@ public class LoginLog {
 
     @Basic
     @Column(name = "createtime")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreatetime() {
         return createtime;
     }

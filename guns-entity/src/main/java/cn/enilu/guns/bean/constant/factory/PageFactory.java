@@ -1,7 +1,8 @@
-package cn.enilu.guns.admin.common.constant.factory;
+package cn.enilu.guns.bean.constant.factory;
 
-import cn.enilu.guns.admin.common.constant.state.Order;
+import cn.enilu.guns.bean.constant.state.Order;
 import cn.enilu.guns.utils.HttpKit;
+import cn.enilu.guns.utils.StringUtils;
 import cn.enilu.guns.utils.factory.Page;
 import cn.enilu.guns.utils.ToolUtil;
 
@@ -16,10 +17,21 @@ public class PageFactory<T> {
 
     public Page<T> defaultPage() {
         HttpServletRequest request = HttpKit.getRequest();
-        int limit = Integer.valueOf(request.getParameter("limit"));     //每页多少条数据
-        int offset = Integer.valueOf(request.getParameter("offset"));   //每页的偏移量(本页当前有多少条)
-        String sort = request.getParameter("sort");         //排序字段名称
-        String order = request.getParameter("order");       //asc或desc(升序或降序)
+        //每页多少条数据
+        int limit = Integer.valueOf(request.getParameter("limit"));
+        String pageNum = request.getParameter("page");
+        //每页的偏移量(本页当前有多少条)
+        int offset = 0;
+        if(StringUtils.isNotEmpty(pageNum)){
+            offset = (Integer.valueOf(pageNum)-1)*limit;
+        }else {
+
+            offset = Integer.valueOf(request.getParameter("offset"));
+        }
+        //排序字段名称
+        String sort = request.getParameter("sort");
+        //asc或desc(升序或降序)
+        String order = request.getParameter("order");
         if (ToolUtil.isEmpty(sort)) {
             Page<T> page = new Page<>((offset / limit + 1), limit);
             page.setOpenSort(false);
