@@ -8,8 +8,6 @@ import cn.enilu.guns.bean.vo.front.Rets;
 import cn.enilu.guns.bean.vo.node.DeptNode;
 import cn.enilu.guns.dao.system.DeptRepository;
 import cn.enilu.guns.service.system.DeptService;
-import cn.enilu.guns.service.system.LogObjectHolder;
-import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.ToolUtil;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
@@ -59,7 +57,6 @@ public class DeptContoller extends BaseController {
         if (ToolUtil.isEmpty(id)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        LogObjectHolder.me().set(ConstantFactory.me().getDeptName(id));
         deptService.deleteDept(id);
         return Rets.success();
     }

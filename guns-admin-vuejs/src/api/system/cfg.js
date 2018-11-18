@@ -21,8 +21,8 @@ export function remove(id) {
   return request({
     url: '/cfg',
     method: 'delete',
-    data: {
-      id
+    params: {
+      id: id
     }
   })
 }

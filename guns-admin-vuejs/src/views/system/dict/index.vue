@@ -23,7 +23,11 @@
 
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
     @current-change="handleCurrentChange">
-
+      <el-table-column label="ID">
+        <template slot-scope="scope">
+          {{scope.row.id}}
+        </template>
+      </el-table-column>
       <el-table-column label="名称">
         <template slot-scope="scope">
           {{scope.row.name}}
@@ -37,37 +41,35 @@
 
     </el-table>
 
-    <el-pagination
-      background
-      layout="total, sizes, prev, pager, next, jumper"
-      :page-sizes="[10, 20, 50, 100,500]"
-      :page-size="listQuery.limit"
-      :total="total"
-      @size-change="changeSize"
-      @current-change="fetchPage"
-      @prev-click="fetchPrev"
-      @next-click="fetchNext">
-    </el-pagination>
 
     <el-dialog
       :title="formTitle"
       :visible.sync="formVisible"
       width="60%">
-      <el-form ref="dictForm" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
 
         <el-form-item label="名称" prop="name">
           <el-input v-model="form.name"  minlength=1></el-input>
         </el-form-item>
         <el-form-item
           v-for="(rec, index) in form.details"
-          :label="'字典' + index"
+          :label="'字典' + (index+1)"
           :key="rec.key"
           :prop="'details.' + index + '.value'"
           :rules="{
             required: true, message: '不能为空', trigger: 'blur'
           }"
         >
-          <el-input v-model="rec.value"></el-input><el-button @click.prevent="removeDetail(rec)">删除</el-button>
+          <el-col :span="10">
+          <el-input v-model="rec.key" placeholder="值"></el-input>
+          </el-col>
+          <el-col class="line" :span="1">&nbsp; </el-col>
+          <el-col :span="10">
+          <el-input v-model="rec.value" placeholder="名称"></el-input>
+          </el-col>
+          <el-col :span="3">&nbsp;
+          <el-button @click.prevent="removeDetail(rec)" type="danger" icon="el-icon-delete" >删除</el-button>
+          </el-col>
         </el-form-item>
 
         <el-form-item>
@@ -82,7 +84,7 @@
 </template>
 
 <script>
-  import { remove , getList , save }  from '@/api/system/dict'
+  import { remove , getList , save , update }  from '@/api/system/dict'
 
 
   export default {
@@ -109,11 +111,8 @@
 
         },
         listQuery: {
-          page: 1,
-          limit: 20,
           name: undefined
         },
-        total:0,
         list: null,
         listLoading: true,
         selRow:{}
@@ -140,10 +139,11 @@
       fetchData() {
         this.listLoading = true
         getList(this.listQuery).then(response => {
-          this.list = response.data.items
+          this.list = response.data
           this.listLoading = false
-          this.total = response.data.total
-        })
+        }).catch(err => {
+
+       });
       },
       search() {
         this.fetchData()
@@ -159,25 +159,8 @@
       handleClose() {
 
       },
-      fetchNext(){
-        this.listQuery.page = this.listQuery.page + 1
-        this.fetchData();
-      },
-      fetchPrev(){
-        this.listQuery.page = this.listQuery.page - 1
-        this.fetchData();
-      },
-      fetchPage(page){
-        this.listQuery.page = page
-        this.fetchData()
-      },
-      changeSize(limit){
-        this.listQuery.limit = limit;
-        this.fetchData();
-      },
+
       handleCurrentChange(currentRow,oldCurrentRow){
-        console.log('-------')
-        console.log(currentRow)
         this.selRow = currentRow
       },
       resetForm() {
@@ -199,19 +182,34 @@
         var self = this
         this.$refs['form'].validate((valid) => {
           if (valid) {
-              save(this.form).then(response => {
-                console.log(response)
-                  this.$message({
-                    message: '提交成功',
-                    type: 'success'
-                  })
-                  this.fetchData()
-                  this.formVisible = false
+            var dictName = self.form.name
+            var dictValues =''
+            for(var key in self.form.details){
+             var item = self.form.details[key];
+              dictValues += item['key']+':'+item['value']+';'
+            }
+            if(this.form.id!=''){
+              update({id:self.form.id,dictName: dictName, dictValues: dictValues}).then(response => {
+                this.$message({
+                  message: '提交成功',
+                  type: 'success'
+                })
+                self.fetchData()
+                self.formVisible = false
 
               })
+            }else {
+              save({dictName: dictName, dictValues: dictValues}).then(response => {
+                this.$message({
+                  message: '提交成功',
+                  type: 'success'
+                })
+                self.fetchData()
+                self.formVisible = false
 
+              })
+            }
           } else {
-            console.log('error submit!!')
             return false
           }
         })
@@ -231,11 +229,14 @@
       edit(){
         if(this.checkSel()){
           this.isAdd = false
-          console.log(this.selRow)
-          this.form = this.selRow
-          this.form.status = this.selRow.statusName == '启用'
-          this.form.password = ''
           this.formTitle = '修改字典'
+          var detail = this.selRow.detail.split(',');
+          var details = new Array()
+          detail.forEach(function(val,index){
+            var arr = val.split(':')
+            details.push({'key':arr[0],'value':arr[1]})
+         })
+          this.form = {name:this.selRow.name,id:this.selRow.id,details:details,detail:this.selRow.detail}
           this.formVisible = true
         }
       },
@@ -248,10 +249,9 @@
              cancelButtonText: '取消',
              type: 'warning'
            }).then(() => {
-
              remove(id).then(response => {
                this.$message({
-                 message: response.data.msg,
+                 message: '操作成功',
                  type: 'success'
                });
                this.fetchData()
@@ -264,14 +264,22 @@
          }
       },
       addDetail() {
-        console.log(this.form)
-       this.form.details.push({
+        var details = this.form.details
+
+       details.push({
          value: '',
          key: ''
        });
+        this.form.details = details
      },
      removeDetail(detail) {
-       console.log(detail)
+        var details = new Array()
+       this.form.details.forEach(function(val,index){
+         if(detail.key != val.key){
+           details.push(val)
+         }
+       })
+       this.form.details = details
      }
 
 

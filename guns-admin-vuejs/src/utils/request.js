@@ -19,12 +19,11 @@ service.interceptors.request.use(
       config.headers['Authorization'] = token // 让每个请求携带自定义token 请根据实际情况自行修改
     }
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-    console.log('config', config)
     return config
   },
   error => {
     // Do something with request error
-    console.log(error) // for debug
+    console.log('error',error) // for debug
     Promise.reject(error)
   }
 )
@@ -66,7 +65,6 @@ service.interceptors.response.use(
   },
   error => {
     //debug
-    console.log('err ' + JSON.stringify(error))
     if(error.response && error.response.data.message) {
       Message({
         message: error.response.data.message,

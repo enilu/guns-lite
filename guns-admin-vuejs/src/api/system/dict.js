@@ -16,12 +16,21 @@ export function save(params) {
   })
 }
 
+
+export function update(params) {
+  return request({
+    url: '/dict',
+    method: 'put',
+    params
+  })
+}
+
 export function remove(id) {
   return request({
     url: '/dict',
     method: 'delete',
-    data: {
-      id
+    params: {
+      id:id
     }
   })
 }

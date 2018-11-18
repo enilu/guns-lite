@@ -11,4 +11,6 @@ public interface DictRepository extends JpaRepository<Dict, Integer> {
     List<Dict> findByPid(Integer pid);
     List<Dict> findByNameAndPid(String name,Integer pid);
     Dict findByName(String name);
+
+    List<Dict> findByNameLike(String name);
 }

@@ -105,7 +105,7 @@
     data() {
       return {
         formVisible: false,
-        formTitle: '添加用户',
+        formTitle: '添加参数',
         deptList:[],
         isAdd: true,
         form: {
@@ -158,7 +158,7 @@
       fetchData() {
         this.listLoading = true
         getList(this.listQuery).then(response => {
-          this.list = response.data.items
+          this.list = response.data.records
           this.listLoading = false
           this.total = response.data.total
         })
@@ -227,7 +227,6 @@
                 this.formVisible = false
             })
           } else {
-            console.log('error submit!!')
             return false
           }
         })
@@ -264,7 +263,7 @@
 
              remove(id).then(response => {
                this.$message({
-                 message: response.data.msg,
+                 message: '操作成功',
                  type: 'success'
                });
                this.fetchData()

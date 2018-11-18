@@ -2,18 +2,18 @@
   <div class="app-container">
     <div class="block">
       <el-row  :gutter="24">
-        <el-col :span="6">
+        <el-col :span="4">
           <el-date-picker type="date" placeholder="起始日期" v-model="listQuery.beginTime" value-format="yyyy-MM-dd"
                           style="width: 100%;"></el-date-picker>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="4">
           <el-date-picker type="date" placeholder="结束日期" v-model="listQuery.endTime"  value-format="yyyy-MM-dd"
                           style="width: 100%;"></el-date-picker>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="4">
           <el-input v-model="listQuery.logName" placeholder="日志名称"></el-input>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="4">
           <el-select v-model="listQuery.logType" placeholder="日志类型">
             <el-option
               v-for="item in options"
@@ -23,17 +23,13 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
           <el-button type="primary" icon="el-icon-refresh" @click.native="reset">重置</el-button>
-        </el-col>
-      </el-row>
-      <br>
-      <el-row>
-        <el-col :span="24">
           <el-button type="danger" icon="el-icon-delete" @click.native="clear">清空日志</el-button>
         </el-col>
       </el-row>
+      <br>
     </div>
 
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
