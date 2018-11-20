@@ -99,12 +99,6 @@ export const asyncRouterMap = [
         name: '角色管理',
         component: () => import('@/views/system/role/index'),
         meta: {title: '角色管理'}
-      },
-      {
-        path: 'noticeMgr',
-        name: '通知管理',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: {title: '通知管理'}
       }
     ]
   },
