@@ -1,6 +1,6 @@
 
 import { remove , getList , save , getRoleTree ,getPermissons , savePermissons }  from '@/api/system/role'
-import { getList as getDeptList }  from '@/api/system/dept'
+import { list as getDeptList }  from '@/api/system/dept'
 
 
 
@@ -19,6 +19,23 @@ export default {
         children: 'children'
       },
       permissonVisible:false,
+      deptTree:{
+        show: false,
+        defaultProps: {
+          id: "id",
+          label: 'simplename',
+          children: 'children'
+        }
+      },
+      roleTree:{
+        show: false,
+        defaultProps: {
+          id: "id",
+          label: 'name',
+          children: 'children'
+        }
+      },
+
       form: {
         tips: '',
         name: '',
@@ -64,19 +81,20 @@ export default {
   },
   methods: {
     init() {
-//        getDeptList().then(response => {
-//          this.deptList = response.data.items
-//        })
-//        getRoleTree().then(response => {
-//          this.roleList = response.data.items
-//        })
+       getDeptList().then(response => {
+         this.deptList = response.data.items
+       })
+       getRoleTree().then(response => {
+         this.roleList = response.data.items
+       })
       this.fetchData()
     },
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data
+        this.list = response.data.records
         this.listLoading = false
+        this.total = response.data.total
       })
     },
     search() {
@@ -89,8 +107,21 @@ export default {
     handleFilter() {
       this.getList()
     },
-    handleClose() {
-
+    fetchNext(){
+      this.listQuery.page = this.listQuery.page + 1
+      this.fetchData();
+    },
+    fetchPrev(){
+      this.listQuery.page = this.listQuery.page - 1
+      this.fetchData();
+    },
+    fetchPage(page){
+      this.listQuery.page = page
+      this.fetchData()
+    },
+    changeSize(limit){
+      this.listQuery.limit = limit;
+      this.fetchData();
     },
     handleCurrentChange(currentRow,oldCurrentRow){
       console.log('-------')
@@ -173,7 +204,7 @@ export default {
 
           remove(id).then(response => {
             this.$message({
-              message: response.data.msg,
+              message: '提交成功',
               type: 'success'
             });
             this.fetchData()
@@ -212,8 +243,19 @@ export default {
           type: 'success'
         });
       })
+    },
+    handleDeptNodeClick(data, node) {
+      console.log(data)
+      this.form.deptid = data.id
+      this.form.deptName = data.simplename
+      this.deptTree.show = false;
+    },
+    handleRoleNodeClick(data, node) {
+      console.log(data)
+      this.form.pid = data.id
+      this.form.pName = data.name
+      this.roleTree.show = false;
     }
-
 
   }
 }

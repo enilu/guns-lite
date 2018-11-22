@@ -49,6 +49,19 @@
     </el-table>
 
 
+
+    <el-pagination
+      background
+      layout="total, sizes, prev, pager, next, jumper"
+      :page-sizes="[10, 20, 50, 100,500]"
+      :page-size="listQuery.limit"
+      :total="total"
+      @size-change="changeSize"
+      @current-change="fetchPage"
+      @prev-click="fetchPrev"
+      @next-click="fetchNext">
+    </el-pagination>
+
     <el-dialog
       :title="formTitle"
       :visible.sync="formVisible"
@@ -67,15 +80,22 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="上级角色">
-              <el-select v-model="form.pid" placeholder="请选择上级角色">
-                <el-option
-                  v-for="item in roleList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
+            <el-form-item label="上级角色" >
+              <el-input
+                placeholder="请选择上级角色"
+                v-model="form.pName"
+                readonly="readonly"
+                @click.native="roleTree.show = !roleTree.show">
+              </el-input>
+              <el-tree v-if="roleTree.show"
+                       empty-text="暂无数据"
+                       :expand-on-click-node="false"
+                       :data="roleList"
+                       :props="roleTree.defaultProps"
+                       @node-click="handleRoleNodeClick"
+                       class="input-tree">
+              </el-tree>
+
             </el-form-item>
           </el-col>
           <el-col :span="12" >
@@ -85,15 +105,22 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="所在部门">
-              <el-select v-model="form.deptid" placeholder="请选择部门">
-                <el-option
-                  v-for="item in deptList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
+            <el-form-item label="所在部门" >
+              <el-input
+                placeholder="请选择所在部门"
+                v-model="form.deptName"
+                readonly="readonly"
+                @click.native="deptTree.show = !deptTree.show">
+              </el-input>
+              <el-tree v-if="deptTree.show"
+                       empty-text="暂无数据"
+                       :expand-on-click-node="false"
+                       :data="deptList"
+                       :props="deptTree.defaultProps"
+                       @node-click="handleDeptNodeClick"
+                       class="input-tree">
+              </el-tree>
+
             </el-form-item>
           </el-col>
 
