@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-row  :gutter="20">
+      <el-row :gutter="20">
         <el-col :span="6">
           <el-input v-model="listQuery.name" placeholder="请输入角色名称"></el-input>
         </el-col>
@@ -23,7 +23,7 @@
 
 
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
-    @current-change="handleCurrentChange">
+              @current-change="handleCurrentChange">
 
       <el-table-column label="名称">
         <template slot-scope="scope">
@@ -47,7 +47,6 @@
       </el-table-column>
 
     </el-table>
-
 
 
     <el-pagination
@@ -75,12 +74,12 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="名称" prop="name">
-              <el-input v-model="form.name"  minlength=1></el-input>
+              <el-input v-model="form.name" minlength=1></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="上级角色" >
+            <el-form-item label="上级角色">
               <el-input
                 placeholder="请选择上级角色"
                 v-model="form.pName"
@@ -90,7 +89,7 @@
               <el-tree v-if="roleTree.show"
                        empty-text="暂无数据"
                        :expand-on-click-node="false"
-                       :data="roleList"
+                       :data="list"
                        :props="roleTree.defaultProps"
                        @node-click="handleRoleNodeClick"
                        class="input-tree">
@@ -98,14 +97,14 @@
 
             </el-form-item>
           </el-col>
-          <el-col :span="12" >
+          <el-col :span="12">
             <el-form-item label="排序">
               <el-input v-model="form.num" type="number"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="所在部门" >
+            <el-form-item label="所在部门">
               <el-input
                 placeholder="请选择所在部门"
                 v-model="form.deptName"
@@ -134,31 +133,31 @@
     </el-dialog>
 
 
+    <el-dialog
+      title="权限配置"
+      :visible.sync="permissonVisible"
+      width="25%">
+      <el-form>
+        <el-row>
+          <el-col :span="12">
+            <el-tree
+              :data="permissons"
+              ref="permissonTree"
+              show-checkbox
+              node-key="id"
+              :default-expanded-keys="[2, 3]"
+              :default-checked-keys="checkedPermissionKeys"
+              :props="defaultProps">
+            </el-tree>
 
-        <el-dialog
-          title="权限配置"
-          :visible.sync="permissonVisible"
-          width="25%">
-          <el-form ref="permissonForm"  >
-            <el-row>
-              <el-col :span="12">
-                <el-tree
-                  :data="permissons"
-                  show-checkbox
-                  node-key="id"
-                  ref="permissonTree"
-                  :default-expanded-keys="[2, 3]"
-                  :default-checked-keys="[5]"
-                  :props="defaultProps">
-                </el-tree>
+          </el-col>
+        </el-row>
+        <el-form-item>
+          <el-button type="primary" @click="savePermissions">提交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
 
-              </el-col>
-            </el-row>
-            <el-form-item>
-              <el-button type="primary" @click="savePermissions">提交</el-button>
-            </el-form-item>
-          </el-form>
-        </el-dialog>
   </div>
 </template>
 

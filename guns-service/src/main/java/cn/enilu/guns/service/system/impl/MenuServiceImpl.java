@@ -4,6 +4,7 @@ import cn.enilu.guns.bean.entity.system.Menu;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.vo.node.MenuNode;
+import cn.enilu.guns.bean.vo.node.Node;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.MenuRepository;
 import cn.enilu.guns.service.system.MenuService;
@@ -193,4 +194,33 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @Override
+    public List<Node> generateMenuTreeForRole(List<ZTreeNode> list){
+
+        List<Node> nodes = new ArrayList<>(20);
+        for(ZTreeNode menu:list){
+            Node permissionNode = new Node();
+            permissionNode.setId(menu.getId());
+            permissionNode.setName(menu.getName());
+            permissionNode.setPid(menu.getpId());
+            permissionNode.setChecked(menu.getChecked());
+            nodes.add(permissionNode);
+        }
+        for(Node permissionNode:nodes){
+            for(Node child:nodes){
+                if(child.getPid().intValue() == permissionNode.getId().intValue()){
+                    permissionNode.getChildren().add(child);
+                }
+            }
+        }
+        List<Node> result = new ArrayList<>(20);
+        for(Node node:nodes){
+            if(node.getPid().intValue() == 0){
+                result.add(node);
+            }
+        }
+        return result;
+
+
+    }
 }

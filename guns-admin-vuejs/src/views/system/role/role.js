@@ -1,6 +1,7 @@
 
 import { remove , getList , save , getRoleTree ,getPermissons , savePermissons }  from '@/api/system/role'
 import { list as getDeptList }  from '@/api/system/dept'
+import { menuTreeListByRoleId } from '@/api/system/menu'
 
 
 
@@ -12,6 +13,7 @@ export default {
       deptList:[],
       roleList:[],
       isAdd: true,
+      checkedPermissionKeys:[],
       permissons:[],
       defaultProps: {
         id: "id",
@@ -82,17 +84,15 @@ export default {
   methods: {
     init() {
        getDeptList().then(response => {
-         this.deptList = response.data.items
-       })
-       getRoleTree().then(response => {
-         this.roleList = response.data.items
+         this.deptList = response.data
        })
       this.fetchData()
     },
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data.records
+        console.log(response.data)
+        this.list = response.data
         this.listLoading = false
         this.total = response.data.total
       })
@@ -220,9 +220,10 @@ export default {
     openPermissions() {
       if(this.checkSel()){
         console.log(this.selRow)
-        getPermissons(this.selRow.id).then(response => {
+        menuTreeListByRoleId(this.selRow.id).then(response => {
           console.log(response.data)
-          this.permissons = response.data.items
+          this.permissons = response.data.treeData
+          this.checkedPermissionKeys = response.data.checkedIds
           this.permissonVisible = true
         })
 
@@ -230,16 +231,19 @@ export default {
     },
     savePermissions() {
       var checkedPermissons = this.$refs.permissonTree.getCheckedKeys()
-      console.log(checkedPermissons)
+      var menuIds = '';
+      for(var index in checkedPermissons){
+        menuIds+=checkedPermissons[index]+','
+      }
       var data = {
         id:this.selRow.id,
-        permissons:checkedPermissons
+        permissions:menuIds
       }
       savePermissons(data).then(response => {
         console.log(response.data)
         this.permissonVisible = false
         this.$message({
-          message: response.data.msg,
+          message: '提交成功',
           type: 'success'
         });
       })

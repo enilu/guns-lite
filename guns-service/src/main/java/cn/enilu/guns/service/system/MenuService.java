@@ -3,6 +3,7 @@ package cn.enilu.guns.service.system;
 
 import cn.enilu.guns.bean.entity.system.Menu;
 import cn.enilu.guns.bean.vo.node.MenuNode;
+import cn.enilu.guns.bean.vo.node.Node;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 
 import java.util.List;
@@ -52,4 +53,7 @@ public interface MenuService {
      * @param menu
      */
     void menuSetPcode( Menu menu);
+
+
+    List<Node> generateMenuTreeForRole(List<ZTreeNode> list);
 }

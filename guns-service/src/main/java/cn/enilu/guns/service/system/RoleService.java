@@ -17,4 +17,5 @@ public interface RoleService {
     void setAuthority(Integer roleId, String ids);
 
     void delRoleById(Integer roleId);
+
 }

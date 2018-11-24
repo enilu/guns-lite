@@ -7,19 +7,20 @@ import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.vo.front.Rets;
 import cn.enilu.guns.bean.vo.node.MenuNode;
+import cn.enilu.guns.bean.vo.node.Node;
+import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.MenuRepository;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.MenuService;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
+import cn.enilu.guns.utils.Maps;
 import cn.enilu.guns.utils.ToolUtil;
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,13 +39,15 @@ public class MenuController extends BaseController {
     private MenuRepository menuRepository;
     @Autowired
     private MenuService menuService;
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public Object list(){
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Object list() {
         List<MenuNode> list = menuService.getMenus();
         return Rets.success(list);
     }
+
     @RequestMapping(method = RequestMethod.POST)
-    public Object save(@ModelAttribute  Menu menu){
+    public Object save(@ModelAttribute Menu menu) {
         logger.info(JSON.toJSONString(menu));
         //判断是否存在该编号
         String existedMenuName = ConstantFactory.me().getMenuNameByCode(menu.getCode());
@@ -59,9 +62,10 @@ public class MenuController extends BaseController {
         this.menuRepository.save(menu);
         return Rets.success();
     }
+
     @RequestMapping(method = RequestMethod.DELETE)
-    public Object remove(Long id){
-        logger.info("id:{}",id);
+    public Object remove(Long id) {
+        logger.info("id:{}", id);
         if (ToolUtil.isEmpty(id)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -70,5 +74,28 @@ public class MenuController extends BaseController {
         LogObjectHolder.me().set(ConstantFactory.me().getMenuName(id));
         menuService.delMenuContainSubMenus(id);
         return Rets.success();
+    }
+
+    /**
+     * 获取角色列表
+     */
+    @RequestMapping(value = "/menuTreeListByRoleId", method = RequestMethod.GET)
+    public Object menuTreeListByRoleId(Integer roleId) {
+        List<Long> menuIds = this.menuRepository.getMenuIdsByRoleId(roleId);
+        List<ZTreeNode> roleTreeList = null;
+        if (ToolUtil.isEmpty(menuIds)) {
+            roleTreeList = this.menuService.menuTreeList();
+        } else {
+            roleTreeList = this.menuService.menuTreeListByMenuIds(menuIds);
+
+        }
+        List<Node> list = menuService.generateMenuTreeForRole(roleTreeList);
+        List<Long> checkedIds = Lists.newArrayList();
+        for (ZTreeNode zTreeNode : roleTreeList) {
+            if (zTreeNode.getChecked() != null && zTreeNode.getChecked()) {
+                checkedIds.add(zTreeNode.getId());
+            }
+        }
+        return Rets.success(Maps.newHashMap("treeData", list, "checkedIds", checkedIds));
     }
 }

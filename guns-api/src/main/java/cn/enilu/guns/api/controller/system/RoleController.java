@@ -2,9 +2,6 @@ package cn.enilu.guns.api.controller.system;
 
 import cn.enilu.guns.api.controller.BaseController;
 import cn.enilu.guns.bean.constant.Const;
-import cn.enilu.guns.bean.constant.cache.Cache;
-import cn.enilu.guns.bean.constant.state.MenuStatus;
-import cn.enilu.guns.bean.entity.system.Menu;
 import cn.enilu.guns.bean.entity.system.Role;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
@@ -22,13 +19,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by maggie on 18/9/16.
+ * Created by enilu on 18/9/16.
  */
 @RestController
 @RequestMapping("/role")
@@ -73,6 +72,16 @@ public class RoleController extends BaseController {
         //缓存被删除的角色名称
         LogObjectHolder.me().set(ConstantFactory.me().getSingleRoleName(id));
         this.roleService.delRoleById(id);
+        return Rets.success();
+    }
+
+    @RequestMapping(value = "/savePermisson",method = RequestMethod.POST)
+    public Object setAuthority(Integer id, String
+            permissions) {
+        if (ToolUtil.isOneEmpty(id)) {
+            throw new GunsException(BizExceptionEnum.REQUEST_NULL);
+        }
+        roleService.setAuthority(id, permissions);
         return Rets.success();
     }
 }
