@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
-import cn.enilu.guns.admin.common.annotion.BussinessLog;
-import cn.enilu.guns.admin.common.annotion.Permission;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.annotion.core.Permission;
 import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.dictmap.UserDict;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
@@ -9,10 +9,10 @@ import cn.enilu.guns.admin.config.properties.GunsProperties;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.admin.core.base.tips.Tip;
 import cn.enilu.guns.bean.exception.GunsException;
-import cn.enilu.guns.admin.core.shiro.ShiroKit;
+import cn.enilu.guns.shiro.ShiroKit;
 import cn.enilu.guns.utils.BeanUtil;
-import cn.enilu.guns.admin.modular.system.factory.UserFactory;
-import cn.enilu.guns.admin.modular.system.transfer.UserDto;
+import cn.enilu.guns.factory.UserFactory;
+import cn.enilu.guns.bean.dto.UserDto;
 import cn.enilu.guns.warpper.UserWarpper;
 import cn.enilu.guns.bean.constant.state.ManagerStatus;
 import cn.enilu.guns.bean.core.ShiroUser;

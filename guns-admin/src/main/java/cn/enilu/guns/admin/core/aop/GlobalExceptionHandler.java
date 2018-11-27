@@ -4,7 +4,7 @@ import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.platform.log.LogManager;
 import cn.enilu.guns.platform.log.LogTaskFactory;
-import cn.enilu.guns.admin.core.shiro.ShiroKit;
+import cn.enilu.guns.shiro.ShiroKit;
 import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.bean.exception.InvalidKaptchaException;
 import cn.enilu.guns.admin.core.base.tips.ErrorTip;

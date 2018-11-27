@@ -36,7 +36,7 @@ public class OperationLogServiceImpl implements OperationLogService {
         if(page.isOpenSort()) {
              pageable = new PageRequest(page.getCurrent()-1, page.getSize(), page.isAsc() ? Sort.Direction.ASC : Sort.Direction.DESC, page.getOrderByField());
         }else{
-            pageable = new PageRequest(page.getCurrent()-1,page.getSize());
+            pageable = new PageRequest(page.getCurrent()-1,page.getSize(),Sort.Direction.DESC,"id");
         }
 
         org.springframework.data.domain.Page<OperationLog> operationLogPage = operationLogRepository.findAll(new Specification<OperationLog>(){

@@ -1,6 +1,7 @@
 
-import { deleteUser , getList , saveUser }  from '@/api/system/user'
-import { getDeptTree }  from '@/api/system/dept'
+import { deleteUser , getList , saveUser , remove }  from '@/api/system/user'
+import { list as deptList }  from '@/api/system/dept'
+import { parseTime } from '@/utils/index'
 
 
 
@@ -9,7 +10,16 @@ export default {
     return {
       formVisible: false,
       formTitle: '添加用户',
-      deptList:[],
+      deptTree:{
+        show:false,
+        data:[],
+        defaultProps: {
+          id: "id",
+          label: 'simplename',
+          children: 'children'
+        },
+      },
+
       isAdd: true,
       form: {
         id: '',
@@ -22,7 +32,8 @@ export default {
         rePassword: '',
         dept: '',
         status: true,
-        deptid:1
+        deptid:1,
+        deptName:''
       },
       rules: {
         account: [
@@ -35,9 +46,6 @@ export default {
         ],
         email: [
           { required: true, message: '请输入email', trigger: 'blur' }
-        ],
-        phone: [
-          { required: true, message: '请输入联系电话', trigger: 'blur' }
         ]
       },
       listQuery: {
@@ -67,15 +75,15 @@ export default {
   },
   methods: {
     init() {
-      getDeptTree().then(response => {
-        this.deptList = response.data.items
+      deptList().then(response => {
+        this.deptTree.data = response.data
       })
       this.fetchData()
     },
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
-        this.list = response.data.items
+        this.list = response.data.records
         this.listLoading = false
         this.total = response.data.total
       })
@@ -112,8 +120,6 @@ export default {
       this.fetchData();
     },
     handleCurrentChange(currentRow,oldCurrentRow){
-      console.log('-------')
-      console.log(currentRow)
       this.selRow = currentRow
     },
     resetForm() {
@@ -142,22 +148,32 @@ export default {
         return true
       }
       if(this.form.password != this.form.rePassword){
-        console.log('password is not right')
         return false
       }
       if(this.form.password == '' || this.form.rePassword == ''){
-        console.log('password is null')
         return false
       }
       return true
     },
     saveUser() {
+      console.log('--------------------')
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
 
           if(this.validPasswd()){
-            saveUser(this.form).then(response => {
+            console.log(this.form)
+            var form  =self.form
+            if(form.status==true){
+              //启用
+              form.status = 1
+            }else{
+              //冻结
+              form.status = 2
+            }
+            form.birthday = parseTime(form.birthday,'{y}-{m}-{d}')
+            form.createtime = parseTime(form.createtime)
+            saveUser(form).then(response => {
               console.log(response)
               this.$message({
                 message: '提交成功',
@@ -196,7 +212,7 @@ export default {
     edit(){
       if(this.checkSel()){
         this.isAdd = false
-        console.log(this.selRow)
+
         this.form = this.selRow
         this.form.status = this.selRow.statusName == '启用'
         this.form.password = ''
@@ -213,10 +229,10 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-
+          console.log(id)
           remove(id).then(response => {
             this.$message({
-              message: response.data.msg,
+              message: '删除成功',
               type: 'success'
             });
             this.fetchData()
@@ -227,7 +243,13 @@ export default {
         });
 
       }
-    }
+    },
+
+    handleNodeClick(data, node) {
+      this.form.deptid = data.id
+      this.form.deptName = data.simplename
+      this.deptTree.show = false;
+    },
 
   }
 }

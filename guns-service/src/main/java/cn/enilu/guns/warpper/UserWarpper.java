@@ -1,6 +1,7 @@
 package cn.enilu.guns.warpper;
 
 import cn.enilu.guns.service.system.impl.ConstantFactory;
+import cn.enilu.guns.utils.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -20,8 +21,12 @@ public class UserWarpper extends BaseControllerWarpper {
     @Override
     public void warpTheMap(Map<String, Object> map) {
         map.put("sexName", ConstantFactory.me().getSexName((Integer) map.get("sex")));
-        map.put("roleName", ConstantFactory.me().getRoleName((String) map.get("roleid")));
-        map.put("deptName", ConstantFactory.me().getDeptName((Integer) map.get("deptid")));
+        if(StringUtils.isNotNullOrEmpty(map.get("roleid"))) {
+            map.put("roleName", ConstantFactory.me().getRoleName((String) map.get("roleid")));
+        }
+        if(StringUtils.isNotNullOrEmpty(map.get("deptid"))) {
+            map.put("deptName", ConstantFactory.me().getDeptName((Integer) map.get("deptid")));
+        }
         map.put("statusName", ConstantFactory.me().getStatusName((Integer) map.get("status")));
 
     }

@@ -1,6 +1,6 @@
-package cn.enilu.guns.admin.modular.system.factory;
+package cn.enilu.guns.factory;
 
-import cn.enilu.guns.admin.modular.system.transfer.UserDto;
+import cn.enilu.guns.bean.dto.UserDto;
 import cn.enilu.guns.bean.entity.system.User;
 import org.springframework.beans.BeanUtils;
 
@@ -30,6 +30,9 @@ public class UserFactory {
             user.setPhone(userDto.getPhone());
             user.setEmail(userDto.getEmail());
             user.setBirthday(userDto.getBirthday());
+            if(userDto.getStatus()!=null){
+                user.setStatus(userDto.getStatus());
+            }
             return user;
         }
     }

@@ -33,10 +33,10 @@ public class LoginLogController extends BaseController {
     @Autowired
     private LoginLogService loginlogService;
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public Object list(@RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String logName) {
+    public Object list(@RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String logname) {
         Page<LoginLog> page = new PageFactory<LoginLog>().defaultPage();
 
-        page = loginlogService.getLoginLogs(page, beginTime, endTime, logName);
+        page = loginlogService.getLoginLogs(page, beginTime, endTime, logname);
         page.setRecords((List<LoginLog>) new LogWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp());
         return Rets.success(page);
 

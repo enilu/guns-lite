@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.enilu.guns.admin.core.aop;
+package cn.enilu.guns.aop;
 
-import cn.enilu.guns.admin.common.annotion.Permission;
-import cn.enilu.guns.admin.core.shiro.check.PermissionCheckManager;
+import cn.enilu.guns.bean.annotion.core.Permission;
+import cn.enilu.guns.shiro.check.PermissionCheckManager;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -34,7 +34,7 @@ import java.lang.reflect.Method;
 @Component
 public class PermissionAop {
 
-    @Pointcut(value = "@annotation(cn.enilu.guns.admin.common.annotion.Permission)")
+    @Pointcut(value = "@annotation(cn.enilu.guns.bean.annotion.core.Permission)")
     private void cutPermission() {
 
     }

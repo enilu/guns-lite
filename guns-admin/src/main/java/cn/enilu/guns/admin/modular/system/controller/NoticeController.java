@@ -1,11 +1,11 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
-import cn.enilu.guns.admin.common.annotion.BussinessLog;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.dictmap.NoticeMap;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.bean.exception.GunsException;
-import cn.enilu.guns.admin.core.shiro.ShiroKit;
+import cn.enilu.guns.shiro.ShiroKit;
 import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.warpper.NoticeWrapper;
 import cn.enilu.guns.bean.entity.system.Notice;

@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.common.annotion;
+package cn.enilu.guns.bean.annotion.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

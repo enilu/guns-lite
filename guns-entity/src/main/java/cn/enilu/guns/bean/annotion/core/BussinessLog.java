@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.common.annotion;
+package cn.enilu.guns.bean.annotion.core;
 
 import cn.enilu.guns.bean.dictmap.base.AbstractDictMap;
 import cn.enilu.guns.bean.dictmap.SystemDict;

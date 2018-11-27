@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.config.web;
 
 import cn.enilu.guns.admin.config.properties.GunsProperties;
-import cn.enilu.guns.admin.core.shiro.ShiroDbRealm;
+import cn.enilu.guns.shiro.ShiroDbRealm;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;

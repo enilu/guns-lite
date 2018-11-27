@@ -28,11 +28,10 @@ public class SecurityInterceptor implements HandlerInterceptor {
     private TokenCache tokenCache;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        logger.info("requestURL:" + request.getRequestURL().toString());
+        logger.info("requestURL:{},method:{}" , request.getRequestURL().toString(),request.getMethod());
 
         //如果用户是非登录用户，则拒绝用户请求
         String method = request.getMethod();
-        logger.debug("method:{}",method);
         if("OPTIONS".equals(method)){
             return true;
         }

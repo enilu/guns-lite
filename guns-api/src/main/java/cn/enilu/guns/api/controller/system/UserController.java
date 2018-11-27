@@ -1,24 +1,36 @@
 package cn.enilu.guns.api.controller.system;
 
 import cn.enilu.guns.api.controller.BaseController;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.constant.factory.PageFactory;
+import cn.enilu.guns.bean.constant.state.ManagerStatus;
+import cn.enilu.guns.bean.dictmap.UserDict;
+import cn.enilu.guns.bean.dto.UserDto;
 import cn.enilu.guns.bean.entity.system.User;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.vo.front.Rets;
 import cn.enilu.guns.dao.system.UserRepository;
-import cn.enilu.guns.service.system.LogObjectHolder;
+import cn.enilu.guns.factory.UserFactory;
 import cn.enilu.guns.service.system.UserService;
-import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.BeanUtil;
+import cn.enilu.guns.utils.MD5;
 import cn.enilu.guns.utils.ToolUtil;
+import cn.enilu.guns.utils.factory.Page;
 import cn.enilu.guns.warpper.UserWarpper;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,24 +67,49 @@ public class UserController extends BaseController {
         if(deptid!=null&&deptid!=0){
             params.put("deptid",deptid);
         }
-        List<User> users = userService.findAll(params);
-        return Rets.success(new UserWarpper(BeanUtil.objectsToMaps(users)).warp());
+
+        Page page = new PageFactory().defaultPage();
+
+        page = userService.findPage(page, params);
+        List list = (List) new UserWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp();
+        page.setRecords(list);
+        return Rets.success(page);
     }
     @RequestMapping(method = RequestMethod.POST)
-    public Object save(@ModelAttribute User user){
+    @BussinessLog(value = "编辑管理员", key = "name", dict = UserDict.class)
+    public Object save( @Valid UserDto user,BindingResult result){
         logger.info(JSON.toJSONString(user));
 
-//        userRepository.save(user);
+
+        if(user.getId()==null) {
+            // 判断账号是否重复
+            User theUser = userRepository.findByAccount(user.getAccount());
+            if (theUser != null) {
+                throw new GunsException(BizExceptionEnum.USER_ALREADY_REG);
+            }
+            // 完善账号信息
+            user.setSalt(ToolUtil.getRandomString(5));
+            user.setPassword(MD5.md5(user.getPassword(), user.getSalt()));
+            user.setStatus(ManagerStatus.OK.getCode());
+            user.setCreatetime(new Date());
+            userRepository.save(UserFactory.createUser(user, new User()));
+        }else{
+            User oldUser = userRepository.findOne(user.getId());
+            userRepository.save(UserFactory.updateUser(user,oldUser));
+        }
         return Rets.success();
     }
+
+    @BussinessLog(value = "删除管理员", key = "userId", dict = UserDict.class)
     @RequestMapping(method = RequestMethod.DELETE)
-    public Object remove(Integer id){
-        logger.info("id:{}",id);
-        if (ToolUtil.isEmpty(id)) {
+    public Object remove(Integer userId){
+        logger.info("id:{}",userId);
+        if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        LogObjectHolder.me().set(ConstantFactory.me().getDeptName(id));
-
+        User user = userRepository.findOne(userId);
+        user.setStatus(ManagerStatus.DELETED.getCode());
+        userRepository.save(user);
         return Rets.success();
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.enilu.guns.admin.core.shiro;
+package cn.enilu.guns.shiro;
 
 import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.core.ShiroUser;

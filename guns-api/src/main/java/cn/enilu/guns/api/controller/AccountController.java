@@ -10,6 +10,7 @@ import cn.enilu.guns.service.system.AccountService;
 import cn.enilu.guns.service.system.MenuService;
 import cn.enilu.guns.utils.MD5;
 import cn.enilu.guns.utils.Maps;
+import cn.enilu.guns.utils.StringUtils;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,6 +97,9 @@ public class AccountController extends BaseController{
         Long idUser = getIdUser(request);
         if(idUser!=null){
             User user =  userRepository.findOne(idUser.intValue());
+            if(StringUtils.isEmpty(user.getRoleid())){
+                return Rets.failure("该用户未配置权限");
+            }
             String token = getToken(request);
             ShiroUser shiroUser = tokenCache.getUser(token);
             Map map = Maps.newHashMap("name",user.getName(),"role","admin","roles", shiroUser.getRoleCodes());

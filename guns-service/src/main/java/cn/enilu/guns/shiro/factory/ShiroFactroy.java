@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.core.shiro.factory;
+package cn.enilu.guns.shiro.factory;
 
 import cn.enilu.guns.bean.vo.SpringContextHolder;
 import cn.enilu.guns.bean.constant.state.ManagerStatus;

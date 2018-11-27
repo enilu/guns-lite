@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.enilu.guns.admin.core.shiro.check;
+package cn.enilu.guns.shiro.check;
 
 
 import cn.enilu.guns.bean.vo.SpringContextHolder;

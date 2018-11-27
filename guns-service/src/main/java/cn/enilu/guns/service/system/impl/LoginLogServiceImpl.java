@@ -2,10 +2,10 @@ package cn.enilu.guns.service.system.impl;
 
 import cn.enilu.guns.bean.entity.system.LoginLog;
 import cn.enilu.guns.dao.system.LoginLogRepository;
-import cn.enilu.guns.utils.factory.Page;
 import cn.enilu.guns.service.system.LoginLogService;
 import cn.enilu.guns.utils.DateUtil;
-import com.google.common.base.Strings;
+import cn.enilu.guns.utils.StringUtils;
+import cn.enilu.guns.utils.factory.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +38,7 @@ public class LoginLogServiceImpl implements LoginLogService {
         if(page.isOpenSort()) {
             pageable = new PageRequest(page.getCurrent()-1, page.getSize(), page.isAsc() ? Sort.Direction.ASC : Sort.Direction.DESC, page.getOrderByField());
         }else{
-            pageable = new PageRequest(page.getCurrent()-1,page.getSize());
+            pageable = new PageRequest(page.getCurrent()-1,page.getSize(),Sort.Direction.DESC,"id");
         }
 
         org.springframework.data.domain.Page<LoginLog> page1 = loginLogRepository.findAll(new Specification<LoginLog>(){
@@ -47,14 +47,14 @@ public class LoginLogServiceImpl implements LoginLogService {
             @Override
             public Predicate toPredicate(Root<LoginLog> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> list = new ArrayList<Predicate>();
-                if(!Strings.isNullOrEmpty(beginTime)){
+                if(StringUtils.isNotEmpty(beginTime)){
                     list.add(criteriaBuilder.greaterThan(root.get("createtime").as(Date.class), DateUtil.parseDate(beginTime)));
                 }
-                if(!Strings.isNullOrEmpty(endTime)){
+                if(StringUtils.isNotEmpty(endTime)){
                     list.add(criteriaBuilder.lessThan(root.get("createtime").as(Date.class), DateUtil.parseDate(endTime)));
                 }
-                if(!Strings.isNullOrEmpty(logName)){
-                    list.add(criteriaBuilder.like(root.get("logname").as(String.class),logName));
+                if(StringUtils.isNotEmpty(logName)){
+                    list.add(criteriaBuilder.like(root.get("logname").as(String.class),"%"+logName+"%"));
                 }
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.and(list.toArray(p));

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.enilu.guns.admin.core.shiro.check;
+package cn.enilu.guns.shiro.check;
 
-import cn.enilu.guns.admin.core.listener.ConfigListener;
-import cn.enilu.guns.admin.core.shiro.ShiroKit;
-import cn.enilu.guns.admin.core.support.CollectionKit;
-import cn.enilu.guns.utils.HttpKit;
-import cn.enilu.guns.bean.vo.SpringContextHolder;
 import cn.enilu.guns.bean.core.ShiroUser;
+import cn.enilu.guns.bean.vo.SpringContextHolder;
+import cn.enilu.guns.shiro.ShiroKit;
+import cn.enilu.guns.utils.CollectionKit;
+import cn.enilu.guns.utils.HttpKit;
+import cn.enilu.guns.web.listener.ConfigListener;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

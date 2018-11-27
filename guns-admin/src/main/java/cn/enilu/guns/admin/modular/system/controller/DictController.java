@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
-import cn.enilu.guns.admin.common.annotion.BussinessLog;
-import cn.enilu.guns.admin.common.annotion.Permission;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.annotion.core.Permission;
 import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.dictmap.DictMap;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;

@@ -1,9 +1,9 @@
-package cn.enilu.guns.admin.core.shiro;
+package cn.enilu.guns.shiro;
 
-import cn.enilu.guns.admin.core.shiro.factory.IShiro;
-import cn.enilu.guns.admin.core.shiro.factory.ShiroFactroy;
 import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.bean.entity.system.User;
+import cn.enilu.guns.shiro.factory.IShiro;
+import cn.enilu.guns.shiro.factory.ShiroFactroy;
 import cn.enilu.guns.utils.ToolUtil;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;

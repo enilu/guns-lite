@@ -1,4 +1,4 @@
-package cn.enilu.guns.admin.modular.system.transfer;
+package cn.enilu.guns.bean.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -16,12 +16,12 @@ export function saveUser(params) {
   })
 }
 
-export function deleteUser(id) {
+export function remove(userId) {
   return request({
     url: '/user',
     method: 'delete',
-    data: {
-      id
+    params: {
+      userId
     }
   })
 }

@@ -1,14 +1,17 @@
-package cn.enilu.guns.admin.core.aop;
+package cn.enilu.guns.aop;
 
-import cn.enilu.guns.admin.common.annotion.BussinessLog;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.bean.dictmap.base.AbstractDictMap;
+import cn.enilu.guns.bean.vo.SpringContextHolder;
+import cn.enilu.guns.dao.cache.TokenCache;
+import cn.enilu.guns.factory.Contrast;
 import cn.enilu.guns.platform.log.LogManager;
 import cn.enilu.guns.platform.log.LogTaskFactory;
-import cn.enilu.guns.admin.core.shiro.ShiroKit;
-import cn.enilu.guns.utils.HttpKit;
-import cn.enilu.guns.factory.Contrast;
-import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.service.system.LogObjectHolder;
+import cn.enilu.guns.shiro.ShiroKit;
+import cn.enilu.guns.utils.HttpKit;
+import cn.enilu.guns.utils.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -19,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -34,7 +38,7 @@ public class LogAop {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut(value = "@annotation(cn.enilu.guns.admin.common.annotion.BussinessLog)")
+    @Pointcut(value = "@annotation(cn.enilu.guns.bean.annotion.core.BussinessLog)")
     public void cutService() {
     }
 
@@ -66,10 +70,20 @@ public class LogAop {
         Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
         String methodName = currentMethod.getName();
 
-        //如果当前用户未登录，不做日志
-        ShiroUser user = ShiroKit.getUser();
-        if (null == user) {
-            return;
+        //获取用户id，admin和api模块获取idUser方式不同
+        Long idUser = null;
+        HttpServletRequest request = HttpKit.getRequest();
+        String token = request.getHeader("Authorization");
+        if(StringUtils.isNotEmpty(token)) {
+            idUser = SpringContextHolder.getBean(TokenCache.class).get(token);
+        }
+        if(idUser==null) {
+            //如果当前用户未登录，不做日志
+            ShiroUser user = ShiroKit.getUser();
+            if (null == user) {
+                return;
+            }
+            idUser = user.getId();
         }
 
         //获取拦截方法的参数
@@ -89,17 +103,22 @@ public class LogAop {
         }
 
         //如果涉及到修改,比对变化
-        String msg;
+        String msg="";
         if (bussinessName.indexOf("修改") != -1 || bussinessName.indexOf("编辑") != -1) {
+            //todo api模块无法使用该方法获取数据
             Object obj1 = LogObjectHolder.me().get();
             Map<String, String> obj2 = HttpKit.getRequestParameters();
-            msg = Contrast.contrastObj(dictClass, key, obj1, obj2);
+            try {
+                msg = Contrast.contrastObj(dictClass, key, obj1, obj2);
+            }catch (Exception e){
+
+            }
         } else {
             Map<String, String> parameters = HttpKit.getRequestParameters();
             AbstractDictMap dictMap = (AbstractDictMap) dictClass.newInstance();
             msg = Contrast.parseMutiKey(dictMap,key,parameters);
         }
 
-        LogManager.me().executeLog(LogTaskFactory.bussinessLog(user.getId(), bussinessName, className, methodName, msg));
+        LogManager.me().executeLog(LogTaskFactory.bussinessLog(idUser, bussinessName, className, methodName, msg));
     }
 }

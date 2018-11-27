@@ -2,6 +2,7 @@ package cn.enilu.guns.service.system;
 
 import cn.enilu.guns.bean.entity.system.Cfg;
 import cn.enilu.guns.dao.system.CfgRepository;
+import cn.enilu.guns.utils.StringUtils;
 import cn.enilu.guns.utils.factory.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +46,14 @@ public class CfgService {
             @Override
             public Predicate toPredicate(Root<Cfg> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> list = new ArrayList<Predicate>();
+                if(StringUtils.isNotEmpty(params.get("cfgName"))){
+                    list.add(criteriaBuilder.like(root.get("cfgName").as(String.class),"%"+params.get("cfgName")+"%"));
+                }
+
+                if(StringUtils.isNotEmpty(params.get("cfgValue"))){
+                    list.add(criteriaBuilder.like(root.get("cfgValue").as(String.class),"%"+params.get("cfgValue")
+                            +"%"));
+                }
 //                if(!Strings.isNullOrEmpty(beginTime)){
 //                    list.add(criteriaBuilder.greaterThan(root.get("createtime").as(Date.class), DateUtil.parseDate(beginTime)));
 //                }

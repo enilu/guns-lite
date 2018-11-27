@@ -42,7 +42,7 @@
           {{scope.row.sexName}}
         </template>
       </el-table-column>
-      <el-table-column label="用户">
+      <el-table-column label="角色">
         <template slot-scope="scope">
           {{scope.row.roleName}}
         </template>
@@ -134,15 +134,22 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="部门">
-              <el-select v-model="form.deptid" placeholder="请选择部门">
-                <el-option
-                  v-for="item in deptList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-              </el-select>
+            <el-form-item label="所属部门" >
+              <el-input
+                placeholder="请选择所属部门"
+                v-model="form.deptName"
+                readonly="readonly"
+                @click.native="deptTree.show  = !deptTree.show">
+              </el-input>
+              <el-tree v-if="deptTree.show"
+                       empty-text="暂无数据"
+                       :expand-on-click-node="false"
+                       :data="deptTree.data"
+                       :props="deptTree.defaultProps"
+                       @node-click="handleNodeClick"
+                       class="input-tree">
+              </el-tree>
+
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -152,7 +159,9 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="出生日期">
-                <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday" style="width: 100%;"></el-date-picker>
+                <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday" style="width: 100%;">
+
+                </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
