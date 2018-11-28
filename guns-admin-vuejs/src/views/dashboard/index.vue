@@ -6,27 +6,45 @@
       <el-col :span="6">
         <el-card class="box-card">
           <el-col :span="12">
-            新增用户
+            <svg-icon  icon-class="user" ></svg-icon>
           </el-col>
-          <el-col :span="12">102,400</el-col>
+          <el-col :span="12" >
+            <div class="card-panel-text">新增用户</div>
+            <div class="card-panel-num">102,400</div>
+          </el-col>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card class="box-card">
-          <el-col :span="12">未处理消息</el-col>
-          <el-col :span="12">50</el-col>
+          <el-col :span="12">
+            <svg-icon  icon-class="message" ></svg-icon>
+          </el-col>
+          <el-col :span="12" >
+            <div class="card-panel-text">未处理消息</div>
+            <div class="card-panel-num">5</div>
+          </el-col>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card class="box-card">
-          <el-col :span="12">收入</el-col>
-          <el-col :span="12">10000</el-col>
+          <el-col :span="12">
+            <svg-icon  icon-class="money" ></svg-icon>
+          </el-col>
+          <el-col :span="12" >
+            <div class="card-panel-text">收入</div>
+            <div class="card-panel-num">10000</div>
+          </el-col>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card class="box-card">
-          <el-col :span="12">在线用户</el-col>
-          <el-col :span="12">50000</el-col>
+          <el-col :span="12">
+            <svg-icon  icon-class="chart" ></svg-icon>
+          </el-col>
+          <el-col :span="12" >
+            <div class="card-panel-text">在线用户</div>
+            <div class="card-panel-num">5000</div>
+          </el-col>
         </el-card>
       </el-col>
     </el-row>
@@ -134,7 +152,7 @@ export default {
     return {
       lineData: {
         title: {
-          text: '折线图堆叠'
+          text: ''
         },
         tooltip: {
           trigger: 'axis'
@@ -209,7 +227,7 @@ export default {
       },
       pieData: {
         title : {
-          text: '某站点用户访问来源',
+          text: '用户来源',
           subtext: '纯属虚构',
           x:'center'
         },
@@ -283,12 +301,13 @@ export default {
 .dashboard {
 
   &-container {
-    padding: 30px;
+    padding: 15px;
     background-color: #f0f2f5;
   }
   &-text {
-    font-size: 30px;
-    line-height: 46px;
+    font-size: 14px;
+    line-height: 22px;
+    padding-bottom:15px;
   }
 }
 .echarts{
@@ -296,7 +315,7 @@ export default {
   height: 100%;
 }
 .box-card{
-  height:80px;
+  height:108px;
 }
   .chart{
     height: 350px;
@@ -306,5 +325,21 @@ export default {
     background-color: white;
     border: 1px solid #ebeef5;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+  }
+
+  .box-card > div >div > .svg-icon {
+    width: 3em;
+    height: 3em;
+    color:#34bfa3;
+  }
+  .card-panel-text{
+    padding-top:10px;
+    font-size:16px;
+    color:gray;
+  }
+  .card-panel-num{
+    padding-top:10px;
+    font-size:20px;
+    font-weight: bold;
   }
 </style>
