@@ -17,12 +17,12 @@ export function save(params) {
   })
 }
 
-export function remove(id) {
+export function remove(roleId) {
   return request({
     url: '/role',
     method: 'delete',
     params: {
-      id: id
+      roleId: roleId
     }
   })
 }

@@ -20,6 +20,7 @@ export default {
       formVisible: false,
       isAdd: false,
       form: {
+        id:'',
         pname:'',
         name: '',
         code: '',

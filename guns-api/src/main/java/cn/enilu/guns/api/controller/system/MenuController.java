@@ -1,7 +1,9 @@
 package cn.enilu.guns.api.controller.system;
 
 import cn.enilu.guns.api.controller.BaseController;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.constant.state.MenuStatus;
+import cn.enilu.guns.bean.dictmap.MenuDict;
 import cn.enilu.guns.bean.entity.system.Menu;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
@@ -20,7 +22,10 @@ import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -47,23 +52,28 @@ public class MenuController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @BussinessLog(value = "编辑菜单", key = "name", dict = MenuDict.class)
     public Object save(@ModelAttribute Menu menu) {
         logger.info(JSON.toJSONString(menu));
+
         //判断是否存在该编号
-        String existedMenuName = ConstantFactory.me().getMenuNameByCode(menu.getCode());
-        if (ToolUtil.isNotEmpty(existedMenuName)) {
-            throw new GunsException(BizExceptionEnum.EXISTED_THE_MENU);
+        if(menu.getId()==null) {
+            String existedMenuName = ConstantFactory.me().getMenuNameByCode(menu.getCode());
+            if (ToolUtil.isNotEmpty(existedMenuName)) {
+                throw new GunsException(BizExceptionEnum.EXISTED_THE_MENU);
+            }
+            menu.setStatus(MenuStatus.ENABLE.getCode());
         }
 
         //设置父级菜单编号
         menuService.menuSetPcode(menu);
 
-        menu.setStatus(MenuStatus.ENABLE.getCode());
         this.menuRepository.save(menu);
         return Rets.success();
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
+    @BussinessLog(value = "删除菜单", key = "id", dict = MenuDict.class)
     public Object remove(Long id) {
         logger.info("id:{}", id);
         if (ToolUtil.isEmpty(id)) {

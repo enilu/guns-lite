@@ -1,7 +1,9 @@
 package cn.enilu.guns.api.controller.system;
 
 import cn.enilu.guns.api.controller.BaseController;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.constant.Const;
+import cn.enilu.guns.bean.dictmap.RoleDict;
 import cn.enilu.guns.bean.entity.system.Role;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
@@ -50,6 +52,7 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @BussinessLog(value = "编辑角色", key = "name", dict = RoleDict.class)
     public Object save(@Valid Role role, BindingResult result){
         logger.info(JSON.toJSONString(role));
         if (result.hasErrors()) {
@@ -59,29 +62,31 @@ public class RoleController extends BaseController {
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
-    public Object remove(Integer id){
-        logger.info("id:{}",id);
-        if (ToolUtil.isEmpty(id)) {
+    @BussinessLog(value = "删除角色", key = "roleId", dict = RoleDict.class)
+    public Object remove(Integer roleId){
+        logger.info("id:{}",roleId);
+        if (ToolUtil.isEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
 
         //不能删除超级管理员角色
-        if(id.equals(Const.ADMIN_ROLE_ID)){
+        if(roleId.equals(Const.ADMIN_ROLE_ID)){
             throw new GunsException(BizExceptionEnum.CANT_DELETE_ADMIN);
         }
         //缓存被删除的角色名称
-        LogObjectHolder.me().set(ConstantFactory.me().getSingleRoleName(id));
-        this.roleService.delRoleById(id);
+        LogObjectHolder.me().set(ConstantFactory.me().getSingleRoleName(roleId));
+        this.roleService.delRoleById(roleId);
         return Rets.success();
     }
 
     @RequestMapping(value = "/savePermisson",method = RequestMethod.POST)
-    public Object setAuthority(Integer id, String
+    @BussinessLog(value = "配置角色权限", key = "roleId", dict = RoleDict.class)
+    public Object setAuthority(Integer roleId, String
             permissions) {
-        if (ToolUtil.isOneEmpty(id)) {
+        if (ToolUtil.isOneEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        roleService.setAuthority(id, permissions);
+        roleService.setAuthority(roleId, permissions);
         return Rets.success();
     }
 }

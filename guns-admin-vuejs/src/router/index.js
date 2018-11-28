@@ -136,7 +136,9 @@ export const asyncRouterMap = [
         path: 'sysCfg',
         name: '参数管理',
         component: () => import('@/views/system/cfg/index'),
-        meta: {title: '参数管理'}
+        meta: {
+          title: '参数管理',
+        }
       }
     ]
   },

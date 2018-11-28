@@ -236,7 +236,7 @@ export default {
         menuIds+=checkedPermissons[index]+','
       }
       var data = {
-        id:this.selRow.id,
+        roleId:this.selRow.id,
         permissions:menuIds
       }
       savePermissons(data).then(response => {

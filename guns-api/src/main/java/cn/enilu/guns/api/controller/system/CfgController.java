@@ -1,6 +1,7 @@
 package cn.enilu.guns.api.controller.system;
 
 import cn.enilu.guns.api.controller.BaseController;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.constant.factory.PageFactory;
 import cn.enilu.guns.bean.entity.system.Cfg;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
@@ -40,6 +41,7 @@ public class CfgController extends BaseController {
         return Rets.success(page);
     }
     @RequestMapping(method = RequestMethod.POST)
+    @BussinessLog(value = "编辑参数", key = "cfgName")
     public Object save(@ModelAttribute Cfg cfg){
         if (ToolUtil.isOneEmpty(cfg, cfg.getCfgName(),cfg.getCfgValue())) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
@@ -48,6 +50,7 @@ public class CfgController extends BaseController {
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
+    @BussinessLog(value = "删除参数", key = "id")
     public Object remove(Long id){
         logger.info("id:{}",id);
         if (ToolUtil.isEmpty(id)) {

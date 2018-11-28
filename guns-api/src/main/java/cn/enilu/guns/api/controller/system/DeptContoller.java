@@ -1,6 +1,8 @@
 package cn.enilu.guns.api.controller.system;
 
 import cn.enilu.guns.api.controller.BaseController;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.dictmap.DeptDict;
 import cn.enilu.guns.bean.entity.system.Dept;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
@@ -40,6 +42,7 @@ public class DeptContoller extends BaseController {
         return Rets.success(list);
     }
     @RequestMapping(method = RequestMethod.POST)
+    @BussinessLog(value = "编辑部门", key = "simplename", dict = DeptDict.class)
     public Object save(@ModelAttribute Dept dept){
         logger.info(JSON.toJSONString(dept));
         if (ToolUtil.isOneEmpty(dept, dept.getSimplename())) {
@@ -52,6 +55,7 @@ public class DeptContoller extends BaseController {
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
+    @BussinessLog(value = "删除部门", key = "id", dict = DeptDict.class)
     public Object remove(Integer id){
         logger.info("id:{}",id);
         if (ToolUtil.isEmpty(id)) {
