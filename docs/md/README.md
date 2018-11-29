@@ -23,6 +23,18 @@ footer: MIT Licensed | Copyright © 2018-present enilu
     <h2>支持齐全</h2>
     <p>支持mysql、oracle等多数据库平台。</p>
   </div>
+  <div class="feature">
+      <h2>最新技术栈</h2>
+      <p>使用spring boot+jpa构建后端服务，<br>使用bootstrap,vue/element构建前端</p>
+   </div>
+   <div class="feature">
+      <h2>前后端分离</h2>
+      <p>提供由vue构建的纯前端系统和后台api服务做交互</p>
+   </div>
+  <div class="feature">
+     <h2>最佳实践</h2>
+     <p>丰富的案例提供了最佳实践，没有最好的框架，只有最适合的框架</p>
+  </div>
 </div>
 
  
