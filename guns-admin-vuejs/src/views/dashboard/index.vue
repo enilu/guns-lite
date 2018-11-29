@@ -328,8 +328,8 @@ export default {
   }
 
   .box-card > div >div > .svg-icon {
-    width: 3em;
-    height: 3em;
+    width: 4em;
+    height: 4em;
     color:#34bfa3;
   }
   .card-panel-text{
