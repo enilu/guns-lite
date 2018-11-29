@@ -1,9 +1,5 @@
 # guns-lite-vue
 
-## todo
-用户、角色、通知管理
-
-
 **这是一个基于vue-admin-template的vue后台管理项目**
 克隆自：https://github.com/PanJiaChen/vue-admin-template
 开发过程可以参考这个：https://panjiachen.gitee.io/vue-element-admin ，该站点是一个集成后台，有很多功能可以参考服用
