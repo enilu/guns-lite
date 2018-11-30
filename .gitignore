@@ -5,7 +5,6 @@ docs/md/node_modules/*
 docs/md/*.log
 docs/md/dist/*
 **/target/*
-guns-admin-vuejs/node_modules/*
 *.project
 *.classpath
 *.factorypath
@@ -13,4 +12,6 @@ guns-admin-vuejs/node_modules/*
 .settings/*
 .vscode/*
 .idea/*
+guns-admin-vuejs/node_modules/*
 guns-admin-vuejs/.idea/*
+guns-admin-vuejs/dist/*
