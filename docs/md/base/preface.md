@@ -56,6 +56,7 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 ## 感谢
 
 - [stylefeng](https://github.com/stylefeng) 没有他就没有guns，没有guns就没有这个guns-lite
+- [PanJiaChen](https://github.com/PanJiaChen) guns-admin-vuejs克隆在他的[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)
 
 ## 交流
 - 欢迎提issue [https://github.com/enilu/guns-lite/issues/new](https://github.com/enilu/guns-lite/issues/new)
