@@ -46,7 +46,8 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 - 创建数据库：guns-lite，将guns-admin/sql/guns-lite.sql导入数据库中，更改相应数据库配置
 - 启动guns-admin
 - 访问 https://localhost:8080，   登录，用户名密码:admin/admin
-- ![demo](demo.gif)
+- ![demo](../demo.gif)
+- 另外附上vue版本效果图![vue](../vuejs.gif)
 
 ## 文档
 

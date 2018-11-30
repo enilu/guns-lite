@@ -61,6 +61,7 @@ service层也没办法共用了。想想以后要维护两套dao层和service层
 - 启动guns-admin
 - 访问 https://localhost:8080，   登录，用户名密码:admin/admin
 - ![demo](docs/md/demo.gif)
+- 另外附上vue版本效果图![vue](docs/md/vuejs.gif)
 
 ## 文档
 
