@@ -36,19 +36,6 @@ export const constantRouterMap = [
       component: () => import('@/views/dashboard/index'),
       meta: {title: 'dashboard', icon: 'dashboard', noCache: true}
     }]
-  },
-
-  {
-    path: '/notice',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: '通知',
-        component: () => import('@/views/system/notice/index'),
-        meta: {title: '通知', icon: 'message'}
-      }
-    ]
   }
 
 ]

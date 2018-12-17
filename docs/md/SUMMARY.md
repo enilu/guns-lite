@@ -3,6 +3,8 @@
 
 * 基本准备
   * [基本环境准备](base/jdkAndMaven.md)
+  * [目录结构](base/modules.md)
+  * [前后端分离版](base/guns-admin-vuejs.md)
 
 * [30分钟将本项目跑起来](quickstart/quickstart.md)
   * [克隆项目](quickstart/clone.md)

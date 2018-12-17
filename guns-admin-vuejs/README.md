@@ -1,12 +1,12 @@
-# guns-lite-vue
+# guns-lite-vuejs
 
 该模块提供了一个基于vue的纯静态后台管理系统的界面方案，
 
 guns-admin-vuejs（前端）和guns-api（后端）搭配使用提供了和guns-admin一样的功能。
 
-该模块克隆自：https://github.com/PanJiaChen/vue-admin-template，感谢PanJiaChen，欢迎大家给他点赞。
+该模块克隆自：[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)，感谢PanJiaChen，欢迎大家给他点赞。
 
-PanJiaChen同学提供了全面的文档，开发过程可以参考这里：https://vuepress.vuejs.org/zh/
+PanJiaChen同学提供了全面的文档，开发过程可以参考这里：[https://vuepress.vuejs.org/zh/](https://vuepress.vuejs.org/zh/)
  
 ## 构建步骤
 

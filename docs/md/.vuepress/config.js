@@ -15,7 +15,9 @@ module.exports = {
                 title: '基本准备',
                 collapsable: false,
                 children: [
-                    '/base/jdkAndMaven'
+                    '/base/jdkAndMaven',
+                    '/base/modules',
+                    '/base/guns-admin-vuejs.md'
                 ]
             },
 
