@@ -179,23 +179,18 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      var self = this
-      getList(this.listQuery).then(response => {
+      let self = this
+      getList(self.listQuery).then(response => {
         for(var i=0;i<response.data.length;i++){
-
           var notice = response.data[i];
-          console.log(notice)
-          // setTimeout(() => {
             self.$notify({
               title: notice.title,
               message: notice.content,
               duration: 0
             });
-          // },100)
 
         }
-        console.log(this.notice)
-        this.listLoading = false
+        self.listLoading = false
       })
     }
   }
