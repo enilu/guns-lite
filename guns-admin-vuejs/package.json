@@ -6,6 +6,8 @@
   "author": "enilu <eniluzt@qq.com>",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "uat": "set NODE_ENV=uat&&node build/build.js",
+    "prod": "set NODE_ENV=production&&node build/build.js",
     "start": "npm run dev",
     "build": "node build/build.js",
     "build:report": "npm_config_report=true node build/build.js",

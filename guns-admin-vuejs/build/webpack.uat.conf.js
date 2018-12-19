@@ -16,16 +16,14 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const env = process.env.NODE_ENV === 'uat'
-  ? require('../config/uat.env')
-  : require('../config/prod.env')
+const env = require('../config/prod.env')
 
 // For NamedChunksPlugin
 const seen = new Set()
 const nameLength = 4
 
 const webpackConfig = merge(baseWebpackConfig, {
-  mode: 'production',
+  mode: 'uat',
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
