@@ -58,6 +58,12 @@ module.exports = {
                     '/feature/monitor',
                     '/feature/sysConfig'
                 ]
+            },{
+                title: '实战',
+                collapsable: false,
+                children: [
+                    '/action/sqlite'
+                ]
             }
         ]
 
