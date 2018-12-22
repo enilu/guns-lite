@@ -1,7 +1,7 @@
 /*
 Navicat SQLite Data Transfer
 
-Source Server         : sl-webmaster
+Source Server         : guns-lite
 Source Server Version : 30706
 Source Host           : :0
 
@@ -17,7 +17,6 @@ PRAGMA foreign_keys = OFF;
 -- ----------------------------
 -- Table structure for "main"."t_sys_cfg"
 -- ----------------------------
-DROP TABLE "main"."t_sys_cfg";
 CREATE TABLE "t_sys_cfg" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "cfg_name"  TEXT(100),
@@ -32,7 +31,7 @@ INSERT INTO "main"."t_sys_cfg" VALUES (1, 'app_name', 'guns-lite', 'guns-lite we
 -- ----------------------------
 -- Table structure for "main"."t_sys_dept"
 -- ----------------------------
-DROP TABLE "main"."t_sys_dept";
+
 CREATE TABLE "t_sys_dept" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "num"  INTEGER,
@@ -55,7 +54,6 @@ INSERT INTO "main"."t_sys_dept" VALUES (27, 4, 24, '[0],[24],', '战略部', '�
 -- ----------------------------
 -- Table structure for "main"."t_sys_dict"
 -- ----------------------------
-DROP TABLE "main"."t_sys_dict";
 CREATE TABLE "t_sys_dict" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "num"  TEXT(32),
@@ -87,7 +85,7 @@ INSERT INTO "main"."t_sys_dict" VALUES (67, 0, 65, '否', null);
 -- ----------------------------
 -- Table structure for "main"."t_sys_expense"
 -- ----------------------------
-DROP TABLE "main"."t_sys_expense";
+
 CREATE TABLE "t_sys_expense" (
 "id"  INTEGER(11) NOT NULL,
 "money"  REAL(20,2),
@@ -107,7 +105,7 @@ PRIMARY KEY ("id")
 -- ----------------------------
 -- Table structure for "main"."t_sys_login_log"
 -- ----------------------------
-DROP TABLE "main"."t_sys_login_log";
+
 CREATE TABLE "t_sys_login_log" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "logname"  TEXT(255),
@@ -126,7 +124,7 @@ INSERT INTO "main"."t_sys_login_log" VALUES (1, '登录日志', 1, '2018-12-21 1
 -- ----------------------------
 -- Table structure for "main"."t_sys_menu"
 -- ----------------------------
-DROP TABLE "main"."t_sys_menu";
+
 CREATE TABLE "t_sys_menu" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "code"  TEXT(255),
@@ -208,7 +206,7 @@ INSERT INTO "main"."t_sys_menu" VALUES (201, 'cfg_delete', 'cfg', '[0],[system],
 -- ----------------------------
 -- Table structure for "main"."t_sys_notice"
 -- ----------------------------
-DROP TABLE "main"."t_sys_notice";
+
 CREATE TABLE "t_sys_notice" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "title"  TEXT(255),
@@ -226,7 +224,7 @@ INSERT INTO "main"."t_sys_notice" VALUES (1, '世界', 10, '欢迎使用guns-lit
 -- ----------------------------
 -- Table structure for "main"."t_sys_operation_log"
 -- ----------------------------
-DROP TABLE "main"."t_sys_operation_log";
+
 CREATE TABLE "t_sys_operation_log" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "logtype"  TEXT(255),
@@ -252,7 +250,7 @@ INSERT INTO "main"."t_sys_operation_log" VALUES (6, '业务日志', '编辑管�
 -- ----------------------------
 -- Table structure for "main"."t_sys_relation"
 -- ----------------------------
-DROP TABLE "main"."t_sys_relation";
+
 CREATE TABLE "t_sys_relation" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "menuid"  INTEGER,
@@ -327,7 +325,7 @@ INSERT INTO "main"."t_sys_relation" VALUES (210, 149, 2);
 -- ----------------------------
 -- Table structure for "main"."t_sys_role"
 -- ----------------------------
-DROP TABLE "main"."t_sys_role";
+
 CREATE TABLE "t_sys_role" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "num"  INTEGER,
@@ -347,7 +345,7 @@ INSERT INTO "main"."t_sys_role" VALUES (2, 1, 1, '开发人员', 25, 'developer'
 -- ----------------------------
 -- Table structure for "main"."t_sys_role_menu"
 -- ----------------------------
-DROP TABLE "main"."t_sys_role_menu";
+
 CREATE TABLE "t_sys_role_menu" (
 "roleId"  TEXT(32),
 "menuId"  TEXT(32),
@@ -478,7 +476,7 @@ INSERT INTO "main"."t_sys_role_menu" VALUES ('c4de3cf1a62e41378d9f1205293485a3',
 -- ----------------------------
 -- Table structure for "main"."t_sys_user"
 -- ----------------------------
-DROP TABLE "main"."t_sys_user";
+
 CREATE TABLE "t_sys_user" (
 "id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 "avatar"  TEXT(255),
@@ -513,7 +511,7 @@ INSERT INTO "main"."t_sys_user" VALUES (52, null, 'test5', '6cb2be91e862875b8afb
 -- ----------------------------
 -- Table structure for "main"."t_sys_user_role"
 -- ----------------------------
-DROP TABLE "main"."t_sys_user_role";
+
 CREATE TABLE "t_sys_user_role" (
 "roleId"  TEXT(32),
 "userId"  TEXT(32),
@@ -530,7 +528,7 @@ INSERT INTO "main"."t_sys_user_role" VALUES ('c4de3cf1a62e41378d9f1205293485a3',
 -- ----------------------------
 -- Table structure for "main"."t_sys_user_unit"
 -- ----------------------------
-DROP TABLE "main"."t_sys_user_unit";
+
 CREATE TABLE "t_sys_user_unit" (
 "userId"  TEXT(32),
 "unitId"  TEXT(32),
