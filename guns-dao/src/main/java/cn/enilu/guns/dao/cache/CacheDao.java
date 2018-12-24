@@ -59,6 +59,6 @@ public interface CacheDao {
       String get(Serializable key);
 
 
-        void del(Serializable key);
-        void hdel(Serializable key, Serializable k);
+      void del(Serializable key);
+      void hdel(Serializable key, Serializable k);
 }

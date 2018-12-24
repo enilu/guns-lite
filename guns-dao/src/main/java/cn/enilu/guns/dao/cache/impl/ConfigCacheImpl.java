@@ -3,7 +3,6 @@ package cn.enilu.guns.dao.cache.impl;
 import cn.enilu.guns.bean.entity.system.Cfg;
 import cn.enilu.guns.dao.cache.CacheDao;
 import cn.enilu.guns.dao.cache.ConfigCache;
-import cn.enilu.guns.dao.cache.EhcacheDao;
 import cn.enilu.guns.dao.system.CfgRepository;
 import cn.enilu.guns.utils.StringUtils;
 import org.slf4j.Logger;

@@ -5,13 +5,13 @@ package cn.enilu.guns.dao.cache;
  */
 public interface Cache {
 	/**
-	 * 将数据加载到缓存中
+	 * 将数据库中的数据加载到缓存中
 	 */
 	void cache();
 
 
 	/**
-	 * 获取全局配置参数值
+	 * 获取缓存数据
 	 *
 	 * @param key
 	 * @return
@@ -20,7 +20,7 @@ public interface Cache {
 
 
 	/**
-	 * 设置全局配置参数值
+	 * 设置缓存数据
 	 *
 	 * @param key
 	 * @param val

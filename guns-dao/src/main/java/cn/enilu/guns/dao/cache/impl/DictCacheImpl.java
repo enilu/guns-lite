@@ -4,7 +4,6 @@ import cn.enilu.guns.bean.constant.cache.CacheKey;
 import cn.enilu.guns.bean.entity.system.Dict;
 import cn.enilu.guns.dao.cache.CacheDao;
 import cn.enilu.guns.dao.cache.DictCache;
-import cn.enilu.guns.dao.cache.EhcacheDao;
 import cn.enilu.guns.dao.system.DictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

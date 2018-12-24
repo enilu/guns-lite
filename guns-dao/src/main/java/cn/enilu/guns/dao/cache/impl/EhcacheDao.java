@@ -1,5 +1,6 @@
-package cn.enilu.guns.dao.cache;
+package cn.enilu.guns.dao.cache.impl;
 
+import cn.enilu.guns.dao.cache.CacheDao;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;

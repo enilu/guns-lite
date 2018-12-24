@@ -1,6 +1,7 @@
 package cn.enilu.guns.dao.cache;
 
 import cn.enilu.guns.bean.core.ShiroUser;
+import cn.enilu.guns.dao.cache.impl.EhcacheDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 public   class TokenCache {
 
     @Autowired
-    private   EhcacheDao ehcacheDao;
+    private EhcacheDao ehcacheDao;
 
     public   void put(String token, Long idUser) {
         ehcacheDao.hset(EhcacheDao.SESSION,token, idUser);
