@@ -3,7 +3,7 @@
 细心的同学可能已经注意到guns-lite提供一个名为oracle的分支来支持将后台数据库替换为oacel的需求。
 那么为什么不同样建立一个sqlite分支来这么做呢？主要考虑到sqlite和mysql兼容性比较好，使用master分支做很小的调整就可以支持sqlite，那么就不费劲维护两个分支了。
 
-下面介绍如何将master分支经过简单调整将底层数据库从mysql更改为sqlite。
+下面介绍如何将master分支经过简单调整将底层数据库从mysql切换为sqlite。
 
 ## 数据库替换
 这节描述如何将mysql替换为sqlite。
@@ -25,8 +25,7 @@
 
 ## 业务代码调整
 
- 如果在上以小节，你讲日期类型调整为String，那么在涉及到所有为entity设置日期属性的时候用cn.enilu.guns.utils.DateUtil代替new Date()方法
- DateUtil.getTime() 方法会返回当前日期的yyyy-MM-dd HH:mm:ss
- 
+ 如果在上一小节，你将日期类型调整为String，那么在涉及到所有为entity设置日期属性的时候用cn.enilu.guns.utils.DateUtil.getTime()代替new Date()方法即可，
+ DateUtil.getTime() 方法会返回当前日期的yyyy-MM-dd HH:mm:ss格式
  
  大功告成，是不是很简单！

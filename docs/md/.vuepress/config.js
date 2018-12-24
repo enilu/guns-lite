@@ -62,7 +62,8 @@ module.exports = {
                 title: '实战',
                 collapsable: false,
                 children: [
-                    '/action/sqlite'
+                    '/action/sqlite',
+                    '/action/cache'
                 ]
             }
         ]
