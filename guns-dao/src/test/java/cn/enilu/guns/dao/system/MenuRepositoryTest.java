@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * MenuRepositoryTest
  *
- * @author zt
+ * @author enilu
  * @version 2018/8/14 0014
  */
 public class MenuRepositoryTest extends BaseApplicationStartTest {

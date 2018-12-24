@@ -1,11 +1,13 @@
 package cn.enilu.guns.service.system.impl;
 
 import cn.enilu.guns.bean.entity.system.Dict;
+import cn.enilu.guns.dao.cache.DictCache;
 import cn.enilu.guns.dao.system.DictRepository;
 import cn.enilu.guns.utils.factory.MutiStrFactory;
 import cn.enilu.guns.service.system.DictService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,8 @@ public class DictServiceImpl implements DictService {
 
     @Resource
     DictRepository dictRepository;
+    @Autowired
+    private DictCache dictCache;
 
     @Override
     public void addDict(String dictName, String dictValues) {
@@ -54,6 +58,7 @@ public class DictServiceImpl implements DictService {
             }
             this.dictRepository.save(itemDict);
         }
+        dictCache.cache();
     }
 
     @Override
@@ -63,6 +68,8 @@ public class DictServiceImpl implements DictService {
 
         //重新添加新的字典
         this.addDict(dictName,dicts);
+
+        dictCache.cache();
     }
 
     @Override
@@ -72,5 +79,7 @@ public class DictServiceImpl implements DictService {
         dictRepository.delete(subList);
         //删除这个词典
         dictRepository.delete(dictId);
+
+        dictCache.cache();
     }
 }

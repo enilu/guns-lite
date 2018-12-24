@@ -3,7 +3,7 @@ package cn.enilu.guns.dao.cache;
 /**
  * TimeCache
  *
- * @author zt
+ * @author enilu
  * @version 2018/9/12 0012
  */
 public interface TimeCache<K,V> {

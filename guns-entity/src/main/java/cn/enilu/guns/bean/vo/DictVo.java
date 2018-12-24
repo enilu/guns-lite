@@ -3,7 +3,7 @@ package cn.enilu.guns.bean.vo;
 /**
  * DictVo
  *
- * @author zt
+ * @author enilu
  * @version 2018/8/14 0014
  */
 public class DictVo {

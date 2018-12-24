@@ -20,6 +20,7 @@ public interface CacheKey {
     String DEPT_NAME = "dept_name_";
 
     String DICT_NAME = "dict_name_";
+    String DICT = "dict_";
 
 
     String COURSE_NAME = "course_name_";

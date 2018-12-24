@@ -30,6 +30,23 @@
            transactionalMode="off">
     </cache>
 
+    <!--app数据缓存-->
+    <cache name="APPLICATION"
+           maxElementsInMemory="50000"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           eternal="true"
+           clearOnFlush="false"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="1024"
+           maxElementsOnDisk="100000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"
+           transactionalMode="off">
+    </cache>
+
+
 </ehcache>
 
     <!--

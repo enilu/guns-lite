@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  *  配置拦截器
  * @version 2018-07-24
  *
- * @author zt
+ * @author enilu
  */
 @Configuration
 public class WebAppConfig extends WebMvcConfigurerAdapter {

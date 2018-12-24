@@ -1,6 +1,7 @@
 package cn.enilu.guns.service.system;
 
 import cn.enilu.guns.bean.entity.system.Cfg;
+import cn.enilu.guns.dao.cache.ConfigCache;
 import cn.enilu.guns.dao.system.CfgRepository;
 import cn.enilu.guns.utils.StringUtils;
 import cn.enilu.guns.utils.factory.Page;
@@ -23,7 +24,7 @@ import java.util.Map;
 /**
  * CfgService
  *
- * @author zt
+ * @author enilu
  * @version 2018/11/17 0017
  */
 
@@ -32,6 +33,8 @@ import java.util.Map;
 public class CfgService {
     @Autowired
     private CfgRepository cfgRepository;
+    @Autowired
+    private ConfigCache configCache;
     public Page findPage(Page<Cfg> page ,final Map<String,String> params) {
         Pageable pageable = null;
         if(page.isOpenSort()) {
@@ -54,15 +57,6 @@ public class CfgService {
                     list.add(criteriaBuilder.like(root.get("cfgValue").as(String.class),"%"+params.get("cfgValue")
                             +"%"));
                 }
-//                if(!Strings.isNullOrEmpty(beginTime)){
-//                    list.add(criteriaBuilder.greaterThan(root.get("createtime").as(Date.class), DateUtil.parseDate(beginTime)));
-//                }
-//                if(!Strings.isNullOrEmpty(endTime)){
-//                    list.add(criteriaBuilder.lessThan(root.get("createtime").as(Date.class), DateUtil.parseDate(endTime)));
-//                }
-//                if(!Strings.isNullOrEmpty(logName)){
-//                    list.add(criteriaBuilder.like(root.get("logname").as(String.class),logName));
-//                }
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.and(list.toArray(p));
             }
@@ -74,9 +68,11 @@ public class CfgService {
 
     public void save(Cfg cfg) {
         cfgRepository.save(cfg);
+        configCache.cache();
     }
 
     public void delete(Long id) {
         cfgRepository.delete(id);
+        configCache.cache();
     }
 }

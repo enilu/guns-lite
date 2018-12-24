@@ -107,7 +107,7 @@ public class Contrast {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return str;
     }

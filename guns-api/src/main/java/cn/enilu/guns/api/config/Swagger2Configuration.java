@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 项目启动后可通过地址：http://host:ip/swagger-ui.html 查看在线文档
  * @version 2018-07-24
  *
- * @author zt
+ * @author enilu
  */
 
 @Configuration
