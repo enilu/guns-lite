@@ -24,12 +24,12 @@ public class DictCacheImpl implements DictCache {
     private EhcacheDao ehcacheDao;
     @Override
     public List<Dict> getDictsByPid(Long dictId) {
-        return (List<Dict>) ehcacheDao.hget(EhcacheDao.CONSTANT,String.valueOf(dictId));
+        return (List<Dict>) ehcacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+String.valueOf(dictId));
     }
 
     @Override
     public List<Dict> getDictsByPname(String dictName) {
-        return (List<Dict>) ehcacheDao.hget(EhcacheDao.CONSTANT,dictName);
+        return (List<Dict>) ehcacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+dictName);
     }
 
     @Override
@@ -51,18 +51,19 @@ public class DictCacheImpl implements DictCache {
             set(CacheKey.DICT_NAME+String.valueOf(child.getId()),child.getName());
         }
 
-
     }
 
     }
 
     @Override
     public Object get(String key) {
+        System.out.println("get key:"+key);
         return ehcacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+key);
     }
 
     @Override
     public void set(String key, Object val) {
+        System.out.println("set key:"+key);
         ehcacheDao.hset(EhcacheDao.CONSTANT,CacheKey.DICT+key,val);
 
     }

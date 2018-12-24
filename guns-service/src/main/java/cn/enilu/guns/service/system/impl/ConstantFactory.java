@@ -37,6 +37,7 @@ public class ConstantFactory implements IConstantFactory {
     private RoleRepository roleRepository = SpringContextHolder.getBean(RoleRepository.class);
     private DeptRepository deptRepository = SpringContextHolder.getBean(DeptRepository.class);
     private DictCache dictCache = SpringContextHolder.getBean(DictCache.class);
+    private DictRepository dictRepository = SpringContextHolder.getBean(DictRepository.class);
     private UserRepository userRepository = SpringContextHolder.getBean(UserRepository.class);
     private MenuRepository menuRepository = SpringContextHolder.getBean(MenuRepository.class);
     private SysNoticeRepository sysNoticeRepository = SpringContextHolder.getBean(SysNoticeRepository.class);
@@ -314,7 +315,7 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     public List<Dict> findInDict(Integer id) {
-            return dictCache.getDictsByPid(Long.valueOf(id));
+            return dictRepository.findByPid(id);
 
     }
 
