@@ -11,8 +11,7 @@ import java.util.List;
  * @version 2018/12/23 0023
  */
 public interface DictCache  extends Cache{
-    List<Dict> getDictsByPid(Long dictId);
+
     List<Dict> getDictsByPname(String dictName);
     String getDict(Integer dictId);
-
 }

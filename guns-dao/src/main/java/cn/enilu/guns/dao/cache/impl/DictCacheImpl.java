@@ -2,6 +2,7 @@ package cn.enilu.guns.dao.cache.impl;
 
 import cn.enilu.guns.bean.constant.cache.CacheKey;
 import cn.enilu.guns.bean.entity.system.Dict;
+import cn.enilu.guns.dao.cache.CacheDao;
 import cn.enilu.guns.dao.cache.DictCache;
 import cn.enilu.guns.dao.cache.EhcacheDao;
 import cn.enilu.guns.dao.system.DictRepository;
@@ -21,15 +22,11 @@ public class DictCacheImpl implements DictCache {
     @Autowired
     private DictRepository dictRepository;
     @Autowired
-    private EhcacheDao ehcacheDao;
-    @Override
-    public List<Dict> getDictsByPid(Long dictId) {
-        return (List<Dict>) ehcacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+String.valueOf(dictId));
-    }
+    private CacheDao cacheDao;
 
     @Override
     public List<Dict> getDictsByPname(String dictName) {
-        return (List<Dict>) ehcacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+dictName);
+        return (List<Dict>) cacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+dictName,List.class);
     }
 
     @Override
@@ -57,14 +54,12 @@ public class DictCacheImpl implements DictCache {
 
     @Override
     public Object get(String key) {
-        System.out.println("get key:"+key);
-        return ehcacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+key);
+        return cacheDao.hget(EhcacheDao.CONSTANT,CacheKey.DICT+key);
     }
 
     @Override
     public void set(String key, Object val) {
-        System.out.println("set key:"+key);
-        ehcacheDao.hset(EhcacheDao.CONSTANT,CacheKey.DICT+key,val);
+        cacheDao.hset(EhcacheDao.CONSTANT,CacheKey.DICT+key,val);
 
     }
 }

@@ -1,6 +1,7 @@
 package cn.enilu.guns.dao.cache.impl;
 
 import cn.enilu.guns.bean.entity.system.Cfg;
+import cn.enilu.guns.dao.cache.CacheDao;
 import cn.enilu.guns.dao.cache.ConfigCache;
 import cn.enilu.guns.dao.cache.EhcacheDao;
 import cn.enilu.guns.dao.system.CfgRepository;
@@ -24,11 +25,11 @@ public class ConfigCacheImpl implements ConfigCache {
     @Autowired
     private CfgRepository cfgRepository;
     @Autowired
-    private EhcacheDao ehcacheDao;
+    private CacheDao cacheDao;
 
     @Override
     public Object get(String key) {
-        return (String) ehcacheDao.hget(EhcacheDao.CONSTANT,key);
+        return (String) cacheDao.hget(EhcacheDao.CONSTANT,key);
     }
 
     @Override
@@ -55,12 +56,12 @@ public class ConfigCacheImpl implements ConfigCache {
 
     @Override
     public void set(String key, Object val) {
-        ehcacheDao.hset(EhcacheDao.CONSTANT,key,val);
+        cacheDao.hset(EhcacheDao.CONSTANT,key,val);
     }
 
     @Override
     public void del(String key, String val) {
-        ehcacheDao.hdel(EhcacheDao.CONSTANT,val);
+        cacheDao.hdel(EhcacheDao.CONSTANT,val);
     }
 
     @Override
