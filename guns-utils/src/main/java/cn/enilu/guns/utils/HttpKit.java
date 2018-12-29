@@ -20,10 +20,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Enumeration;
@@ -152,7 +150,7 @@ public class HttpKit {
             String urlNameString = url + "?" + para;
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
-            URLConnection conn = realUrl.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
@@ -166,6 +164,15 @@ public class HttpKit {
             out.print(param);
             // flush输出流的缓冲
             out.flush();
+            int status = conn.getResponseCode();
+            InputStream inputStream = null;
+            if (status != HttpURLConnection.HTTP_OK){
+                inputStream = conn.getErrorStream();
+            }else{
+                inputStream = conn.getInputStream();
+            }
+            // 定义 BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(inputStream));
             // 定义BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
