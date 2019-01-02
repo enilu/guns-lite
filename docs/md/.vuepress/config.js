@@ -64,7 +64,9 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/action/sqlite',
-                    '/action/cache'
+                    '/action/cache',
+                    '/action/task'
+
                 ]
             }
         ]
