@@ -186,7 +186,7 @@ export default {
             self.$notify({
               title: notice.title,
               message: notice.content,
-              duration: 0
+              duration: 3000
             });
 
         }

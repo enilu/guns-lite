@@ -403,4 +403,8 @@ public class StringUtils {
         String afterChar = rawString.substring(index, rawString.length());
         return beforeChar + afterChar;
     }
+
+    public static String sNull(Object obj) {
+            return obj==null?"":obj.toString();
+    }
 }

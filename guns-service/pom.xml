@@ -28,6 +28,15 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+        </dependency>
+
         <!--test-->
         <dependency>
             <groupId>junit</groupId>

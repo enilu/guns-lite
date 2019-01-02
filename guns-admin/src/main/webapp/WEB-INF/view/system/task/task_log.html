@@ -1,0 +1,17 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <#table id="TaskLogTable"/>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var taskId = "${taskId}";
+</script>
+<script src="${ctxPath}/static/modular/system/task/task_log.js"></script>
+@}

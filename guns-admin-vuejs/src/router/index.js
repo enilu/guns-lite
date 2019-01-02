@@ -79,13 +79,27 @@ export const asyncRouterMap = [
         path: 'userMgr',
         name: '用户管理',
         component: () => import('@/views/system/user/index'),
-        meta: {title: '用户管理'}
+        meta: {title: '用户管理' }
       },
       {
         path: 'roleMgr',
         name: '角色管理',
         component: () => import('@/views/system/role/index'),
-        meta: {title: '角色管理'}
+        meta: { title: '角色管理' }
+      },
+      {
+        path: 'taskMgr',
+        name: '任务管理',
+        component: () => import('@/views/system/task/index'),
+        meta: { title: '任务管理' }
+      },
+      {
+        path: 'taskLog',
+        name: '任务日志',
+        component: () => import('@/views/system/task/log/index'),
+        hidden: true,
+        meta: { title: '任务日志' }
+
       }
     ]
   },
@@ -96,7 +110,7 @@ export const asyncRouterMap = [
     name: '运维管理',
     alwaysShow: true,
     meta: {
-      roles: ['administrator','developer'],
+      roles: ['administrator', 'developer'],
       title: '运维管理',
       icon: 'bug'
     },
@@ -105,26 +119,26 @@ export const asyncRouterMap = [
         path: 'dictMgr',
         name: '字典管理',
         component: () => import('@/views/system/dict/index'),
-        meta: {title: '字典管理'}
+        meta: { title: '字典管理' }
       },
       {
         path: 'loginLog',
         name: '登录日志',
         component: () => import('@/views/system/loginLog/index'),
-        meta: {title: '登录日志'}
+        meta: { title: '登录日志' }
       },
       {
         path: 'businessLog',
         name: '业务日志',
         component: () => import('@/views/system/log/index'),
-        meta: {title: '业务日志'}
+        meta: { title: '业务日志' }
       },
       {
         path: 'sysCfg',
         name: '参数管理',
         component: () => import('@/views/system/cfg/index'),
         meta: {
-          title: '参数管理',
+          title: '参数管理'
         }
       }
     ]

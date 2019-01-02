@@ -1,0 +1,32 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="name" name="任务名"/>
+                            <#textarea id="jobClass" name="执行类" underline="true" rows="3" cols="50"/>
+                            <#textarea id="data" name="执行参数" underline="true" rows="3"  cols="50"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="cron" name="定时规则"/>
+                            <#textarea id="note" name="任务说明" underline="true" rows="3"  cols="50"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="TaskInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="TaskInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/task/task_info.js"></script>
+@}

@@ -94,7 +94,12 @@ public class AccountController extends BaseController{
 
     @RequestMapping(value = "/info",method = RequestMethod.GET)
     public Object info(HttpServletRequest request){
-        Long idUser = getIdUser(request);
+        Long idUser = null;
+        try {
+             idUser = getIdUser(request);
+        }catch (Exception e){
+            return Rets.expire();
+        }
         if(idUser!=null){
             User user =  userRepository.findOne(idUser.intValue());
             if(StringUtils.isEmpty(user.getRoleid())){
