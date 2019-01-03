@@ -1,23 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50149
-Source Host           : localhost:3306
-Source Database       : guns-lite
-
-Target Server Type    : MYSQL
-Target Server Version : 50149
-File Encoding         : 65001
-
-Date: 2018-05-13 21:36:49
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for `t_sys_cfg`
--- ----------------------------
 DROP TABLE IF EXISTS `t_sys_cfg`;
 CREATE TABLE `t_sys_cfg` (
   `id` bigint(64) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
@@ -434,37 +414,6 @@ INSERT INTO `t_sys_user` VALUES ('1', null, 'admin', '6ab1f386d715cfb6be85de941d
 INSERT INTO `t_sys_user` VALUES ('2', null, 'boss', '71887a5ad666a18f709e1d4e693d5a35', '1f7bf', '老板', '2017-12-04 00:00:00', '1', '', '', '1', '24', '1', '2017-12-04 22:24:02', null);
 INSERT INTO `t_sys_user` VALUES ('3', null, 'manager', 'b53cac62e7175637d4beb3b16b2f7915', 'j3cs9', '经理', '2017-12-04 00:00:00', '1', '', '', '1', '24', '1', '2017-12-04 22:24:24', null);
 
--- ----------------------------
--- Table structure for `t_sys_user_role`
--- ----------------------------
-DROP TABLE IF EXISTS `t_sys_user_role`;
-CREATE TABLE `t_sys_user_role` (
-  `roleId` varchar(32) DEFAULT NULL,
-  `userId` varchar(32) DEFAULT NULL,
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户角色关系';
-
--- ----------------------------
--- Records of t_sys_user_role
--- ----------------------------
-INSERT INTO `t_sys_user_role` VALUES ('c4de3cf1a62e41378d9f1205293485a3', '43e6c8d6d3134e5aa41ae2a85b87586b', '1');
-
--- ----------------------------
--- Table structure for `t_sys_user_unit`
--- ----------------------------
-DROP TABLE IF EXISTS `t_sys_user_unit`;
-CREATE TABLE `t_sys_user_unit` (
-  `userId` varchar(32) DEFAULT NULL,
-  `unitId` varchar(32) DEFAULT NULL,
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_sys_user_unit
--- ----------------------------
-INSERT INTO `t_sys_user_unit` VALUES ('43e6c8d6d3134e5aa41ae2a85b87586b', 'cff0e38c05544085b56dee30e97383b4', '1');
 
 CREATE TABLE `t_sys_task` (
   `id` bigint(64) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
