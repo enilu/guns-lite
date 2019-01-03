@@ -39,14 +39,32 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 - 缓存：Ehcache
 - 前端：Beetl模版+Bootstrap
 
+
+## 包含的功能
+guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离的的后端管理系统(guns-admin-vuejs和guns-api)
+上面两者包含的功能一致：
+- 部门管理
+- 用户管理
+- 角色管理
+- 菜单管理：配置菜单功能
+- 权限分配：为指定的角色配置特定的功能菜单
+- 参数管理：维护系统参数，并缓存系统参数提供高效的读取
+- 数据字典管理：配置维护数据字典
+- 定时任务管理：编写、配置、执行定时任务
+- 业务日志：通过注解的方式记录用户操作日志，并提供日志查询功能
+- 登录日志：查看用户登录登出日志
+
+**后续考虑添加的功能**
+- 国际化
+- 消息管理：配置并发送消息的功能，短信类型可以包括：短信，邮件，微信模版消息，钉钉提醒等。
+
 ## 使用
 
 - 克隆本项目
 - 导入idea或者eclipse
 - 创建数据库：guns-lite，将guns-admin/sql/guns-lite.sql导入数据库中，更改相应数据库配置
 - 启动guns-admin
-- 访问 https://localhost:8080，   登录，用户名密码:admin/admin
-- ![demo](../demo.gif)
+- 访问 https://localhost:8080，   登录，用户名密码:admin/admin ![demo](../demo.gif)
 - 另外附上vue版本效果图![vue](../vuejs.gif)
 
 ## 文档
