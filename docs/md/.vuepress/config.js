@@ -60,12 +60,14 @@ module.exports = {
                     '/feature/sysConfig'
                 ]
             },{
-                title: '实战',
+                title: '进阶',
                 collapsable: false,
                 children: [
+                    '/action/i18n',
                     '/action/sqlite',
                     '/action/cache',
                     '/action/task'
+
 
                 ]
             }
