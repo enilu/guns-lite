@@ -9,16 +9,16 @@
           <el-input v-model="listQuery.name" placeholder="请输入姓名"></el-input>
         </el-col>
         <el-col :span="6">
-          <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">重置</el-button>
+          <el-button type="success" icon="el-icon-search" @click.native="search">{{ $t('button.search') }}</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">{{ $t('button.reset') }}</el-button>
         </el-col>
       </el-row>
       <br>
       <el-row>
         <el-col :span="24">
-          <el-button type="success" icon="el-icon-plus" @click.native="add">添加</el-button>
-          <el-button type="primary" icon="el-icon-edit" @click.native="edit">修改</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native="remove">删除</el-button>
+          <el-button type="success" icon="el-icon-plus" @click.native="add">{{ $t('button.add') }}</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click.native="edit">{{ $t('button.edit') }}</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click.native="remove">{{ $t('button.delete') }}</el-button>
         </el-col>
       </el-row>
     </div>
@@ -166,8 +166,8 @@
           </el-col>
         </el-row>
         <el-form-item>
-          <el-button type="primary" @click="saveUser">提交</el-button>
-          <el-button @click.native="formVisible = false">取消</el-button>
+          <el-button type="primary" @click="saveUser">{{ $t('button.submit') }}</el-button>
+          <el-button @click.native="formVisible = false">{{ $t('button.cancel') }}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>

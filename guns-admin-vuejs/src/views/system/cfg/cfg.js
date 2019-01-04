@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       formVisible: false,
-      formTitle: '添加参数',
+      formTitle: this.$t('config.add'),
       deptList:[],
       isAdd: true,
       form: {
@@ -15,17 +15,6 @@ export default {
         cfgName: '',
         cfgValue: '',
         cfgDesc: ''
-      },
-      rules: {
-        cfgName: [
-          { required: true, message: '请输入参数名', trigger: 'blur' },
-          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
-        ],
-        cfgValue: [
-          { required: true, message: '请输入参数值', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-        ]
-
       },
       listQuery: {
         page: 1,
@@ -47,6 +36,20 @@ export default {
         deleted: 'danger'
       }
       return statusMap[status]
+    }
+  },
+  computed: {
+    rules() {
+      return {
+        cfgName: [
+          {required: true, message: this.$t('config.name') + this.$t('common.isRequired'), trigger: 'blur'},
+          {min: 3, max: 20, message: this.$t('config.name') + this.$t('config.lengthValidation'), trigger: 'blur'}
+        ],
+        cfgValue: [
+          {required: true, message: this.$t('config.value') + this.$t('common.isRequired'), trigger: 'blur'},
+          {min: 2, max: 20, message: this.$t('config.value') + this.$t('config.lengthValidation'), trigger: 'blur'}
+        ]
+      }
     }
   },
   created() {
@@ -97,8 +100,6 @@ export default {
       this.fetchData();
     },
     handleCurrentChange(currentRow,oldCurrentRow){
-      console.log('-------')
-      console.log(currentRow)
       this.selRow = currentRow
     },
     resetForm() {
@@ -111,7 +112,7 @@ export default {
     },
     add() {
       this.resetForm()
-      this.formTitle = '添加参数'
+      this.formTitle =  this.$t('config.add')
       this.formVisible = true
       this.isAdd = true
     },
@@ -122,7 +123,7 @@ export default {
           save(this.form).then(response => {
             console.log(response)
             this.$message({
-              message: '提交成功',
+              message: this.$t('common.optionSuccess'),
               type: 'success'
             })
             this.fetchData()
@@ -139,7 +140,7 @@ export default {
         return true
       }
       this.$message({
-        message: '请选中操作项',
+        message: this.$t('common.mustSelectOne'),
         type: 'warning'
       });
       return false
@@ -149,7 +150,7 @@ export default {
         this.isAdd = false
         this.form = this.selRow
         this.form.password = ''
-        this.formTitle = '修改参数'
+        this.formTitle =  this.$t('config.edit')
         this.formVisible = true
       }
     },
@@ -157,15 +158,15 @@ export default {
       if(this.checkSel()){
         var id = this.selRow.id
 
-        this.$confirm('确定删除该记录?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('common.deleteConfirm'), this.$t('common.tooltip'), {
+          confirmButtonText: this.$t('button.submit'),
+          cancelButtonText: this.$t('button.cancel'),
           type: 'warning'
         }).then(() => {
 
           remove(id).then(response => {
             this.$message({
-              message: '操作成功',
+              message: this.$t('common.optionSuccess'),
               type: 'success'
             });
             this.fetchData()

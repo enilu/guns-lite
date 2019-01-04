@@ -27,6 +27,10 @@ const app = {
     },
     TOGGLE_DEVICE: (state, device) => {
       state.device = device
+    },
+    SET_LANGUAGE: (state, language) => {
+      state.language = language
+      Cookies.set('language', language)
     }
   },
   actions: {

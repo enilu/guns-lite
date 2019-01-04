@@ -15,9 +15,9 @@
         </el-col>
 
         <el-col :span="8">
-          <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">重置</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native="clear">清空日志</el-button>
+          <el-button type="success" icon="el-icon-search" @click.native="search">{{ $t('button.search') }}</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">{{ $t('button.reset') }}</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click.native="clear">{{ $t('button.clear') }}</el-button>
         </el-col>
       </el-row>
       <br>

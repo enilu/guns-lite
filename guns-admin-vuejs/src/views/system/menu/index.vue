@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-button type="success" icon="el-icon-plus"  @click.native="add">添加</el-button>
+      <el-button type="success" icon="el-icon-plus"  @click.native="add">{{ $t('button.add') }}</el-button>
     </div>
 
     <tree-table
@@ -125,8 +125,8 @@
 
           </el-row>
           <el-form-item>
-            <el-button type="primary" @click="save">提交</el-button>
-            <el-button @click.native="formVisible = false">取消</el-button>
+            <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>
+            <el-button @click.native="formVisible = false">{{ $t('button.cancel') }}</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>

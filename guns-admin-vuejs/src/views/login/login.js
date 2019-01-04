@@ -1,19 +1,20 @@
 
 import { isvalidUsername } from '@/utils/validate'
-
+import LangSelect from '@/components/LangSelect'
 export default {
   name: 'login',
+  components: { LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+        callback(new Error('Please enter the correct user name'))
       } else {
         callback()
       }
     }
-    const validatePass = (rule, value, callback) => {
+    const validatePassword = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+        callback(new Error('The password can not be less than 5 digits'))
       } else {
         callback()
       }
@@ -25,7 +26,7 @@ export default {
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
       pwdType: 'password'
@@ -46,7 +47,11 @@ export default {
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({ path: '/' })
-          }).catch(() => {
+          }).catch((err) => {
+            this.$message({
+              message: err,
+              type: 'error'
+            });
             this.loading = false
           })
         } else {

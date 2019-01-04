@@ -3,22 +3,22 @@
     <div class="block">
       <el-row  :gutter="20">
         <el-col :span="6">
-          <el-input v-model="listQuery.cfgName" placeholder="请输入参数名"></el-input>
+          <el-input v-model="listQuery.cfgName" :placeholder="$t('config.name')"></el-input>
         </el-col>
         <el-col :span="6">
-          <el-input v-model="listQuery.cfgValue" placeholder="请输入参数值"></el-input>
+          <el-input v-model="listQuery.cfgValue"  :placeholder="$t('config.value')"></el-input>
         </el-col>
         <el-col :span="6">
-          <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">重置</el-button>
+          <el-button type="success" icon="el-icon-search" @click.native="search">{{ $t('button.search') }}</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">{{ $t('button.reset') }}</el-button>
         </el-col>
       </el-row>
       <br>
       <el-row>
         <el-col :span="24">
-          <el-button type="success" icon="el-icon-plus" @click.native="add">添加</el-button>
-          <el-button type="primary" icon="el-icon-edit" @click.native="edit">修改</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native="remove">删除</el-button>
+          <el-button type="success" icon="el-icon-plus" @click.native="add">{{ $t('button.add') }}</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click.native="edit">{{ $t('button.edit') }}</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click.native="remove">{{ $t('button.delete') }}</el-button>
         </el-col>
       </el-row>
     </div>
@@ -32,17 +32,17 @@
           {{scope.row.id}}
         </template>
       </el-table-column>
-      <el-table-column label="参数名">
+      <el-table-column :label="$t('config.name')">
         <template slot-scope="scope">
           {{scope.row.cfgName}}
         </template>
       </el-table-column>
-      <el-table-column label="参数值">
+      <el-table-column :label="$t('config.value')">
         <template slot-scope="scope">
           {{scope.row.cfgValue}}
         </template>
       </el-table-column>
-      <el-table-column label="备注">
+      <el-table-column :label="$t('config.descript')">
         <template slot-scope="scope">
           {{scope.row.cfgDesc}}
         </template>
@@ -66,29 +66,29 @@
       :title="formTitle"
       :visible.sync="formVisible"
       width="70%">
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="150px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="参数名" prop="cfgName">
+            <el-form-item :label="$t('config.name')" prop="cfgName">
               <el-input v-model="form.cfgName" minlength=1></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="参数值" prop="cfgValue">
+            <el-form-item :label="$t('config.value')" prop="cfgValue">
               <el-input v-model="form.cfgValue"  minlength=1></el-input>
             </el-form-item>
           </el-col>
 
 
           <el-col :span="12">
-            <el-form-item label="备注" prop="cfgDesc">
+            <el-form-item :label="$t('config.descript')" prop="cfgDesc">
               <el-input v-model="form.cfgDesc"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item>
-          <el-button type="primary" @click="save">提交</el-button>
-          <el-button @click.native="formVisible = false">取消</el-button>
+          <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>
+          <el-button @click.native="formVisible = false">{{ $t('button.cancel') }}</el-button>
         </el-form-item>
 
       </el-form>

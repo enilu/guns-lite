@@ -29,7 +29,7 @@ export const constantRouterMap = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    name: 'Dashboard',
+    name: 'dashboard',
     hidden: false,
     children: [{
       path: 'dashboard',
@@ -51,47 +51,47 @@ export const asyncRouterMap = [
     path: '/system',
     component: Layout,
     redirect: '#',
-    name: '系统管理',
+    name: 'System',
     alwaysShow: true,
     meta: {
       roles: ['administrator'],
-      title: '系统管理',
+      title: 'systemMgr',
       icon: 'table'
     },
     children: [
       {
-        path: 'menuMgr',
-        name: '菜單管理',
+        path: 'menu',
+        name: 'Menu',
         component: () => import('@/views/system/menu/index'),
         meta: {
-          title: '菜单管理'
+          title: 'menuMgr'
         }
       },
       {
-        path: 'deptMgr',
-        name: '部门管理',
+        path: 'department',
+        name: 'Department',
         component: () => import('@/views/system/dept/index'),
         meta: {
-          title: '部门管理'
+          title: 'deptMgr'
         }
       },
       {
-        path: 'userMgr',
-        name: '用户管理',
+        path: 'user',
+        name: 'Account',
         component: () => import('@/views/system/user/index'),
-        meta: {title: '用户管理' }
+        meta: {title: 'userMgr' }
       },
       {
-        path: 'roleMgr',
-        name: '角色管理',
+        path: 'role',
+        name: 'roleMgr',
         component: () => import('@/views/system/role/index'),
-        meta: { title: '角色管理' }
+        meta: { title: 'roleMgr' }
       },
       {
-        path: 'taskMgr',
-        name: '任务管理',
+        path: 'task',
+        name: 'Task',
         component: () => import('@/views/system/task/index'),
-        meta: { title: '任务管理' }
+        meta: { title: 'taskMgr' }
       },
       {
         path: 'taskLog',
@@ -107,38 +107,38 @@ export const asyncRouterMap = [
     path: '/operation',
     component: Layout,
     redirect: '#',
-    name: '运维管理',
+    name: 'Operation',
     alwaysShow: true,
     meta: {
       roles: ['administrator', 'developer'],
-      title: '运维管理',
+      title: 'optionMgr',
       icon: 'bug'
     },
     children: [
       {
-        path: 'dictMgr',
-        name: '字典管理',
+        path: 'dict',
+        name: 'Dict',
         component: () => import('@/views/system/dict/index'),
-        meta: { title: '字典管理' }
+        meta: { title: 'dictMgr' }
       },
       {
         path: 'loginLog',
-        name: '登录日志',
+        name: 'Login Log',
         component: () => import('@/views/system/loginLog/index'),
-        meta: { title: '登录日志' }
+        meta: { title: 'loginLog' }
       },
       {
         path: 'businessLog',
-        name: '业务日志',
+        name: 'Bussiness Log',
         component: () => import('@/views/system/log/index'),
-        meta: { title: '业务日志' }
+        meta: { title: 'bussinessLog' }
       },
       {
-        path: 'sysCfg',
-        name: '参数管理',
+        path: 'config',
+        name: 'Config',
         component: () => import('@/views/system/cfg/index'),
         meta: {
-          title: '参数管理'
+          title: 'configMgr'
         }
       }
     ]

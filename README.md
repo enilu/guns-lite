@@ -5,13 +5,12 @@
  - guns-lite是在[guns](https://github.com/stylefeng/Guns)的基础上将数据库层由mybatis替换为spring data jpa的系统。
  - guns-lite是一个基于spring boot的后台管理系统。
 
-### 分支
+## 分支
 - admin-flat 该分支将guns-admin页面更改为扁平化风格，去掉iframe+标签页的形式:
 
  ![flat](https://user-images.githubusercontent.com/3115814/38806871-49f57248-41ad-11e8-932b-e06dc1941107.jpg)
 
 - oracle, 该分支将底层数据使用oracle。
-
 
 ## 目录说明
 - guns-admin 一个成熟的后台管理系统，完全具备了后台管理系统的基本功能
@@ -21,6 +20,13 @@
 - guns-dao  dao层
 - guns-entity 实体层
 - guns-service 服务层
+
+
+
+## 演示地址
+- 后台管理系统 [http://45.32.65.17:8081/guns-admin/](http://45.32.65.17:8081/guns-admin/)
+- vue版本后台管理 [http://45.32.65.17:8081/vue](http://45.32.65.17:8081/vue)
+- 因资金原因演示服务器放在国外并且和其他三个服务共用一个2G内存的linux服务器，访问速度极慢，请耐心等待(/ □ \)) 囧
 
 ## 技术选型
 

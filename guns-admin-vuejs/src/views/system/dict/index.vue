@@ -6,16 +6,16 @@
           <el-input v-model="listQuery.name" placeholder="请输入字典名称"></el-input>
         </el-col>
         <el-col :span="6">
-          <el-button type="success" icon="el-icon-search" @click.native="search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">重置</el-button>
+          <el-button type="success" icon="el-icon-search" @click.native="search">{{ $t('button.search') }}</el-button>
+          <el-button type="primary" icon="el-icon-refresh" @click.native="reset">{{ $t('button.reset') }}</el-button>
         </el-col>
       </el-row>
       <br>
       <el-row>
         <el-col :span="24">
-          <el-button type="success" icon="el-icon-plus" @click.native="add">添加</el-button>
-          <el-button type="primary" icon="el-icon-edit" @click.native="edit">修改</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native="remove">删除</el-button>
+          <el-button type="success" icon="el-icon-plus" @click.native="add">{{ $t('button.add') }}</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click.native="edit">{{ $t('button.edit') }}</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click.native="remove">{{ $t('button.delete') }}</el-button>
         </el-col>
       </el-row>
     </div>
@@ -68,14 +68,15 @@
           <el-input v-model="rec.value" placeholder="名称"></el-input>
           </el-col>
           <el-col :span="3">&nbsp;
-          <el-button @click.prevent="removeDetail(rec)" type="danger" icon="el-icon-delete" >删除</el-button>
+          <el-button @click.prevent="removeDetail(rec)" type="danger" icon="el-icon-delete" >{{ $t('button.delete')
+            }}</el-button>
           </el-col>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="save">提交</el-button>
+          <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>
           <el-button @click="addDetail">新增字典</el-button>
-          <el-button @click.native="formVisible = false">取消</el-button>
+          <el-button @click.native="formVisible = false">{{ $t('button.cancel') }}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
