@@ -72,6 +72,7 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 .com/PanJiaChen/vue-admin-template)
 
 ## 交流
-- 欢迎提issue [https://github.com/enilu/guns-lite/issues/new](https://github.com/enilu/guns-lite/issues/new)
-- 欢迎加入qq交流群：740230743
+- Bugs: [Issues](https://github.com/enilu/guns-lite/issues/new)
+- QQ: 欢迎加入qq交流群 740230743
+- Gitter: [Gitter channel](https://gitter.im/guns-lite/community)
 
