@@ -28,7 +28,7 @@ public class LogFactory {
         operationLog.setUserid(userId.intValue());
         operationLog.setClassname(clazzName);
         operationLog.setMethod(methodName);
-        operationLog.setCreatetime(new Date());
+        operationLog.setCreateTime(new Date());
         operationLog.setSucceed(succeed.getMessage());
         operationLog.setMessage(msg);
         return operationLog;
@@ -44,7 +44,7 @@ public class LogFactory {
         LoginLog loginLog = new LoginLog();
         loginLog.setLogname(logType.getMessage());
         loginLog.setUserid(userId.intValue());
-        loginLog.setCreatetime(new Date());
+        loginLog.setCreateTime(new Date());
         loginLog.setSucceed(LogSucceed.SUCCESS.getMessage());
         loginLog.setIp(ip);
         loginLog.setMessage(msg);

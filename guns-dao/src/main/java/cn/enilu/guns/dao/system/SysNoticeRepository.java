@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author enilu
  */
-public interface SysNoticeRepository extends PagingAndSortingRepository<Notice,Integer> {
+public interface SysNoticeRepository extends PagingAndSortingRepository<Notice,Long> {
     List<Notice> findByTitleLike(String name);
 }

@@ -1,18 +1,22 @@
 package cn.enilu.guns.bean.entity.system;
 
 
+import cn.enilu.guns.bean.entity.BaseEntity;
 import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name="t_sys_task")
 @Entity
 @Data
-public class Task{
-    @Id
-    @GeneratedValue
-    private Long id;
+@EntityListeners(AuditingEntityListener.class)
+public class Task extends BaseEntity {
+
     @Column(columnDefinition = "VARCHAR(50) COMMENT '任务名'")
     private String name;
 
@@ -42,8 +46,4 @@ public class Task{
 
     @Column(name="disabled", columnDefinition = "TINYINT COMMENT '是否禁用'")
     private boolean disabled;
-    @Column
-    private Date createtime;
-    @Column
-    private Long creator;
 }

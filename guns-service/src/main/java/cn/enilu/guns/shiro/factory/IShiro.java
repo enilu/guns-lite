@@ -40,7 +40,7 @@ public interface IShiro {
      *
      * @param roleId 角色id
      */
-    String findRoleNameByRoleId(Integer roleId);
+    String findRoleNameByRoleId(Long roleId);
 
     /**
      * 获取shiro的认证信息

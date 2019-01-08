@@ -15,9 +15,9 @@ import javax.transaction.Transactional;
  *
  * @author enilu
  */
-public interface OperationLogRepository extends PagingAndSortingRepository<OperationLog,Integer>
+public interface OperationLogRepository extends PagingAndSortingRepository<OperationLog,Long>
         ,JpaSpecificationExecutor<OperationLog>
-        ,JpaRepository<OperationLog,Integer> {
+        ,JpaRepository<OperationLog,Long> {
     @Modifying
     @Transactional
     @Query(nativeQuery = true,value = "delete from t_sys_operation_log")

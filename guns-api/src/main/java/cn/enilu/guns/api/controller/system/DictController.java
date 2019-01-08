@@ -43,7 +43,7 @@ public class DictController extends BaseController {
             List<Dict> list = dictRepository.findByNameLike(name);
             return Rets.success(new DictWarpper(BeanUtil.objectsToMaps(list)).warp());
         }
-        List<Dict> list = dictRepository.findByPid(0);
+        List<Dict> list = dictRepository.findByPid(0L);
         return Rets.success(new DictWarpper(BeanUtil.objectsToMaps(list)).warp());
     }
 
@@ -59,7 +59,7 @@ public class DictController extends BaseController {
 
     @RequestMapping(method = RequestMethod.PUT)
     @BussinessLog(value = "修改字典", key = "dictName")
-    public Object update(Integer id,String dictName, String dictValues) {
+    public Object update(Long id,String dictName, String dictValues) {
         if (ToolUtil.isOneEmpty(dictName, dictValues)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -70,7 +70,7 @@ public class DictController extends BaseController {
 
     @RequestMapping(method = RequestMethod.DELETE)
     @BussinessLog(value = "删除字典", key = "id")
-    public Object delete(@RequestParam Integer id) {
+    public Object delete(@RequestParam Long id) {
         this.dictService.delteDict(id);
         return Rets.success();
     }

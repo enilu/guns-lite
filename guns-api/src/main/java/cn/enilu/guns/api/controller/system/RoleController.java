@@ -63,7 +63,7 @@ public class RoleController extends BaseController {
     }
     @RequestMapping(method = RequestMethod.DELETE)
     @BussinessLog(value = "删除角色", key = "roleId", dict = RoleDict.class)
-    public Object remove(Integer roleId){
+    public Object remove(Long roleId){
         logger.info("id:{}",roleId);
         if (ToolUtil.isEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
@@ -81,7 +81,7 @@ public class RoleController extends BaseController {
 
     @RequestMapping(value = "/savePermisson",method = RequestMethod.POST)
     @BussinessLog(value = "配置角色权限", key = "roleId", dict = RoleDict.class)
-    public Object setAuthority(Integer roleId, String
+    public Object setAuthority(Long roleId, String
             permissions) {
         if (ToolUtil.isOneEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);

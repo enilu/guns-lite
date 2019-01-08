@@ -36,8 +36,8 @@ public interface MenuService {
      * @param roleList
      * @return
      */
-    List<MenuNode> getMenusByRoleIds(List<Integer> roleList);
-    List<MenuNode> getMenusTreeByRoleIds(List<Integer> roleList);
+    List<MenuNode> getMenusByRoleIds(List<Long> roleList);
+    List<MenuNode> getMenusTreeByRoleIds(List<Long> roleList);
 
     /**
      * 查询菜单树

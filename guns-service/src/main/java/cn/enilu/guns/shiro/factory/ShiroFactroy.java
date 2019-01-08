@@ -62,10 +62,10 @@ public class ShiroFactroy implements IShiro {
         shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));// 部门名称
         shiroUser.setName(user.getName());        // 用户名称
 
-        Integer[] roleArray = Convert.toIntArray(user.getRoleid());// 角色集合
-        List<Integer> roleList = new ArrayList<Integer>();
+        Long[] roleArray = Convert.toLongArray(false,user.getRoleid());// 角色集合
+        List<Long> roleList = new ArrayList<Long>();
         List<String> roleNameList = new ArrayList<String>();
-        for (int roleId : roleArray) {
+        for (Long roleId : roleArray) {
             roleList.add(roleId);
             roleNameList.add(ConstantFactory.me().getSingleRoleName(roleId));
         }
@@ -82,7 +82,7 @@ public class ShiroFactroy implements IShiro {
     }
 
     @Override
-    public String findRoleNameByRoleId(Integer roleId) {
+    public String findRoleNameByRoleId(Long roleId) {
         return ConstantFactory.me().getSingleRoleTip(roleId);
     }
 

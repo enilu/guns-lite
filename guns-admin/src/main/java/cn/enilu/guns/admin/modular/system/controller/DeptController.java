@@ -65,7 +65,7 @@ public class DeptController extends BaseController {
      */
     @Permission
     @RequestMapping("/dept_update/{deptId}")
-    public String deptUpdate(@PathVariable Integer deptId, Model model) {
+    public String deptUpdate(@PathVariable Long deptId, Model model) {
         Dept dept = deptRepository.findOne(deptId);
         model.addAttribute(dept);
         model.addAttribute("pName", ConstantFactory.me().getDeptName(dept.getPid()));
@@ -117,7 +117,7 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/detail/{deptId}")
     @Permission
     @ResponseBody
-    public Object detail(@PathVariable("deptId") Integer deptId) {
+    public Object detail(@PathVariable("deptId") Long deptId) {
         return deptRepository.findOne(deptId);
     }
 
@@ -144,7 +144,7 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/delete")
     @Permission
     @ResponseBody
-    public Object delete(@RequestParam Integer deptId) {
+    public Object delete(@RequestParam Long deptId) {
         //缓存被删除的部门名称
         LogObjectHolder.me().set(ConstantFactory.me().getDeptName(deptId));
         deptService.deleteDept(deptId);

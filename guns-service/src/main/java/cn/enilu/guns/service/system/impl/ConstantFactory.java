@@ -60,7 +60,7 @@ public class ConstantFactory implements IConstantFactory {
      * @Date 2017/5/9 23:41
      */
     @Override
-    public String getUserNameById(Integer userId) {
+    public String getUserNameById(Long userId) {
         String val = get(CacheKey.SYS_USER_NAME+userId);
         if(StringUtils.isNotEmpty(val)){
             return val;
@@ -82,7 +82,7 @@ public class ConstantFactory implements IConstantFactory {
      * @date 2017年5月16日21:55:371
      */
     @Override
-    public String getUserAccountById(Integer userId) {
+    public String getUserAccountById(Long userId) {
         User user = userRepository.findOne(userId);
         if (user != null) {
             return user.getAccount();
@@ -102,8 +102,8 @@ public class ConstantFactory implements IConstantFactory {
         }
         Integer[] roles = Convert.toIntArray(roleIds);
         StringBuilder sb = new StringBuilder();
-        for (int role : roles) {
-            Role roleObj = roleRepository.findOne(role);
+        for (Integer role : roles) {
+            Role roleObj = roleRepository.findOne(Long.valueOf(role));
             if (StringUtils.isNotNullOrEmpty(roleObj) && StringUtils.isNotEmpty(roleObj.getName())) {
                 sb.append(roleObj.getName()).append(",");
             }
@@ -117,11 +117,11 @@ public class ConstantFactory implements IConstantFactory {
      * 通过角色id获取角色名称
      */
     @Override
-    public String getSingleRoleName(Integer roleId) {
+    public String getSingleRoleName(Long roleId) {
         if (0 == roleId) {
             return "--";
         }
-        Role roleObj = roleRepository.findOne(roleId);
+        Role roleObj = roleRepository.findOne(Long.valueOf(roleId));
         if (StringUtils.isNotNullOrEmpty(roleObj) && StringUtils.isNotEmpty(roleObj.getName())) {
             return roleObj.getName();
         }
@@ -132,7 +132,7 @@ public class ConstantFactory implements IConstantFactory {
      * 通过角色id获取角色英文名称
      */
     @Override
-    public String getSingleRoleTip(Integer roleId) {
+    public String getSingleRoleTip(Long roleId) {
         if (0 == roleId) {
             return "--";
         }
@@ -147,7 +147,7 @@ public class ConstantFactory implements IConstantFactory {
      * 获取部门名称
      */
     @Override
-    public String getDeptName(Integer deptId) {
+    public String getDeptName(Long deptId) {
         String val = get(CacheKey.DEPT_NAME+deptId);
         if(StringUtils.isNotEmpty(val)){
             return val;
@@ -223,7 +223,7 @@ public class ConstantFactory implements IConstantFactory {
      * 获取字典名称
      */
     @Override
-    public String getDictName(Integer dictId) {
+    public String getDictName(Long dictId) {
 
         String val = get(CacheKey.DICT_NAME+dictId);
         if(StringUtils.isNotEmpty(val)){
@@ -239,7 +239,7 @@ public class ConstantFactory implements IConstantFactory {
      * 获取通知标题
      */
     @Override
-    public String getNoticeTitle(Integer dictId) {
+    public String getNoticeTitle(Long dictId) {
 
             Notice notice = sysNoticeRepository.findOne(dictId);
             if (notice == null) {
@@ -314,7 +314,7 @@ public class ConstantFactory implements IConstantFactory {
      * 查询字典
      */
     @Override
-    public List<Dict> findInDict(Integer id) {
+    public List<Dict> findInDict(Long id) {
             return dictRepository.findByPid(id);
 
     }
@@ -331,11 +331,11 @@ public class ConstantFactory implements IConstantFactory {
      * 获取子部门id
      */
     @Override
-    public List<Integer> getSubDeptId(Integer deptid) {
+    public List<Long> getSubDeptId(Long deptid) {
 
         List<Dept> depts = this.deptRepository.findByPidsLike( "%[" + deptid + "]%");
 
-        ArrayList<Integer> deptids = new ArrayList<>();
+        ArrayList<Long> deptids = new ArrayList<>();
 
         if(depts != null && depts.size() > 0){
             for (Dept dept : depts) {
@@ -350,7 +350,7 @@ public class ConstantFactory implements IConstantFactory {
      * 获取所有父部门id
      */
     @Override
-    public List<Integer> getParentDeptIds(Integer deptid) {
+    public List<Integer> getParentDeptIds(Long deptid) {
         Dept dept = deptRepository.findOne(deptid);
         String pids = dept.getPids();
         String[] split = pids.split(",");

@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author enilu
  */
-public interface LoginLogRepository extends PagingAndSortingRepository<LoginLog,Integer>
-        ,JpaRepository<LoginLog,Integer>,JpaSpecificationExecutor<LoginLog> {
+public interface LoginLogRepository extends PagingAndSortingRepository<LoginLog,Long>
+        ,JpaRepository<LoginLog,Long>,JpaSpecificationExecutor<LoginLog> {
     @Modifying
     @Transactional
     @Query(nativeQuery = true,value = "delete from t_sys_login_log")

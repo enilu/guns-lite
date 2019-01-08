@@ -65,10 +65,10 @@ public class DictController extends BaseController {
      */
     @Permission(Const.ADMIN_NAME)
     @RequestMapping("/dict_edit/{dictId}")
-    public String deptUpdate(@PathVariable Integer dictId, Model model) {
+    public String deptUpdate(@PathVariable Long dictId, Model model) {
         Dict dict = dictRepository.findOne(dictId);
         model.addAttribute("dict", dict);
-        List<Dict> subDicts = dictRepository.findByPid(dictId.intValue());
+        List<Dict> subDicts = dictRepository.findByPid(dictId);
         model.addAttribute("subDicts", subDicts);
         LogObjectHolder.me().set(dict);
         return PREFIX + "dict_edit.html";
@@ -98,7 +98,7 @@ public class DictController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public Object list(String condition) {
-        List<Dict> list = dictRepository.findByPid(0);
+        List<Dict> list = dictRepository.findByPid(0L);
         return super.warpObject(new DictWarpper(BeanUtil.objectsToMaps(list)));
     }
 
@@ -108,7 +108,7 @@ public class DictController extends BaseController {
     @RequestMapping(value = "/detail/{dictId}")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Object detail(@PathVariable("dictId") Integer dictId) {
+    public Object detail(@PathVariable("dictId") Long dictId) {
         return dictRepository.findOne(dictId);
     }
 
@@ -119,7 +119,7 @@ public class DictController extends BaseController {
     @RequestMapping(value = "/update")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Object update(Integer dictId, String dictName, String dictValues) {
+    public Object update(Long dictId, String dictName, String dictValues) {
         if (ToolUtil.isOneEmpty(dictId, dictName, dictValues)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -134,7 +134,7 @@ public class DictController extends BaseController {
     @RequestMapping(value = "/delete")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Object delete(@RequestParam Integer dictId) {
+    public Object delete(@RequestParam Long dictId) {
 
         //缓存被删除的名称
         LogObjectHolder.me().set(ConstantFactory.me().getDictName(dictId));

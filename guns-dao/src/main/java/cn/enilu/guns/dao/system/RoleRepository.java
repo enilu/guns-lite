@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author enilu
  */
-public interface RoleRepository extends PagingAndSortingRepository<Role,Integer> {
+public interface RoleRepository extends PagingAndSortingRepository<Role,Long> {
     @Query(nativeQuery = true,value = "SELECT id, pId, NAME, ( CASE WHEN (pId = 0 OR pId IS NULL) THEN 'true' ELSE 'false' END ) OPEN FROM t_sys_role")
     List roleTreeList();
 

@@ -1,6 +1,5 @@
 package cn.enilu.guns.warpper;
 
-import cn.enilu.guns.warpper.BaseControllerWarpper;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.ToolUtil;
 
@@ -21,7 +20,7 @@ public class DeptWarpper extends BaseControllerWarpper {
     @Override
     public void warpTheMap(Map<String, Object> map) {
 
-        Integer pid = (Integer) map.get("pid");
+        Long pid = (Long) map.get("pid");
 
         if (ToolUtil.isEmpty(pid) || pid.equals(0)) {
             map.put("pName", "--");

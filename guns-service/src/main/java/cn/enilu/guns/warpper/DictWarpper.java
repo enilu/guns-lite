@@ -1,6 +1,5 @@
 package cn.enilu.guns.warpper;
 
-import cn.enilu.guns.warpper.BaseControllerWarpper;
 import cn.enilu.guns.bean.entity.system.Dict;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.ToolUtil;
@@ -23,7 +22,7 @@ public class DictWarpper extends BaseControllerWarpper {
     @Override
     public void warpTheMap(Map<String, Object> map) {
         StringBuffer detail = new StringBuffer();
-        Integer id = (Integer) map.get("id");
+        Long id = (Long) map.get("id");
         List<Dict> dicts = ConstantFactory.me().findInDict(id);
         if(dicts != null){
             for (Dict dict : dicts) {

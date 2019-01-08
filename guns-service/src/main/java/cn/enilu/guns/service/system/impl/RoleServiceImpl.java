@@ -57,7 +57,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void setAuthority(Integer roleId, String ids) {
+    public void setAuthority(Long roleId, String ids) {
         // 删除该角色所有的权限
         relationRepository.deleteByRoleId(roleId);
 
@@ -72,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void delRoleById(Integer roleId) {
+    public void delRoleById(Long roleId) {
         //删除角色
         roleRepository.delete(roleId);
 

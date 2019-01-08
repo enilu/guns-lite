@@ -2,12 +2,10 @@ package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.bean.constant.factory.PageFactory;
-import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.bean.entity.system.Task;
 import cn.enilu.guns.bean.entity.system.TaskLog;
 import cn.enilu.guns.dao.system.TaskRepository;
 import cn.enilu.guns.service.task.TaskService;
-import cn.enilu.guns.shiro.ShiroKit;
 import cn.enilu.guns.utils.StringUtils;
 import cn.enilu.guns.utils.factory.Page;
 import org.slf4j.Logger;
@@ -15,9 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created  on 2018/4/9 0009.
@@ -78,10 +77,6 @@ public class TaskController extends BaseController {
     @RequestMapping(value = "/add")
     @ResponseBody
     public Object add(Task task) {
-        ShiroUser shiroUser = ShiroKit.getUser();
-        task.setCreator(shiroUser.getId());
-        task.setCreatetime(new Date());
-        task.setDisabled(false);
         taskService.save(task);
         return SUCCESS_TIP;
     }

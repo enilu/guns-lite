@@ -17,7 +17,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * Created  on 2018/4/9 0009.
@@ -55,10 +54,6 @@ public class TaskController extends BaseController {
     public Object add(@ModelAttribute Task task,
                       HttpServletRequest request) {
         if(task.getId()==null) {
-            Long idUser = getIdUser(request);
-            task.setCreator(idUser);
-            task.setCreatetime(new Date());
-            task.setDisabled(false);
             taskService.save(task);
         }else{
             Task old = taskRepository.findOne(task.getId());

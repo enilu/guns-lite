@@ -56,7 +56,7 @@ public class DeptServiceImpl  implements DeptService {
     }
 
     @Override
-    public void deleteDept(Integer deptId) {
+    public void deleteDept(Long deptId) {
         Dept dept = deptRepository.findOne(deptId);
 
         List<Dept> subDepts = deptRepository.findByPidsLike("%[" + dept.getId() + "]%");
@@ -74,10 +74,10 @@ public class DeptServiceImpl  implements DeptService {
     @Override
     public void deptSetPids(Dept dept) {
         if (ToolUtil.isEmpty(dept.getPid()) || dept.getPid().equals(0)) {
-            dept.setPid(0);
+            dept.setPid(0L);
             dept.setPids("[0],");
         } else {
-            int pid = dept.getPid();
+            Long pid = dept.getPid();
             Dept temp = deptRepository.findOne(pid);
             String pids = temp.getPids();
             dept.setPid(pid);

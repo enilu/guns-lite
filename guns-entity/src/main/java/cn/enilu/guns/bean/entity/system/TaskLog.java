@@ -18,7 +18,6 @@ public class TaskLog{
     public static final int EXE_FAILURE_RESULT = 0;
     public static final int EXE_SUCCESS_RESULT = 1;
 
-
     @Id
     @GeneratedValue
     private Long id;

@@ -1,18 +1,17 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
+import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.dictmap.NoticeMap;
-import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
-import cn.enilu.guns.admin.core.base.controller.BaseController;
-import cn.enilu.guns.bean.exception.GunsException;
-import cn.enilu.guns.shiro.ShiroKit;
-import cn.enilu.guns.utils.BeanUtil;
-import cn.enilu.guns.warpper.NoticeWrapper;
 import cn.enilu.guns.bean.entity.system.Notice;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.dao.system.SysNoticeRepository;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
+import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.utils.ToolUtil;
+import cn.enilu.guns.warpper.NoticeWrapper;
 import com.google.common.base.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,7 +60,7 @@ public class NoticeController extends BaseController {
      * 跳转到修改通知
      */
     @RequestMapping("/notice_update/{noticeId}")
-    public String noticeUpdate(@PathVariable Integer noticeId, Model model) {
+    public String noticeUpdate(@PathVariable Long noticeId, Model model) {
         Notice notice = sysNoticeRepository.findOne(noticeId);
         model.addAttribute("notice",notice);
         LogObjectHolder.me().set(notice);
@@ -104,8 +102,6 @@ public class NoticeController extends BaseController {
         if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        notice.setCreater(ShiroKit.getUser().getId().intValue());
-        notice.setCreatetime(new Date());
        sysNoticeRepository.save(notice);
         return SUCCESS_TIP;
     }
@@ -116,7 +112,7 @@ public class NoticeController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     @BussinessLog(value = "删除通知",key = "noticeId",dict = NoticeMap.class)
-    public Object delete(@RequestParam Integer noticeId) {
+    public Object delete(@RequestParam Long noticeId) {
 
         //缓存通知名称
         LogObjectHolder.me().set(ConstantFactory.me().getNoticeTitle(noticeId));

@@ -48,14 +48,14 @@ public class MenuServiceImpl implements MenuService {
 
     }
     @Override
-    public List<MenuNode> getMenusByRoleIds(List<Integer> roleList) {
+    public List<MenuNode> getMenusByRoleIds(List<Long> roleList) {
         List menus = menuRepository.getMenusByRoleIds(roleList);
        return transferMenuNode(menus);
 
     }
 
     @Override
-    public List<MenuNode> getMenusTreeByRoleIds(List<Integer> roleList) {
+    public List<MenuNode> getMenusTreeByRoleIds(List<Long> roleList) {
         List menus = menuRepository.getMenusByRoleIds(roleList);
         List<MenuNode> result =  generateTree(transferMenuNode(menus));
         for(MenuNode menuNode:result){

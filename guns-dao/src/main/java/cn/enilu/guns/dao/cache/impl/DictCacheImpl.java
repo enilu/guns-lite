@@ -29,13 +29,13 @@ public class DictCacheImpl implements DictCache {
     }
 
     @Override
-    public String getDict(Integer dictId) {
+    public String getDict(Long dictId) {
         return (String) get(CacheKey.DICT_NAME+String.valueOf(dictId));
     }
 
     @Override
     public void cache() {
-    List<Dict> list = dictRepository.findByPid(0);
+    List<Dict> list = dictRepository.findByPid(0L);
     for(Dict dict:list){
         List<Dict> children  = dictRepository.findByPid(dict.getId());
         if(children.isEmpty()) {

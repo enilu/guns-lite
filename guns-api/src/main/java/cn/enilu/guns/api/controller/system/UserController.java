@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +90,6 @@ public class UserController extends BaseController {
             user.setSalt(ToolUtil.getRandomString(5));
             user.setPassword(MD5.md5(user.getPassword(), user.getSalt()));
             user.setStatus(ManagerStatus.OK.getCode());
-            user.setCreatetime(new Date());
             userRepository.save(UserFactory.createUser(user, new User()));
         }else{
             User oldUser = userRepository.findOne(user.getId());
@@ -102,7 +100,7 @@ public class UserController extends BaseController {
 
     @BussinessLog(value = "删除管理员", key = "userId", dict = UserDict.class)
     @RequestMapping(method = RequestMethod.DELETE)
-    public Object remove(Integer userId){
+    public Object remove(Long userId){
         logger.info("id:{}",userId);
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);

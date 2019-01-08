@@ -120,7 +120,11 @@ export default {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          save(this.form).then(response => {
+          save({
+            id:this.form.id,
+            cfgName:this.form.cfgName,
+            cfgValue:this.form.cfgValue
+          }).then(response => {
             console.log(response)
             this.$message({
               message: this.$t('common.optionSuccess'),
@@ -149,7 +153,6 @@ export default {
       if(this.checkSel()){
         this.isAdd = false
         this.form = this.selRow
-        this.form.password = ''
         this.formTitle =  this.$t('config.edit')
         this.formVisible = true
       }

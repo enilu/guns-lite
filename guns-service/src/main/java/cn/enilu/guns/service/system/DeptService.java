@@ -15,7 +15,7 @@ public interface DeptService {
     List<ZTreeNode> tree();
 
     List<Dept> query(String condition);
-    void deleteDept(Integer deptId);
+    void deleteDept(Long deptId);
     List<DeptNode> queryAll();
     void deptSetPids(Dept dept);
 }

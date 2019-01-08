@@ -29,7 +29,7 @@ public class DictServiceImpl implements DictService {
     @Override
     public void addDict(String dictName, String dictValues) {
         //判断有没有该字典
-        List<Dict> dicts = dictRepository.findByNameAndPid(dictName,0);
+        List<Dict> dicts = dictRepository.findByNameAndPid(dictName,0L);
         if(dicts != null && dicts.size() > 0){
            return ;
         }
@@ -41,7 +41,7 @@ public class DictServiceImpl implements DictService {
         Dict dict = new Dict();
         dict.setName(dictName);
         dict.setNum("0");
-        dict.setPid(0);
+        dict.setPid(0L);
         this.dictRepository.save(dict);
 
         //添加字典条目
@@ -62,7 +62,7 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public void editDict(Integer dictId, String dictName, String dicts) {
+    public void editDict(Long dictId, String dictName, String dicts) {
         //删除之前的字典
         this.delteDict(dictId);
 
@@ -73,7 +73,7 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public void delteDict(Integer dictId) {
+    public void delteDict(Long dictId) {
         //删除这个字典的子词典
         List<Dict> subList = dictRepository.findByPid(dictId);
         dictRepository.delete(subList);

@@ -22,7 +22,7 @@ public interface DictService {
      * @author fengshuonan
      * @Date 2017/4/28 11:01
      */
-    void editDict(Integer dictId, String dictName, String dicts);
+    void editDict(Long dictId, String dictName, String dicts);
 
     /**
      * 删除字典
@@ -30,6 +30,6 @@ public interface DictService {
      * @author fengshuonan
      * @Date 2017/4/28 11:39
      */
-    void delteDict(Integer dictId);
+    void delteDict(Long dictId);
 
 }

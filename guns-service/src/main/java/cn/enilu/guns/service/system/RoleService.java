@@ -14,8 +14,8 @@ public interface RoleService {
     List<ZTreeNode> roleTreeList();
     List<ZTreeNode> roleTreeListByRoleId(Integer[] ids);
 
-    void setAuthority(Integer roleId, String ids);
+    void setAuthority(Long roleId, String ids);
 
-    void delRoleById(Integer roleId);
+    void delRoleById(Long roleId);
 
 }

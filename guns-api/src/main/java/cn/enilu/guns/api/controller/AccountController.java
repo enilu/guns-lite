@@ -101,7 +101,7 @@ public class AccountController extends BaseController{
             return Rets.expire();
         }
         if(idUser!=null){
-            User user =  userRepository.findOne(idUser.intValue());
+            User user =  userRepository.findOne(idUser);
             if(StringUtils.isEmpty(user.getRoleid())){
                 return Rets.failure("该用户未配置权限");
             }

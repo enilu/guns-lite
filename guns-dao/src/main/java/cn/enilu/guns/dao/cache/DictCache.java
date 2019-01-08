@@ -13,5 +13,5 @@ import java.util.List;
 public interface DictCache  extends Cache{
 
     List<Dict> getDictsByPname(String dictName);
-    String getDict(Integer dictId);
+    String getDict(Long dictId);
 }

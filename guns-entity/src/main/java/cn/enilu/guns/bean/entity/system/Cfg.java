@@ -1,6 +1,13 @@
 package cn.enilu.guns.bean.entity.system;
 
-import javax.persistence.*;
+import cn.enilu.guns.bean.entity.BaseEntity;
+import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Table;
 
 /**
  * Created  on 2018/4/2 0002.
@@ -9,51 +16,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_sys_cfg")
-public class Cfg {
-    private Long id;
-    private String cfgName;
-    private String cfgValue;
-    private String cfgDesc;
-
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Basic
+@Data
+@EntityListeners(AuditingEntityListener.class)
+public class Cfg  extends BaseEntity {
     @Column(name = "cfg_name")
-    public String getCfgName() {
-        return cfgName;
-    }
-
-    public void setCfgName(String cfgName) {
-        this.cfgName = cfgName;
-    }
-
-    @Basic
+    private String cfgName;
     @Column(name = "cfg_value")
-    public String getCfgValue() {
-        return cfgValue;
-    }
-
-    public void setCfgValue(String cfgValue) {
-        this.cfgValue = cfgValue;
-    }
-
-    @Basic
+    private String cfgValue;
     @Column(name = "cfg_desc")
-    public String getCfgDesc() {
-        return cfgDesc;
-    }
-
-    public void setCfgDesc(String cfgDesc) {
-        this.cfgDesc = cfgDesc;
-    }
+    private String cfgDesc;
 
 }

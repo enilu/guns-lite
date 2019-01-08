@@ -7,6 +7,7 @@ import cn.enilu.guns.bean.entity.system.Cfg;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.vo.front.Rets;
+import cn.enilu.guns.dao.system.CfgRepository;
 import cn.enilu.guns.service.system.CfgService;
 import cn.enilu.guns.utils.Maps;
 import cn.enilu.guns.utils.ToolUtil;
@@ -28,6 +29,8 @@ public class CfgController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private CfgService cfgService;
+    @Autowired
+    private CfgRepository cfgRepository;
 
     /**
      * 查询操作日志列表
@@ -46,7 +49,15 @@ public class CfgController extends BaseController {
         if (ToolUtil.isOneEmpty(cfg, cfg.getCfgName(),cfg.getCfgValue())) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        cfgService.save(cfg);
+        if(cfg.getId()!=null){
+            Cfg old = cfgRepository.findOne(cfg.getId());
+            old.setCfgName(cfg.getCfgName());
+            old.setCfgValue(cfg.getCfgValue());
+            old.setCfgDesc(cfg.getCfgDesc());
+            cfgService.save(old);
+        }else {
+            cfgService.save(cfg);
+        }
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
