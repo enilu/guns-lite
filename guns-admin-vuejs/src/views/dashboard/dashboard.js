@@ -43,7 +43,7 @@ export default {
           trigger: 'axis'
         },
         legend: {
-          data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+          data:[this.$t('dashboard.email'),this.$t('dashboard.ad'),this.$t('dashboard.vedio'),this.$t('dashboard.direct'),this.$t('dashboard.searchEngine')]
         },
         grid: {
           left: '3%',
@@ -59,38 +59,38 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['周一','周二','周三','周四','周五','周六','周日']
+          data: [this.$t('common.week.mon'),this.$t('common.week.tue'),this.$t('common.week.wed'),this.$t('common.week.thu'),this.$t('common.week.fri'),this.$t('common.week.sat'),this.$t('common.week.sun')]
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            name:'邮件营销',
+            name:this.$t('dashboard.email'),
             type:'line',
             stack: '总量',
             data:[120, 132, 101, 134, 90, 230, 210]
           },
           {
-            name:'联盟广告',
+            name:this.$t('dashboard.ad'),
             type:'line',
             stack: '总量',
             data:[220, 182, 191, 234, 290, 330, 310]
           },
           {
-            name:'视频广告',
+            name:this.$t('dashboard.vedio'),
             type:'line',
             stack: '总量',
             data:[150, 232, 201, 154, 190, 330, 410]
           },
           {
-            name:'直接访问',
+            name:this.$t('dashboard.direct'),
             type:'line',
             stack: '总量',
             data:[320, 332, 301, 334, 390, 330, 320]
           },
           {
-            name:'搜索引擎',
+            name:this.$t('dashboard.searchEngine'),
             type:'line',
             stack: '总量',
             data:[820, 932, 901, 934, 1290, 1330, 1320]
@@ -100,7 +100,7 @@ export default {
       barData: {
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data:[this.$t('common.week.mon'),this.$t('common.week.tue'),this.$t('common.week.wed'),this.$t('common.week.thu'),this.$t('common.week.fri'),this.$t('common.week.sat'),this.$t('common.week.sun')]
         },
         yAxis: {
           type: 'value'
@@ -112,7 +112,7 @@ export default {
       },
       pieData: {
         title : {
-          text: '用户来源',
+          text: this.$t('dashboard.userFrom'),
           subtext: '纯属虚构',
           x:'center'
         },
@@ -123,20 +123,20 @@ export default {
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+          data: [this.$t('dashboard.email'),this.$t('dashboard.ad'),this.$t('dashboard.vedio'),this.$t('dashboard.direct'),this.$t('dashboard.searchEngine')]
         },
         series : [
           {
-            name: '访问来源',
+            name: 'from',
             type: 'pie',
             radius : '55%',
             center: ['50%', '60%'],
             data:[
-              {value:335, name:'直接访问'},
-              {value:310, name:'邮件营销'},
-              {value:234, name:'联盟广告'},
-              {value:135, name:'视频广告'},
-              {value:1548, name:'搜索引擎'}
+              {value:335, name:this.$t('dashboard.direct')},
+              {value:310, name:this.$t('dashboard.email')},
+              {value:234, name:this.$t('dashboard.ad')},
+              {value:135, name:this.$t('dashboard.vedio')},
+              {value:1548, name:this.$t('dashboard.searchEngine')}
             ],
             itemStyle: {
               emphasis: {

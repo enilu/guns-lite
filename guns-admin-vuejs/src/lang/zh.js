@@ -45,7 +45,31 @@ export default {
     tooltip:'提示',
     warning:'警告',
     optionSuccess:'操作成功',
-    isRequired:'不能为空'
+    isRequired:'不能为空',
+    week:{
+      mon:'周一',
+      tue:'周二',
+      wed:'周三',
+      thu:'周四',
+      fri:'周五',
+      sat:'周六',
+      sun:'周日'
+    }
+  },
+  dashboard: {
+    newUser: '新增用户',
+    message:'未处理消息',
+    income:'收入',
+    onlineUser:'在线用户',
+    date:'日期',
+    name:'名称',
+    addr:'地址',
+    email:'邮件营销',
+    ad:'联盟广告',
+    vedio:'视频广告',
+    direct:'直接访问',
+    searchEngine:'搜索引擎',
+    userFrom:'用户来源'
   },
   config:{
     name:'参数名',

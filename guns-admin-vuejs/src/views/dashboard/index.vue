@@ -9,7 +9,7 @@
             <svg-icon  icon-class="user" ></svg-icon>
           </el-col>
           <el-col :span="12" >
-            <div class="card-panel-text">新增用户</div>
+            <div class="card-panel-text">{{ $t('dashboard.newUser') }}</div>
             <div class="card-panel-num">102,400</div>
           </el-col>
         </el-card>
@@ -20,7 +20,7 @@
             <svg-icon  icon-class="message" ></svg-icon>
           </el-col>
           <el-col :span="12" >
-            <div class="card-panel-text">未处理消息</div>
+            <div class="card-panel-text">{{ $t('dashboard.message') }}</div>
             <div class="card-panel-num">5</div>
           </el-col>
         </el-card>
@@ -31,7 +31,7 @@
             <svg-icon  icon-class="money" ></svg-icon>
           </el-col>
           <el-col :span="12" >
-            <div class="card-panel-text">收入</div>
+            <div class="card-panel-text">{{ $t('dashboard.income') }}</div>
             <div class="card-panel-num">10000</div>
           </el-col>
         </el-card>
@@ -42,7 +42,7 @@
             <svg-icon  icon-class="chart" ></svg-icon>
           </el-col>
           <el-col :span="12" >
-            <div class="card-panel-text">在线用户</div>
+            <div class="card-panel-text">{{ $t('dashboard.onlineUser') }}</div>
             <div class="card-panel-num">5000</div>
           </el-col>
         </el-card>
@@ -71,17 +71,17 @@
         <el-table :data="tableData" class="section">
           <el-table-column
             prop="date"
-            label="日期"
+            :label="$t('dashboard.date')"
             width="180">
           </el-table-column>
           <el-table-column
             prop="name"
-            label="姓名"
+            :label="$t('dashboard.name')"
             width="180">
           </el-table-column>
           <el-table-column
             prop="address"
-            label="地址">
+            :label="$t('dashboard.addr')">
           </el-table-column>
         </el-table>
 

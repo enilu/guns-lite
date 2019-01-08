@@ -44,7 +44,33 @@ export default {
     tooltip:'Tooltip',
     warning:'Warning',
     optionSuccess:'success',
-    isRequired:' is required'
+    isRequired:' is required',
+    week:{
+      mon:'Mon',
+      tue:'Tue',
+      wed:'Wed',
+      thu:'Thu',
+      fri:'Fri',
+      sat:'Sat',
+      sun:'Sun'
+    }
+  },
+
+  dashboard: {
+    newUser: 'New Users',
+    message:'Message',
+    income:'Income',
+    onlineUser:'Online User',
+    date:'Date',
+    name:'Name',
+    addr:'Address',
+    // '邮件营销','联盟广告','视频广告','直接访问','搜索引擎'
+    email:'Email',
+    ad:'Ad',
+    vedio:'Vedio',
+    direct:'Direct',
+    searchEngine:'Search engine',
+    userFrom:'User from'
   },
   config:{
     name:'Config Name',
