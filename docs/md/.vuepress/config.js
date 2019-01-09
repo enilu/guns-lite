@@ -66,8 +66,8 @@ module.exports = {
                     '/action/i18n',
                     '/action/sqlite',
                     '/action/cache',
-                    '/action/task'
-
+                    '/action/task',
+                    '/action/jpaauditing.md'
 
                 ]
             }
