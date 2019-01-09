@@ -5,18 +5,25 @@ import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.dictmap.RoleDict;
 import cn.enilu.guns.bean.entity.system.Role;
+import cn.enilu.guns.bean.entity.system.User;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.vo.front.Rets;
+import cn.enilu.guns.bean.vo.node.Node;
+import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.RoleRepository;
+import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.RoleService;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.BeanUtil;
+import cn.enilu.guns.utils.Convert;
+import cn.enilu.guns.utils.Maps;
 import cn.enilu.guns.utils.ToolUtil;
 import cn.enilu.guns.warpper.RoleWarpper;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +46,8 @@ public class RoleController extends BaseController {
     private RoleRepository roleRepository;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private UserRepository userRepository;
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public Object list(String name){
         logger.info("role:{}",name);
@@ -88,5 +97,31 @@ public class RoleController extends BaseController {
         }
         roleService.setAuthority(roleId, permissions);
         return Rets.success();
+    }
+
+
+    /**
+     * 获取角色树
+     */
+    @RequestMapping(value = "/roleTreeListByIdUser", method = RequestMethod.GET)
+    public Object roleTreeListByIdUser(Long idUser) {
+        User user = userRepository.findOne(idUser);
+        String roleIds = user.getRoleid();
+        List<ZTreeNode> roleTreeList = null;
+        if (ToolUtil.isEmpty(roleIds)) {
+            roleTreeList = roleService.roleTreeList();
+        } else {
+            Long[] roleArray = Convert.toLongArray(",", roleIds);
+            roleTreeList = roleService.roleTreeListByRoleId(roleArray);
+
+        }
+        List<Node> list = roleService.generateRoleTree(roleTreeList);
+        List<Long> checkedIds = Lists.newArrayList();
+        for (ZTreeNode zTreeNode : roleTreeList) {
+            if (zTreeNode.getChecked() != null && zTreeNode.getChecked()) {
+                checkedIds.add(zTreeNode.getId());
+            }
+        }
+        return Rets.success(Maps.newHashMap("treeData", list, "checkedIds", checkedIds));
     }
 }

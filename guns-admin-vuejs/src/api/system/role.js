@@ -27,21 +27,12 @@ export function remove(roleId) {
   })
 }
 
-export function getPermissons(id) {
+export  function roleTreeListByIdUser(idUser){
   return request({
-    url: '/role/getPermissons',
+    url: '/role/roleTreeListByIdUser',
     method: 'get',
-    data: {
-      id
+    params: {
+      idUser: idUser
     }
-  })
-}
-
-
-export function savePermissons(params) {
-  return request({
-    url: '/role/savePermisson',
-    method: 'post',
-   params
   })
 }

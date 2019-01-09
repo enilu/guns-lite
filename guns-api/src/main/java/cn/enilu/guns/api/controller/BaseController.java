@@ -3,6 +3,7 @@ package cn.enilu.guns.api.controller;
 
 import cn.enilu.guns.bean.vo.SpringContextHolder;
 import cn.enilu.guns.dao.cache.TokenCache;
+import cn.enilu.guns.utils.HttpKit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +35,9 @@ public class BaseController {
      */
     public String getToken(HttpServletRequest request) {
         return request.getHeader("Authorization");
+    }
+    public String getToken(){
+        return HttpKit.getRequest().getHeader("Authorization");
     }
 
     /**

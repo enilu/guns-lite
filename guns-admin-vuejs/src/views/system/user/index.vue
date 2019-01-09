@@ -19,6 +19,7 @@
           <el-button type="success" icon="el-icon-plus" @click.native="add">{{ $t('button.add') }}</el-button>
           <el-button type="primary" icon="el-icon-edit" @click.native="edit">{{ $t('button.edit') }}</el-button>
           <el-button type="danger" icon="el-icon-delete" @click.native="remove">{{ $t('button.delete') }}</el-button>
+          <el-button type="info" icon="el-icon-role" @click.native="openRole">角色分配</el-button>
         </el-col>
       </el-row>
     </div>
@@ -168,6 +169,30 @@
         <el-form-item>
           <el-button type="primary" @click="saveUser">{{ $t('button.submit') }}</el-button>
           <el-button @click.native="formVisible = false">{{ $t('button.cancel') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+    <el-dialog
+      title="角色分配"
+      :visible.sync="roleDialog.visible"
+      width="25%">
+      <el-form>
+        <el-row>
+          <el-col :span="12">
+            <el-tree
+              :data="roleDialog.roles"
+              ref="roleTree"
+              show-checkbox
+              node-key="id"
+              :default-checked-keys="roleDialog.checkedRoleKeys"
+              :props="roleDialog.defaultProps">
+            </el-tree>
+
+          </el-col>
+        </el-row>
+        <el-form-item>
+          <el-button type="primary" @click="setRole">{{ $t('button.submit') }}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>

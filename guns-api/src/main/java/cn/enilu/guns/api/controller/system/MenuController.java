@@ -83,7 +83,7 @@ public class MenuController extends BaseController {
     }
 
     /**
-     * 获取角色列表
+     * 获取菜单树
      */
     @RequestMapping(value = "/menuTreeListByRoleId", method = RequestMethod.GET)
     public Object menuTreeListByRoleId(Integer roleId) {

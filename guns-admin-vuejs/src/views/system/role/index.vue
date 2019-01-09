@@ -145,7 +145,6 @@
               ref="permissonTree"
               show-checkbox
               node-key="id"
-              :default-expanded-keys="[2, 3]"
               :default-checked-keys="checkedPermissionKeys"
               :props="defaultProps">
             </el-tree>

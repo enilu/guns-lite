@@ -418,6 +418,18 @@ public class Convert {
 		}
 		return ints;
 	}
+	public static Long[] toLongArray(String split, String str) {
+		if (StrKit.isEmpty(str)) {
+			return new Long[] {};
+		}
+		String[] arr = str.split(split);
+		final Long[] ints = new Long[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			final Long v = StringUtils.isNotEmpty(arr[i])?Long.valueOf(arr[i]):0L;
+			ints[i] = v;
+		}
+		return ints;
+	}
 	
 	/**
 	 * 转换为String数组<br>

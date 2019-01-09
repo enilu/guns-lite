@@ -1,13 +1,25 @@
 
-import { deleteUser , getList , saveUser , remove }  from '@/api/system/user'
+import { deleteUser , getList , saveUser , remove , setRole }  from '@/api/system/user'
 import { list as deptList }  from '@/api/system/dept'
 import { parseTime } from '@/utils/index'
+import { roleTreeListByIdUser } from '@/api/system/role'
 
 
 
 export default {
   data() {
     return {
+      roleDialog: {
+        visible: false,
+        roles: [],
+        roleTree: [],
+        checkedRoleKeys: [],
+        defaultProps: {
+          id: "id",
+          label: 'name',
+          children: 'children'
+        }
+      },
       formVisible: false,
       formTitle: '添加用户',
       deptTree:{
@@ -19,7 +31,6 @@ export default {
           children: 'children'
         },
       },
-
       isAdd: true,
       form: {
         id: '',
@@ -156,7 +167,6 @@ export default {
       return true
     },
     saveUser() {
-      console.log('--------------------')
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
@@ -244,11 +254,42 @@ export default {
 
       }
     },
-
     handleNodeClick(data, node) {
       this.form.deptid = data.id
       this.form.deptName = data.simplename
       this.deptTree.show = false;
+    },
+
+    openRole() {
+      if(this.checkSel()){
+        console.log(this.selRow)
+        roleTreeListByIdUser(this.selRow.id).then(response => {
+          console.log(response.data)
+          this.roleDialog.roles = response.data.treeData
+          this.roleDialog.checkedRoleKeys = response.data.checkedIds
+          this.roleDialog.visible = true
+        })
+
+      }
+    },
+    setRole() {
+      var checkedRoleKeys = this.$refs.roleTree.getCheckedKeys()
+      var roleIds = '';
+      for(var index in checkedRoleKeys){
+        roleIds+=checkedRoleKeys[index]+','
+      }
+      var data = {
+        userId:this.selRow.id,
+        roleIds:roleIds
+      }
+      setRole(data).then(response => {
+        this.roleDialog.visible = false
+        this.fetchData()
+        this.$message({
+          message: '提交成功',
+          type: 'success'
+        });
+      })
     },
 
   }

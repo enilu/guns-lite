@@ -233,7 +233,7 @@ public class RoleController extends BaseController {
             List<ZTreeNode> roleTreeList = roleService.roleTreeList();
             return roleTreeList;
         } else {
-            Integer[] roleIds = Convert.toIntArray(",", roleid);
+            Long[] roleIds = Convert.toLongArray(",", roleid);
             List<ZTreeNode> roleTreeListByUserId = this.roleService.roleTreeListByRoleId(roleIds);
             return roleTreeListByUserId;
         }
