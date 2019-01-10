@@ -148,6 +148,9 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     public String getDeptName(Long deptId) {
+        if(deptId==null){
+            return null;
+        }
         String val = get(CacheKey.DEPT_NAME+deptId);
         if(StringUtils.isNotEmpty(val)){
             return val;

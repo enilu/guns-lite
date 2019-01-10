@@ -79,6 +79,7 @@ export default {
       return false
     },
     add() {
+      this.form = {}
       this.formTitle = '添加菜单'
       this.formVisible = true
       this.isAdd = true

@@ -1,8 +1,6 @@
-
-import { remove , getList , save , getRoleTree ,getPermissons , savePermissons }  from '@/api/system/role'
-import { list as getDeptList }  from '@/api/system/dept'
+import { remove, getList, save, getRoleTree, getPermissons, savePermissons } from '@/api/system/role'
+import { list as getDeptList } from '@/api/system/dept'
 import { menuTreeListByRoleId } from '@/api/system/menu'
-
 
 
 export default {
@@ -10,18 +8,18 @@ export default {
     return {
       formVisible: false,
       formTitle: '添加角色',
-      deptList:[],
-      roleList:[],
+      deptList: [],
+      roleList: [],
       isAdd: true,
-      checkedPermissionKeys:[],
-      permissons:[],
+      checkedPermissionKeys: [],
+      permissons: [],
       defaultProps: {
         id: "id",
         label: 'name',
         children: 'children'
       },
-      permissonVisible:false,
-      deptTree:{
+      permissonVisible: false,
+      deptTree: {
         show: false,
         defaultProps: {
           id: "id",
@@ -29,7 +27,7 @@ export default {
           children: 'children'
         }
       },
-      roleTree:{
+      roleTree: {
         show: false,
         defaultProps: {
           id: "id",
@@ -42,12 +40,12 @@ export default {
         tips: '',
         name: '',
         deptid: '',
-        pid: '',
+        pid: 0,
         id: '',
         version: '',
         deptName: '',
         pName: '',
-        num:1
+        num: 1
       },
       rules: {
         tips: [
@@ -62,10 +60,10 @@ export default {
       listQuery: {
         name: undefined
       },
-      total:0,
+      total: 0,
       list: null,
       listLoading: true,
-      selRow:{}
+      selRow: {}
     }
   },
   filters: {
@@ -83,9 +81,9 @@ export default {
   },
   methods: {
     init() {
-       getDeptList().then(response => {
-         this.deptList = response.data
-       })
+      getDeptList().then(response => {
+        this.deptList = response.data
+      })
       this.fetchData()
     },
     fetchData() {
@@ -107,38 +105,36 @@ export default {
     handleFilter() {
       this.getList()
     },
-    fetchNext(){
+    fetchNext() {
       this.listQuery.page = this.listQuery.page + 1
       this.fetchData();
     },
-    fetchPrev(){
+    fetchPrev() {
       this.listQuery.page = this.listQuery.page - 1
       this.fetchData();
     },
-    fetchPage(page){
+    fetchPage(page) {
       this.listQuery.page = page
       this.fetchData()
     },
-    changeSize(limit){
+    changeSize(limit) {
       this.listQuery.limit = limit;
       this.fetchData();
     },
-    handleCurrentChange(currentRow,oldCurrentRow){
-      console.log('-------')
-      console.log(currentRow)
+    handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
     },
     resetForm() {
-      this.form  = {
+      this.form = {
         tips: '',
         name: '',
         deptid: '',
-        pid: '',
+        pid: 0,
         id: '',
         version: '',
         deptName: '',
         pName: '',
-        num:1
+        num: 1
 
       }
     },
@@ -149,7 +145,6 @@ export default {
       this.isAdd = true
     },
     save() {
-      var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
           save(this.form).then(response => {
@@ -171,8 +166,8 @@ export default {
 
 
     },
-    checkSel(){
-      if(this.selRow && this.selRow.id){
+    checkSel() {
+      if (this.selRow && this.selRow.id) {
         return true
       }
       this.$message({
@@ -181,8 +176,8 @@ export default {
       });
       return false
     },
-    edit(){
-      if(this.checkSel()){
+    edit() {
+      if (this.checkSel()) {
         this.isAdd = false
         console.log(this.selRow)
         this.form = this.selRow
@@ -192,8 +187,8 @@ export default {
         this.formVisible = true
       }
     },
-    remove(){
-      if(this.checkSel()){
+    remove() {
+      if (this.checkSel()) {
         var id = this.selRow.id
 
         this.$confirm('确定删除该记录?', '提示', {
@@ -218,7 +213,7 @@ export default {
     },
 
     openPermissions() {
-      if(this.checkSel()){
+      if (this.checkSel()) {
         console.log(this.selRow)
         menuTreeListByRoleId(this.selRow.id).then(response => {
           console.log(response.data)
@@ -232,12 +227,12 @@ export default {
     savePermissions() {
       var checkedPermissons = this.$refs.permissonTree.getCheckedKeys()
       var menuIds = '';
-      for(var index in checkedPermissons){
-        menuIds+=checkedPermissons[index]+','
+      for (var index in checkedPermissons) {
+        menuIds += checkedPermissons[index] + ','
       }
       var data = {
-        roleId:this.selRow.id,
-        permissions:menuIds
+        roleId: this.selRow.id,
+        permissions: menuIds
       }
       savePermissons(data).then(response => {
         console.log(response.data)
