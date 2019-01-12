@@ -4,6 +4,7 @@ import cn.enilu.guns.bean.entity.system.User;
 import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.utils.DateUtil;
+import cn.enilu.guns.utils.StringUtils;
 import cn.enilu.guns.utils.factory.Page;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class UserServiceImpl implements UserService {
                 }
                 if(params.get("name") !=null && !Strings.isNullOrEmpty(params.get("name").toString())){
                     list.add(criteriaBuilder.equal(root.get("name").as(String.class), params.get("name").toString()));
+                }
+                if(StringUtils.isNotNullOrEmpty(params.get("account"))){
+                    list.add(criteriaBuilder.like(root.get("account").as(String.class),params.get("account").toString()));
                 }
                 if(params.get("beginTime") != null && !Strings.isNullOrEmpty(params.get("beginTime").toString())){
                     list.add(criteriaBuilder.greaterThan(root.get("createtime").as(Date.class), DateUtil.parseDate(params.get("beginTime").toString())));

@@ -23,7 +23,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = "cn.enilu.guns")
 @EntityScan(basePackages="cn.enilu.guns.bean.entity")
 @EnableJpaRepositories(basePackages= "cn.enilu.guns.dao")
-//@ServletComponentScan
 @EnableJpaAuditing
 public class ApiApplication extends SpringBootServletInitializer {
 

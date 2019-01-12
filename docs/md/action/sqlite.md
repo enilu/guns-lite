@@ -29,3 +29,36 @@
  DateUtil.getTime() 方法会返回当前日期的yyyy-MM-dd HH:mm:ss格式
  
  大功告成，是不是很简单！
+
+
+
+## 使用sqlite常见问题
+
+### No Dialect mapping for JDBC type: 0
+最近基于guns-lite和sqlite做一个产品，使用一个复杂的sql语句查询返回结果为空的时候报异常：
+```
+org.springframework.orm.jpa.JpaSystemException: No Dialect mapping for JDBC type: 0; nested exception is org.hibernate.MappingException: No Dialect mapping for JDBC type: 0
+```
+出现这个问题的原因是：
+**返回值返回类型为Null,hibernate不支持SQLite的空值类型，所以需要我们自定义映射关系**
+
+- 解决方法
+    - 自定义SQLiteDialect
+    ```java
+    package cn.enilu.guns.api.config;
+    import java.sql.Types;
+    public class SQLiteDialect extends com.enigmabridge.hibernate.dialect.SQLiteDialect {
+        public SQLiteDialect(){
+            super();
+            registerHibernateType(Types.NULL,"null");
+        }
+    }
+    ```
+    - 配置该方言
+    ```properties
+    spring.jpa.properties.hibernate.dialect=cn.enilu.guns.api.config.SQLiteDialect
+    ```
+
+**参考资料:** 
+- https://kevin12.iteye.com/blog/1768258
+- https://stackoverflow.com/questions/10719117/sqlite-no-dialect-mapping-for-jdbc-type-0-hibernate
