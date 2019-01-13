@@ -9,6 +9,7 @@ import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.admin.core.base.tips.Tip;
 import cn.enilu.guns.admin.core.cache.CacheKit;
 import cn.enilu.guns.bean.exception.GunsException;
+import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.warpper.RoleWarpper;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
@@ -55,7 +56,8 @@ public class RoleController extends BaseController {
     RoleRepository roleRepository;
     @Autowired
     private RoleService roleService;
-
+    @Autowired
+    private UserService userService;
 
 
     /**
@@ -83,7 +85,7 @@ public class RoleController extends BaseController {
         if (ToolUtil.isEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        Role role = this.roleRepository.findOne(roleId);
+        Role role = roleService.get(roleId);
         model.addAttribute(role);
         model.addAttribute("pName", ConstantFactory.me().getSingleRoleName(role.getPid()));
         model.addAttribute("deptName", ConstantFactory.me().getDeptName(role.getDeptid()));
@@ -191,7 +193,7 @@ public class RoleController extends BaseController {
         if (ToolUtil.isEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        this.roleRepository.findOne(roleId);
+       roleService.get(roleId);
         return SUCCESS_TIP;
     }
 
@@ -227,7 +229,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/roleTreeListByUserId/{userId}")
     @ResponseBody
     public List<ZTreeNode> roleTreeListByUserId(@PathVariable Long userId) {
-        User theUser = this.userRepository.findOne(userId);
+        User theUser = userService.get(userId);
         String roleid = theUser.getRoleid();
         if (ToolUtil.isEmpty(roleid)) {
             List<ZTreeNode> roleTreeList = roleService.roleTreeList();

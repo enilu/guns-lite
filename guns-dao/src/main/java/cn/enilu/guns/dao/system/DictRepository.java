@@ -10,7 +10,6 @@ import java.util.List;
 public interface DictRepository extends JpaRepository<Dict, Long> {
     List<Dict> findByPid(Long pid);
     List<Dict> findByNameAndPid(String name,Long pid);
-    Dict findByName(String name);
 
     List<Dict> findByNameLike(String name);
 }

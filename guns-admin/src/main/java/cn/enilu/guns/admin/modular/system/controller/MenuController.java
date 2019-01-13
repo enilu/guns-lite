@@ -76,7 +76,7 @@ public class MenuController extends BaseController {
         if (ToolUtil.isEmpty(menuId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        Menu menu = this.menuRepository.findOne(menuId);
+        Menu menu = menuService.get(menuId);
 
         //获取父级菜单的id
         Menu pMenu = this.menuRepository.findByCode(menu.getPcode());
@@ -187,7 +187,7 @@ public class MenuController extends BaseController {
         if (ToolUtil.isEmpty(menuId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        this.menuRepository.findOne(menuId);
+        menuService.get(menuId);
         return SUCCESS_TIP;
     }
 

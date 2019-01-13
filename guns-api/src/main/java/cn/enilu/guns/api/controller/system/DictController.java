@@ -2,6 +2,7 @@ package cn.enilu.guns.api.controller.system;
 
 import cn.enilu.guns.api.controller.BaseController;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.dictmap.DictMap;
 import cn.enilu.guns.bean.entity.system.Dict;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
@@ -48,7 +49,7 @@ public class DictController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @BussinessLog(value = "添加字典", key = "dictName")
+    @BussinessLog(value = "添加字典", key = "dictName",dict=DictMap.class)
     public Object add(String dictName, String dictValues) {
         if (ToolUtil.isOneEmpty(dictName, dictValues)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
@@ -58,7 +59,7 @@ public class DictController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    @BussinessLog(value = "修改字典", key = "dictName")
+    @BussinessLog(value = "修改字典", key = "dictName",dict=DictMap.class)
     public Object update(Long id,String dictName, String dictValues) {
         if (ToolUtil.isOneEmpty(dictName, dictValues)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
@@ -69,7 +70,7 @@ public class DictController extends BaseController {
 
 
     @RequestMapping(method = RequestMethod.DELETE)
-    @BussinessLog(value = "删除字典", key = "id")
+    @BussinessLog(value = "删除字典", key = "id",dict=DictMap.class)
     public Object delete(@RequestParam Long id) {
         this.dictService.delteDict(id);
         return Rets.success();

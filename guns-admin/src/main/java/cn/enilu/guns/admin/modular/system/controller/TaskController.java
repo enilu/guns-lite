@@ -1,7 +1,9 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.core.base.controller.BaseController;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.constant.factory.PageFactory;
+import cn.enilu.guns.bean.dictmap.TaskDict;
 import cn.enilu.guns.bean.entity.system.Task;
 import cn.enilu.guns.bean.entity.system.TaskLog;
 import cn.enilu.guns.dao.system.TaskRepository;
@@ -53,7 +55,7 @@ public class TaskController extends BaseController {
      */
     @RequestMapping("/task_update/{taskId}")
     public String orgUpdate(@PathVariable Long taskId, Model model) {
-        Task task = taskRepository.findOne(taskId);
+        Task task = taskService.get(taskId);
         model.addAttribute("item",task);
         return PREFIX + "task_edit.html";
     }
@@ -76,6 +78,7 @@ public class TaskController extends BaseController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
+    @BussinessLog(value = "添加定时任务", key = "name",dict = TaskDict.class)
     public Object add(Task task) {
         taskService.save(task);
         return SUCCESS_TIP;
@@ -86,20 +89,23 @@ public class TaskController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
+    @BussinessLog(value = "删除定时任务", key = "taskId",dict = TaskDict.class)
     public Object delete(@RequestParam Long taskId) {
         taskService.delete(taskId);
         return SUCCESS_TIP;
     }
 
-    @RequestMapping("/disable/{taskId}")
+    @RequestMapping("/disable")
     @ResponseBody
-    public Object disable(@PathVariable Long taskId  ) {
+    @BussinessLog(value = "禁用定时任务", key = "taskId",dict = TaskDict.class)
+    public Object disable(@RequestParam Long taskId  ) {
         taskService.disable(taskId);
         return SUCCESS_TIP;
     }
-    @RequestMapping("/enable/{taskId}")
+    @RequestMapping("/enable")
     @ResponseBody
-    public Object enable(@PathVariable Long taskId  ) {
+    @BussinessLog(value = "启用定时任务", key = "taskId",dict = TaskDict.class)
+    public Object enable(@RequestParam Long taskId  ) {
         taskService.enable(taskId);
         return SUCCESS_TIP;
     }
@@ -109,9 +115,10 @@ public class TaskController extends BaseController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
+    @BussinessLog(value = "编辑定时任务", key = "name",dict = TaskDict.class)
     public Object update(Task task) {
 
-        Task old = taskRepository.findOne(task.getId());
+        Task old = taskService.get(task.getId());
         old.setName(task.getName());
         old.setCron(task.getCron());
         old.setNote(task.getNote());
@@ -126,7 +133,7 @@ public class TaskController extends BaseController {
     @RequestMapping(value = "/detail/{taskId}")
     @ResponseBody
     public Object detail(@PathVariable("taskId") Long taskId) {
-        return taskRepository.findOne(taskId);
+        return taskService.get(taskId);
     }
 
     @RequestMapping(value = "/viewLog/{taskId}")

@@ -20,6 +20,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * CfgService
@@ -72,7 +73,16 @@ public class CfgService {
     }
 
     public void delete(Long id) {
-        cfgRepository.delete(id);
+        cfgRepository.deleteById(id);
         configCache.cache();
+    }
+
+
+    public Cfg get(Long id) {
+        Optional<Cfg> optional = cfgRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
     }
 }

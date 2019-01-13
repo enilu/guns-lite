@@ -51,12 +51,13 @@ Task.updateDisalbed=function(id,disabled){
         //启用
         url += '/task/enable';
     }
-    var ajax = new $ax(url+'/'+id, function (data) {
+    var ajax = new $ax(url, function (data) {
         Feng.success("修改成功!");
         Task.table.refresh();
     }, function (data) {
         Feng.error("修改失败!" + data.responseJSON.message + "!");
-    }); 
+    });
+    ajax.set("taskId",id);
     ajax.start();
 }
 

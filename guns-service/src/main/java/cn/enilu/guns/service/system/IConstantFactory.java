@@ -1,7 +1,7 @@
 package cn.enilu.guns.service.system;
 
 
-import cn.enilu.guns.bean.entity.system.Dict;
+import cn.enilu.guns.bean.entity.system.*;
 import cn.enilu.guns.bean.vo.DictVo;
 
 import java.util.List;
@@ -153,4 +153,11 @@ public interface IConstantFactory {
      * @return
      */
     String getCfg(String cfgName);
+
+
+    Role getRole(Long id) ;
+    Dept getDept(Long id);
+    Menu getMenu(Long id) ;
+
+    Notice getNotice(Long id);
 }

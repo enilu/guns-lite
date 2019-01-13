@@ -36,14 +36,20 @@ export function logList(params) {
 
 export function enable(id) {
   return request({
-    url: '/task/enable/' + id,
-    method: 'POST'
+    url: '/task/enable/',
+    method: 'POST',
+    params: {
+      taskId: id
+    }
   })
 }
 
 export function disable(id) {
   return request({
-    url: '/task/disable/' + id,
-    method: 'POST'
+    url: '/task/disable/',
+    method: 'POST',
+    params: {
+      taskId: id
+    }
   })
 }

@@ -1,20 +1,20 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
+import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.annotion.core.Permission;
 import cn.enilu.guns.bean.dictmap.DeptDict;
-import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
-import cn.enilu.guns.admin.core.base.controller.BaseController;
-import cn.enilu.guns.bean.exception.GunsException;
-import cn.enilu.guns.utils.BeanUtil;
-import cn.enilu.guns.warpper.DeptWarpper;
-import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.bean.entity.system.Dept;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
+import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.DeptRepository;
 import cn.enilu.guns.service.system.DeptService;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
+import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.utils.ToolUtil;
+import cn.enilu.guns.warpper.DeptWarpper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +39,6 @@ public class DeptController extends BaseController {
 
     @Resource
     DeptService deptService;
-
     @Resource
     DeptRepository deptRepository;
 
@@ -66,7 +65,7 @@ public class DeptController extends BaseController {
     @Permission
     @RequestMapping("/dept_update/{deptId}")
     public String deptUpdate(@PathVariable Long deptId, Model model) {
-        Dept dept = deptRepository.findOne(deptId);
+        Dept dept = deptService.get(deptId);
         model.addAttribute(dept);
         model.addAttribute("pName", ConstantFactory.me().getDeptName(dept.getPid()));
         LogObjectHolder.me().set(dept);
@@ -118,7 +117,7 @@ public class DeptController extends BaseController {
     @Permission
     @ResponseBody
     public Object detail(@PathVariable("deptId") Long deptId) {
-        return deptRepository.findOne(deptId);
+        return deptService.get(deptId);
     }
 
     /**

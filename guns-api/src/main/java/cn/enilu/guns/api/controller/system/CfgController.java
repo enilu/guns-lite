@@ -3,6 +3,7 @@ package cn.enilu.guns.api.controller.system;
 import cn.enilu.guns.api.controller.BaseController;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.constant.factory.PageFactory;
+import cn.enilu.guns.bean.dictmap.CfgDict;
 import cn.enilu.guns.bean.entity.system.Cfg;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
@@ -44,13 +45,13 @@ public class CfgController extends BaseController {
         return Rets.success(page);
     }
     @RequestMapping(method = RequestMethod.POST)
-    @BussinessLog(value = "编辑参数", key = "cfgName")
+    @BussinessLog(value = "编辑参数", key = "cfgName",dict= CfgDict.class)
     public Object save(@ModelAttribute Cfg cfg){
         if (ToolUtil.isOneEmpty(cfg, cfg.getCfgName(),cfg.getCfgValue())) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         if(cfg.getId()!=null){
-            Cfg old = cfgRepository.findOne(cfg.getId());
+            Cfg old = cfgService.get(cfg.getId());
             old.setCfgName(cfg.getCfgName());
             old.setCfgValue(cfg.getCfgValue());
             old.setCfgDesc(cfg.getCfgDesc());
@@ -61,7 +62,7 @@ public class CfgController extends BaseController {
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
-    @BussinessLog(value = "删除参数", key = "id")
+    @BussinessLog(value = "删除参数", key = "id",dict= CfgDict.class)
     public Object remove(Long id){
         logger.info("id:{}",id);
         if (ToolUtil.isEmpty(id)) {

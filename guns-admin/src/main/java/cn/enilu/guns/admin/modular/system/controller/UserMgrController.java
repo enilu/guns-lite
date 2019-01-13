@@ -86,7 +86,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
 
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         model.addAttribute("userId", userId);
         model.addAttribute("userAccount", user.getAccount());
         return PREFIX + "user_roleassign.html";
@@ -102,7 +102,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         assertAuth(userId);
-        User user = this.userRepository.findOne(userId);
+        User user = userService.get(userId);
         model.addAttribute(user);
         model.addAttribute("roleName", ConstantFactory.me().getRoleName(user.getRoleid()));
         model.addAttribute("deptName", ConstantFactory.me().getDeptName(user.getDeptid()));
@@ -120,7 +120,7 @@ public class UserMgrController extends BaseController {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         model.addAttribute(user);
         model.addAttribute("roleName", ConstantFactory.me().getRoleName(user.getRoleid()));
         model.addAttribute("deptName", ConstantFactory.me().getDeptName(user.getDeptid()));
@@ -146,7 +146,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.TWO_PWD_NOT_MATCH);
         }
         Long userId = ShiroKit.getUser().getId();
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         String oldMd5 = MD5.md5(oldPwd, user.getSalt());
         if (user.getPassword().equals(oldMd5)) {
             String newMd5 = MD5.md5(newPwd, user.getSalt());
@@ -228,7 +228,7 @@ public class UserMgrController extends BaseController {
         if (result.hasErrors()) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        User oldUser = userRepository.findOne(user.getId());
+        User oldUser = userService.get(user.getId());
         if (ShiroKit.hasRole(Const.ADMIN_NAME)) {
             this.userRepository.save(UserFactory.updateUser(user,oldUser));
             return SUCCESS_TIP;
@@ -260,7 +260,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.CANT_DELETE_ADMIN);
         }
         assertAuth(userId);
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         user.setStatus(ManagerStatus.DELETED.getCode());
         userRepository.save(user);
         return SUCCESS_TIP;
@@ -276,7 +276,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         assertAuth(userId);
-        return this.userRepository.findOne(userId);
+        return userService.get(userId);
     }
 
     /**
@@ -291,7 +291,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         assertAuth(userId);
-        User user = this.userRepository.findOne(userId);
+        User user = userService.get(userId);
         user.setSalt(ToolUtil.getRandomString(5));
         user.setPassword(MD5.md5(Const.DEFAULT_PWD, user.getSalt()));
         this.userRepository.save(user);
@@ -314,7 +314,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.CANT_FREEZE_ADMIN);
         }
         assertAuth(userId);
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         user.setStatus(ManagerStatus.FREEZED.getCode());
         userRepository.save(user);
         return SUCCESS_TIP;
@@ -332,7 +332,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         assertAuth(userId);
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         user.setStatus(ManagerStatus.OK.getCode());
         userRepository.save(user);
         return SUCCESS_TIP;
@@ -354,7 +354,7 @@ public class UserMgrController extends BaseController {
             throw new GunsException(BizExceptionEnum.CANT_CHANGE_ADMIN);
         }
         assertAuth(userId);
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         user.setRoleid(roleIds);
         userRepository.save(user);
         return SUCCESS_TIP;
@@ -384,7 +384,7 @@ public class UserMgrController extends BaseController {
             return;
         }
         List<Long> deptDataScope = ShiroKit.getDeptDataScope();
-        User user = this.userRepository.findOne(userId);
+        User user = userService.get(userId);
         Long deptid = user.getDeptid();
         if (deptDataScope.contains(deptid)) {
             return;

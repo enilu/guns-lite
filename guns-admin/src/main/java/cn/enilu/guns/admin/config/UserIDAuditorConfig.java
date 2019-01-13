@@ -5,6 +5,8 @@ import cn.enilu.guns.shiro.ShiroKit;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 
+import java.util.Optional;
+
 /**
  * UserIDAuditorBean
  *
@@ -14,10 +16,10 @@ import org.springframework.data.domain.AuditorAware;
 @Configuration
 public class UserIDAuditorConfig implements AuditorAware<Long> {
     @Override
-    public Long getCurrentAuditor() {
+    public Optional<Long> getCurrentAuditor() {
         ShiroUser shiroUser = ShiroKit.getUser();
         if(shiroUser!=null){
-            return shiroUser.getId();
+            return Optional.of(shiroUser.getId());
         }
         return null;
     }

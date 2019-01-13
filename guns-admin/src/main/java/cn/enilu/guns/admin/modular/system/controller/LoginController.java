@@ -4,6 +4,7 @@ import cn.enilu.guns.bean.exception.InvalidKaptchaException;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.platform.log.LogManager;
 import cn.enilu.guns.platform.log.LogTaskFactory;
+import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.shiro.ShiroKit;
 import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.admin.core.util.ApiMenuFilter;
@@ -43,6 +44,8 @@ public class LoginController extends BaseController {
     MenuService menuService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
 
     /**
@@ -68,7 +71,7 @@ public class LoginController extends BaseController {
 
         //获取用户头像
         Long id = ShiroKit.getUser().getId();
-        User user = userRepository.findOne(id);
+        User user = userService.get(id);
         String avatar = user.getAvatar();
         model.addAttribute("avatar", avatar);
 

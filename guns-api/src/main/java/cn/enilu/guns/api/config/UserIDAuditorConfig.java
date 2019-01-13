@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 
+import java.util.Optional;
+import java.util.OptionalLong;
+
 /**
  * UserIDAuditorBean
  *
@@ -18,10 +21,10 @@ public class UserIDAuditorConfig implements AuditorAware<Long> {
     @Autowired
     private TokenCache tokenCache;
     @Override
-    public Long getCurrentAuditor() {
+    public Optional<Long> getCurrentAuditor() {
         String token = HttpKit.getRequest().getHeader("Authorization");
         if(StringUtils.isNotEmpty(token)) {
-            return tokenCache.get(token);
+            return Optional.of(tokenCache.get(token));
         }
         return null;
     }

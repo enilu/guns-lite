@@ -8,6 +8,7 @@ import cn.enilu.guns.dao.cache.TokenCache;
 import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.AccountService;
 import cn.enilu.guns.service.system.MenuService;
+import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.utils.MD5;
 import cn.enilu.guns.utils.Maps;
 import cn.enilu.guns.utils.StringUtils;
@@ -37,6 +38,8 @@ public class AccountController extends BaseController{
      private Logger logger = LoggerFactory.getLogger(AccountController.class);
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private UserService userService;
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -101,7 +104,7 @@ public class AccountController extends BaseController{
             return Rets.expire();
         }
         if(idUser!=null){
-            User user =  userRepository.findOne(idUser);
+            User user =  userService.get(idUser);
             if(StringUtils.isEmpty(user.getRoleid())){
                 return Rets.failure("该用户未配置权限");
             }

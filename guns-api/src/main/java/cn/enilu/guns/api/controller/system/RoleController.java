@@ -15,6 +15,7 @@ import cn.enilu.guns.dao.system.RoleRepository;
 import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.RoleService;
+import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.utils.Convert;
@@ -48,6 +49,8 @@ public class RoleController extends BaseController {
     private RoleService roleService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public Object list(String name){
         logger.info("role:{}",name);
@@ -105,7 +108,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/roleTreeListByIdUser", method = RequestMethod.GET)
     public Object roleTreeListByIdUser(Long idUser) {
-        User user = userRepository.findOne(idUser);
+        User user = userService.get(idUser);
         String roleIds = user.getRoleid();
         List<ZTreeNode> roleTreeList = null;
         if (ToolUtil.isEmpty(roleIds)) {

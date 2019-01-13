@@ -78,7 +78,7 @@ public class UserController extends BaseController {
             user.setStatus(ManagerStatus.OK.getCode());
             userRepository.save(UserFactory.createUser(user, new User()));
         }else{
-            User oldUser = userRepository.findOne(user.getId());
+            User oldUser = userService.get(user.getId());
             userRepository.save(UserFactory.updateUser(user,oldUser));
         }
         return Rets.success();
@@ -91,7 +91,7 @@ public class UserController extends BaseController {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         user.setStatus(ManagerStatus.DELETED.getCode());
         userRepository.save(user);
         return Rets.success();
@@ -106,7 +106,7 @@ public class UserController extends BaseController {
         if (userId.equals(Const.ADMIN_ID)) {
             throw new GunsException(BizExceptionEnum.CANT_CHANGE_ADMIN);
         }
-        User user = userRepository.findOne(userId);
+        User user = userService.get(userId);
         user.setRoleid(roleIds);
         userRepository.save(user);
         return Rets.success();
