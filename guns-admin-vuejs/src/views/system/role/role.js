@@ -147,8 +147,7 @@ export default {
     save() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          save(this.form).then(response => {
-            console.log(response)
+          save({id:this.form.id,num:this.form.num,deptid:this.form.deptid,pid:this.form.pid,name:this.form.name,tips:this.form.tips}).then(response => {
             this.$message({
               message: '提交成功',
               type: 'success'

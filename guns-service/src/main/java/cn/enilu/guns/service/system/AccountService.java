@@ -33,7 +33,7 @@ public class AccountService {
         tokenCache.put(token, idUser);
         LogManager.me().executeLog(LogTaskFactory.loginLog(idUser, HttpKit.getIp()));
         User user = userService.get(idUser);
-        Long[] roleArray = Convert.toLongArray(true,user.getRoleid());
+        Long[] roleArray = Convert.toLongArray(true,Convert.toStrArray(",",  user.getRoleid()));
         ShiroUser shiroUser = new ShiroUser();
         shiroUser.setAccount(user.getAccount());
         shiroUser.setDeptId(user.getDeptid());
