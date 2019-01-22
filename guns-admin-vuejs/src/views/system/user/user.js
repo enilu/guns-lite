@@ -3,10 +3,11 @@ import { deleteUser , getList , saveUser , remove , setRole }  from '@/api/syste
 import { list as deptList }  from '@/api/system/dept'
 import { parseTime } from '@/utils/index'
 import { roleTreeListByIdUser } from '@/api/system/role'
-
-
+// 权限判断指令
+import permission from '@/directive/permission/index.js'
 
 export default {
+  directives: { permission },
   data() {
     return {
       roleDialog: {

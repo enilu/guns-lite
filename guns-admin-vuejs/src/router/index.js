@@ -23,8 +23,6 @@ import Layout from '../views/layout/Layout'
  **/
 export const constantRouterMap = [
   {path: '/login', component: () => import('@/views/login/index'), hidden: true},
-
-
   {
     path: '/',
     component: Layout,
@@ -35,8 +33,18 @@ export const constantRouterMap = [
       path: 'dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: {title: 'dashboard', icon: 'dashboard', noCache: true}
-    }]
-  }
+    },
+      {
+        path: '/system/taskLog',
+        name: '任务日志',
+        component: () => import('@/views/system/task/log/index'),
+        hidden: true,
+        meta: { title: '任务日志' }
+
+      }]
+  },
+  {path: '/404', component: () => import('@/views/404'), hidden: true},
+
 
 ]
 
@@ -46,102 +54,3 @@ export default new Router({
   routes: constantRouterMap
 })
 
-export const asyncRouterMap = [
-  {
-    path: '/system',
-    component: Layout,
-    redirect: '#',
-    name: 'System',
-    alwaysShow: true,
-    meta: {
-      roles: ['administrator'],
-      title: 'systemMgr',
-      icon: 'table'
-    },
-    children: [
-      {
-        path: 'menu',
-        name: 'Menu',
-        component: () => import('@/views/system/menu/index'),
-        meta: {
-          title: 'menuMgr'
-        }
-      },
-      {
-        path: 'department',
-        name: 'Department',
-        component: () => import('@/views/system/dept/index'),
-        meta: {
-          title: 'deptMgr'
-        }
-      },
-      {
-        path: 'user',
-        name: 'Account',
-        component: () => import('@/views/system/user/index'),
-        meta: {title: 'userMgr' }
-      },
-      {
-        path: 'role',
-        name: 'roleMgr',
-        component: () => import('@/views/system/role/index'),
-        meta: { title: 'roleMgr' }
-      },
-      {
-        path: 'task',
-        name: 'Task',
-        component: () => import('@/views/system/task/index'),
-        meta: { title: 'taskMgr' }
-      },
-      {
-        path: 'taskLog',
-        name: '任务日志',
-        component: () => import('@/views/system/task/log/index'),
-        hidden: true,
-        meta: { title: '任务日志' }
-
-      }
-    ]
-  },
-  {
-    path: '/operation',
-    component: Layout,
-    redirect: '#',
-    name: 'Operation',
-    alwaysShow: true,
-    meta: {
-      roles: ['administrator', 'developer'],
-      title: 'optionMgr',
-      icon: 'bug'
-    },
-    children: [
-      {
-        path: 'dict',
-        name: 'Dict',
-        component: () => import('@/views/system/dict/index'),
-        meta: { title: 'dictMgr' }
-      },
-      {
-        path: 'loginLog',
-        name: 'Login Log',
-        component: () => import('@/views/system/loginLog/index'),
-        meta: { title: 'loginLog' }
-      },
-      {
-        path: 'businessLog',
-        name: 'Bussiness Log',
-        component: () => import('@/views/system/log/index'),
-        meta: { title: 'bussinessLog' }
-      },
-      {
-        path: 'config',
-        name: 'Config',
-        component: () => import('@/views/system/cfg/index'),
-        meta: {
-          title: 'configMgr'
-        }
-      }
-    ]
-  },
-  {path: '/404', component: () => import('@/views/404'), hidden: true}
-];
