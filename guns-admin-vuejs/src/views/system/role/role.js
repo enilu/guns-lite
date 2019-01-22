@@ -178,7 +178,6 @@ export default {
     edit() {
       if (this.checkSel()) {
         this.isAdd = false
-        console.log(this.selRow)
         this.form = this.selRow
         this.form.status = this.selRow.statusName == '启用'
         this.form.password = ''
@@ -213,9 +212,7 @@ export default {
 
     openPermissions() {
       if (this.checkSel()) {
-        console.log(this.selRow)
         menuTreeListByRoleId(this.selRow.id).then(response => {
-          console.log(response.data)
           this.permissons = response.data.treeData
           this.checkedPermissionKeys = response.data.checkedIds
           this.permissonVisible = true
@@ -234,7 +231,6 @@ export default {
         permissions: menuIds
       }
       savePermissons(data).then(response => {
-        console.log(response.data)
         this.permissonVisible = false
         this.$message({
           message: '提交成功',
@@ -243,13 +239,11 @@ export default {
       })
     },
     handleDeptNodeClick(data, node) {
-      console.log(data)
       this.form.deptid = data.id
       this.form.deptName = data.simplename
       this.deptTree.show = false;
     },
     handleRoleNodeClick(data, node) {
-      console.log(data)
       this.form.pid = data.id
       this.form.pName = data.name
       this.roleTree.show = false;
