@@ -1,4 +1,4 @@
-import { remove, getList, save, getRoleTree, getPermissons, savePermissons } from '@/api/system/role'
+import { remove, getList, save, savePermissons } from '@/api/system/role'
 import { list as getDeptList } from '@/api/system/dept'
 import { menuTreeListByRoleId } from '@/api/system/menu'
 
