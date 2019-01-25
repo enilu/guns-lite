@@ -36,3 +36,12 @@ export  function roleTreeListByIdUser(idUser){
     }
   })
 }
+
+
+export function savePermissons(params) {
+  return request({
+    url: '/role/savePermisson',
+    method: 'post',
+    params
+  })
+}
