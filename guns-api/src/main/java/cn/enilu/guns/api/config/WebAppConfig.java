@@ -18,7 +18,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
      * 定义排除拦截路径
      */
     public String[] EXCLUDE_PATH_PATTERN = {
-            "/validate/*", "/user/register", "/user/login","/user/info", "/error", "/user/logout","/swagger-resources","/v2/api-docs","/profile/getPhotoSign"};
+            "/druid/**","/validate/*", "/user/register", "/user/login","/user/info", "/error", "/user/logout","/swagger-resources","/v2/api-docs","/swagger-ui.html","/webjars/**"};
 
     /**
      * 注册自定义拦截器，添加拦截路径和排除拦截路径

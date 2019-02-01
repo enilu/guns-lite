@@ -33,7 +33,6 @@
         <file_encoding>UTF-8</file_encoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--driver libs-->
-        <druid.version>1.1.7</druid.version>
         <mysql.connector.java.version>5.1.45</mysql.connector.java.version>
         <!--auth libs-->
         <shiro.version>1.4.0</shiro.version>
@@ -82,10 +81,11 @@
                 <version>${spring.boot.version}</version>
             </dependency>
 
+
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>1.1.13</version>
             </dependency>
 
             <dependency>
