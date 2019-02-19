@@ -15,3 +15,4 @@ docs/md/dist/*
 guns-admin-vuejs/node_modules/*
 guns-admin-vuejs/.idea/*
 guns-admin-vuejs/dist/*
+log/*
