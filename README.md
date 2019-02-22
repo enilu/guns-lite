@@ -74,8 +74,7 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 ## 感谢
 
 - [stylefeng](https://github.com/stylefeng) 没有他就没有guns，没有guns就没有这个guns-lite
-- [PanJiaChen](https://github.com/PanJiaChen) guns-admin-vuejs克隆自他的[vue-admin-template](https://github
-.com/PanJiaChen/vue-admin-template)
+- [PanJiaChen](https://github.com/PanJiaChen) guns-admin-vuejs 克隆自他的 [vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)
 
 ## 交流
 - Bugs: [Issues](https://github.com/enilu/guns-lite/issues/new)
