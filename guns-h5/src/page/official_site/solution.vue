@@ -1,8 +1,9 @@
 <template>
   <div>
-    <swiper :list="banner.list" v-model="banner.index" @on-index-change="bannerChange" v-if="showComponent.banner"></swiper>
-    <productList title="解决方案" :list="solutionList" type="solution" v-if="showComponent.solutionList"></productList>
-    <footMenu v-if="showComponent.footMenu" ></footMenu>
+    <x-header title="解决方案" :left-options="{showBack: false}"></x-header>
+    <swiper :list="banner.list" v-model="banner.index" @on-index-change="bannerChange"  ></swiper>
+    <productList title="解决方案" :list="solutionList" type="solution"  ></productList>
+    <footMenu   ></footMenu>
 
   </div>
 </template>

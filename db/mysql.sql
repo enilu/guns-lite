@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50725
 File Encoding         : 65001
 
-Date: 2019-03-18 16:00:44
+Date: 2019-03-18 20:33:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,10 +21,10 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `t_cms_article`;
 CREATE TABLE `t_cms_article` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_by` bigint(20) DEFAULT NULL COMMENT '???',
-  `create_time` datetime DEFAULT NULL COMMENT '????/????',
-  `modify_by` bigint(20) DEFAULT NULL COMMENT '?????',
-  `modify_time` datetime DEFAULT NULL COMMENT '??????',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间/注册时间',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '最后更新人',
+  `modify_time` datetime DEFAULT NULL COMMENT '最后更新时间',
   `author` varchar(255) DEFAULT NULL,
   `content` text,
   `title` varchar(255) DEFAULT NULL,
@@ -36,15 +36,15 @@ CREATE TABLE `t_cms_article` (
 -- ----------------------------
 -- Records of t_cms_article
 -- ----------------------------
-INSERT INTO `t_cms_article` VALUES ('1', '1', '2019-03-09 16:24:58', null, null, 'enilu', '<p>@wendal<br/>下面代码可以：</p>\r\n<pre class=\'prettyprint\'><code>String date = \"Jan 13, 2018 12:00:00 AM\";\r\nSimpleDateFormat sdf = new SimpleDateFormat(\"MMM dd, yyyy HH:mm:ss aa\", Locale.ENGLISH);\r\nSystem.out.println(sdf.parse(date));\r\n</code></pre><p>但是我用@JsonField不可以</p>\r\n<pre class=\'prettyprint\'><code>public class OfflineTimeType {\r\nprivate Integer flat;\r\n@JsonField(dataFormat = \"MMM dd, yyyy HH:mm:ss aa\")\r\nprivate Date time;\r\nsetter...;\r\ngetter...;\r\n} \r\n\r\nMap map = new HashMap();\r\nmap.put(\"time\",\"Jan 13, 2018 12:00:00 AM\");\r\nmap.put(\"flag\",1);\r\n//报异常Caused by: java.lang.RuntimeException: Unexpect date format \'Jan 13, 2018 12:00:00 AM\'\r\nOfflineTimeType offlineTimeType = Json.fromJson(OfflineTimeType.class,Json.toJson(map));\r\n\r\n</code></pre>\r\n\r\nProcess finish', '这是测试资讯，哈哈哈', '1', '1');
-INSERT INTO `t_cms_article` VALUES ('2', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '这是测试资讯，哈哈哈', '1', '2');
-INSERT INTO `t_cms_article` VALUES ('3', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '这是测试资讯，哈哈哈', '1', '1');
-INSERT INTO `t_cms_article` VALUES ('4', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '产品1', '2', '2');
-INSERT INTO `t_cms_article` VALUES ('5', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '产品2', '2', '1');
-INSERT INTO `t_cms_article` VALUES ('6', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '方案1', '3', '2');
-INSERT INTO `t_cms_article` VALUES ('7', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '方案2', '3', '1');
-INSERT INTO `t_cms_article` VALUES ('8', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '案例1', '4', '2');
-INSERT INTO `t_cms_article` VALUES ('9', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '案例2', '4', '1');
+INSERT INTO `t_cms_article` VALUES ('1', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', '<div class=\"content\" id=\"articleContent\">\r\n                        <div class=\"ad-wrap\">\r\n                                                    <p style=\"margin:0 0 10px 0;\"><a data-traceid=\"news_detail_above_text_link_1\" data-tracepid=\"news_detail_above_text_link\" style=\"color:#A00;font-weight:bold;\" href=\"https://my.oschina.net/u/3985214/blog/3018099?tdsourcetag=s_pcqq_aiomsg\" target=\"_blank\">开发十年，就只剩下这套架构体系了！ &gt;&gt;&gt;</a>&nbsp;&nbsp;<img src=\"https://www.oschina.net/img/hot3.png\" align=\"\" style=\"max-height: 32px; max-width: 32px;\"></p>\r\n                                    </div>\r\n                        <p>通常来说，我们都有这样的需求：我需要知道库中的数据是由谁创建，什么时候创建，最后一次修改时间是什么时候，最后一次修改人是谁。guns-lite最新代码已经实现该需求，具体实现方式网上有很多资料，这里做会搬运工，将guns-lite的实现步骤罗列如下：</p><p>在Spring jpa中可以通过在实体bean的属性或者方法上添加以下注解来实现上述需求@CreatedDate、@CreatedBy、@LastModifiedDate、@LastModifiedBy。</p><ul class=\" list-paddingleft-2\"><li><p>@CreatedDate 表示该字段为创建时间时间字段，在这个实体被insert的时候，会设置值</p></li><li><p>@CreatedBy 表示该字段为创建人，在这个实体被insert的时候，会设置值</p></li><li><p>@LastModifiedDate 最后修改时间 实体被update的时候会设置</p></li><li><p>@LastModifiedBy 最后修改人 实体被update的时候会设置</p></li></ul><h2>使用方式</h2><h3>实体类添加注解</h3><ul class=\" list-paddingleft-2\"><li><p>首先在实体中对应的字段加上上述4个注解</p></li><li><p>在guns-lite中我们提取了一个基础实体类BaseEntity，并将对应的字段添加上述4个注解,所有需要记录维护信息的表对应的实体都集成该类</p></li></ul><pre>import&nbsp;org.springframework.data.annotation.CreatedBy;\r\nimport&nbsp;org.springframework.data.annotation.CreatedDate;\r\nimport&nbsp;org.springframework.data.annotation.LastModifiedBy;\r\nimport&nbsp;org.springframework.data.annotation.LastModifiedDate;\r\nimport&nbsp;javax.persistence.Column;\r\nimport&nbsp;javax.persistence.GeneratedValue;\r\nimport&nbsp;javax.persistence.Id;\r\nimport&nbsp;javax.persistence.MappedSuperclass;\r\nimport&nbsp;java.io.Serializable;\r\nimport&nbsp;java.util.Date;\r\n@MappedSuperclass\r\n@Data\r\npublic&nbsp;abstract&nbsp;class&nbsp;BaseEntity&nbsp;implements&nbsp;Serializable&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;@Id\r\n&nbsp;&nbsp;&nbsp;&nbsp;@GeneratedValue\r\n&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Long&nbsp;id;\r\n&nbsp;&nbsp;&nbsp;&nbsp;@CreatedDate\r\n&nbsp;&nbsp;&nbsp;&nbsp;@Column(name&nbsp;=&nbsp;\"create_time\",columnDefinition=\"DATETIME&nbsp;COMMENT&nbsp;\'创建时间/注册时间\'\")\r\n&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Date&nbsp;createTime;\r\n&nbsp;&nbsp;&nbsp;&nbsp;@Column(name&nbsp;=&nbsp;\"create_by\",columnDefinition=\"bigint&nbsp;COMMENT&nbsp;\'创建人\'\")\r\n&nbsp;&nbsp;&nbsp;&nbsp;@CreatedBy\r\n&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Long&nbsp;createBy;\r\n&nbsp;&nbsp;&nbsp;&nbsp;@LastModifiedDate\r\n&nbsp;&nbsp;&nbsp;&nbsp;@Column(name&nbsp;=&nbsp;\"modify_time\",columnDefinition=\"DATETIME&nbsp;COMMENT&nbsp;\'最后更新时间\'\")\r\n&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Date&nbsp;modifyTime;\r\n&nbsp;&nbsp;&nbsp;&nbsp;@LastModifiedBy\r\n&nbsp;&nbsp;&nbsp;&nbsp;@Column(name&nbsp;=&nbsp;\"modify_by\",columnDefinition=\"bigint&nbsp;COMMENT&nbsp;\'最后更新人\'\")\r\n&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;Long&nbsp;modifyBy;\r\n}</pre><h3>实现AuditorAware接口返回操作人员的id</h3><p>配置完上述4个注解后，在jpa.save方法被调用的时候，时间字段会自动设置并插入数据库，但是CreatedBy和LastModifiedBy并没有赋值 这两个信息需要实现AuditorAware接口来返回操作人员的id</p><ul class=\" list-paddingleft-2\"><li><p>首先需要在项目启动类添加@EnableJpaAuditing 注解来启用审计功能</p></li></ul><pre>@SpringBootApplication\r\n@EnableJpaAuditing\r\npublic&nbsp;class&nbsp;AdminApplication&nbsp;extends&nbsp;WebMvcConfigurerAdapter&nbsp;{\r\n&nbsp;//省略\r\n}</pre><ul class=\" list-paddingleft-2\"><li><p>然后实现AuditorAware接口返回操作人员的id</p></li></ul><pre>@Configuration\r\npublic&nbsp;class&nbsp;UserIDAuditorConfig&nbsp;implements&nbsp;AuditorAware&lt;Long&gt;&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;@Override\r\n&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;Long&nbsp;getCurrentAuditor()&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ShiroUser&nbsp;shiroUser&nbsp;=&nbsp;ShiroKit.getUser();\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(shiroUser!=null){\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;shiroUser.getId();\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;null;\r\n&nbsp;&nbsp;&nbsp;&nbsp;}\r\n}</pre>\r\n                    </div>', 'guns-lite 将所有表增加维护人员和维护时间信息', '1', '1');
+INSERT INTO `t_cms_article` VALUES ('2', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', '<div class=\"content\" id=\"articleContent\">\r\n                        <div class=\"ad-wrap\">\r\n                                                    <p style=\"margin:0 0 10px 0;\"><a data-traceid=\"news_detail_above_text_link_1\" data-tracepid=\"news_detail_above_text_link\" style=\"color:#A00;font-weight:bold;\" href=\"https://my.oschina.net/u/3985214/blog/3018099?tdsourcetag=s_pcqq_aiomsg\" target=\"_blank\">开发十年，就只剩下这套架构体系了！ &gt;&gt;&gt;</a>&nbsp;&nbsp;<img src=\"https://www.oschina.net/img/hot3.png\" align=\"\" style=\"max-height: 32px; max-width: 32px;\"></p>\r\n                                    </div>\r\n                        <h3>国际化</h3><ul class=\" list-paddingleft-2\"><li><p>guns-admin-vuejs实现国际化了，不好意思guns-admin暂未实现国际化，后续也会考虑实现。</p></li><li><p>不了解上面两个的区别的同学可以再回顾下这个<a href=\"http://www.enilu.cn/guns-lite/base/guns-admin-vuejs.html\">文档</a></p></li><li><p>guns-admin-vuejs实现国际化的方式参考vue-element-admin的&nbsp;<a href=\"https://panjiachen.github.io/vue-element-admin-site/zh/guide/advanced/i18n.html\" target=\"_blank\">官方文档</a>,这里不再赘述,强烈建议你先把文档读了之后再看下面的内容。</p></li></ul><h3>默认约定</h3><p>针对网站资源进行国际园涉及到的国际化资源的管理维护，这里给出一些guns-admin-vuejs的资源分类建议，当然，你也可以根据你的实际情况进行调整。</p><ul class=\" list-paddingleft-2\"><li><p>src/lang/为国际化资源目录,目前提供了英文（en.js）和中文(zh.js)的两种语言实现。</p></li><li><p>目前资源语言资源文件中是json配置主要有以下几个节点：</p></li><ul class=\" list-paddingleft-2\" style=\"list-style-type: square;\"><li><p>route 左侧菜单资源</p></li><li><p>navbar 顶部导航栏资源</p></li><li><p>button 公共的按钮资源，比如：添加、删除、修改、确定、取消之类等等</p></li><li><p>common 其他公共的资源，比如一些弹出框标题、提示信息、label等等</p></li><li><p>login 登录页面资源</p></li><li><p>config 参数管理界面资源</p></li></ul><li><p>目前针对具体的页面资源只做了登录和参数管理两个页面，其他具体业务界面仅针对公共的按钮做了国际化，你可以参考config页面资源进行配置进行进一步配置：/src/views/cfg/</p></li><li><p>如果你有其他资源在上面对应的节点添加即可，针对每个页面特有的资源以页面名称作为几点进行维护，这样方便记忆和维护，不容易出错。</p></li></ul><h3>添加新的语言支持</h3><p>如果英文和中文两种语言不够，那么你可以通过下面步骤添加语言支持</p><ul class=\" list-paddingleft-2\"><li><p>在src/lang/目录下新增对应的资源文件</p></li><li><p>在src/lang/index.js中import对应的资源文件</p></li><li><p>在src/lang/index.js中的messages变量中加入新的语言声明</p></li><li><p>在src/components/LangSelect/index.vue的语言下拉框中增加新的语言选项</p></li></ul><h3>演示地址</h3><ul class=\" list-paddingleft-2\"><li><p>后台管理系统&nbsp;<a href=\"http://45.32.65.17:8081/guns-admin/\" target=\"_blank\">http://45.32.65.17:8081/guns-admin/</a></p></li><li><p>vue版本后台管理&nbsp;<a href=\"http://45.32.65.17:8081/vue\" target=\"_blank\">http://45.32.65.17:8081/vue</a></p></li><li><p>因资金原因演示服务器放在国外并且和其他三个服务共用一个2G内存的linux服务器，访问速度极慢，请耐心等待(/ □ )) 囧</p></li></ul>\r\n                    </div>', 'guns-lite1.0.1 发布，增加国际化和定时任务管理功能', '1', '2');
+INSERT INTO `t_cms_article` VALUES ('3', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', '<div class=\"content\" id=\"articleContent\">\r\n                        <div class=\"ad-wrap\">\r\n                                                    <p style=\"margin:0 0 10px 0;\"><a data-traceid=\"news_detail_above_text_link_1\" data-tracepid=\"news_detail_above_text_link\" style=\"color:#A00;font-weight:bold;\" href=\"https://my.oschina.net/u/3985214/blog/3018099?tdsourcetag=s_pcqq_aiomsg\" target=\"_blank\">开发十年，就只剩下这套架构体系了！ &gt;&gt;&gt;</a>&nbsp;&nbsp;<img src=\"https://www.oschina.net/img/hot3.png\" align=\"\" style=\"max-height: 32px; max-width: 32px;\"></p>\r\n                                    </div>\r\n                        <p>guns-lite使用的Spring Boot从1.5.1升级到2.1.1</p><p>下面为升级过程</p><ul class=\" list-paddingleft-2\"><li><p>版本升级</p><pre>&lt;spring.boot.version&gt;2.1.1.RELEASE&lt;/spring.boot.version&gt;\r\n&lt;springframework.version&gt;5.1.3.RELEASE&lt;springframework.version&gt;</pre></li><li><p>配置增加</p><pre>spring.main.allow-bean-definition-overriding=true\r\nspring.jpa.hibernate.use-new-id-generator-mappings=false</pre></li></ul><ul class=\" list-paddingleft-2\"><li><p>审计功能调整，调整后代码:</p><pre>@Configuration\r\npublic&nbsp;class&nbsp;UserIDAuditorConfig&nbsp;implements&nbsp;AuditorAware&lt;Long&gt;&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;@Override\r\n&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;Optional&lt;Long&gt;&nbsp;getCurrentAuditor()&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ShiroUser&nbsp;shiroUser&nbsp;=&nbsp;ShiroKit.getUser();\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(shiroUser!=null){\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;Optional.of(shiroUser.getId());\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;null;\r\n&nbsp;&nbsp;&nbsp;&nbsp;}\r\n}</pre></li><li><p>repository调整</p></li><ul class=\" list-paddingleft-2\" style=\"list-style-type: square;\"><li><p>之前的 delete(Long id)方法没有了，替换为：deleteById(Long id)</p></li><li><p>之前的 T findOne(Long id)方法没有了，替换为：		</p><pre>Optional&lt;T&gt;&nbsp;optional&nbsp;=&nbsp;***Repository.findById(id);\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(optional.isPresent())&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;optional.get();\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;null;</pre></li></ul><li><p>随着这次Spring Boot的升级也顺便做了一些其他内容的调整和重构</p></li><ul class=\" list-paddingleft-2\" style=\"list-style-type: square;\"><li><p>springframework也从4.3.5.RELEASE升级到5.1.3.RELEASE</p></li><li><p>为减小复杂度service去掉接口和实现类的结构，基础功能的service直接使用实现类；当然具体业务中如果有需求你也可以这没用</p></li><li><p>去掉了一些暂时用不到的maven依赖</p></li><li><p>完善了基础功能的审计功能(之前有介绍审计功能的实现翻番，后续会专门发一篇文档来说明审计功能在系统总的具体用法，当然聪明的你看代码就知道了)</p></li></ul></ul>\r\n                    </div>', 'guns-lite 升级 Spring Boot 到 2.1.1 版本', '1', '1');
+INSERT INTO `t_cms_article` VALUES ('4', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', 'H5通用官网系统', 'H5通用官网系统', '2', '5');
+INSERT INTO `t_cms_article` VALUES ('5', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', 'H5通用论坛系统', 'H5通用论坛系统', '2', '4');
+INSERT INTO `t_cms_article` VALUES ('6', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', '官网建设方案', '官网建设方案', '3', '5');
+INSERT INTO `t_cms_article` VALUES ('7', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', '论坛建设方案', '论坛建设方案', '3', '4');
+INSERT INTO `t_cms_article` VALUES ('8', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', '案例1', '案例1', '4', '3');
+INSERT INTO `t_cms_article` VALUES ('9', '1', '2019-03-09 16:24:58', null, null, 'enilu.cn', '案例2', '案例2', '4', '5');
 
 -- ----------------------------
 -- Table structure for `t_cms_banner`
@@ -52,32 +52,35 @@ INSERT INTO `t_cms_article` VALUES ('9', '1', '2019-03-09 16:24:58', null, null,
 DROP TABLE IF EXISTS `t_cms_banner`;
 CREATE TABLE `t_cms_banner` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_by` bigint(20) DEFAULT NULL COMMENT '???',
-  `create_time` datetime DEFAULT NULL COMMENT '????/????',
-  `modify_by` bigint(20) DEFAULT NULL COMMENT '?????',
-  `modify_time` datetime DEFAULT NULL COMMENT '??????',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间/注册时间',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '最后更新人',
+  `modify_time` datetime DEFAULT NULL COMMENT '最后更新时间',
   `title` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `type` varchar(18) DEFAULT NULL,
   `id_file` bigint(20) DEFAULT NULL COMMENT 'banner文件id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='banner';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='banner';
 
 -- ----------------------------
 -- Records of t_cms_banner
 -- ----------------------------
 INSERT INTO `t_cms_banner` VALUES ('1', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'index', '1');
 INSERT INTO `t_cms_banner` VALUES ('2', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'index', '2');
-INSERT INTO `t_cms_banner` VALUES ('3', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'index', '1');
+INSERT INTO `t_cms_banner` VALUES ('3', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'index', '6');
 INSERT INTO `t_cms_banner` VALUES ('4', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'product', '1');
-INSERT INTO `t_cms_banner` VALUES ('5', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'product', '1');
-INSERT INTO `t_cms_banner` VALUES ('6', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'product', '2');
-INSERT INTO `t_cms_banner` VALUES ('7', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'solutation', '2');
-INSERT INTO `t_cms_banner` VALUES ('8', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'solutation', '1');
-INSERT INTO `t_cms_banner` VALUES ('9', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'solutation', '1');
-INSERT INTO `t_cms_banner` VALUES ('10', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'case', '2');
-INSERT INTO `t_cms_banner` VALUES ('11', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'case', '1');
-INSERT INTO `t_cms_banner` VALUES ('12', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'case', '1');
+INSERT INTO `t_cms_banner` VALUES ('5', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'product', '2');
+INSERT INTO `t_cms_banner` VALUES ('6', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'product', '6');
+INSERT INTO `t_cms_banner` VALUES ('7', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'solution', '1');
+INSERT INTO `t_cms_banner` VALUES ('8', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'solution', '2');
+INSERT INTO `t_cms_banner` VALUES ('9', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'solution', '6');
+INSERT INTO `t_cms_banner` VALUES ('10', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'case', '1');
+INSERT INTO `t_cms_banner` VALUES ('11', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'case', '2');
+INSERT INTO `t_cms_banner` VALUES ('12', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'case', '6');
+INSERT INTO `t_cms_banner` VALUES ('14', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'news', '1');
+INSERT INTO `t_cms_banner` VALUES ('15', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'news', '2');
+INSERT INTO `t_cms_banner` VALUES ('16', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'news', '6');
 
 -- ----------------------------
 -- Table structure for `t_cms_channel`
@@ -85,10 +88,10 @@ INSERT INTO `t_cms_banner` VALUES ('12', '1', '2019-03-09 16:29:03', null, null,
 DROP TABLE IF EXISTS `t_cms_channel`;
 CREATE TABLE `t_cms_channel` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `create_by` bigint(20) DEFAULT NULL COMMENT '???',
-  `create_time` datetime DEFAULT NULL COMMENT '????/????',
-  `modify_by` bigint(20) DEFAULT NULL COMMENT '?????',
-  `modify_time` datetime DEFAULT NULL COMMENT '??????',
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间/注册时间',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '最后更新者',
+  `modify_time` datetime DEFAULT NULL COMMENT '最后更新时间',
   `name` varchar(255) DEFAULT NULL,
   `code` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -101,6 +104,28 @@ INSERT INTO `t_cms_channel` VALUES ('1', null, null, '1', '2019-03-13 22:52:46',
 INSERT INTO `t_cms_channel` VALUES ('2', null, null, '1', '2019-03-13 22:53:11', '产品服务', 'product');
 INSERT INTO `t_cms_channel` VALUES ('3', null, null, '1', '2019-03-13 22:53:37', '解决方案', 'solution');
 INSERT INTO `t_cms_channel` VALUES ('4', null, null, '1', '2019-03-13 22:53:41', '精选案例', 'case');
+
+-- ----------------------------
+-- Table structure for `t_cms_contacts`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_cms_contacts`;
+CREATE TABLE `t_cms_contacts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间/注册时间',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '最后更新人',
+  `modify_time` datetime DEFAULT NULL COMMENT '最后更新时间',
+  `email` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='客户邀约信息';
+
+-- ----------------------------
+-- Records of t_cms_contacts
+-- ----------------------------
+INSERT INTO `t_cms_contacts` VALUES ('1', null, null, null, null, 'test@qq.com', '15011111111', '测试联系，哈哈哈', '张三');
 
 -- ----------------------------
 -- Table structure for `t_sys_cfg`
@@ -202,13 +227,17 @@ CREATE TABLE `t_sys_file_info` (
   `original_file_name` varchar(255) DEFAULT NULL,
   `real_file_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文件信息';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='文件信息';
 
 -- ----------------------------
 -- Records of t_sys_file_info
 -- ----------------------------
 INSERT INTO `t_sys_file_info` VALUES ('1', '1', '2019-03-18 10:34:34', '1', '2019-03-18 10:34:34', 'banner1.png', '7e9ebc08-b194-4f85-8997-d97ccb0d2c2d.png');
 INSERT INTO `t_sys_file_info` VALUES ('2', '1', '2019-03-18 10:54:04', '1', '2019-03-18 10:54:04', 'banner2.png', '756b9ca8-562f-4bf5-a577-190dcdd25c29.png');
+INSERT INTO `t_sys_file_info` VALUES ('3', '1', '2019-03-18 20:09:59', '1', '2019-03-18 20:09:59', 'offcial_site.png', 'b0304e2b-0ee3-4966-ac9f-a075b13d4af6.png');
+INSERT INTO `t_sys_file_info` VALUES ('4', '1', '2019-03-18 20:10:18', '1', '2019-03-18 20:10:18', 'bbs.png', '67486aa5-500c-4993-87ad-7e1fbc90ac1a.png');
+INSERT INTO `t_sys_file_info` VALUES ('5', '1', '2019-03-18 20:20:14', '1', '2019-03-18 20:20:14', 'product.png', '1f2b05e0-403a-41e0-94a2-465f0c986b78.png');
+INSERT INTO `t_sys_file_info` VALUES ('6', '1', '2019-03-18 20:22:09', '1', '2019-03-18 20:22:09', 'profile.jpg', '40ead888-14d1-4e9f-abb3-5bfb056a966a.jpg');
 
 -- ----------------------------
 -- Table structure for `t_sys_login_log`
@@ -223,11 +252,12 @@ CREATE TABLE `t_sys_login_log` (
   `message` text COMMENT '具体消息',
   `ip` varchar(255) DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录记录';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='登录记录';
 
 -- ----------------------------
 -- Records of t_sys_login_log
 -- ----------------------------
+INSERT INTO `t_sys_login_log` VALUES ('1', '登录日志', '1', '2019-03-18 19:44:41', '成功', null, '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for `t_sys_menu`
@@ -252,7 +282,7 @@ CREATE TABLE `t_sys_menu` (
   `modify_time` datetime DEFAULT NULL,
   `modify_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of t_sys_menu
@@ -318,6 +348,7 @@ INSERT INTO `t_sys_menu` VALUES ('206', 'cms', '0', '[0],', 'CMS管理', '', '#'
 INSERT INTO `t_sys_menu` VALUES ('207', 'channel', 'cms', '[0],[cms],', '栏目管理', null, '/channel', '1', '2', '1', null, '1', null, '2019-03-11 22:29:55', '1', '2019-03-11 22:29:55', '1');
 INSERT INTO `t_sys_menu` VALUES ('208', 'article', 'cms', '[0],[cms],', '文章管理', null, '/article', '2', '2', '1', null, '1', null, '2019-03-11 22:30:18', '1', '2019-03-11 22:30:18', '1');
 INSERT INTO `t_sys_menu` VALUES ('209', 'banner', 'cms', '[0],[cms],', 'banner管理', null, '/banner', '3', '2', '1', null, '1', null, '2019-03-11 22:30:52', '1', '2019-03-11 22:30:52', '1');
+INSERT INTO `t_sys_menu` VALUES ('210', 'contacts', 'cms', '[0],[cms],', '联系管理', null, '/contacts', '4', '2', '1', null, '1', null, '2019-03-18 19:45:38', '1', '2019-03-18 19:45:38', '1');
 
 -- ----------------------------
 -- Table structure for `t_sys_menu_admin`
@@ -446,11 +477,12 @@ CREATE TABLE `t_sys_operation_log` (
   `succeed` varchar(255) DEFAULT NULL COMMENT '是否成功',
   `message` text COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='操作日志';
 
 -- ----------------------------
 -- Records of t_sys_operation_log
 -- ----------------------------
+INSERT INTO `t_sys_operation_log` VALUES ('1', '业务日志', '编辑菜单', '1', 'cn.enilu.guns.api.controller.system.MenuController', 'save', '2019-03-18 19:45:38', '成功', '菜单名称=联系管理;;;');
 
 -- ----------------------------
 -- Table structure for `t_sys_relation`
@@ -461,7 +493,7 @@ CREATE TABLE `t_sys_relation` (
   `menuid` bigint(11) DEFAULT NULL COMMENT '菜单id',
   `roleid` int(11) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=397 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=459 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
 
 -- ----------------------------
 -- Records of t_sys_relation
@@ -522,67 +554,68 @@ INSERT INTO `t_sys_relation` VALUES ('332', '203', '3');
 INSERT INTO `t_sys_relation` VALUES ('333', '204', '3');
 INSERT INTO `t_sys_relation` VALUES ('334', '205', '3');
 INSERT INTO `t_sys_relation` VALUES ('335', '143', '3');
-INSERT INTO `t_sys_relation` VALUES ('336', '105', '1');
-INSERT INTO `t_sys_relation` VALUES ('337', '106', '1');
-INSERT INTO `t_sys_relation` VALUES ('338', '107', '1');
-INSERT INTO `t_sys_relation` VALUES ('339', '108', '1');
-INSERT INTO `t_sys_relation` VALUES ('340', '109', '1');
-INSERT INTO `t_sys_relation` VALUES ('341', '110', '1');
-INSERT INTO `t_sys_relation` VALUES ('342', '111', '1');
-INSERT INTO `t_sys_relation` VALUES ('343', '112', '1');
-INSERT INTO `t_sys_relation` VALUES ('344', '113', '1');
-INSERT INTO `t_sys_relation` VALUES ('345', '165', '1');
-INSERT INTO `t_sys_relation` VALUES ('346', '166', '1');
-INSERT INTO `t_sys_relation` VALUES ('347', '167', '1');
-INSERT INTO `t_sys_relation` VALUES ('348', '114', '1');
-INSERT INTO `t_sys_relation` VALUES ('349', '115', '1');
-INSERT INTO `t_sys_relation` VALUES ('350', '116', '1');
-INSERT INTO `t_sys_relation` VALUES ('351', '117', '1');
-INSERT INTO `t_sys_relation` VALUES ('352', '118', '1');
-INSERT INTO `t_sys_relation` VALUES ('353', '162', '1');
-INSERT INTO `t_sys_relation` VALUES ('354', '163', '1');
-INSERT INTO `t_sys_relation` VALUES ('355', '164', '1');
-INSERT INTO `t_sys_relation` VALUES ('356', '119', '1');
-INSERT INTO `t_sys_relation` VALUES ('357', '120', '1');
-INSERT INTO `t_sys_relation` VALUES ('358', '121', '1');
-INSERT INTO `t_sys_relation` VALUES ('359', '122', '1');
-INSERT INTO `t_sys_relation` VALUES ('360', '150', '1');
-INSERT INTO `t_sys_relation` VALUES ('361', '151', '1');
-INSERT INTO `t_sys_relation` VALUES ('362', '128', '1');
-INSERT INTO `t_sys_relation` VALUES ('363', '134', '1');
-INSERT INTO `t_sys_relation` VALUES ('364', '159', '1');
-INSERT INTO `t_sys_relation` VALUES ('365', '131', '1');
-INSERT INTO `t_sys_relation` VALUES ('366', '135', '1');
-INSERT INTO `t_sys_relation` VALUES ('367', '136', '1');
-INSERT INTO `t_sys_relation` VALUES ('368', '137', '1');
-INSERT INTO `t_sys_relation` VALUES ('369', '152', '1');
-INSERT INTO `t_sys_relation` VALUES ('370', '153', '1');
-INSERT INTO `t_sys_relation` VALUES ('371', '154', '1');
-INSERT INTO `t_sys_relation` VALUES ('372', '132', '1');
-INSERT INTO `t_sys_relation` VALUES ('373', '138', '1');
-INSERT INTO `t_sys_relation` VALUES ('374', '139', '1');
-INSERT INTO `t_sys_relation` VALUES ('375', '140', '1');
-INSERT INTO `t_sys_relation` VALUES ('376', '155', '1');
-INSERT INTO `t_sys_relation` VALUES ('377', '156', '1');
-INSERT INTO `t_sys_relation` VALUES ('378', '157', '1');
-INSERT INTO `t_sys_relation` VALUES ('379', '133', '1');
-INSERT INTO `t_sys_relation` VALUES ('380', '160', '1');
-INSERT INTO `t_sys_relation` VALUES ('381', '161', '1');
-INSERT INTO `t_sys_relation` VALUES ('382', '198', '1');
-INSERT INTO `t_sys_relation` VALUES ('383', '199', '1');
-INSERT INTO `t_sys_relation` VALUES ('384', '200', '1');
-INSERT INTO `t_sys_relation` VALUES ('385', '201', '1');
-INSERT INTO `t_sys_relation` VALUES ('386', '202', '1');
-INSERT INTO `t_sys_relation` VALUES ('387', '203', '1');
-INSERT INTO `t_sys_relation` VALUES ('388', '204', '1');
-INSERT INTO `t_sys_relation` VALUES ('389', '205', '1');
-INSERT INTO `t_sys_relation` VALUES ('390', '143', '1');
-INSERT INTO `t_sys_relation` VALUES ('391', '144', '1');
-INSERT INTO `t_sys_relation` VALUES ('392', '148', '1');
-INSERT INTO `t_sys_relation` VALUES ('393', '206', '1');
-INSERT INTO `t_sys_relation` VALUES ('394', '207', '1');
-INSERT INTO `t_sys_relation` VALUES ('395', '208', '1');
-INSERT INTO `t_sys_relation` VALUES ('396', '209', '1');
+INSERT INTO `t_sys_relation` VALUES ('397', '105', '1');
+INSERT INTO `t_sys_relation` VALUES ('398', '106', '1');
+INSERT INTO `t_sys_relation` VALUES ('399', '107', '1');
+INSERT INTO `t_sys_relation` VALUES ('400', '108', '1');
+INSERT INTO `t_sys_relation` VALUES ('401', '109', '1');
+INSERT INTO `t_sys_relation` VALUES ('402', '110', '1');
+INSERT INTO `t_sys_relation` VALUES ('403', '111', '1');
+INSERT INTO `t_sys_relation` VALUES ('404', '112', '1');
+INSERT INTO `t_sys_relation` VALUES ('405', '113', '1');
+INSERT INTO `t_sys_relation` VALUES ('406', '165', '1');
+INSERT INTO `t_sys_relation` VALUES ('407', '166', '1');
+INSERT INTO `t_sys_relation` VALUES ('408', '167', '1');
+INSERT INTO `t_sys_relation` VALUES ('409', '114', '1');
+INSERT INTO `t_sys_relation` VALUES ('410', '115', '1');
+INSERT INTO `t_sys_relation` VALUES ('411', '116', '1');
+INSERT INTO `t_sys_relation` VALUES ('412', '117', '1');
+INSERT INTO `t_sys_relation` VALUES ('413', '118', '1');
+INSERT INTO `t_sys_relation` VALUES ('414', '162', '1');
+INSERT INTO `t_sys_relation` VALUES ('415', '163', '1');
+INSERT INTO `t_sys_relation` VALUES ('416', '164', '1');
+INSERT INTO `t_sys_relation` VALUES ('417', '119', '1');
+INSERT INTO `t_sys_relation` VALUES ('418', '120', '1');
+INSERT INTO `t_sys_relation` VALUES ('419', '121', '1');
+INSERT INTO `t_sys_relation` VALUES ('420', '122', '1');
+INSERT INTO `t_sys_relation` VALUES ('421', '150', '1');
+INSERT INTO `t_sys_relation` VALUES ('422', '151', '1');
+INSERT INTO `t_sys_relation` VALUES ('423', '128', '1');
+INSERT INTO `t_sys_relation` VALUES ('424', '134', '1');
+INSERT INTO `t_sys_relation` VALUES ('425', '159', '1');
+INSERT INTO `t_sys_relation` VALUES ('426', '131', '1');
+INSERT INTO `t_sys_relation` VALUES ('427', '135', '1');
+INSERT INTO `t_sys_relation` VALUES ('428', '136', '1');
+INSERT INTO `t_sys_relation` VALUES ('429', '137', '1');
+INSERT INTO `t_sys_relation` VALUES ('430', '152', '1');
+INSERT INTO `t_sys_relation` VALUES ('431', '153', '1');
+INSERT INTO `t_sys_relation` VALUES ('432', '154', '1');
+INSERT INTO `t_sys_relation` VALUES ('433', '132', '1');
+INSERT INTO `t_sys_relation` VALUES ('434', '138', '1');
+INSERT INTO `t_sys_relation` VALUES ('435', '139', '1');
+INSERT INTO `t_sys_relation` VALUES ('436', '140', '1');
+INSERT INTO `t_sys_relation` VALUES ('437', '155', '1');
+INSERT INTO `t_sys_relation` VALUES ('438', '156', '1');
+INSERT INTO `t_sys_relation` VALUES ('439', '157', '1');
+INSERT INTO `t_sys_relation` VALUES ('440', '133', '1');
+INSERT INTO `t_sys_relation` VALUES ('441', '160', '1');
+INSERT INTO `t_sys_relation` VALUES ('442', '161', '1');
+INSERT INTO `t_sys_relation` VALUES ('443', '198', '1');
+INSERT INTO `t_sys_relation` VALUES ('444', '199', '1');
+INSERT INTO `t_sys_relation` VALUES ('445', '200', '1');
+INSERT INTO `t_sys_relation` VALUES ('446', '201', '1');
+INSERT INTO `t_sys_relation` VALUES ('447', '202', '1');
+INSERT INTO `t_sys_relation` VALUES ('448', '203', '1');
+INSERT INTO `t_sys_relation` VALUES ('449', '204', '1');
+INSERT INTO `t_sys_relation` VALUES ('450', '205', '1');
+INSERT INTO `t_sys_relation` VALUES ('451', '143', '1');
+INSERT INTO `t_sys_relation` VALUES ('452', '144', '1');
+INSERT INTO `t_sys_relation` VALUES ('453', '148', '1');
+INSERT INTO `t_sys_relation` VALUES ('454', '206', '1');
+INSERT INTO `t_sys_relation` VALUES ('455', '207', '1');
+INSERT INTO `t_sys_relation` VALUES ('456', '208', '1');
+INSERT INTO `t_sys_relation` VALUES ('457', '209', '1');
+INSERT INTO `t_sys_relation` VALUES ('458', '210', '1');
 
 -- ----------------------------
 -- Table structure for `t_sys_role`

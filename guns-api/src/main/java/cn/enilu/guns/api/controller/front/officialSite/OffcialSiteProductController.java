@@ -27,29 +27,23 @@ public class OffcialSiteProductController extends BaseController {
     private BannerService bannerService;
     @Autowired
     private ArticleService articleService;
-    @RequestMapping(method = RequestMethod.GET)
-    public Object index(){
-        Map<String,Boolean> showMap = new HashMap<>();
-        Map<String,Object> dataMap = new HashMap<>();
-        showMap.put("banner",true);
-        showMap.put("productList",true);
-        showMap.put("footMenu",true);
 
-        if(showMap.get("banner")==true){
-            Banner banner = bannerService.queryBanner(BannerTypeEnum.PRODUCT.getValue());
-            dataMap.put("banner",banner);
+    @RequestMapping(method = RequestMethod.GET)
+    public Object index() {
+        Map<String, Object> dataMap = new HashMap<>();
+
+        Banner banner = bannerService.queryBanner(BannerTypeEnum.SOLUTION.getValue());
+        dataMap.put("banner", banner);
+
+        List<Product> products = new ArrayList<>();
+        Page<Article> articlePage = articleService.query(1, 10, ChannelEnum.PRODUCT.getId());
+        for (Article article : articlePage.getRecords()) {
+            products.add(new Product(article.getId(), article.getTitle(), article.getImg()));
         }
-        if(showMap.get("productList") == true){
-            List<Product> products = new ArrayList<>();
-            Page<Article> articlePage = articleService.query(1,10, ChannelEnum.PRODUCT.getId());
-            for(Article article:articlePage.getRecords()){
-                products.add(new Product(article.getId(),article.getTitle(),article.getImg()));
-            }
-            dataMap.put("productList",products);
-        }
+        dataMap.put("productList", products);
+
         Map map = new HashMap();
-        map.put("show",showMap);
-        map.put("data",dataMap);
+        map.put("data", dataMap);
         return Rets.success(map);
 
     }

@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  IMG_URL: 'https://nutz.cn/yvr/api/'
+  BASE_API: 'http://127.0.0.1:8082'
 }

@@ -2,12 +2,12 @@
   <div id="article">
     <p class="title">{{article.title}}</p>
     <flexbox class="header">
-      <flexbox-item :span="3">
-        <img :src="article.author.avatar" class="avatar">
+      <flexbox-item :span="2" >
+        <img src="/static/images/icon/user.png" class="avatar">
       </flexbox-item>
-      <flexbox-item :span="9">
-        <p class="author-name">{{article.author.name}}</p>
-        <p class="create-at">发表于 {{article.createAt}}</p>
+      <flexbox-item :span="10">
+        <p class="author-name">{{article.author}}</p>
+        <p class="create-at">发表于 {{article.createTime}}</p>
       </flexbox-item>
     </flexbox>
     <p class="content" v-html="article.content"></p>
@@ -18,6 +18,7 @@
   import { Flexbox, FlexboxItem } from 'vux'
 
   export default {
+
     name: 'me-article',
     props: { article: {} },
     components: {
@@ -38,12 +39,9 @@
     border-radius: 50px;
   }
   #article>.vux-flex-row>.vux-flexbox-item>.author-name{
-    color:#999;font-size:.7rem;
+    color:#999;font-size:1rem;
   }
   #article>.vux-flex-row>.vux-flexbox-item>.create-at{
-    font-size:.7rem;
-  }
-  #article>p{
-    font-size:.86rem;
+    font-size:.8rem;
   }
 </style>

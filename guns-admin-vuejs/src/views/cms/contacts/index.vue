@@ -3,7 +3,10 @@
     <div class="block">
       <el-row  :gutter="20">
         <el-col :span="6">
-          <el-input v-model="listQuery.title" placeholder="标题"></el-input>
+          <el-input v-model="listQuery.cfgName" placeholder="姓名"></el-input>
+        </el-col>
+        <el-col :span="6">
+          <el-input v-model="listQuery.cfgValue"  placeholder="手机号"></el-input>
         </el-col>
         <el-col :span="6">
           <el-button type="success" icon="el-icon-search" @click.native="search">{{ $t('button.search') }}</el-button>
@@ -11,42 +14,36 @@
         </el-col>
       </el-row>
       <br>
-      <el-row>
-        <el-col :span="24">
-          <el-button type="success" icon="el-icon-plus" @click.native="add">{{ $t('button.add') }}</el-button>
-          <el-button type="primary" icon="el-icon-edit" @click.native="edit">{{ $t('button.edit') }}</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click.native="remove">{{ $t('button.delete') }}</el-button>
-        </el-col>
-      </el-row>
+
     </div>
 
 
     <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
-              @current-change="handleCurrentChange">
+    @current-change="handleCurrentChange">
 
       <el-table-column label="ID">
         <template slot-scope="scope">
           {{scope.row.id}}
         </template>
       </el-table-column>
-      <el-table-column label="标题">
+      <el-table-column label="联系人">
         <template slot-scope="scope">
-          {{scope.row.title}}
+          {{scope.row.userName}}
         </template>
       </el-table-column>
-      <el-table-column label="发布日期">
+      <el-table-column label="联系手机">
         <template slot-scope="scope">
-          {{scope.row.createTime}}
+          {{scope.row.mobile}}
         </template>
       </el-table-column>
-      <el-table-column label="作者">
+      <el-table-column label="email">
         <template slot-scope="scope">
-          {{scope.row.author}}
+          {{scope.row.email}}
         </template>
       </el-table-column>
-      <el-table-column label="文章配图">
+      <el-table-column label="备注">
         <template slot-scope="scope">
-          <img :src="scope.row.img" style="width:200px;">
+          {{scope.row.remark}}
         </template>
       </el-table-column>
 
@@ -63,12 +60,15 @@
       @prev-click="fetchPrev"
       @next-click="fetchNext">
     </el-pagination>
+
+
   </div>
 </template>
 
-<script src="./article.js"></script>
+<script src="./contacts.js"></script>
 
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "src/styles/common.scss";
 </style>
+

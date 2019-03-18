@@ -1,6 +1,7 @@
 import {XHeader, Panel, Swiper, SwiperItem} from 'vux'
 import footMenu from '../../components/footer/footMenu'
 import api from '../../fetch/api'
+import {getApiUrl} from '../../util/tool'
 
 export default {
   components: {
@@ -8,11 +9,6 @@ export default {
   },
   data () {
     return {
-      showComponent: {
-        banner: true,
-        list: true,
-        footMenu: true
-      },
       banner: {},
       newsList: [],
       userName: 'enilu'
@@ -23,13 +19,14 @@ export default {
   },
   methods: {
     init () {
+
+      const imgBase = getApiUrl() + '/file/getImgStream?idFile='
       api.getNewsList().then(res => {
-        console.log(res)
-        this.showComponent = res.data.show
-        this.data = res.data.data
-        for (const index in res.data.data) {
-          this[index] = res.data.data[index]
+        this.banner = res.data.data.banner
+        for (const index in this.banner.list) {
+          this.banner.list[index].img = imgBase + this.banner.list[index].idFile
         }
+        this.list = res.data.data.list
       })
     },
     bannerChange (index) {

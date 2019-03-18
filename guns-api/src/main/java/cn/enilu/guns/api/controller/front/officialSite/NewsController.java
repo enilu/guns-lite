@@ -19,42 +19,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @RestController
 @RequestMapping("/offcialSite/news")
-public class NewsController extends BaseController  {
+public class NewsController extends BaseController {
     @Autowired
     private BannerService bannerService;
     @Autowired
     private ArticleService articleService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Object list(){
-        Map<String,Boolean> showMap = new HashMap<>();
-        showMap.put("banner",true);
-        showMap.put("list",true);
-        showMap.put("footMenu",true);
-        Map<String,Object> dataMap = new HashMap<>();
-        if(showMap.get("banner")==true){
-            Banner banner = bannerService.queryBanner(BannerTypeEnum.NEWS.getValue());
-            dataMap.put("banner",banner);
-        }
-        if(showMap.get("list") ==true){
-            List<News> newsList = new ArrayList<>();
-            Page<Article> articlePage = articleService.query(1,10, ChannelEnum.NEWS.getId());
+    public Object list() {
+        Map<String, Object> dataMap = new HashMap<>();
+        Banner banner = bannerService.queryBanner(BannerTypeEnum.NEWS.getValue());
+        dataMap.put("banner", banner);
 
-            for(cn.enilu.guns.bean.entity.cms.Article article:articlePage.getRecords()){
-                News news = new News();
-                news.setDesc(article.getTitle());
-                news.setUrl("/article?id="+article.getId());
-                news.setSrc("https://nutz.cn/yvr/u/enilu/avatar");
-                newsList.add(news);
-            }
+        List<News> newsList = new ArrayList<>();
+        Page<Article> articlePage = articleService.query(1, 10, ChannelEnum.NEWS.getId());
 
-             dataMap.put("list",newsList);
+        for (cn.enilu.guns.bean.entity.cms.Article article : articlePage.getRecords()) {
+            News news = new News();
+            news.setDesc(article.getTitle());
+            news.setUrl("/article?id=" + article.getId());
+            news.setSrc("/static/images/icon/user.png");
+            newsList.add(news);
         }
+
+        dataMap.put("list", newsList);
+
         Map map = new HashMap();
-        map.put("show",showMap);
-        map.put("data",dataMap);
+
+        map.put("data", dataMap);
         return Rets.success(map);
 
     }

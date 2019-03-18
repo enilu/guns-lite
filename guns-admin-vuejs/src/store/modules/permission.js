@@ -107,6 +107,7 @@ export const componentsMap = {
   '/task': () => import('@/views/system/task/index'),
   '/banner': () => import('@/views/cms/banner/index'),
   '/channel': () => import('@/views/cms/channel/index'),
-  '/article': () => import('@/views/cms/article/index')
+  '/article': () => import('@/views/cms/article/index'),
+  '/contacts': () => import('@/views/cms/contacts/index')
 }
 export default permission

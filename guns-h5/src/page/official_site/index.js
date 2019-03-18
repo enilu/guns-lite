@@ -3,6 +3,7 @@ import footMenu from '../../components/footer/footMenu'
 import menuGroup from '../../components/menu/menuGroup'
 import productList from '../../components/product/productList'
 import api from '../../fetch/api'
+import {getApiUrl} from '../../util/tool'
 
 export default {
   components: {
@@ -10,14 +11,6 @@ export default {
   },
   data () {
     return {
-      showComponent: {
-        banner: false,
-        menu: false,
-        productList: false,
-        solutionList: false,
-        newsList: false,
-        footMenu: false
-      },
       productList: [],
       solutionList: [],
       newsList: [],
@@ -30,11 +23,21 @@ export default {
 
   methods: {
     init () {
+      const imgBase = getApiUrl() + '/file/getImgStream?idFile='
       api.getOffcialSite().then(res => {
 
-        this.data = res.data.data
-        for (const index in res.data.data) {
-          this[index] = res.data.data[index]
+        this.banner = res.data.data.banner
+        for (const index in this.banner.list) {
+          this.banner.list[index].img = imgBase + this.banner.list[index].idFile
+        }
+        this.newsList = res.data.data.newsList
+        this.solutionList = res.data.data.solutionList
+        this.productList = res.data.data.productList
+        for (const index in this.solutionList) {
+          this.solutionList[index].img = imgBase + this.solutionList[index].img
+        }
+        for (const index in this.productList) {
+          this.productList[index].img = imgBase + this.productList[index].img
         }
       })
     },

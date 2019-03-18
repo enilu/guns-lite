@@ -109,8 +109,8 @@ export default {
   getNewsList () {
     return get('/api/offcialSite/news')
   },
-  getArticle (id,type) {
-    return get('/api/offcialSite/article?id=' + id+'&type='+type)
+  getArticle (id, type) {
+    return get('/api/offcialSite/article?id=' + id + '&type=' + type)
   },
   saveContact (params) {
     return post('/api/offcialSite/contact', params)

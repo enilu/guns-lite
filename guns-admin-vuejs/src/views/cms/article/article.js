@@ -92,41 +92,8 @@ export default {
     handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
     },
-    resetForm() {
-      this.form = {
-        id: '',
-        title: '',
-        author: '',
-        img: ''
-      }
-    },
     add() {
       this.$router.push({ path: '/cms/article/edit' })
-      // this.resetForm()
-      // this.formTitle = '添加文章'
-      // this.formVisible = true
-      // this.isAdd = true
-    },
-    save() {
-      this.$refs['form'].validate((valid) => {
-        if (valid) {
-          save({
-            id: this.form.id,
-            cfgName: this.form.cfgName,
-            cfgValue: this.form.cfgValue
-          }).then(response => {
-            console.log(response)
-            this.$message({
-              message: this.$t('common.optionSuccess'),
-              type: 'success'
-            })
-            this.fetchData()
-            this.formVisible = false
-          })
-        } else {
-          return false
-        }
-      })
     },
     checkSel() {
       if (this.selRow && this.selRow.id) {
@@ -140,10 +107,7 @@ export default {
     },
     edit() {
       if (this.checkSel()) {
-        this.isAdd = false
-        this.form = this.selRow
-        this.formTitle = this.$t('config.edit')
-        this.formVisible = true
+        this.$router.push({ path: '/cms/article/edit' })
       }
     },
     remove() {

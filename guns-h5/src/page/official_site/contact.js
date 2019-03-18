@@ -9,10 +9,10 @@ export default {
   data () {
     return {
       form: {
-        username: '',
+        userName: '',
         mobile: '',
         email: '',
-        description: ''
+        remark: ''
       }
     }
   },

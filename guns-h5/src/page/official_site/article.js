@@ -29,13 +29,9 @@ export default {
     init () {
       this.id = this.$route.query.id
       this.type = this.$route.query.type
-      api.getArticle(this.id,this.type).then(res => {
+      api.getArticle(this.id, this.type).then(res => {
         console.log(res)
-        this.showComponent = res.data.show
-        this.data = res.data.data
-        for (const index in res.data.data) {
-          this[index] = res.data.data[index]
-        }
+        this.article = res.data
       })
     },
     getTopic () {
