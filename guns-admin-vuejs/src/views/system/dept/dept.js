@@ -1,5 +1,6 @@
 import treeTable from '@/components/TreeTable'
-import { list,save,del } from '@/api/system/dept'
+import { list, save, del } from '@/api/system/dept'
+
 export default {
   name: 'customTreeTableDemo',
   components: { treeTable },
@@ -13,16 +14,16 @@ export default {
 
       showTree: false,
       defaultProps: {
-        id: "id",
+        id: 'id',
         label: 'simplename',
         children: 'children'
       },
       form: {
-        id:'',
+        id: '',
         simplename: '',
         fullname: '',
         pid: '',
-        num:'',
+        num: '',
         tips: ''
       },
       rules: {
@@ -56,7 +57,7 @@ export default {
       console.log(data)
       this.form.pid = data.id
       this.form.pname = data.simplename
-      this.showTree = false;
+      this.showTree = false
     },
     checkSel() {
       if (this.selRow && this.selRow.id) {
@@ -65,7 +66,7 @@ export default {
       this.$message({
         message: '请选中操作项',
         type: 'warning'
-      });
+      })
       return false
     },
     add() {
@@ -78,7 +79,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           console.log('form', self.form)
-          let menuData = self.form
+          const menuData = self.form
           menuData.parent = null
           save(menuData).then(response => {
             console.log(response)
@@ -120,7 +121,6 @@ export default {
           this.fetchData()
         })
       })
-
     }
   }
 }

@@ -32,7 +32,7 @@ public class CacheListener implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        logger.info("...................cache listener......................");
+        logger.info(".....................cache listener........................");
 
         Thread thread = new Thread(new Runnable() {
             @Override

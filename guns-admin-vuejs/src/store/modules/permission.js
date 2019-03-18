@@ -1,6 +1,7 @@
-import {  constantRouterMap } from '@/router'
+import { constantRouterMap } from '@/router'
 
 import Layout from '../../views/layout/Layout'
+
 /**
  * 通过meta.role判断是否与当前用户权限匹配
  * @param roles
@@ -22,10 +23,10 @@ function hasPermission(roles, route) {
 function filterAsyncRouter(asyncRouterMap, roles) {
   const accessedRouters = asyncRouterMap.filter(route => {
     // if (hasPermission(roles, route)) {
-      if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
-      }
-      return true
+    if (route.children && route.children.length) {
+      route.children = filterAsyncRouter(route.children, roles)
+    }
+    return true
     // }
     return false
   })
@@ -46,8 +47,8 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
-        const  asyncRouterMapFromServer  = data.routers
-        let asyncRouterMap = convertRouter(asyncRouterMapFromServer)
+        const asyncRouterMapFromServer = data.routers
+        const asyncRouterMap = convertRouter(asyncRouterMapFromServer)
         commit('SET_ROUTERS', asyncRouterMap)
         resolve()
       })
@@ -62,13 +63,14 @@ const permission = {
 function convertRouter(asyncRouterMap) {
   const accessedRouters = []
   if (asyncRouterMap) {
-    //默认支持二级菜单，如果需要生成三级菜单路由表，需要在这里做调整
+    // 默认支持二级菜单，如果需要生成三级菜单路由表，需要在这里做调整
     asyncRouterMap.forEach(item => {
       var parent = generateRouter(item, true)
       var children = []
       if (item.children) {
         item.children.forEach(child => {
-          children.push(generateRouter(child, false))
+          const router = generateRouter(child, false)
+          children.push(router)
         })
       }
       parent.children = children
@@ -79,10 +81,11 @@ function convertRouter(asyncRouterMap) {
 }
 
 function generateRouter(item, isParent) {
-  var router = {
+  const router = {
     path: item.path,
     name: item.name,
-    meta: {title:item.name},
+    meta: { title: item.name },
+    children: item.children,
     component: isParent ? Layout : componentsMap[item.path]
   }
   return router
@@ -97,11 +100,13 @@ export const componentsMap = {
   '/menu': () => import('@/views/system/menu/index'),
   '/role': () => import('@/views/system/role/index'),
   '/dept': () => import('@/views/system/dept/index'),
-  '/menu': () => import('@/views/system/menu/index'),
   '/dict': () => import('@/views/system/dict/index'),
   '/log': () => import('@/views/system/log/index'),
   '/loginLog': () => import('@/views/system/loginLog/index'),
   '/cfg': () => import('@/views/system/cfg/index'),
   '/task': () => import('@/views/system/task/index'),
+  '/banner': () => import('@/views/cms/banner/index'),
+  '/channel': () => import('@/views/cms/channel/index'),
+  '/article': () => import('@/views/cms/article/index')
 }
 export default permission

@@ -1,4 +1,4 @@
-import {logList} from '@/api/system/task'
+import { logList } from '@/api/system/task'
 
 export default {
   data() {
@@ -16,12 +16,12 @@ export default {
       },
       rules: {
         cfgName: [
-          {required: true, message: '请输入参数名', trigger: 'blur'},
-          {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
+          { required: true, message: '请输入参数名', trigger: 'blur' },
+          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
         ],
         cfgValue: [
-          {required: true, message: '请输入参数值', trigger: 'blur'},
-          {min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur'}
+          { required: true, message: '请输入参数值', trigger: 'blur' },
+          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
         ]
 
       },

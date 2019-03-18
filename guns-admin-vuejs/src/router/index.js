@@ -22,7 +22,7 @@ import Layout from '../views/layout/Layout'
   }
  **/
 export const constantRouterMap = [
-  {path: '/login', component: () => import('@/views/login/index'), hidden: true},
+  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   {
     path: '/',
     component: Layout,
@@ -32,25 +32,33 @@ export const constantRouterMap = [
     children: [{
       path: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: {title: 'dashboard', icon: 'dashboard', noCache: true}
+      meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     },
-      {
-        path: '/system/taskLog',
-        name: '任务日志',
-        component: () => import('@/views/system/task/log/index'),
-        hidden: true,
-        meta: { title: '任务日志' }
+    {
+      path: '/system/taskLog',
+      name: '任务日志',
+      component: () => import('@/views/system/task/log/index'),
+      hidden: true,
+      meta: { title: '任务日志' }
 
-      }]
+    },
+    {
+      path: '/cms/article/edit',
+      name: '编辑文章',
+      component: () => import('@/views/cms/article/edit'),
+      hidden: true,
+      meta: { title: '编辑文章' }
+
+    }
+    ]
   },
-  {path: '/404', component: () => import('@/views/404'), hidden: true},
-
+  { path: '/404', component: () => import('@/views/404'), hidden: true }
 
 ]
 
 export default new Router({
   // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({y: 0}),
+  scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
 

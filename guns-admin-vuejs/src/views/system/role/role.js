@@ -2,7 +2,6 @@ import { remove, getList, save, savePermissons } from '@/api/system/role'
 import { list as getDeptList } from '@/api/system/dept'
 import { menuTreeListByRoleId } from '@/api/system/menu'
 
-
 export default {
   data() {
     return {
@@ -14,7 +13,7 @@ export default {
       checkedPermissionKeys: [],
       permissons: [],
       defaultProps: {
-        id: "id",
+        id: 'id',
         label: 'name',
         children: 'children'
       },
@@ -22,7 +21,7 @@ export default {
       deptTree: {
         show: false,
         defaultProps: {
-          id: "id",
+          id: 'id',
           label: 'simplename',
           children: 'children'
         }
@@ -30,7 +29,7 @@ export default {
       roleTree: {
         show: false,
         defaultProps: {
-          id: "id",
+          id: 'id',
           label: 'name',
           children: 'children'
         }
@@ -107,19 +106,19 @@ export default {
     },
     fetchNext() {
       this.listQuery.page = this.listQuery.page + 1
-      this.fetchData();
+      this.fetchData()
     },
     fetchPrev() {
       this.listQuery.page = this.listQuery.page - 1
-      this.fetchData();
+      this.fetchData()
     },
     fetchPage(page) {
       this.listQuery.page = page
       this.fetchData()
     },
     changeSize(limit) {
-      this.listQuery.limit = limit;
-      this.fetchData();
+      this.listQuery.limit = limit
+      this.fetchData()
     },
     handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
@@ -147,23 +146,26 @@ export default {
     save() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          save({id:this.form.id,num:this.form.num,deptid:this.form.deptid,pid:this.form.pid,name:this.form.name,tips:this.form.tips}).then(response => {
+          save({
+            id: this.form.id,
+            num: this.form.num,
+            deptid: this.form.deptid,
+            pid: this.form.pid,
+            name: this.form.name,
+            tips: this.form.tips
+          }).then(response => {
             this.$message({
               message: '提交成功',
               type: 'success'
             })
             this.fetchData()
             this.formVisible = false
-
           })
-
         } else {
           console.log('error submit!!')
           return false
         }
       })
-
-
     },
     checkSel() {
       if (this.selRow && this.selRow.id) {
@@ -172,14 +174,14 @@ export default {
       this.$message({
         message: '请选中操作项',
         type: 'warning'
-      });
+      })
       return false
     },
     edit() {
       if (this.checkSel()) {
         this.isAdd = false
         this.form = this.selRow
-        this.form.status = this.selRow.statusName == '启用'
+        this.form.status = this.selRow.statusName === '启用'
         this.form.password = ''
         this.formTitle = '修改角色'
         this.formVisible = true
@@ -187,29 +189,23 @@ export default {
     },
     remove() {
       if (this.checkSel()) {
-        var id = this.selRow.id
-
+        const id = this.selRow.id
         this.$confirm('确定删除该记录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-
           remove(id).then(response => {
             this.$message({
               message: '提交成功',
               type: 'success'
-            });
+            })
             this.fetchData()
           })
-
         }).catch(() => {
-
-        });
-
+        })
       }
     },
-
     openPermissions() {
       if (this.checkSel()) {
         menuTreeListByRoleId(this.selRow.id).then(response => {
@@ -217,16 +213,15 @@ export default {
           this.checkedPermissionKeys = response.data.checkedIds
           this.permissonVisible = true
         })
-
       }
     },
     savePermissions() {
-      var checkedPermissons = this.$refs.permissonTree.getCheckedKeys()
-      var menuIds = '';
+      const checkedPermissons = this.$refs.permissonTree.getCheckedKeys()
+      let menuIds = ''
       for (var index in checkedPermissons) {
         menuIds += checkedPermissons[index] + ','
       }
-      var data = {
+      const data = {
         roleId: this.selRow.id,
         permissions: menuIds
       }
@@ -235,18 +230,18 @@ export default {
         this.$message({
           message: '提交成功',
           type: 'success'
-        });
+        })
       })
     },
     handleDeptNodeClick(data, node) {
       this.form.deptid = data.id
       this.form.deptName = data.simplename
-      this.deptTree.show = false;
+      this.deptTree.show = false
     },
     handleRoleNodeClick(data, node) {
       this.form.pid = data.id
       this.form.pName = data.name
-      this.roleTree.show = false;
+      this.roleTree.show = false
     }
 
   }

@@ -1,15 +1,14 @@
-
 import treeTable from '@/components/TreeTable'
-import { getList , save , delMenu } from '@/api/system/menu'
+import { getList, save, delMenu } from '@/api/system/menu'
 
 export default {
   name: 'treeTableDemo',
   components: { treeTable },
   data() {
     return {
-      showTree:false,
+      showTree: false,
       defaultProps: {
-        id: "code",
+        id: 'code',
         label: 'name',
         children: 'children'
       },
@@ -20,8 +19,8 @@ export default {
       formVisible: false,
       isAdd: false,
       form: {
-        id:'',
-        pname:'',
+        id: '',
+        pname: '',
         name: '',
         code: '',
         url: '',
@@ -66,16 +65,16 @@ export default {
     handleNodeClick(data, node) {
       this.form.pcode = data.code
       this.form.pname = data.name
-      this.showTree = false;
+      this.showTree = false
     },
-    checkSel(){
-      if(this.selRow && this.selRow.id){
+    checkSel() {
+      if (this.selRow && this.selRow.id) {
         return true
       }
       this.$message({
         message: '请选中操作项',
         type: 'warning'
-      });
+      })
       return false
     },
     add() {
@@ -83,17 +82,14 @@ export default {
       this.formTitle = '添加菜单'
       this.formVisible = true
       this.isAdd = true
-
     },
     save() {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
-
-          let menuData  = self.form
+          const menuData = self.form
           menuData.parent = null
           save(menuData).then(response => {
-
             this.$message({
               message: '提交成功',
               type: 'success'
@@ -107,18 +103,21 @@ export default {
       })
     },
     edit(row) {
+      console.log(this.form)
       this.form = row
-      if (row.isMenuName == '是') {
+      console.log(row)
+      console.log(this.selRow)
+      if (row.isMenuName === '是') {
         this.form.ismenu = 1
       } else {
         this.form.ismenu = 0
       }
-      if (row.statusName == '启用') {
+      if (row.statusName === '启用') {
         this.form.status = 1
-      }else{
+      } else {
         this.form.status = 0
       }
-      if(row.parent){
+      if (row.parent) {
         this.form.pcode = row.parent.code
         this.form.pname = row.parent.name
       }
@@ -142,8 +141,6 @@ export default {
           this.fetchData()
         })
       })
-
-
     }
   }
 }

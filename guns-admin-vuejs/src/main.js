@@ -12,7 +12,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-//import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 import i18n from './lang' // Internationalization
 
 import '@/icons' // icon

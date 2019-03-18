@@ -2,18 +2,105 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50722
+Source Server Version : 50725
 Source Host           : localhost:3306
 Source Database       : guns-lite
 
 Target Server Type    : MYSQL
-Target Server Version : 50722
+Target Server Version : 50725
 File Encoding         : 65001
 
-Date: 2019-01-09 00:34:52
+Date: 2019-03-18 16:00:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `t_cms_article`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_cms_article`;
+CREATE TABLE `t_cms_article` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` bigint(20) DEFAULT NULL COMMENT '???',
+  `create_time` datetime DEFAULT NULL COMMENT '????/????',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '?????',
+  `modify_time` datetime DEFAULT NULL COMMENT '??????',
+  `author` varchar(255) DEFAULT NULL,
+  `content` text,
+  `title` varchar(255) DEFAULT NULL,
+  `id_channel` bigint(20) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='文章';
+
+-- ----------------------------
+-- Records of t_cms_article
+-- ----------------------------
+INSERT INTO `t_cms_article` VALUES ('1', '1', '2019-03-09 16:24:58', null, null, 'enilu', '<p>@wendal<br/>下面代码可以：</p>\r\n<pre class=\'prettyprint\'><code>String date = \"Jan 13, 2018 12:00:00 AM\";\r\nSimpleDateFormat sdf = new SimpleDateFormat(\"MMM dd, yyyy HH:mm:ss aa\", Locale.ENGLISH);\r\nSystem.out.println(sdf.parse(date));\r\n</code></pre><p>但是我用@JsonField不可以</p>\r\n<pre class=\'prettyprint\'><code>public class OfflineTimeType {\r\nprivate Integer flat;\r\n@JsonField(dataFormat = \"MMM dd, yyyy HH:mm:ss aa\")\r\nprivate Date time;\r\nsetter...;\r\ngetter...;\r\n} \r\n\r\nMap map = new HashMap();\r\nmap.put(\"time\",\"Jan 13, 2018 12:00:00 AM\");\r\nmap.put(\"flag\",1);\r\n//报异常Caused by: java.lang.RuntimeException: Unexpect date format \'Jan 13, 2018 12:00:00 AM\'\r\nOfflineTimeType offlineTimeType = Json.fromJson(OfflineTimeType.class,Json.toJson(map));\r\n\r\n</code></pre>\r\n\r\nProcess finish', '这是测试资讯，哈哈哈', '1', '1');
+INSERT INTO `t_cms_article` VALUES ('2', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '这是测试资讯，哈哈哈', '1', '2');
+INSERT INTO `t_cms_article` VALUES ('3', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '这是测试资讯，哈哈哈', '1', '1');
+INSERT INTO `t_cms_article` VALUES ('4', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '产品1', '2', '2');
+INSERT INTO `t_cms_article` VALUES ('5', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '产品2', '2', '1');
+INSERT INTO `t_cms_article` VALUES ('6', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '方案1', '3', '2');
+INSERT INTO `t_cms_article` VALUES ('7', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '方案2', '3', '1');
+INSERT INTO `t_cms_article` VALUES ('8', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '案例1', '4', '2');
+INSERT INTO `t_cms_article` VALUES ('9', '1', '2019-03-09 16:24:58', null, null, 'enilu', 'Process finish', '案例2', '4', '1');
+
+-- ----------------------------
+-- Table structure for `t_cms_banner`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_cms_banner`;
+CREATE TABLE `t_cms_banner` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` bigint(20) DEFAULT NULL COMMENT '???',
+  `create_time` datetime DEFAULT NULL COMMENT '????/????',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '?????',
+  `modify_time` datetime DEFAULT NULL COMMENT '??????',
+  `title` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `type` varchar(18) DEFAULT NULL,
+  `id_file` bigint(20) DEFAULT NULL COMMENT 'banner文件id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='banner';
+
+-- ----------------------------
+-- Records of t_cms_banner
+-- ----------------------------
+INSERT INTO `t_cms_banner` VALUES ('1', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'index', '1');
+INSERT INTO `t_cms_banner` VALUES ('2', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'index', '2');
+INSERT INTO `t_cms_banner` VALUES ('3', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'index', '1');
+INSERT INTO `t_cms_banner` VALUES ('4', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'product', '1');
+INSERT INTO `t_cms_banner` VALUES ('5', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'product', '1');
+INSERT INTO `t_cms_banner` VALUES ('6', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'product', '2');
+INSERT INTO `t_cms_banner` VALUES ('7', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'solutation', '2');
+INSERT INTO `t_cms_banner` VALUES ('8', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'solutation', '1');
+INSERT INTO `t_cms_banner` VALUES ('9', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'solutation', '1');
+INSERT INTO `t_cms_banner` VALUES ('10', '1', '2019-03-09 16:29:03', null, null, '不打开链接', 'javascript:', 'case', '2');
+INSERT INTO `t_cms_banner` VALUES ('11', '1', '2019-03-09 16:29:03', null, null, '打打开站内链接', '/contact', 'case', '1');
+INSERT INTO `t_cms_banner` VALUES ('12', '1', '2019-03-09 16:29:03', null, null, '打开外部链接', 'http://www.baidu.com', 'case', '1');
+
+-- ----------------------------
+-- Table structure for `t_cms_channel`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_cms_channel`;
+CREATE TABLE `t_cms_channel` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` bigint(20) DEFAULT NULL COMMENT '???',
+  `create_time` datetime DEFAULT NULL COMMENT '????/????',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '?????',
+  `modify_time` datetime DEFAULT NULL COMMENT '??????',
+  `name` varchar(255) DEFAULT NULL,
+  `code` varchar(36) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='栏目';
+
+-- ----------------------------
+-- Records of t_cms_channel
+-- ----------------------------
+INSERT INTO `t_cms_channel` VALUES ('1', null, null, '1', '2019-03-13 22:52:46', '动态资讯', 'news');
+INSERT INTO `t_cms_channel` VALUES ('2', null, null, '1', '2019-03-13 22:53:11', '产品服务', 'product');
+INSERT INTO `t_cms_channel` VALUES ('3', null, null, '1', '2019-03-13 22:53:37', '解决方案', 'solution');
+INSERT INTO `t_cms_channel` VALUES ('4', null, null, '1', '2019-03-13 22:53:41', '精选案例', 'case');
 
 -- ----------------------------
 -- Table structure for `t_sys_cfg`
@@ -29,12 +116,13 @@ CREATE TABLE `t_sys_cfg` (
   `modify_time` datetime DEFAULT NULL,
   `modify_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统参数';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统参数';
 
 -- ----------------------------
 -- Records of t_sys_cfg
 -- ----------------------------
-INSERT INTO `t_sys_cfg` VALUES ('1', 'app_name', 'guns-lite', '系统名称', null, null, '2019-01-08 23:23:46', '1');
+INSERT INTO `t_sys_cfg` VALUES ('1', 'system.app.name', 'guns-lite', '系统名称', null, null, '2019-03-13 23:04:06', '1');
+INSERT INTO `t_sys_cfg` VALUES ('2', 'system.file.upload.path', 'D:\\data\\guns-lite\\runtime\\upload', '系统默认上传文件路径', '2019-03-13 23:01:15', '1', '2019-03-13 23:04:15', '1');
 
 -- ----------------------------
 -- Table structure for `t_sys_dept`
@@ -79,7 +167,7 @@ CREATE TABLE `t_sys_dict` (
   `modify_time` datetime DEFAULT NULL,
   `modify_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COMMENT='字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COMMENT='字典表';
 
 -- ----------------------------
 -- Records of t_sys_dict
@@ -97,9 +185,30 @@ INSERT INTO `t_sys_dict` VALUES ('38', '3', '35', '已删除', null, null, null,
 INSERT INTO `t_sys_dict` VALUES ('53', '0', '0', '证件类型', null, null, null, null, null);
 INSERT INTO `t_sys_dict` VALUES ('54', '1', '53', '身份证', null, null, null, null, null);
 INSERT INTO `t_sys_dict` VALUES ('55', '2', '53', '护照', null, null, null, null, null);
-INSERT INTO `t_sys_dict` VALUES ('62', '0', '0', '是否', null, null, null, null, null);
-INSERT INTO `t_sys_dict` VALUES ('63', '1', '62', '是', null, null, null, null, null);
-INSERT INTO `t_sys_dict` VALUES ('64', '0', '62', '否', null, null, null, null, null);
+INSERT INTO `t_sys_dict` VALUES ('68', '0', '0', '是否', null, '2019-01-13 14:18:21', '1', '2019-01-13 14:18:21', '1');
+INSERT INTO `t_sys_dict` VALUES ('69', '1', '68', '是', null, '2019-01-13 14:18:21', '1', '2019-01-13 14:18:21', '1');
+INSERT INTO `t_sys_dict` VALUES ('70', '0', '68', '否', null, '2019-01-13 14:18:21', '1', '2019-01-13 14:18:21', '1');
+
+-- ----------------------------
+-- Table structure for `t_sys_file_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sys_file_info`;
+CREATE TABLE `t_sys_file_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `create_by` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间/注册时间',
+  `modify_by` bigint(20) DEFAULT NULL COMMENT '最后更新人',
+  `modify_time` datetime DEFAULT NULL COMMENT '最后更新时间',
+  `original_file_name` varchar(255) DEFAULT NULL,
+  `real_file_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文件信息';
+
+-- ----------------------------
+-- Records of t_sys_file_info
+-- ----------------------------
+INSERT INTO `t_sys_file_info` VALUES ('1', '1', '2019-03-18 10:34:34', '1', '2019-03-18 10:34:34', 'banner1.png', '7e9ebc08-b194-4f85-8997-d97ccb0d2c2d.png');
+INSERT INTO `t_sys_file_info` VALUES ('2', '1', '2019-03-18 10:54:04', '1', '2019-03-18 10:54:04', 'banner2.png', '756b9ca8-562f-4bf5-a577-190dcdd25c29.png');
 
 -- ----------------------------
 -- Table structure for `t_sys_login_log`
@@ -143,7 +252,7 @@ CREATE TABLE `t_sys_menu` (
   `modify_time` datetime DEFAULT NULL,
   `modify_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of t_sys_menu
@@ -205,6 +314,101 @@ INSERT INTO `t_sys_menu` VALUES ('202', 'task', 'system', '[0],[system],', '任�
 INSERT INTO `t_sys_menu` VALUES ('203', 'task_add', 'task', '[0],[system],[task],', '添加任务', '', '/task/add', '1', '3', '0', '', '1', null, null, null, null, null);
 INSERT INTO `t_sys_menu` VALUES ('204', 'task_update', 'task', '[0],[system],[task],', '修改任务', '', '/task/update', '2', '3', '0', '', '1', null, null, null, null, null);
 INSERT INTO `t_sys_menu` VALUES ('205', 'task_delete', 'task', '[0],[system],[task],', '删除任务', '', '/task/delete', '3', '3', '0', '', '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu` VALUES ('206', 'cms', '0', '[0],', 'CMS管理', '', '#', '5', '1', '1', null, '1', null, null, null, '2019-03-11 22:25:38', '1');
+INSERT INTO `t_sys_menu` VALUES ('207', 'channel', 'cms', '[0],[cms],', '栏目管理', null, '/channel', '1', '2', '1', null, '1', null, '2019-03-11 22:29:55', '1', '2019-03-11 22:29:55', '1');
+INSERT INTO `t_sys_menu` VALUES ('208', 'article', 'cms', '[0],[cms],', '文章管理', null, '/article', '2', '2', '1', null, '1', null, '2019-03-11 22:30:18', '1', '2019-03-11 22:30:18', '1');
+INSERT INTO `t_sys_menu` VALUES ('209', 'banner', 'cms', '[0],[cms],', 'banner管理', null, '/banner', '3', '2', '1', null, '1', null, '2019-03-11 22:30:52', '1', '2019-03-11 22:30:52', '1');
+
+-- ----------------------------
+-- Table structure for `t_sys_menu_admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sys_menu_admin`;
+CREATE TABLE `t_sys_menu_admin` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `code` varchar(255) DEFAULT NULL COMMENT '菜单编号',
+  `pcode` varchar(255) DEFAULT NULL COMMENT '菜单父编号',
+  `pcodes` varchar(255) DEFAULT NULL COMMENT '当前菜单的所有父菜单编号',
+  `name` varchar(255) DEFAULT NULL COMMENT '菜单名称',
+  `icon` varchar(255) DEFAULT NULL COMMENT '菜单图标',
+  `url` varchar(255) DEFAULT NULL COMMENT 'url地址',
+  `num` int(65) DEFAULT NULL COMMENT '菜单排序号',
+  `levels` int(65) DEFAULT NULL COMMENT '菜单层级',
+  `ismenu` int(11) DEFAULT NULL COMMENT '是否是菜单（1：是  0：不是）',
+  `tips` varchar(255) DEFAULT NULL COMMENT '备注',
+  `status` int(65) DEFAULT NULL COMMENT '菜单状态 :  1:启用   0:不启用',
+  `isopen` int(11) DEFAULT NULL COMMENT '是否打开:    1:打开   0:不打开',
+  `create_time` datetime DEFAULT NULL,
+  `create_by` bigint(20) DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  `modify_by` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
+-- ----------------------------
+-- Records of t_sys_menu_admin
+-- ----------------------------
+INSERT INTO `t_sys_menu_admin` VALUES ('105', 'system', '0', '[0],', '系统管理', 'fa-cog', '#', '4', '1', '1', null, '1', '1', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('106', 'mgr', 'system', '[0],[system],', '用户管理', '', '/mgr', '1', '2', '1', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('107', 'mgr_add', 'mgr', '[0],[system],[mgr],', '添加用户', '', '/mgr/add', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('108', 'mgr_edit', 'mgr', '[0],[system],[mgr],', '修改用户', '', '/mgr/edit', '2', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('109', 'mgr_delete', 'mgr', '[0],[system],[mgr],', '删除用户', null, '/mgr/delete', '3', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('110', 'mgr_reset', 'mgr', '[0],[system],[mgr],', '重置密码', null, '/mgr/reset', '4', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('111', 'mgr_freeze', 'mgr', '[0],[system],[mgr],', '冻结用户', null, '/mgr/freeze', '5', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('112', 'mgr_unfreeze', 'mgr', '[0],[system],[mgr],', '解除冻结用户', null, '/mgr/unfreeze', '6', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('113', 'mgr_setRole', 'mgr', '[0],[system],[mgr],', '分配角色', null, '/mgr/setRole', '7', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('114', 'role', 'system', '[0],[system],', '角色管理', null, '/role', '2', '2', '1', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('115', 'role_add', 'role', '[0],[system],[role],', '添加角色', null, '/role/add', '1', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('116', 'role_edit', 'role', '[0],[system],[role],', '修改角色', null, '/role/edit', '2', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('117', 'role_remove', 'role', '[0],[system],[role],', '删除角色', null, '/role/remove', '3', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('118', 'role_setAuthority', 'role', '[0],[system],[role],', '配置权限', null, '/role/setAuthority', '4', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('119', 'menu', 'system', '[0],[system],', '菜单管理', null, '/menu', '4', '2', '1', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('120', 'menu_add', 'menu', '[0],[system],[menu],', '添加菜单', null, '/menu/add', '1', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('121', 'menu_edit', 'menu', '[0],[system],[menu],', '修改菜单', null, '/menu/edit', '2', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('122', 'menu_remove', 'menu', '[0],[system],[menu],', '删除菜单', null, '/menu/remove', '3', '3', '0', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('128', 'log', 'system', '[0],[system],', '业务日志', null, '/log', '6', '2', '1', null, '1', '0', null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('130', 'druid', 'system', '[0],[system],', '监控管理', null, '/druid', '7', '2', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('131', 'dept', 'system', '[0],[system],', '部门管理', null, '/dept', '3', '2', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('132', 'dict', 'system', '[0],[system],', '字典管理', null, '/dict', '4', '2', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('133', 'loginLog', 'system', '[0],[system],', '登录日志', null, '/loginLog', '6', '2', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('134', 'log_clean', 'log', '[0],[system],[log],', '清空日志', null, '/log/delLog', '3', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('135', 'dept_add', 'dept', '[0],[system],[dept],', '添加部门', null, '/dept/add', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('136', 'dept_update', 'dept', '[0],[system],[dept],', '修改部门', null, '/dept/update', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('137', 'dept_delete', 'dept', '[0],[system],[dept],', '删除部门', null, '/dept/delete', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('138', 'dict_add', 'dict', '[0],[system],[dict],', '添加字典', null, '/dict/add', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('139', 'dict_update', 'dict', '[0],[system],[dict],', '修改字典', null, '/dict/update', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('140', 'dict_delete', 'dict', '[0],[system],[dict],', '删除字典', null, '/dict/delete', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('141', 'notice', 'system', '[0],[system],', '通知管理', null, '/notice', '9', '2', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('142', 'notice_add', 'notice', '[0],[system],[notice],', '添加通知', null, '/notice/add', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('143', 'notice_update', 'notice', '[0],[system],[notice],', '修改通知', null, '/notice/update', '2', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('144', 'notice_delete', 'notice', '[0],[system],[notice],', '删除通知', null, '/notice/delete', '3', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('145', 'notice', '0', '[0],', '通知', 'fa-rocket', '/notice/hello', '1', '1', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('148', 'code', '0', '[0],', '代码生成', 'fa-code', '/code', '3', '1', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('149', 'api_mgr', '0', '[0],', '接口文档', 'fa-leaf', '/swagger-ui.html', '2', '1', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('150', 'to_menu_edit', 'menu', '[0],[system],[menu],', '菜单编辑跳转', '', '/menu/menu_edit', '4', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('151', 'menu_list', 'menu', '[0],[system],[menu],', '菜单列表', '', '/menu/list', '5', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('152', 'to_dept_update', 'dept', '[0],[system],[dept],', '修改部门跳转', '', '/dept/dept_update', '4', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('153', 'dept_list', 'dept', '[0],[system],[dept],', '部门列表', '', '/dept/list', '5', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('154', 'dept_detail', 'dept', '[0],[system],[dept],', '部门详情', '', '/dept/detail', '6', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('155', 'to_dict_edit', 'dict', '[0],[system],[dict],', '修改菜单跳转', '', '/dict/dict_edit', '4', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('156', 'dict_list', 'dict', '[0],[system],[dict],', '字典列表', '', '/dict/list', '5', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('157', 'dict_detail', 'dict', '[0],[system],[dict],', '字典详情', '', '/dict/detail', '6', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('159', 'log_detail', 'log', '[0],[system],[log],', '日志详情', '', '/log/detail', '3', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('160', 'del_login_log', 'loginLog', '[0],[system],[loginLog],', '清空登录日志', '', '/loginLog/delLoginLog', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('161', 'login_log_list', 'loginLog', '[0],[system],[loginLog],', '登录日志列表', '', '/loginLog/list', '2', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('162', 'to_role_edit', 'role', '[0],[system],[role],', '修改角色跳转', '', '/role/role_edit', '5', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('163', 'to_role_assign', 'role', '[0],[system],[role],', '角色分配跳转', '', '/role/role_assign', '6', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('164', 'role_list', 'role', '[0],[system],[role],', '角色列表', '', '/role/list', '7', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('165', 'to_assign_role', 'mgr', '[0],[system],[mgr],', '分配角色跳转', '', '/mgr/role_assign', '8', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('166', 'to_user_edit', 'mgr', '[0],[system],[mgr],', '编辑用户跳转', '', '/mgr/user_edit', '9', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('167', 'mgr_list', 'mgr', '[0],[system],[mgr],', '用户列表', '', '/mgr/list', '10', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('198', 'cfg', 'system', '[0],[system],', '参数管理', '', '/cfg', '10', '2', '1', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('199', 'cfg_add', 'cfg', '[0],[system],[cfg],', '添加系统参数', '', '/cfg/add', '1', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('200', 'cfg_update', 'cfg', '[0],[system],[cfg],', '修改系统参数', '', '/cfg/update', '2', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('201', 'cfg_delete', 'cfg', '[0],[system],[cfg],', '删除系统参数', '', '/cfg/delete', '3', '3', '0', null, '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('202', 'task', 'system', '[0],[system],', '任务管理', '', '/task', '11', '2', '1', '', '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('203', 'task_add', 'task', '[0],[system],[task],', '添加任务', '', '/task/add', '1', '3', '0', '', '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('204', 'task_update', 'task', '[0],[system],[task],', '修改任务', '', '/task/update', '2', '3', '0', '', '1', null, null, null, null, null);
+INSERT INTO `t_sys_menu_admin` VALUES ('205', 'task_delete', 'task', '[0],[system],[task],', '删除任务', '', '/task/delete', '3', '3', '0', '', '1', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `t_sys_notice`
@@ -242,21 +446,11 @@ CREATE TABLE `t_sys_operation_log` (
   `succeed` varchar(255) DEFAULT NULL COMMENT '是否成功',
   `message` text COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='操作日志';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志';
 
 -- ----------------------------
 -- Records of t_sys_operation_log
 -- ----------------------------
-INSERT INTO `t_sys_operation_log` VALUES ('1', '业务日志', '清空登录日志', '1', 'cn.enilu.guns.admin.modular.system.controller.LoginLogController', 'delLog', '2018-11-27 23:49:15', '成功', '主键id=null');
-INSERT INTO `t_sys_operation_log` VALUES ('2', '业务日志', '修改管理员', '1', 'cn.enilu.guns.admin.modular.system.controller.UserMgrController', 'edit', '2018-11-27 23:49:49', '成功', '账号=boss;;;');
-INSERT INTO `t_sys_operation_log` VALUES ('3', '业务日志', '删除管理员', '1', 'cn.enilu.guns.api.controller.system.UserController', 'remove', '2018-11-28 00:01:33', '成功', '账号=test4');
-INSERT INTO `t_sys_operation_log` VALUES ('4', '业务日志', '修改管理员', '1', 'cn.enilu.guns.admin.modular.system.controller.UserMgrController', 'edit', '2018-11-28 00:03:22', '成功', '账号=test2;;;');
-INSERT INTO `t_sys_operation_log` VALUES ('5', '业务日志', '编辑管理员', '1', 'cn.enilu.guns.api.controller.system.UserController', 'save', '2018-11-28 00:08:26', '成功', '名字=测试3;;;');
-INSERT INTO `t_sys_operation_log` VALUES ('6', '业务日志', '编辑管理员', '1', 'cn.enilu.guns.api.controller.system.UserController', 'save', '2018-11-28 00:10:37', '成功', '名字=测试3;;;');
-INSERT INTO `t_sys_operation_log` VALUES ('7', '业务日志', '编辑管理员', '1', 'cn.enilu.guns.api.controller.system.UserController', 'save', '2018-11-28 00:11:30', '成功', '名字=测试3;;;');
-INSERT INTO `t_sys_operation_log` VALUES ('8', '业务日志', '编辑管理员', '1', 'cn.enilu.guns.api.controller.system.UserController', 'save', '2018-11-28 00:12:45', '成功', '名字=测试5;;;');
-INSERT INTO `t_sys_operation_log` VALUES ('9', '业务日志', '编辑角色', '1', 'cn.enilu.guns.api.controller.system.RoleController', 'save', '2018-11-28 11:33:18', '成功', '角色名称=测试;;;');
-INSERT INTO `t_sys_operation_log` VALUES ('10', '业务日志', '编辑角色', '1', 'cn.enilu.guns.api.controller.system.RoleController', 'save', '2018-11-28 11:33:57', '成功', '角色名称=测试;;;');
 
 -- ----------------------------
 -- Table structure for `t_sys_relation`
@@ -267,84 +461,128 @@ CREATE TABLE `t_sys_relation` (
   `menuid` bigint(11) DEFAULT NULL COMMENT '菜单id',
   `roleid` int(11) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=397 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
 
 -- ----------------------------
 -- Records of t_sys_relation
 -- ----------------------------
-INSERT INTO `t_sys_relation` VALUES ('208', '145', '2');
 INSERT INTO `t_sys_relation` VALUES ('209', '148', '2');
-INSERT INTO `t_sys_relation` VALUES ('210', '149', '2');
-INSERT INTO `t_sys_relation` VALUES ('211', '105', '1');
-INSERT INTO `t_sys_relation` VALUES ('212', '106', '1');
-INSERT INTO `t_sys_relation` VALUES ('213', '107', '1');
-INSERT INTO `t_sys_relation` VALUES ('214', '108', '1');
-INSERT INTO `t_sys_relation` VALUES ('215', '109', '1');
-INSERT INTO `t_sys_relation` VALUES ('216', '110', '1');
-INSERT INTO `t_sys_relation` VALUES ('217', '111', '1');
-INSERT INTO `t_sys_relation` VALUES ('218', '112', '1');
-INSERT INTO `t_sys_relation` VALUES ('219', '113', '1');
-INSERT INTO `t_sys_relation` VALUES ('220', '165', '1');
-INSERT INTO `t_sys_relation` VALUES ('221', '166', '1');
-INSERT INTO `t_sys_relation` VALUES ('222', '167', '1');
-INSERT INTO `t_sys_relation` VALUES ('223', '114', '1');
-INSERT INTO `t_sys_relation` VALUES ('224', '115', '1');
-INSERT INTO `t_sys_relation` VALUES ('225', '116', '1');
-INSERT INTO `t_sys_relation` VALUES ('226', '117', '1');
-INSERT INTO `t_sys_relation` VALUES ('227', '118', '1');
-INSERT INTO `t_sys_relation` VALUES ('228', '162', '1');
-INSERT INTO `t_sys_relation` VALUES ('229', '163', '1');
-INSERT INTO `t_sys_relation` VALUES ('230', '164', '1');
-INSERT INTO `t_sys_relation` VALUES ('231', '119', '1');
-INSERT INTO `t_sys_relation` VALUES ('232', '120', '1');
-INSERT INTO `t_sys_relation` VALUES ('233', '121', '1');
-INSERT INTO `t_sys_relation` VALUES ('234', '122', '1');
-INSERT INTO `t_sys_relation` VALUES ('235', '150', '1');
-INSERT INTO `t_sys_relation` VALUES ('236', '151', '1');
-INSERT INTO `t_sys_relation` VALUES ('237', '128', '1');
-INSERT INTO `t_sys_relation` VALUES ('238', '134', '1');
-INSERT INTO `t_sys_relation` VALUES ('239', '159', '1');
-INSERT INTO `t_sys_relation` VALUES ('240', '130', '1');
-INSERT INTO `t_sys_relation` VALUES ('241', '131', '1');
-INSERT INTO `t_sys_relation` VALUES ('242', '135', '1');
-INSERT INTO `t_sys_relation` VALUES ('243', '136', '1');
-INSERT INTO `t_sys_relation` VALUES ('244', '137', '1');
-INSERT INTO `t_sys_relation` VALUES ('245', '152', '1');
-INSERT INTO `t_sys_relation` VALUES ('246', '153', '1');
-INSERT INTO `t_sys_relation` VALUES ('247', '154', '1');
-INSERT INTO `t_sys_relation` VALUES ('248', '132', '1');
-INSERT INTO `t_sys_relation` VALUES ('249', '138', '1');
-INSERT INTO `t_sys_relation` VALUES ('250', '139', '1');
-INSERT INTO `t_sys_relation` VALUES ('251', '140', '1');
-INSERT INTO `t_sys_relation` VALUES ('252', '155', '1');
-INSERT INTO `t_sys_relation` VALUES ('253', '156', '1');
-INSERT INTO `t_sys_relation` VALUES ('254', '157', '1');
-INSERT INTO `t_sys_relation` VALUES ('255', '133', '1');
-INSERT INTO `t_sys_relation` VALUES ('256', '160', '1');
-INSERT INTO `t_sys_relation` VALUES ('257', '161', '1');
-INSERT INTO `t_sys_relation` VALUES ('258', '141', '1');
-INSERT INTO `t_sys_relation` VALUES ('259', '142', '1');
-INSERT INTO `t_sys_relation` VALUES ('260', '143', '1');
-INSERT INTO `t_sys_relation` VALUES ('261', '144', '1');
-INSERT INTO `t_sys_relation` VALUES ('262', '198', '1');
-INSERT INTO `t_sys_relation` VALUES ('263', '199', '1');
-INSERT INTO `t_sys_relation` VALUES ('264', '200', '1');
-INSERT INTO `t_sys_relation` VALUES ('265', '201', '1');
-INSERT INTO `t_sys_relation` VALUES ('266', '202', '1');
-INSERT INTO `t_sys_relation` VALUES ('267', '203', '1');
-INSERT INTO `t_sys_relation` VALUES ('268', '204', '1');
-INSERT INTO `t_sys_relation` VALUES ('269', '205', '1');
-INSERT INTO `t_sys_relation` VALUES ('270', '145', '1');
-INSERT INTO `t_sys_relation` VALUES ('271', '142', '1');
-INSERT INTO `t_sys_relation` VALUES ('272', '143', '1');
-INSERT INTO `t_sys_relation` VALUES ('273', '144', '1');
-INSERT INTO `t_sys_relation` VALUES ('274', '148', '1');
-INSERT INTO `t_sys_relation` VALUES ('275', '149', '1');
-INSERT INTO `t_sys_relation` VALUES ('276', '105', '3');
-INSERT INTO `t_sys_relation` VALUES ('277', '202', '3');
-INSERT INTO `t_sys_relation` VALUES ('278', '203', '3');
-INSERT INTO `t_sys_relation` VALUES ('279', '204', '3');
-INSERT INTO `t_sys_relation` VALUES ('280', '205', '3');
+INSERT INTO `t_sys_relation` VALUES ('281', '105', '3');
+INSERT INTO `t_sys_relation` VALUES ('282', '106', '3');
+INSERT INTO `t_sys_relation` VALUES ('283', '107', '3');
+INSERT INTO `t_sys_relation` VALUES ('284', '108', '3');
+INSERT INTO `t_sys_relation` VALUES ('285', '109', '3');
+INSERT INTO `t_sys_relation` VALUES ('286', '110', '3');
+INSERT INTO `t_sys_relation` VALUES ('287', '111', '3');
+INSERT INTO `t_sys_relation` VALUES ('288', '112', '3');
+INSERT INTO `t_sys_relation` VALUES ('289', '113', '3');
+INSERT INTO `t_sys_relation` VALUES ('290', '165', '3');
+INSERT INTO `t_sys_relation` VALUES ('291', '166', '3');
+INSERT INTO `t_sys_relation` VALUES ('292', '167', '3');
+INSERT INTO `t_sys_relation` VALUES ('293', '114', '3');
+INSERT INTO `t_sys_relation` VALUES ('294', '115', '3');
+INSERT INTO `t_sys_relation` VALUES ('295', '116', '3');
+INSERT INTO `t_sys_relation` VALUES ('296', '117', '3');
+INSERT INTO `t_sys_relation` VALUES ('297', '118', '3');
+INSERT INTO `t_sys_relation` VALUES ('298', '162', '3');
+INSERT INTO `t_sys_relation` VALUES ('299', '163', '3');
+INSERT INTO `t_sys_relation` VALUES ('300', '164', '3');
+INSERT INTO `t_sys_relation` VALUES ('301', '119', '3');
+INSERT INTO `t_sys_relation` VALUES ('302', '120', '3');
+INSERT INTO `t_sys_relation` VALUES ('303', '121', '3');
+INSERT INTO `t_sys_relation` VALUES ('304', '122', '3');
+INSERT INTO `t_sys_relation` VALUES ('305', '150', '3');
+INSERT INTO `t_sys_relation` VALUES ('306', '151', '3');
+INSERT INTO `t_sys_relation` VALUES ('307', '128', '3');
+INSERT INTO `t_sys_relation` VALUES ('308', '134', '3');
+INSERT INTO `t_sys_relation` VALUES ('309', '159', '3');
+INSERT INTO `t_sys_relation` VALUES ('310', '131', '3');
+INSERT INTO `t_sys_relation` VALUES ('311', '135', '3');
+INSERT INTO `t_sys_relation` VALUES ('312', '136', '3');
+INSERT INTO `t_sys_relation` VALUES ('313', '137', '3');
+INSERT INTO `t_sys_relation` VALUES ('314', '152', '3');
+INSERT INTO `t_sys_relation` VALUES ('315', '153', '3');
+INSERT INTO `t_sys_relation` VALUES ('316', '154', '3');
+INSERT INTO `t_sys_relation` VALUES ('317', '132', '3');
+INSERT INTO `t_sys_relation` VALUES ('318', '138', '3');
+INSERT INTO `t_sys_relation` VALUES ('319', '139', '3');
+INSERT INTO `t_sys_relation` VALUES ('320', '140', '3');
+INSERT INTO `t_sys_relation` VALUES ('321', '155', '3');
+INSERT INTO `t_sys_relation` VALUES ('322', '156', '3');
+INSERT INTO `t_sys_relation` VALUES ('323', '157', '3');
+INSERT INTO `t_sys_relation` VALUES ('324', '133', '3');
+INSERT INTO `t_sys_relation` VALUES ('325', '160', '3');
+INSERT INTO `t_sys_relation` VALUES ('326', '161', '3');
+INSERT INTO `t_sys_relation` VALUES ('327', '198', '3');
+INSERT INTO `t_sys_relation` VALUES ('328', '199', '3');
+INSERT INTO `t_sys_relation` VALUES ('329', '200', '3');
+INSERT INTO `t_sys_relation` VALUES ('330', '201', '3');
+INSERT INTO `t_sys_relation` VALUES ('331', '202', '3');
+INSERT INTO `t_sys_relation` VALUES ('332', '203', '3');
+INSERT INTO `t_sys_relation` VALUES ('333', '204', '3');
+INSERT INTO `t_sys_relation` VALUES ('334', '205', '3');
+INSERT INTO `t_sys_relation` VALUES ('335', '143', '3');
+INSERT INTO `t_sys_relation` VALUES ('336', '105', '1');
+INSERT INTO `t_sys_relation` VALUES ('337', '106', '1');
+INSERT INTO `t_sys_relation` VALUES ('338', '107', '1');
+INSERT INTO `t_sys_relation` VALUES ('339', '108', '1');
+INSERT INTO `t_sys_relation` VALUES ('340', '109', '1');
+INSERT INTO `t_sys_relation` VALUES ('341', '110', '1');
+INSERT INTO `t_sys_relation` VALUES ('342', '111', '1');
+INSERT INTO `t_sys_relation` VALUES ('343', '112', '1');
+INSERT INTO `t_sys_relation` VALUES ('344', '113', '1');
+INSERT INTO `t_sys_relation` VALUES ('345', '165', '1');
+INSERT INTO `t_sys_relation` VALUES ('346', '166', '1');
+INSERT INTO `t_sys_relation` VALUES ('347', '167', '1');
+INSERT INTO `t_sys_relation` VALUES ('348', '114', '1');
+INSERT INTO `t_sys_relation` VALUES ('349', '115', '1');
+INSERT INTO `t_sys_relation` VALUES ('350', '116', '1');
+INSERT INTO `t_sys_relation` VALUES ('351', '117', '1');
+INSERT INTO `t_sys_relation` VALUES ('352', '118', '1');
+INSERT INTO `t_sys_relation` VALUES ('353', '162', '1');
+INSERT INTO `t_sys_relation` VALUES ('354', '163', '1');
+INSERT INTO `t_sys_relation` VALUES ('355', '164', '1');
+INSERT INTO `t_sys_relation` VALUES ('356', '119', '1');
+INSERT INTO `t_sys_relation` VALUES ('357', '120', '1');
+INSERT INTO `t_sys_relation` VALUES ('358', '121', '1');
+INSERT INTO `t_sys_relation` VALUES ('359', '122', '1');
+INSERT INTO `t_sys_relation` VALUES ('360', '150', '1');
+INSERT INTO `t_sys_relation` VALUES ('361', '151', '1');
+INSERT INTO `t_sys_relation` VALUES ('362', '128', '1');
+INSERT INTO `t_sys_relation` VALUES ('363', '134', '1');
+INSERT INTO `t_sys_relation` VALUES ('364', '159', '1');
+INSERT INTO `t_sys_relation` VALUES ('365', '131', '1');
+INSERT INTO `t_sys_relation` VALUES ('366', '135', '1');
+INSERT INTO `t_sys_relation` VALUES ('367', '136', '1');
+INSERT INTO `t_sys_relation` VALUES ('368', '137', '1');
+INSERT INTO `t_sys_relation` VALUES ('369', '152', '1');
+INSERT INTO `t_sys_relation` VALUES ('370', '153', '1');
+INSERT INTO `t_sys_relation` VALUES ('371', '154', '1');
+INSERT INTO `t_sys_relation` VALUES ('372', '132', '1');
+INSERT INTO `t_sys_relation` VALUES ('373', '138', '1');
+INSERT INTO `t_sys_relation` VALUES ('374', '139', '1');
+INSERT INTO `t_sys_relation` VALUES ('375', '140', '1');
+INSERT INTO `t_sys_relation` VALUES ('376', '155', '1');
+INSERT INTO `t_sys_relation` VALUES ('377', '156', '1');
+INSERT INTO `t_sys_relation` VALUES ('378', '157', '1');
+INSERT INTO `t_sys_relation` VALUES ('379', '133', '1');
+INSERT INTO `t_sys_relation` VALUES ('380', '160', '1');
+INSERT INTO `t_sys_relation` VALUES ('381', '161', '1');
+INSERT INTO `t_sys_relation` VALUES ('382', '198', '1');
+INSERT INTO `t_sys_relation` VALUES ('383', '199', '1');
+INSERT INTO `t_sys_relation` VALUES ('384', '200', '1');
+INSERT INTO `t_sys_relation` VALUES ('385', '201', '1');
+INSERT INTO `t_sys_relation` VALUES ('386', '202', '1');
+INSERT INTO `t_sys_relation` VALUES ('387', '203', '1');
+INSERT INTO `t_sys_relation` VALUES ('388', '204', '1');
+INSERT INTO `t_sys_relation` VALUES ('389', '205', '1');
+INSERT INTO `t_sys_relation` VALUES ('390', '143', '1');
+INSERT INTO `t_sys_relation` VALUES ('391', '144', '1');
+INSERT INTO `t_sys_relation` VALUES ('392', '148', '1');
+INSERT INTO `t_sys_relation` VALUES ('393', '206', '1');
+INSERT INTO `t_sys_relation` VALUES ('394', '207', '1');
+INSERT INTO `t_sys_relation` VALUES ('395', '208', '1');
+INSERT INTO `t_sys_relation` VALUES ('396', '209', '1');
 
 -- ----------------------------
 -- Table structure for `t_sys_role`
@@ -393,12 +631,12 @@ CREATE TABLE `t_sys_task` (
   `modify_time` datetime DEFAULT NULL,
   `modify_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='定时任务';
 
 -- ----------------------------
 -- Records of t_sys_task
 -- ----------------------------
-INSERT INTO `t_sys_task` VALUES ('1', '测试job', 'default', 'cn.enilu.guns.service.task.job.HelloJob', '测试job\n            \n            \n            \n            \n            ', '0 7 11 * * ?', '{\n\"appname\": \"guns-lite\",\n\"version\":1\n}\n            \n            \n            \n            \n            ', '2019-01-02 11:06:00', '执行成功', '1', '2018-12-28 09:54:00', '1', '0', '2019-01-09 00:24:49', '1');
+INSERT INTO `t_sys_task` VALUES ('1', '测试任务', 'default', 'cn.enilu.guns.service.task.job.HelloJob', '测试job\n            \n            \n            \n            \n            \n            ', '0 7 11 * * ?', '{\n\"appname\": \"guns-lite\",\n\"version\":1\n}\n            \n            \n            \n            \n            \n            ', '2019-01-02 11:06:00', '执行成功', '0', '2018-12-28 09:54:00', '1', '0', '2019-03-13 16:20:14', '1');
 
 -- ----------------------------
 -- Table structure for `t_sys_task_log`
@@ -412,14 +650,11 @@ CREATE TABLE `t_sys_task_log` (
   `job_exception` varchar(255) DEFAULT NULL COMMENT '抛出异常',
   `id_task` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定时任务日志';
 
 -- ----------------------------
 -- Records of t_sys_task_log
 -- ----------------------------
-INSERT INTO `t_sys_task_log` VALUES ('1', '测试job', '2018-12-31 09:54:00', '1', null, '1');
-INSERT INTO `t_sys_task_log` VALUES ('2', '测试job', '2018-12-31 10:04:00', '1', null, '1');
-INSERT INTO `t_sys_task_log` VALUES ('3', '测试job', '2019-01-02 11:06:00', '1', null, '1');
 
 -- ----------------------------
 -- Table structure for `t_sys_user`
@@ -445,12 +680,12 @@ CREATE TABLE `t_sys_user` (
   `modify_time` datetime DEFAULT NULL,
   `modify_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COMMENT='管理员表';
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of t_sys_user
 -- ----------------------------
 INSERT INTO `t_sys_user` VALUES ('1', null, 'admin', '6ab1f386d715cfb6be85de941d438b02', '8pgby', '管理员', '2017-05-05 00:00:00', '2', 'eniluzt@qq.com', null, '1', '27', '1', '2016-01-29 08:49:53', '25', null, null, null);
-INSERT INTO `t_sys_user` VALUES ('45', null, 'boss', '71887a5ad666a18f709e1d4e693d5a35', '1f7bf', '老板', '2017-12-04 00:00:00', '1', '', '', '1,2', '24', '1', '2017-12-04 22:24:02', null, null, null, null);
+INSERT INTO `t_sys_user` VALUES ('45', null, 'boss', '71887a5ad666a18f709e1d4e693d5a35', '1f7bf', '老板', '2017-12-04 00:00:00', '1', '', '', '1,2,', '24', '1', '2017-12-04 22:24:02', null, null, '2019-01-09 23:06:09', '1');
 INSERT INTO `t_sys_user` VALUES ('46', null, 'manager', 'b53cac62e7175637d4beb3b16b2f7915', 'j3cs9', '经理', '2017-12-04 00:00:00', '1', '', '', '1', '24', '1', '2017-12-04 22:24:24', null, null, null, null);
-INSERT INTO `t_sys_user` VALUES ('47', null, 'developer', '4552805b07a4bf92ce1cea0373aab868', 'vscp9', '开发人员', '2017-12-31 00:00:00', '1', 'eniluzt@qq.com', '', '2', '25', '1', '2018-09-13 17:21:02', null, null, null, null);
+INSERT INTO `t_sys_user` VALUES ('47', null, 'developer', '4552805b07a4bf92ce1cea0373aab868', 'vscp9', '开发人员', '2017-12-31 00:00:00', '1', 'eniluzt@qq.com', '', '2,', '25', '1', '2018-09-13 17:21:02', null, null, '2019-01-09 23:05:51', '1');

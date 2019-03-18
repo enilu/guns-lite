@@ -1,6 +1,5 @@
-
-import { deleteUser , getList , saveUser , remove , setRole }  from '@/api/system/user'
-import { list as deptList }  from '@/api/system/dept'
+import { deleteUser, getList, saveUser, remove, setRole } from '@/api/system/user'
+import { list as deptList } from '@/api/system/dept'
 import { parseTime } from '@/utils/index'
 import { roleTreeListByIdUser } from '@/api/system/role'
 // 权限判断指令
@@ -16,21 +15,21 @@ export default {
         roleTree: [],
         checkedRoleKeys: [],
         defaultProps: {
-          id: "id",
+          id: 'id',
           label: 'name',
           children: 'children'
         }
       },
       formVisible: false,
       formTitle: '添加用户',
-      deptTree:{
-        show:false,
-        data:[],
+      deptTree: {
+        show: false,
+        data: [],
         defaultProps: {
-          id: "id",
+          id: 'id',
           label: 'simplename',
           children: 'children'
-        },
+        }
       },
       isAdd: true,
       form: {
@@ -44,8 +43,8 @@ export default {
         rePassword: '',
         dept: '',
         status: true,
-        deptid:1,
-        deptName:''
+        deptid: 1,
+        deptName: ''
       },
       rules: {
         account: [
@@ -66,10 +65,10 @@ export default {
         account: undefined,
         name: undefined
       },
-      total:0,
+      total: 0,
       list: null,
       listLoading: true,
-      selRow:{}
+      selRow: {}
     }
   },
   filters: {
@@ -115,23 +114,23 @@ export default {
     handleClose() {
 
     },
-    fetchNext(){
+    fetchNext() {
       this.listQuery.page = this.listQuery.page + 1
-      this.fetchData();
+      this.fetchData()
     },
-    fetchPrev(){
+    fetchPrev() {
       this.listQuery.page = this.listQuery.page - 1
-      this.fetchData();
+      this.fetchData()
     },
-    fetchPage(page){
+    fetchPage(page) {
       this.listQuery.page = page
       this.fetchData()
     },
-    changeSize(limit){
-      this.listQuery.limit = limit;
-      this.fetchData();
+    changeSize(limit) {
+      this.listQuery.limit = limit
+      this.fetchData()
     },
-    handleCurrentChange(currentRow,oldCurrentRow){
+    handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
     },
     resetForm() {
@@ -146,7 +145,7 @@ export default {
         rePassword: '',
         dept: '',
         status: true,
-        deptid:1
+        deptid: 1
       }
     },
     add() {
@@ -156,13 +155,13 @@ export default {
       this.isAdd = true
     },
     validPasswd() {
-      if(!this.isAdd){
+      if (!this.isAdd) {
         return true
       }
-      if(this.form.password != this.form.rePassword){
+      if (this.form.password !== this.form.rePassword) {
         return false
       }
-      if(this.form.password == '' || this.form.rePassword == ''){
+      if (this.form.password === '' || this.form.rePassword === '') {
         return false
       }
       return true
@@ -171,68 +170,60 @@ export default {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
-
-          if(this.validPasswd()){
-            console.log(this.form)
-            var form  =self.form
-            if(form.status==true){
+          if (this.validPasswd()) {
+            var form = self.form
+            if (form.status === true) {
               //启用
               form.status = 1
-            }else{
+            } else {
               //冻结
               form.status = 2
             }
-            form.birthday = parseTime(form.birthday,'{y}-{m}-{d}')
+            form.birthday = parseTime(form.birthday, '{y}-{m}-{d}')
             form.createtime = parseTime(form.createtime)
             saveUser(form).then(response => {
-              console.log(response)
               this.$message({
                 message: '提交成功',
                 type: 'success'
               })
               this.fetchData()
               this.formVisible = false
-
             })
-
-          }else{
+          } else {
             this.$message({
               message: '提交失败',
               type: 'error'
-            });
+            })
           }
-
         } else {
           console.log('error submit!!')
           return false
         }
       })
-
-
     },
-    checkSel(){
-      if(this.selRow && this.selRow.id){
+    checkSel() {
+      if (this.selRow && this.selRow.id) {
         return true
       }
       this.$message({
         message: '请选中操作项',
         type: 'warning'
-      });
+      })
       return false
     },
-    edit(){
-      if(this.checkSel()){
+    edit() {
+      if (this.checkSel()) {
         this.isAdd = false
 
         this.form = this.selRow
-        this.form.status = this.selRow.statusName == '启用'
+        this.form.status = this.selRow.statusName === '启用'
         this.form.password = ''
         this.formTitle = '修改用户'
         this.formVisible = true
       }
     },
-    remove(){
-      if(this.checkSel()){
+    remove() {
+      if (this.checkSel()) {
         var id = this.selRow.id
 
         this.$confirm('确定删除该记录?', '提示', {
@@ -245,43 +236,37 @@ export default {
             this.$message({
               message: '删除成功',
               type: 'success'
-            });
+            })
             this.fetchData()
           })
-
         }).catch(() => {
-
-        });
-
+        })
       }
     },
     handleNodeClick(data, node) {
       this.form.deptid = data.id
       this.form.deptName = data.simplename
-      this.deptTree.show = false;
+      this.deptTree.show = false
     },
 
     openRole() {
-      if(this.checkSel()){
-        console.log(this.selRow)
+      if (this.checkSel()) {
         roleTreeListByIdUser(this.selRow.id).then(response => {
-          console.log(response.data)
           this.roleDialog.roles = response.data.treeData
           this.roleDialog.checkedRoleKeys = response.data.checkedIds
           this.roleDialog.visible = true
         })
-
       }
     },
     setRole() {
       var checkedRoleKeys = this.$refs.roleTree.getCheckedKeys()
-      var roleIds = '';
-      for(var index in checkedRoleKeys){
-        roleIds+=checkedRoleKeys[index]+','
+      var roleIds = ''
+      for (var index in checkedRoleKeys) {
+        roleIds += checkedRoleKeys[index] + ','
       }
       var data = {
-        userId:this.selRow.id,
-        roleIds:roleIds
+        userId: this.selRow.id,
+        roleIds: roleIds
       }
       setRole(data).then(response => {
         this.roleDialog.visible = false
@@ -289,9 +274,9 @@ export default {
         this.$message({
           message: '提交成功',
           type: 'success'
-        });
+        })
       })
-    },
+    }
 
   }
 }

@@ -1,27 +1,26 @@
-import { remove , getList , save , update }  from '@/api/system/dict'
-
+import { remove, getList, save, update } from '@/api/system/dict'
 
 export default {
   data() {
     return {
       formVisible: false,
       formTitle: '添加字典',
-      deptList:[],
-      roleList:[],
+      deptList: [],
+      roleList: [],
       isAdd: true,
-      permissons:[],
-      permissonVisible:false,
+      permissons: [],
+      permissonVisible: false,
       form: {
         name: '',
         id: '',
-        detail:'',
-        details:[]
+        detail: '',
+        details: []
       },
       rules: {
         name: [
           { required: true, message: '请输入字典名称', trigger: 'blur' },
           { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-        ],
+        ]
 
       },
       listQuery: {
@@ -29,7 +28,7 @@ export default {
       },
       list: null,
       listLoading: true,
-      selRow:{}
+      selRow: {}
     }
   },
   filters: {
@@ -47,7 +46,6 @@ export default {
   },
   methods: {
     init() {
-
       this.fetchData()
     },
     fetchData() {
@@ -55,9 +53,8 @@ export default {
       getList(this.listQuery).then(response => {
         this.list = response.data
         this.listLoading = false
-      }).catch(err => {
-
-      });
+      }).catch(() => {
+      })
     },
     search() {
       this.fetchData()
@@ -74,15 +71,15 @@ export default {
 
     },
 
-    handleCurrentChange(currentRow,oldCurrentRow){
+    handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
     },
     resetForm() {
-      this.form  = {
+      this.form = {
         name: '',
         id: '',
-        details:[],
-        detail:[]
+        details: [],
+        detail: []
 
       }
     },
@@ -97,65 +94,61 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           var dictName = self.form.name
-          var dictValues =''
-          for(var key in self.form.details){
-            var item = self.form.details[key];
-            dictValues += item['key']+':'+item['value']+';'
+          var dictValues = ''
+          for (var key in self.form.details) {
+            var item = self.form.details[key]
+            dictValues += item['key'] + ':' + item['value'] + ';'
           }
-          if(this.form.id!=''){
-            update({id:self.form.id,dictName: dictName, dictValues: dictValues}).then(response => {
+          if (this.form.id !== '') {
+            update({ id: self.form.id, dictName: dictName, dictValues: dictValues }).then(response => {
               this.$message({
                 message: '提交成功',
                 type: 'success'
               })
               self.fetchData()
               self.formVisible = false
-
             })
-          }else {
-            save({dictName: dictName, dictValues: dictValues}).then(response => {
+          } else {
+            save({ dictName: dictName, dictValues: dictValues }).then(response => {
               this.$message({
                 message: '提交成功',
                 type: 'success'
               })
               self.fetchData()
               self.formVisible = false
-
             })
           }
         } else {
           return false
         }
       })
-
-
     },
-    checkSel(){
-      if(this.selRow && this.selRow.id){
+    checkSel() {
+      if (this.selRow && this.selRow.id) {
         return true
       }
       this.$message({
         message: '请选中操作项',
         type: 'warning'
-      });
+      })
       return false
     },
-    edit(){
-      if(this.checkSel()){
+    edit() {
+      if (this.checkSel()) {
         this.isAdd = false
         this.formTitle = '修改字典'
-        var detail = this.selRow.detail.split(',');
-        var details = new Array()
-        detail.forEach(function(val,index){
+        var detail = this.selRow.detail.split(',')
+        var details = []
+        detail.forEach(function(val, index) {
           var arr = val.split(':')
-          details.push({'key':arr[0],'value':arr[1]})
+          details.push({ 'key': arr[0], 'value': arr[1] })
         })
-        this.form = {name:this.selRow.name,id:this.selRow.id,details:details,detail:this.selRow.detail}
+        this.form = { name: this.selRow.name, id: this.selRow.id, details: details, detail: this.selRow.detail }
         this.formVisible = true
       }
     },
-    remove(){
-      if(this.checkSel()){
+    remove() {
+      if (this.checkSel()) {
         var id = this.selRow.id
 
         this.$confirm('确定删除该记录?', '提示', {
@@ -167,14 +160,11 @@ export default {
             this.$message({
               message: '操作成功',
               type: 'success'
-            });
+            })
             this.fetchData()
           })
-
         }).catch(() => {
-
-        });
-
+        })
       }
     },
     addDetail() {
@@ -183,19 +173,18 @@ export default {
       details.push({
         value: '',
         key: ''
-      });
+      })
       this.form.details = details
     },
     removeDetail(detail) {
-      var details = new Array()
-      this.form.details.forEach(function(val,index){
-        if(detail.key != val.key){
+      var details = []
+      this.form.details.forEach(function(val, index) {
+        if (detail.key !== val.key) {
           details.push(val)
         }
       })
       this.form.details = details
     }
-
 
   }
 }

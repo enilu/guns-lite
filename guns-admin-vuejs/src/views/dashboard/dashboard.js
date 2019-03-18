@@ -1,4 +1,3 @@
-
 import { getList } from '@/api/system/notice'
 import { mapGetters } from 'vuex'
 import ECharts from 'vue-echarts/components/ECharts'
@@ -25,16 +24,15 @@ export default {
   components: {
     chart: ECharts
   },
-  data(){
-    let data = []
-
+  data() {
+    const data = []
     for (let i = 0; i <= 360; i++) {
-      let t = i / 180 * Math.PI
-      let r = Math.sin(2 * t) * Math.cos(2 * t)
+      const t = i / 180 * Math.PI
+      const r = Math.sin(2 * t) * Math.cos(2 * t)
       data.push([r, i])
     }
     return {
-      notice:[],
+      notice: [],
       lineData: {
         title: {
           text: ''
@@ -43,7 +41,7 @@ export default {
           trigger: 'axis'
         },
         legend: {
-          data:[this.$t('dashboard.email'),this.$t('dashboard.ad'),this.$t('dashboard.vedio'),this.$t('dashboard.direct'),this.$t('dashboard.searchEngine')]
+          data: [this.$t('dashboard.email'), this.$t('dashboard.ad'), this.$t('dashboard.vedio'), this.$t('dashboard.direct'), this.$t('dashboard.searchEngine')]
         },
         grid: {
           left: '3%',
@@ -59,48 +57,48 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [this.$t('common.week.mon'),this.$t('common.week.tue'),this.$t('common.week.wed'),this.$t('common.week.thu'),this.$t('common.week.fri'),this.$t('common.week.sat'),this.$t('common.week.sun')]
+          data: [this.$t('common.week.mon'), this.$t('common.week.tue'), this.$t('common.week.wed'), this.$t('common.week.thu'), this.$t('common.week.fri'), this.$t('common.week.sat'), this.$t('common.week.sun')]
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            name:this.$t('dashboard.email'),
-            type:'line',
+            name: this.$t('dashboard.email'),
+            type: 'line',
             stack: '总量',
-            data:[120, 132, 101, 134, 90, 230, 210]
+            data: [120, 132, 101, 134, 90, 230, 210]
           },
           {
-            name:this.$t('dashboard.ad'),
-            type:'line',
+            name: this.$t('dashboard.ad'),
+            type: 'line',
             stack: '总量',
-            data:[220, 182, 191, 234, 290, 330, 310]
+            data: [220, 182, 191, 234, 290, 330, 310]
           },
           {
-            name:this.$t('dashboard.vedio'),
-            type:'line',
+            name: this.$t('dashboard.vedio'),
+            type: 'line',
             stack: '总量',
-            data:[150, 232, 201, 154, 190, 330, 410]
+            data: [150, 232, 201, 154, 190, 330, 410]
           },
           {
-            name:this.$t('dashboard.direct'),
-            type:'line',
+            name: this.$t('dashboard.direct'),
+            type: 'line',
             stack: '总量',
-            data:[320, 332, 301, 334, 390, 330, 320]
+            data: [320, 332, 301, 334, 390, 330, 320]
           },
           {
-            name:this.$t('dashboard.searchEngine'),
-            type:'line',
+            name: this.$t('dashboard.searchEngine'),
+            type: 'line',
             stack: '总量',
-            data:[820, 932, 901, 934, 1290, 1330, 1320]
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
           }
         ]
       },
       barData: {
         xAxis: {
           type: 'category',
-          data:[this.$t('common.week.mon'),this.$t('common.week.tue'),this.$t('common.week.wed'),this.$t('common.week.thu'),this.$t('common.week.fri'),this.$t('common.week.sat'),this.$t('common.week.sun')]
+          data: [this.$t('common.week.mon'), this.$t('common.week.tue'), this.$t('common.week.wed'), this.$t('common.week.thu'), this.$t('common.week.fri'), this.$t('common.week.sat'), this.$t('common.week.sun')]
         },
         yAxis: {
           type: 'value'
@@ -111,32 +109,32 @@ export default {
         }]
       },
       pieData: {
-        title : {
+        title: {
           text: this.$t('dashboard.userFrom'),
           subtext: '纯属虚构',
-          x:'center'
+          x: 'center'
         },
-        tooltip : {
+        tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: [this.$t('dashboard.email'),this.$t('dashboard.ad'),this.$t('dashboard.vedio'),this.$t('dashboard.direct'),this.$t('dashboard.searchEngine')]
+          data: [this.$t('dashboard.email'), this.$t('dashboard.ad'), this.$t('dashboard.vedio'), this.$t('dashboard.direct'), this.$t('dashboard.searchEngine')]
         },
-        series : [
+        series: [
           {
             name: 'from',
             type: 'pie',
-            radius : '55%',
+            radius: '55%',
             center: ['50%', '60%'],
-            data:[
-              {value:335, name:this.$t('dashboard.direct')},
-              {value:310, name:this.$t('dashboard.email')},
-              {value:234, name:this.$t('dashboard.ad')},
-              {value:135, name:this.$t('dashboard.vedio')},
-              {value:1548, name:this.$t('dashboard.searchEngine')}
+            data: [
+              { value: 335, name: this.$t('dashboard.direct') },
+              { value: 310, name: this.$t('dashboard.email') },
+              { value: 234, name: this.$t('dashboard.ad') },
+              { value: 135, name: this.$t('dashboard.vedio') },
+              { value: 1548, name: this.$t('dashboard.searchEngine') }
             ],
             itemStyle: {
               emphasis: {
@@ -179,16 +177,15 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      let self = this
+      const self = this
       getList(self.listQuery).then(response => {
-        for(var i=0;i<response.data.length;i++){
-          var notice = response.data[i];
-            self.$notify({
-              title: notice.title,
-              message: notice.content,
-              duration: 3000
-            });
-
+        for (var i = 0; i < response.data.length; i++) {
+          var notice = response.data[i]
+          self.$notify({
+            title: notice.title,
+            message: notice.content,
+            duration: 3000
+          })
         }
         self.listLoading = false
       })

@@ -1,12 +1,10 @@
-
-import { clear , getList  }  from '@/api/system/loginLog'
-
+import { clear, getList } from '@/api/system/loginLog'
 
 export default {
   data() {
     return {
       form: {
-        logname: '',
+        logname: ''
       },
       listQuery: {
         page: 1,
@@ -15,10 +13,10 @@ export default {
         beginTime: undefined,
         endTime: undefined
       },
-      total:0,
+      total: 0,
       list: null,
       listLoading: true,
-      selRow:{}
+      selRow: {}
     }
   },
   created() {
@@ -49,23 +47,23 @@ export default {
       this.listQuery.page = 1
       this.getList()
     },
-    fetchNext(){
+    fetchNext() {
       this.listQuery.page = this.listQuery.page + 1
-      this.fetchData();
+      this.fetchData()
     },
-    fetchPrev(){
+    fetchPrev() {
       this.listQuery.page = this.listQuery.page - 1
-      this.fetchData();
+      this.fetchData()
     },
-    fetchPage(page){
+    fetchPage(page) {
       this.listQuery.page = page
       this.fetchData()
     },
-    changeSize(limit){
-      this.listQuery.limit = limit;
-      this.fetchData();
+    changeSize(limit) {
+      this.listQuery.limit = limit
+      this.fetchData()
     },
-    clear(){
+    clear() {
       this.$confirm('确定清空数据?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -75,16 +73,12 @@ export default {
           this.$message({
             message: '清空成功',
             type: 'sucess'
-          });
+          })
           this.fetchData()
         })
-
       }).catch(() => {
-
-      });
+      })
     }
-
-
 
   }
 }
