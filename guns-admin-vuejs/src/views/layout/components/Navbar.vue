@@ -17,7 +17,7 @@
               {{ $t('navbar.dashboard') }}
             </el-dropdown-item>
           </router-link>
-          <router-link to="/">
+          <router-link to="/account/updatePwd">
             <el-dropdown-item>
               {{ $t('navbar.updatePwd') }}
             </el-dropdown-item>

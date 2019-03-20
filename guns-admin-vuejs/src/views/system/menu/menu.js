@@ -103,10 +103,7 @@ export default {
       })
     },
     edit(row) {
-      console.log(this.form)
       this.form = row
-      console.log(row)
-      console.log(this.selRow)
       if (row.isMenuName === '是') {
         this.form.ismenu = 1
       } else {

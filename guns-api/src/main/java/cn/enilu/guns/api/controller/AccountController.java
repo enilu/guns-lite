@@ -10,10 +10,7 @@ import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.system.AccountService;
 import cn.enilu.guns.service.system.MenuService;
 import cn.enilu.guns.service.system.UserService;
-import cn.enilu.guns.utils.MD5;
-import cn.enilu.guns.utils.Maps;
-import cn.enilu.guns.utils.StringUtils;
-import cn.enilu.guns.utils.ToolUtil;
+import cn.enilu.guns.utils.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
@@ -37,7 +34,7 @@ import java.util.Set;
  * @version 2018/9/12 0012
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/account")
 public class AccountController extends BaseController{
      private Logger logger = LoggerFactory.getLogger(AccountController.class);
     @Autowired
@@ -125,6 +122,26 @@ public class AccountController extends BaseController{
             return Rets.success(map);
         }
         return Rets.failure("获取用户信息失败");
+    }
+    @RequestMapping(value = "/updatePwd",method = RequestMethod.POST)
+    public Object updatePwd( String oldPassword,String password, String rePassword){
+        try {
+            User user = userService.get(getIdUser(HttpKit.getRequest()));
+            logger.info("oldPassword:{},password:{},rePassword:{}",MD5.md5(oldPassword, user.getSalt()),password,rePassword);
+
+            if(!MD5.md5(oldPassword, user.getSalt()).equals(user.getPassword())){
+                return Rets.failure("旧密码输入错误");
+            }
+            if(!password.equals(rePassword)){
+                return Rets.failure("新密码前后不一致");
+            }
+            user.setPassword(MD5.md5(password, user.getSalt()));
+            userRepository.save(user);
+            return Rets.success();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return Rets.failure("更改密码失败");
     }
 
     private List<String> generatePermissions(List<Long> roleList) {

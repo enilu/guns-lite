@@ -37,7 +37,7 @@ export const constantRouterMap = [
     {
       path: '/account/updatePwd',
       name: '修改密码',
-      component: () => import('@/views/system/task/log/index'),
+      component: () => import('@/views/account/updatePwd.vue'),
       hidden: true,
       meta: { title: '修改密码' }
 
