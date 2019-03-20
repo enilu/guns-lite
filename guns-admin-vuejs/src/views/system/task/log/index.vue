@@ -4,7 +4,6 @@
       <el-row>
         <el-col :span="24">
           <el-button icon="el-icon-back" @click.native="back">{{ $t('button.back') }}</el-button>
-
         </el-col>
       </el-row>
     </div>

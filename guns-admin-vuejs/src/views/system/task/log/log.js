@@ -4,27 +4,6 @@ export default {
   data() {
     return {
       taskId: '',
-      formVisible: false,
-      formTitle: '添加参数',
-      deptList: [],
-      isAdd: true,
-      form: {
-        id: '',
-        cfgName: '',
-        cfgValue: '',
-        cfgDesc: ''
-      },
-      rules: {
-        cfgName: [
-          { required: true, message: '请输入参数名', trigger: 'blur' },
-          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
-        ],
-        cfgValue: [
-          { required: true, message: '请输入参数值', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-        ]
-
-      },
       listQuery: {
         page: 1,
         limit: 20,
@@ -34,16 +13,6 @@ export default {
       list: null,
       listLoading: true,
       selRow: {}
-    }
-  },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
     }
   },
   created() {

@@ -1,37 +1,62 @@
 <template>
 
   <div class="app-container">
-    <el-form ref="form" :model="form"  >
-      <el-input type="hidden" ref="content" v-model="form.content"></el-input>
-      <el-row :gutter="20">
-        <el-col :span="4"  >
-          <el-select v-model="form.type" placeholder="选择栏目">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="14"  >
-          <el-input v-model="form.title" minlength=1 placeholder="文章标题"></el-input>
-        </el-col>
 
-        <el-col :span="4"  >
-          <el-input v-model="form.author" minlength=1 placeholder="作者"></el-input>
-        </el-col>
-        <el-col :span="2"  >
-          <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>
-        </el-col>
+    <div class="block">
 
-      </el-row>
-      <br>
-    </el-form>
-    <div :class="{fullscreen:fullscreen}" class="tinymce-container editor-container">
-      <textarea :id="tinymceId" class="tinymce-textarea"/>
-      <div class="editor-custom-btn-container">
-        <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK"/>
+      <el-form ref="form" :model="form">
+        <el-input type="hidden" ref="content" v-model="form.content"></el-input>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-row :gutter="20">
+              <el-col :span="24">
+                <el-select v-model="form.idChannel" placeholder="选择栏目">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="24">
+                <el-input v-model="form.title" minlength=1 placeholder="文章标题"></el-input>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="24">
+                <el-input v-model="form.author" minlength=1 placeholder="作者"></el-input>
+              </el-col>
+              <el-col :span="24">
+                <el-button icon="el-icon-plus" type="primary" @click="save">{{ $t('button.submit') }}</el-button>
+                <el-button icon="el-icon-back" @click.native="back">{{ $t('button.back') }}</el-button>
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="题图">
+              <el-upload
+                class="upload-demo"
+                drag
+                multiple=false
+                :action="uploadUrl"
+                :headers="uploadHeaders"
+                :before-upload="handleBeforeUpload"
+                :on-success="handleUploadSuccess"
+              >
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">上传图片</div>
+              </el-upload>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <br>
+      </el-form>
+      <div :class="{fullscreen:fullscreen}" class="tinymce-container editor-container">
+        <textarea :id="tinymceId" class="tinymce-textarea"/>
+        <div class="editor-custom-btn-container">
+          <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK"/>
+        </div>
       </div>
     </div>
   </div>

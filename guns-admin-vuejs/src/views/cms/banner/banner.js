@@ -11,6 +11,7 @@ export default {
       uploadHeaders: {
         'Authorization': ''
       },
+      loadingInstance: {},
       formVisible: false,
       formTitle: '添加banner',
       deptList: [],

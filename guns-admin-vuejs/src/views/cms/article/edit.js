@@ -1,7 +1,10 @@
 import editorImage from '@/components/Tinymce'
+import { Loading } from 'element-ui'
 import plugins from './plugins'
 import toolbar from './toolbar'
 import { save } from '@/api/cms/article'
+import { getApiUrl } from '@/utils/utils'
+import { getToken } from '@/utils/auth'
 
 export default {
 
@@ -37,18 +40,24 @@ export default {
   },
   data() {
     return {
+      uploadUrl: '',
+      uploadFileId: '',
+      uploadHeaders: {
+        'Authorization': ''
+      },
+      loadingInstance: {},
       form: {
         title: '',
         author: '',
         idChannel: 1,
-        content: ''
+        content: '',
+        img: ''
       },
       options: [
-        { label: '首页', value: 'index' },
-        { label: '新闻', value: 'news' },
-        { label: '产品', value: 'product' },
-        { label: '解决方案', value: 'solution' },
-        { label: '案例', value: 'case' }
+        { label: '动态资讯', value: 1 },
+        { label: '产品服务', value: 2 },
+        { label: '解决方案', value: 3 },
+        { label: '精选案例', value: 4 }
       ],
       hasChange: false,
       hasInit: false,
@@ -79,6 +88,7 @@ export default {
     }
   },
   mounted() {
+    this.init()
     this.initTinymce()
   },
   activated() {
@@ -91,6 +101,10 @@ export default {
     this.destroyTinymce()
   },
   methods: {
+    init(){
+      this.uploadUrl = getApiUrl() + '/file'
+      this.uploadHeaders['Authorization'] = getToken()
+    },
     initTinymce() {
       const _this = this
       window.tinymce.init({
@@ -162,20 +176,51 @@ export default {
             title: this.form.title,
             author: this.form.author,
             idChannel: this.form.idChannel,
-            content: this.form.content
+            content: this.form.content,
+            img: this.form.img
           }).then(response => {
             console.log(response)
             this.$message({
               message: this.$t('common.optionSuccess'),
               type: 'success'
             })
-            // this.fetchData()
-            // this.formVisible = false
           })
         } else {
           return false
         }
       })
+    },
+    back() {
+      this.$router.go(-1)
+    },
+
+    handleBeforeUpload() {
+      if (this.uploadFileId !== '') {
+        this.$message({
+          message: this.$t('common.mustSelectOne'),
+          type: 'warning'
+        })
+        return false
+      }
+      this.loadingInstance = Loading.service({
+        lock: true,
+        text: this.$t('common.uploading'),
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+    },
+    handleUploadSuccess(response, raw) {
+      this.loadingInstance.close()
+      if (response.code === 20000) {
+        this.form.img = response.data.id
+        console.log(response.data)
+        console.log(this.form)
+      } else {
+        this.$message({
+          message: this.$t('common.uploadError'),
+          type: 'error'
+        })
+      }
     }
   }
 }

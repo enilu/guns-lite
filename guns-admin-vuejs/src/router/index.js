@@ -45,7 +45,7 @@ export const constantRouterMap = [
     {
       path: '/cms/article/edit',
       name: '编辑文章',
-      component: () => import('@/views/cms/article/edit'),
+      component: () => import('@/views/cms/article/edit.vue'),
       hidden: true,
       meta: { title: '编辑文章' }
 

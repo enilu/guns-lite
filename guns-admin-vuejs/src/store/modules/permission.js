@@ -108,6 +108,7 @@ export const componentsMap = {
   '/banner': () => import('@/views/cms/banner/index'),
   '/channel': () => import('@/views/cms/channel/index'),
   '/article': () => import('@/views/cms/article/index'),
-  '/contacts': () => import('@/views/cms/contacts/index')
+  '/contacts': () => import('@/views/cms/contacts/index'),
+  '/fileMgr': () => import('@/views/cms/file/index')
 }
 export default permission

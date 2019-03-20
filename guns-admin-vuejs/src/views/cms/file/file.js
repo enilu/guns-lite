@@ -1,4 +1,5 @@
-import {  getList } from '@/api/cms/contacts'
+import { getList } from '@/api/cms/fileInfo'
+import { getApiUrl } from '@/utils/utils'
 
 export default {
   data() {
@@ -6,23 +7,13 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-        userName: undefined,
-        mobile: undefined
+        originalFileName: undefined
       },
       total: 0,
       list: null,
       listLoading: true,
-      selRow: {}
-    }
-  },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
+      selRow: {},
+      downloadUrl: ''
     }
   },
   created() {
@@ -30,6 +21,7 @@ export default {
   },
   methods: {
     init() {
+      this.downloadUrl = getApiUrl() + '/file/download?idFile='
       this.fetchData()
     },
     fetchData() {
@@ -44,8 +36,7 @@ export default {
       this.fetchData()
     },
     reset() {
-      this.listQuery.cfgName = ''
-      this.listQuery.cfgValue = ''
+      this.listQuery.originalFileName = ''
       this.fetchData()
     },
     handleFilter() {
@@ -73,6 +64,9 @@ export default {
     },
     handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
+    },
+    download(id) {
+      window.location.href = this.downloadUrl + id
     }
 
   }

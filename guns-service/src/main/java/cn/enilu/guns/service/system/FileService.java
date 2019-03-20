@@ -4,11 +4,24 @@ import cn.enilu.guns.bean.entity.system.FileInfo;
 import cn.enilu.guns.bean.enumeration.ConfigKeyEnum;
 import cn.enilu.guns.dao.cache.ConfigCache;
 import cn.enilu.guns.dao.system.FileInfoRepository;
+import cn.enilu.guns.utils.StringUtils;
+import cn.enilu.guns.utils.factory.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -33,6 +46,7 @@ public class FileService {
             fileInfoRepository.save(fileInfo);
             return fileInfo;
         } catch (Exception e) {
+            e.printStackTrace();
              return null;
         }
     }
@@ -41,5 +55,24 @@ public class FileService {
         FileInfo fileInfo = fileInfoRepository.getOne(id);
         fileInfo.setAblatePath(configCache.get(ConfigKeyEnum.SYSTEM_FILE_UPLOAD_PATH.getValue()) + File.separator+fileInfo.getRealFileName());
         return fileInfo;
+    }
+
+    public Page<FileInfo> findPage(Page<FileInfo> page, HashMap<String, String> params) {
+        Pageable pageable  = new PageRequest(page.getCurrent() - 1, page.getSize(), Sort.Direction.DESC,"id");
+        org.springframework.data.domain.Page<FileInfo> pageResult = fileInfoRepository.findAll(new Specification<FileInfo>() {
+            @Override
+            public Predicate toPredicate(Root<FileInfo> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> list = new ArrayList<Predicate>();
+                if (StringUtils.isNotEmpty(params.get("originalFileName"))) {
+                    list.add(criteriaBuilder.like(root.get("originalFileName").as(String.class), "%" + params.get("originalFileName") + "%"));
+                }
+
+                Predicate[] p = new Predicate[list.size()];
+                return criteriaBuilder.and(list.toArray(p));
+            }
+        }, pageable);
+        page.setTotal(Integer.valueOf(pageResult.getTotalElements() + ""));
+        page.setRecords(pageResult.getContent());
+        return page;
     }
 }
