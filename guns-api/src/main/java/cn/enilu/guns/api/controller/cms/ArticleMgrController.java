@@ -26,7 +26,8 @@ public class ArticleMgrController extends BaseController {
     private ArticleService articleService;
     @RequestMapping(method = RequestMethod.POST)
     @BussinessLog(value = "编辑文章",key="name",dict = CommonDict.class)
-    public Object save(@ModelAttribute Article article){
+    public Object save(){
+        Article article = getFromJson(Article.class);
         articleRepository.save(article);
         return Rets.success();
     }

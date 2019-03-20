@@ -189,11 +189,11 @@ export default {
             content: this.form.content,
             img: this.form.img
           }).then(response => {
-            console.log(response)
             this.$message({
               message: this.$t('common.optionSuccess'),
               type: 'success'
             })
+            this.back()
           })
         } else {
           return false

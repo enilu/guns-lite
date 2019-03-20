@@ -47,7 +47,8 @@
                 <div class="el-upload__text">上传图片</div>
               </el-upload>
             </el-form-item>
-            <img :src="articleImg" style="height:8rem;" v-if="form.img !== ''" @click.native="uploadImg">
+            <img :src="articleImg" style="height:8rem;"  v-if="ifUpload!==true" >
+            <el-button icon="el-icon-edit" v-if="ifUpload!==true" @click.native="uploadImg">修改题图</el-button>
           </el-col>
         </el-row>
         <br>

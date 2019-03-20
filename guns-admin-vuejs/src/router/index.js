@@ -35,6 +35,14 @@ export const constantRouterMap = [
       meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     },
     {
+      path: '/account/updatePwd',
+      name: '修改密码',
+      component: () => import('@/views/system/task/log/index'),
+      hidden: true,
+      meta: { title: '修改密码' }
+
+    },
+    {
       path: '/system/taskLog',
       name: '任务日志',
       component: () => import('@/views/system/task/log/index'),

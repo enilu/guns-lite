@@ -13,7 +13,7 @@ export function save(params) {
   return request({
     url: '/article',
     method: 'post',
-    params
+    data : params
   })
 }
 

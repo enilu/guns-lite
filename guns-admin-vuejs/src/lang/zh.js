@@ -15,6 +15,7 @@ export default {
   },
   navbar: {
     logOut: '退出登录',
+    updatePwd: '修改密码',
     dashboard: '首页',
     github: '项目地址',
     screenfull: '全屏',
