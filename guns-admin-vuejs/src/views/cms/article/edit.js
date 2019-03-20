@@ -2,12 +2,11 @@ import editorImage from '@/components/Tinymce'
 import { Loading } from 'element-ui'
 import plugins from './plugins'
 import toolbar from './toolbar'
-import { save } from '@/api/cms/article'
+import { save, get } from '@/api/cms/article'
 import { getApiUrl } from '@/utils/utils'
 import { getToken } from '@/utils/auth'
 
 export default {
-
   name: 'Tinymce',
   components: { editorImage },
   props: {
@@ -49,15 +48,17 @@ export default {
       form: {
         title: '',
         author: '',
-        idChannel: 1,
+        idChannel: '1',
         content: '',
         img: ''
       },
+      articleImg: '',
+      ifUpload: true,
       options: [
-        { label: '动态资讯', value: 1 },
-        { label: '产品服务', value: 2 },
-        { label: '解决方案', value: 3 },
-        { label: '精选案例', value: 4 }
+        { label: '动态资讯', value: '1' },
+        { label: '产品服务', value: '2' },
+        { label: '解决方案', value: '3' },
+        { label: '精选案例', value: '4' }
       ],
       hasChange: false,
       hasInit: false,
@@ -76,7 +77,6 @@ export default {
   },
   watch: {
     value(val) {
-      console.log(val)
       if (!this.hasChange && this.hasInit) {
         this.$nextTick(() =>
           window.tinymce.get(this.tinymceId).setContent(val || ''))
@@ -101,13 +101,23 @@ export default {
     this.destroyTinymce()
   },
   methods: {
-    init(){
+    init() {
       this.uploadUrl = getApiUrl() + '/file'
       this.uploadHeaders['Authorization'] = getToken()
+      const id = this.$route.query.id
+      if (id) {
+        get(id).then(response => {
+          this.form = response.data
+          this.setContent(response.data.content)
+          this.articleImg = this.uploadUrl + '/getImgStream?idFile=' + response.data.img
+          this.ifUpload = false
+        })
+      }
     },
     initTinymce() {
       const _this = this
       window.tinymce.init({
+        value: 'aaaaaa',
         language: this.language,
         selector: `#${this.tinymceId}`,
         height: this.height,
@@ -167,7 +177,7 @@ export default {
         window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
       })
     },
-    save(){
+    save() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           console.log(this.form)
@@ -221,6 +231,9 @@ export default {
           type: 'error'
         })
       }
+    },
+    uploadImg() {
+      this.ifUpload = !this.ifUpload
     }
   }
 }

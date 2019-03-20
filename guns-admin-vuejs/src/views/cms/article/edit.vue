@@ -1,15 +1,22 @@
 <template>
 
   <div class="app-container">
-
     <div class="block">
-
       <el-form ref="form" :model="form">
         <el-input type="hidden" ref="content" v-model="form.content"></el-input>
         <el-row :gutter="20">
+            <el-col :span="24">
+              <el-button icon="el-icon-plus" type="primary" @click="save">{{ $t('button.submit') }}</el-button>
+              <el-button icon="el-icon-back" @click.native="back">{{ $t('button.back') }}</el-button>
+            </el-col>
           <el-col :span="12">
             <el-row :gutter="20">
               <el-col :span="24">
+                <el-input v-model="form.title" minlength=1 placeholder="文章标题" style="font-size: 1.2rem;margin:.2rem 0rem;"></el-input>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="8">
                 <el-select v-model="form.idChannel" placeholder="选择栏目">
                   <el-option
                     v-for="item in options"
@@ -19,22 +26,14 @@
                   </el-option>
                 </el-select>
               </el-col>
-              <el-col :span="24">
-                <el-input v-model="form.title" minlength=1 placeholder="文章标题"></el-input>
+              <el-col :span="16">
+                <el-input v-model="form.author" minlength=1 placeholder="作者" style="margin-bottom:.2rem;"></el-input>
               </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :span="24">
-                <el-input v-model="form.author" minlength=1 placeholder="作者"></el-input>
-              </el-col>
-              <el-col :span="24">
-                <el-button icon="el-icon-plus" type="primary" @click="save">{{ $t('button.submit') }}</el-button>
-                <el-button icon="el-icon-back" @click.native="back">{{ $t('button.back') }}</el-button>
-              </el-col>
+
             </el-row>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="题图">
+            <el-form-item label="题图"  v-if="ifUpload">
               <el-upload
                 class="upload-demo"
                 drag
@@ -48,6 +47,7 @@
                 <div class="el-upload__text">上传图片</div>
               </el-upload>
             </el-form-item>
+            <img :src="articleImg" style="height:8rem;" v-if="form.img !== ''" @click.native="uploadImg">
           </el-col>
         </el-row>
         <br>

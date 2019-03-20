@@ -11,6 +11,7 @@ import cn.enilu.guns.service.cms.ArticleService;
 import cn.enilu.guns.utils.Maps;
 import cn.enilu.guns.utils.factory.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -35,7 +36,11 @@ public class ArticleMgrController extends BaseController {
         articleRepository.deleteById(id);
         return Rets.success();
     }
-
+    @RequestMapping(method = RequestMethod.GET)
+    public Object get(@Param("id") Long id) {
+        Article article = articleRepository.findById(id).get();
+        return Rets.success(article);
+    }
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public Object list(@RequestParam(required = false) String cfgName, @RequestParam(required = false) String cfgValue) {
         Page<Article> page = new PageFactory<Article>().defaultPage();

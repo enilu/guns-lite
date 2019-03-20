@@ -107,7 +107,7 @@ export default {
     },
     edit() {
       if (this.checkSel()) {
-        this.$router.push({ path: '/cms/article/edit' })
+        this.$router.push({ path: '/cms/article/edit', query: { id: this.selRow.id }})
       }
     },
     remove() {
