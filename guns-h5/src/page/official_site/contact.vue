@@ -2,7 +2,7 @@
   <div>
     <x-header title="联系我们"></x-header>
     <div>
-      <img src="/static/images/contact.png"  >
+      <img src="static/images/contact.png"  >
     </div>
     <group>
       <x-input title="姓名" v-model="form.userName" placeholder="姓名"></x-input>

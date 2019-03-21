@@ -1,6 +1,6 @@
 <template>
   <div>
-   <img src="/static/images/profile.jpg">
+   <img src="static/images/profile.jpg">
     <group>
       <cell title="关于我们" :link="{path:'/about'}"></cell>
       <cell title="立即预约" :link="{path:'/contact'}"></cell>

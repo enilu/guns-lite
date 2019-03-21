@@ -3,7 +3,7 @@
     <p class="title">{{article.title}}</p>
     <flexbox class="header">
       <flexbox-item :span="2" >
-        <img src="/static/images/icon/user.png" class="avatar">
+        <img src="static/images/icon/user.png" class="avatar">
       </flexbox-item>
       <flexbox-item :span="10">
         <p class="author-name">{{article.author}}</p>

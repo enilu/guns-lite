@@ -3,6 +3,7 @@ package cn.enilu.guns.service.system;
 import cn.enilu.guns.bean.entity.system.FileInfo;
 import cn.enilu.guns.bean.enumeration.ConfigKeyEnum;
 import cn.enilu.guns.dao.cache.ConfigCache;
+import cn.enilu.guns.dao.cache.TokenCache;
 import cn.enilu.guns.dao.system.FileInfoRepository;
 import cn.enilu.guns.utils.StringUtils;
 import cn.enilu.guns.utils.factory.Page;
@@ -19,10 +20,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class FileService {
@@ -30,6 +28,8 @@ public class FileService {
     private ConfigCache configCache;
     @Autowired
     private FileInfoRepository fileInfoRepository;
+    @Autowired
+    private TokenCache tokenCache;
     public FileInfo save(MultipartFile multipartFile){
         String uuid = UUID.randomUUID().toString();
         String realFileName =   uuid +"."+ multipartFile.getOriginalFilename().split("\\.")[1];
@@ -41,6 +41,8 @@ public class FileService {
             }
             multipartFile.transferTo(file);
             FileInfo fileInfo = new FileInfo();
+            fileInfo.setCreateTime(new Date());
+            fileInfo.setCreateBy(tokenCache.getIdUser());
             fileInfo.setOriginalFileName(multipartFile.getOriginalFilename());
             fileInfo.setRealFileName(realFileName);
             fileInfoRepository.save(fileInfo);

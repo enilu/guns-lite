@@ -39,8 +39,8 @@ export const MENU_DATA_BBS = [
 ]
 
 export const MENU_DATA_OFFICIAL_SITE = [
-  { link: '/index', name: '首页', icon: '../../../static/images/menu/home.png' },
-  { link: '/news', name: '资讯', icon: '../../../static/images/menu/notify.png' },
-  { link: '/contact', name: '联系', icon: '../../../static/images/menu/contact.png' },
-  { link: '/more', name: '更多', icon: '../../../static/images/menu/about.png' }
+  { link: '/index', name: '首页', icon: 'static/images/menu/home.png' },
+  { link: '/news', name: '资讯', icon: 'static/images/menu/notify.png' },
+  { link: '/contact', name: '联系', icon: 'static/images/menu/contact.png' },
+  { link: '/more', name: '更多', icon: 'static/images/menu/about.png' }
 ]

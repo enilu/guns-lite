@@ -67,6 +67,9 @@ public class HttpKit {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         return new WafRequestWrapper(request);
     }
+    public static  String getToken(){
+        return  getRequest().getHeader("Authorization");
+    }
 
     /**
      * 向指定URL发送GET方法的请求

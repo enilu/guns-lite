@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <div class="avatar" style="width: 60px"><img
-      src="/static/images/icon/user.png">
+      src="static/images/icon/user.png">
     </div>
     <div class="user-info"><p class="login">
       <p>

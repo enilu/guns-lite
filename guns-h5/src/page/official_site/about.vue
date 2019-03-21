@@ -3,7 +3,7 @@
     <x-header title="关于MicroSite"></x-header>
     <div>
     <p class="logo">
-      <img src="/static/images/profile.jpg">
+      <img src="static/images/profile.jpg">
     </p>
     <p class="about">
       <strong>MicroSite</strong><br/>H5&小程序 官网解决方案专家

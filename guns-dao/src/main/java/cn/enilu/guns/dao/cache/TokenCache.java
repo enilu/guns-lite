@@ -2,6 +2,7 @@ package cn.enilu.guns.dao.cache;
 
 import cn.enilu.guns.bean.core.ShiroUser;
 import cn.enilu.guns.dao.cache.impl.EhcacheDao;
+import cn.enilu.guns.utils.HttpKit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ public   class TokenCache {
 
     public   Long get(String token) {
         return ehcacheDao.hget(EhcacheDao.SESSION,token,Long.class);
+    }
+    public Long getIdUser(){
+        return ehcacheDao.hget(EhcacheDao.SESSION,HttpKit.getToken(),Long.class );
     }
 
     public   void remove(String token) {

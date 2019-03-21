@@ -43,7 +43,7 @@ public class SolutionController extends BaseController {
         dataMap.put("solutionList", solutions);
 
         Map map = new HashMap();
-
+        map.put("data", dataMap);
         return Rets.success(map);
 
     }

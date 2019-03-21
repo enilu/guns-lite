@@ -65,8 +65,8 @@ export default {
     handleCurrentChange(currentRow, oldCurrentRow) {
       this.selRow = currentRow
     },
-    download(id) {
-      window.location.href = this.downloadUrl + id
+    download(id,fileName) {
+      window.location.href = this.downloadUrl + id+'&fileName='+fileName
     }
 
   }

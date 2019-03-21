@@ -55,9 +55,13 @@ public class FileController extends BaseController {
         FileInfo fileInfo = fileService.get(idFile);
         fileName = StringUtils.isEmpty(fileName)? fileInfo.getRealFileName():fileName;
         HttpServletResponse response = HttpKit.getResponse();
-        response.setContentType("application/force-download");
-        response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
-
+        response.setContentType("application/x-download");
+        try {
+            fileName = new String(fileName.getBytes(), "ISO-8859-1");
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         byte[] buffer = new byte[1024];
         FileInputStream fis = null;
         BufferedInputStream bis = null;
