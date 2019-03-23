@@ -6,8 +6,13 @@
         <img src="static/images/icon/user.png" class="avatar">
       </flexbox-item>
       <flexbox-item :span="10">
-        <p class="author-name">{{article.author}}</p>
-        <p class="create-at">发表于 {{article.createTime}}</p>
+        <p >
+          <span class="author-name">
+          {{article.author}}
+          </span>
+         <span class="create-at">
+           {{article.createTime}}</span>
+        </p>
       </flexbox-item>
     </flexbox>
     <p class="content" v-html="article.content"></p>
@@ -32,16 +37,16 @@
     padding:10px;
   }
   #article>.title{
-    font-size:1rem;
+    font-size:1.2rem;
   }
   #article>.vux-flex-row>.vux-flexbox-item>.avatar{
-    width:60px;
-    border-radius: 50px;
+    width:40px;
+    border-radius: 30px;
   }
-  #article>.vux-flex-row>.vux-flexbox-item>.author-name{
+  #article>.vux-flex-row>.vux-flexbox-item>p>.author-name{
     color:#999;font-size:1rem;
   }
-  #article>.vux-flex-row>.vux-flexbox-item>.create-at{
-    font-size:.8rem;
+  #article>.vux-flex-row>.vux-flexbox-item>p>.create-at{
+    font-size:.6rem;
   }
 </style>

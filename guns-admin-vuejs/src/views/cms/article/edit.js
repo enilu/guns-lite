@@ -3,6 +3,7 @@ import { Loading } from 'element-ui'
 import plugins from './plugins'
 import toolbar from './toolbar'
 import { save, get } from '@/api/cms/article'
+import { getList } from '@/api/cms/channel'
 import { getApiUrl } from '@/utils/utils'
 import { getToken } from '@/utils/auth'
 
@@ -55,10 +56,6 @@ export default {
       articleImg: '',
       ifUpload: true,
       options: [
-        { label: '动态资讯', value: '1' },
-        { label: '产品服务', value: '2' },
-        { label: '解决方案', value: '3' },
-        { label: '精选案例', value: '4' }
       ],
       hasChange: false,
       hasInit: false,
@@ -113,6 +110,10 @@ export default {
           this.ifUpload = false
         })
       }
+      getList().then(response => {
+        console.log(response.data)
+        this.options = response.data
+      })
     },
     initTinymce() {
       const _this = this

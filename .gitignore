@@ -16,3 +16,6 @@ guns-admin-vuejs/node_modules/*
 guns-admin-vuejs/.idea/*
 guns-admin-vuejs/dist/*
 log/*
+guns-h5/node_modules/*
+guns-h5/.idea/*
+guns-h5/dist/*
