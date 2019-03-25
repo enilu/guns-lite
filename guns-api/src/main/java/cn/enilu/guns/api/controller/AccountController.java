@@ -127,6 +127,9 @@ public class AccountController extends BaseController{
     public Object updatePwd( String oldPassword,String password, String rePassword){
         try {
             User user = userService.get(getIdUser(HttpKit.getRequest()));
+            if("admin".equals(user.getAccount())){
+                return Rets.failure("不能修改超级管理员密码");
+            }
             logger.info("oldPassword:{},password:{},rePassword:{}",MD5.md5(oldPassword, user.getSalt()),password,rePassword);
 
             if(!MD5.md5(oldPassword, user.getSalt()).equals(user.getPassword())){

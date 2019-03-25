@@ -16,7 +16,7 @@ export default {
       return {
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' },
-          { min: 6, max: 100, message: '密码长度不能小于6', trigger: 'blur' }
+          { min: 5, max: 100, message: '密码长度不能小于5', trigger: 'blur' }
         ]
       }
     }
