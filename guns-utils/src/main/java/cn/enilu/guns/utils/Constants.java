@@ -2,7 +2,7 @@ package cn.enilu.guns.utils;
 
 public interface Constants {
 
-
+    long SYSTEM_USER_ID=-1;
 
     /**
      * 用户密码加密key
