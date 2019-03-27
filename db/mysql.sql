@@ -693,6 +693,7 @@ CREATE TABLE `t_sys_task_log` (
 -- Table structure for `t_sys_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_user`;
+
 CREATE TABLE `t_sys_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
@@ -718,7 +719,8 @@ CREATE TABLE `t_sys_user` (
 -- ----------------------------
 -- Records of t_sys_user
 -- ----------------------------
-INSERT INTO `t_sys_user` VALUES ('1', null, 'admin', '6ab1f386d715cfb6be85de941d438b02', '8pgby', '管理员', '2017-05-05 00:00:00', '2', 'eniluzt@qq.com', null, '1', '27', '1', '2016-01-29 08:49:53', '25', null, null, null);
+INSERT INTO `t_sys_user` VALUES ('-1', null, 'system', null, null, '应用系统', null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `t_sys_user` VALUES ('1', null, 'admin', '6ab1f386d715cfb6be85de941d438b02', '8pgby', '管理员', '2017-05-05 00:00:00', '2', 'eniluzt@qq.com', null, '1', '27', '1', '2016-01-29 08:49:53', '25', null, '2019-03-20 23:45:24', '1');
 INSERT INTO `t_sys_user` VALUES ('45', null, 'boss', '71887a5ad666a18f709e1d4e693d5a35', '1f7bf', '老板', '2017-12-04 00:00:00', '1', '', '', '1,2,', '24', '1', '2017-12-04 22:24:02', null, null, '2019-01-09 23:06:09', '1');
 INSERT INTO `t_sys_user` VALUES ('46', null, 'manager', 'b53cac62e7175637d4beb3b16b2f7915', 'j3cs9', '经理', '2017-12-04 00:00:00', '1', '', '', '1', '24', '1', '2017-12-04 22:24:24', null, null, null, null);
 INSERT INTO `t_sys_user` VALUES ('47', null, 'developer', '4552805b07a4bf92ce1cea0373aab868', 'vscp9', '开发人员', '2017-12-31 00:00:00', '1', 'eniluzt@qq.com', '', '2,', '25', '1', '2018-09-13 17:21:02', null, null, '2019-01-09 23:05:51', '1');
