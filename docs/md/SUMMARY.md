@@ -29,32 +29,4 @@
   * [权限管理](feature/permissionMgr.md)
   * [监控管理](feature/monitor.md)
   * [系统配置](feature/sysConfig.md)
-
-* 分页查询
-  * [简单查询](page/simple.md)
-  * [复杂查询](page/complex.md)
-  
-
-* 系统配置全解
-  * [application.properties](sysconfig/application.md)
-  * [Web config](sysconfig/web.md)
-  * [Shiro config](sysconfig/shiro.md)
-  * [Beetl config](sysconfig/beetl.md)
-  * [EhCache config](sysconfig/ehcache.md)
-  * [Swagger config](sysconfig/swagger.md)
-
-* 权限控制
-  * [控制菜单](permission/menu.md)
-  * [后台增强权限控制](permission/backPermission.md)
-  * [spring boot 集成shiro权限控制](permission/shiro.md)
-  
-* 日志记录
-  * [业务日志](log/business.md)
-  * [异常日志](log/error.md)
-
-* 缓存使用
-  * [缓存工具类](cache/tool.md)
-  * [cache集成](cache/springCache.md)
-  * [缓存变更管理](cache/change.md)
-  
     

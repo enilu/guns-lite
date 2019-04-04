@@ -1,5 +1,5 @@
 # Guns-lite
- 
+
 ## 前言
 
  - guns-lite是在[guns](https://github.com/stylefeng/Guns)的基础上将数据库层由mybatis替换为spring data jpa的系统。
@@ -57,16 +57,19 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 - 移动端方案[完善中]
 
 
-
 ## 使用
 
 - 克隆本项目
 - 导入idea或者eclipse，确保开发工具安装了lombok插件，如果不了解该插件，请自行google
 - 创建数据库：guns-lite，将guns-admin/sql/guns-lite.sql导入数据库中，更改相应数据库配置
 - 启动guns-admin
-- 访问 https://localhost:8080，   登录，用户名密码:admin/admin
+- 访问 http://localhost:8080，   登录，用户名密码:admin/admin
 - ![demo](docs/md/demo.gif)
 - 另外附上vue版本效果图![vue](docs/md/vuejs.gif)
+- vue版本用法如下：
+  - 启动guns-api，运行ApiApplication启动即可
+  - 启动guns-admin-vuejs
+  - 访问http://localhost:8082
 
 ## 文档
 
@@ -81,4 +84,3 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 - Bugs: [Issues](https://github.com/enilu/guns-lite/issues/new)
 - QQ: 欢迎加入qq交流群 740230743
 - Gitter: [Gitter channel](https://gitter.im/guns-lite/community)
-
