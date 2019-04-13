@@ -60,7 +60,8 @@ module.exports = {
                     '/feature/log',
                     '/feature/permissionMgr',
                     '/feature/monitor',
-                    '/feature/sysConfig'
+                    '/feature/sysConfig',
+                    '/feature/fileMgr'
                 ]
             },{
                 title: '进阶',

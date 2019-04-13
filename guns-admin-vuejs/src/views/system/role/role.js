@@ -216,10 +216,10 @@ export default {
       }
     },
     savePermissions() {
-      const checkedPermissons = this.$refs.permissonTree.getCheckedKeys()
+      let checkedNodes =this.$refs.permissonTree.getCheckedNodes(false,true)
       let menuIds = ''
-      for (var index in checkedPermissons) {
-        menuIds += checkedPermissons[index] + ','
+      for (var index in checkedNodes) {
+        menuIds += checkedNodes[index].id + ','
       }
       const data = {
         roleId: this.selRow.id,
