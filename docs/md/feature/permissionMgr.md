@@ -5,7 +5,7 @@
 
 
 ## 权限配置
-权限管理的核心为控制角色对菜单的访问，所以权限配置主要包含以下内容的维护：
+权限管理的核心为控制角色对菜单和按钮的访问，所以权限配置主要包含以下内容的维护：
 
 - 菜单管理： 维护要控制的页面菜单和按钮
 
@@ -28,9 +28,9 @@
 - 后台权限控制
 
  ## Shiro的过滤器链
- 
+
  cn.enilu.guns.admin.config.web.ShiroConfig 中配置系统登录url，登录成功url，以及拦截器链，参考代码
- 
+
  ```java
  @Bean
     public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
@@ -127,7 +127,7 @@ model.addAttribute("titles", titles);
 @}
 ```
 
-## 页面功能的权限控制
+## 页面功能（按钮）的权限控制
 
 页面功能的权限控制在“开发第一个功能”的章节有提到过，具体方法为调用方法shiro.hasPermission 来判断用户是否具备操作指定功能的权限，如果有，则显示该功能，没有则不显示该功能：
 
@@ -153,5 +153,3 @@ model.addAttribute("titles", titles);
         return dictRepository.findOne(dictId);
     }
 ```
-
-

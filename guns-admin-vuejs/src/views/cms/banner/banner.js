@@ -65,9 +65,8 @@ export default {
       getList(this.listQuery).then(response => {
         this.list = response.data
         for (var index in this.list) {
-          let item = this.list[index]
+          const item = this.list[index]
           item.img = getApiUrl() + '/file/getImgStream?idFile=' + item.idFile
-          console.log(item)
         }
 
         this.listLoading = false
