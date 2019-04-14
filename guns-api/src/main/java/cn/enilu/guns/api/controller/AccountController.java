@@ -114,11 +114,13 @@ public class AccountController extends BaseController{
             String token = getToken(request);
             ShiroUser shiroUser = tokenCache.getUser(token);
             Map map = Maps.newHashMap("name",user.getName(),"role","admin","roles", shiroUser.getRoleCodes());
+            //获取用户可以操作的菜单列表
             List<MenuNode> menuNodes =  menuService.getMenusTreeByRoleIds(shiroUser.getRoleList());
-            //返回所有可操作的功能列表，用作进行按钮级别权限控制
-            map.put("permissions",generatePermissions(shiroUser.getRoleList()));
             //返回（根据拥有操作权限的菜单列表构造）路由信息
             map.put("routers",generateRouters(menuNodes));
+            //返回所有可操作的功能列表，用作进行按钮级别权限控制
+            map.put("permissions",generatePermissions(shiroUser.getRoleList()));
+
             return Rets.success(map);
         }
         return Rets.failure("获取用户信息失败");
