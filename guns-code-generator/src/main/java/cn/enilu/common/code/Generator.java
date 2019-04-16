@@ -234,7 +234,7 @@ public class Generator {
                     continue;
                 }
                 if (type.equals("view")) {
-                    generateViews(force, table, generator, pages);
+                    generateViews(codeConfig,force, table, generator, pages);
                 } else {
                     if (loader instanceof EntityDescLoader && type.equals("model")) {
                         continue;
@@ -266,15 +266,17 @@ public class Generator {
         return false;
     }
 
-    private static void generateViews(boolean force,
+    private static void generateViews(CodeConfig codeConfig,boolean force,
                                       TableDescriptor table,
                                       Generator generator,
                                       String[] pages)
             throws IOException {
 
+        File apiFile = new File(codeConfig.getViewModel()+"/src/api/"+table.getViewBasePath()+".js");
+        generator.generate(null,  "code/view/api.js.vm", apiFile, force);
         for (String view : pages) {
             String templatePath = "code/view/" + view + ".html.vm";
-            File file = new File("src/main/webapp/WEB-INF/views/"
+            File file = new File(codeConfig.getViewModel()+"src/main/webapp/WEB-INF/views/"
                                  + table.getViewBasePath()
                                  + "/"
                                  + view
