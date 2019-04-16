@@ -179,7 +179,7 @@ public class Generator {
         Ioc ioc = new NutIoc(new JsonLoader(configPath));
         PropertiesProxy conf = ioc.get(PropertiesProxy.class, "conf");
         CodeConfig codeConfig = ioc.get(CodeConfig.class);
-        File f = new File("db.properties");
+        File f = new File("customer/db.properties");
         if (f.exists()) {
             log.debug("load >> " + f.getAbsolutePath());
             conf.load(new FileReader(f));
