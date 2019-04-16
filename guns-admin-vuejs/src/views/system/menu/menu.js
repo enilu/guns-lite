@@ -89,6 +89,7 @@ export default {
         if (valid) {
           const menuData = self.form
           menuData.parent = null
+          menuData.children = null
           save(menuData).then(response => {
             this.$message({
               message: '提交成功',
