@@ -87,8 +87,10 @@ export default {
       var self = this
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          const menuData = self.form
+          let menuData = self.form
           menuData.parent = null
+          menuData.children = null
+          console.log(menuData)
           save(menuData).then(response => {
             this.$message({
               message: '提交成功',

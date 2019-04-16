@@ -1,0 +1,52 @@
+package ${packageName};
+
+import ${table.EntityFullClassName};
+import ${table.ServiceFullClassName};
+
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.constant.factory.PageFactory;
+import cn.enilu.guns.bean.dictmap.CommonDict;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
+import cn.enilu.guns.bean.vo.front.Rets;
+
+import cn.enilu.guns.utils.Maps;
+import cn.enilu.guns.utils.ToolUtil;
+import cn.enilu.guns.utils.factory.Page;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("${table.UriPrefix}")
+public class ${table.ControllerClassName} {
+	private  Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired
+	private ${table.ServiceClassName} ${table.ServiceInstanceName};
+
+	@RequestMapping(value = "/list",method = RequestMethod.GET)
+	public Object list() {
+	Page<${table.EntityClassName}> page = new PageFactory<${table.EntityClassName}>().defaultPage();
+		page = ${table.ServiceInstanceName}.findPage(page, Maps.newHashMap());
+		page.setRecords(page.getRecords());
+		return Rets.success(page);
+	}
+	@RequestMapping(method = RequestMethod.POST)
+	@BussinessLog(value = "编辑${table.Label}", key = "name",dict= CommonDict.class)
+	public Object save(@ModelAttribute ${table.EntityClassName} ${table.EntityInstanceName}){
+		${table.ServiceInstanceName}.save(${table.EntityInstanceName});
+		return Rets.success();
+	}
+	@RequestMapping(method = RequestMethod.DELETE)
+	@BussinessLog(value = "删除${table.Label}", key = "id",dict= CommonDict.class)
+	public Object remove(Long id){
+		if (ToolUtil.isEmpty(id)) {
+			throw new GunsException(BizExceptionEnum.REQUEST_NULL);
+		}
+		${table.ServiceInstanceName}.delete(id);
+		return Rets.success();
+	}
+}
