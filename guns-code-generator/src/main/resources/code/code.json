@@ -17,5 +17,15 @@
 		dao : {
 			type : "org.nutz.dao.impl.NutDao",
 			args : [{refer:"dataSource"}]
+		},
+		"codeConfig":{
+			"type": "cn.enilu.common.code.CodeConfig",
+			"fields": {
+				entityModel : "guns-entity",
+				daoModel : "guns-dao",
+				serviceModel : "guns-service",
+				controllerModel : "guns-api",
+				viewModel: "guns-admin-vuejs"
+			}
 		}
 }

@@ -152,7 +152,7 @@ public class TableDescriptor {
     }
 
     public String getServiceInstanceName() {
-        return getEntityInstanceName() + "Service";
+        return Strings.lowerFirst(getServiceClassName());
     }
 
     public String getServiceClassName() {

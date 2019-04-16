@@ -59,7 +59,6 @@ public class Generator {
         context.put("table", table);
         context.put("packageName", packageName);
         StringWriter writer = new StringWriter();
-        // todo
 
         String template = new String(Streams.readBytes(ClassLoader.getSystemResourceAsStream(templatePath)),
                                      Charset.forName("utf8"));
@@ -179,6 +178,7 @@ public class Generator {
         }
         Ioc ioc = new NutIoc(new JsonLoader(configPath));
         PropertiesProxy conf = ioc.get(PropertiesProxy.class, "conf");
+        CodeConfig codeConfig = ioc.get(CodeConfig.class);
         File f = new File("db.properties");
         if (f.exists()) {
             log.debug("load >> " + f.getAbsolutePath());
@@ -247,7 +247,7 @@ public class Generator {
                     if (!"model".equals(type)) {
                         className = Utils.UPPER_CAMEL(className) + Strings.upperFirst(type);
                     }
-                    File file = new File(outputDir, packagePath + "/" + className + ".java");
+                    File file = new File(codeConfig.getModel(type)+File.separator+outputDir, packagePath + "/" + className + ".java");
                     log.debug("generate " + file.getName());
                     generator.generate(packageName, templatePath, file, force);
                 }
