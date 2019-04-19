@@ -69,7 +69,7 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 - vue版本用法如下：
   - 启动guns-api，运行ApiApplication启动即可
   - 启动guns-admin-vuejs
-  - 访问http://localhost:8082
+  - 访问http://localhost:9528/#/
 
 ## 文档
 
