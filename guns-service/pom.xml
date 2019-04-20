@@ -27,7 +27,14 @@
             <artifactId>guns-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-reader</artifactId>
+        </dependency>
         <!--test-->
         <dependency>
             <groupId>junit</groupId>

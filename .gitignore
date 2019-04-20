@@ -13,3 +13,8 @@ guns-admin-vuejs/node_modules/*
 .settings/*
 .vscode/*
 .idea/*
+guns-code/generator/
+guns-api/
+guns-admin-vuejs/
+guns-h5/
+log/
