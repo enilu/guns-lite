@@ -247,7 +247,7 @@ public class MenuController extends BaseController {
             menu.setLevels(1);
         } else {
 
-            Menu pMenu = menuRepository.findByCode(menu.getPcode());
+            Menu pMenu = menuRepository.findOne(Long.valueOf(menu.getPcode()));
             Integer pLevels = pMenu.getLevels();
             menu.setPcode(pMenu.getCode());
 
