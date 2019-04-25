@@ -23,6 +23,7 @@
 ### vue-element-admin
 - [https://panjiachen.gitee.io/vue-element-admin-site/zh/](https://panjiachen.gitee.io/vue-element-admin-site/zh/)
 - guns-admin-vuejs使用了vue-element-admin作为基础框架，基于guns-admin-vuejs开发之前强烈建议先看下vue-element-admin的官方文档
+
 ### vux.li
 - [https://vux.li](https://vux.li)
 - guns-admin使用vux作为基础组件库，vux.li是一个用户很多的移动端vuejs的组件库，开发h5过程中请多参考该文档
@@ -32,3 +33,8 @@
 - vuejs官方文档
 
 ## 后端
+
+## Spring Boot
+- [https://qbgbook.gitbooks.io/spring-boot-reference-guide-zh/content/](https://qbgbook.gitbooks.io/spring-boot-reference-guide-zh/content/) 文档基于Spring Boot1.4.1的英文文档翻译
+- [https://www.breakyizhan.com/springboot/3028.html](https://www.breakyizhan.com/springboot/3028.html) 文档基于Spring Boot2.0.1的英文文档翻译
+- 本系统基于Spring Boot2.1.1开发，所以建议开发过程中多翻翻第二个在线文档，第一个文档可以作为蛇参考。
