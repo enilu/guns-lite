@@ -23,11 +23,6 @@
             <artifactId>sbvue-coder</artifactId>
             <version>1.0</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>cn.enilu</groupId>-->
-            <!--<artifactId>guns-code-generator</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
