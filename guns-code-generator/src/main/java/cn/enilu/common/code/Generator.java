@@ -271,19 +271,26 @@ public class Generator {
                                       Generator generator,
                                       String[] pages)
             throws IOException {
-
+        //生成vue版本相关文件
         File apiFile = new File(codeConfig.getViewModel()+"/src/api/"+table.getViewBasePath()+".js");
         generator.generate(null,  "code/view/api.js.vm", apiFile, force);
-        for (String view : pages) {
-            String templatePath = "code/view/" + view + ".html.vm";
-            File file = new File(codeConfig.getViewModel()+"src/main/webapp/WEB-INF/views/"
-                                 + table.getViewBasePath()
-                                 + "/"
-                                 + view
-                                 + ".html");
-            log.debug("generate html:" + file.getName());
-            generator.generate(null, templatePath, file, force);
-        }
+
+        File vueFile = new File(codeConfig.getViewModel()+"/src/views/"+table.getViewBasePath()+File.separator+"index.vue");
+        generator.generate(null,  "code/view/index.vue.vm", vueFile, force);
+
+        File jsFile = new File(codeConfig.getViewModel()+"/src/views/"+table.getViewBasePath()+File.separator+table.getName()+".js");
+        generator.generate(null,  "code/view/index.js.vm", jsFile, force);
+
+//        for (String view : pages) {
+//            String templatePath = "code/view/" + view + ".html.vm";
+//            File file = new File(codeConfig.getViewModel()+"src/main/webapp/WEB-INF/views/"
+//                                 + table.getViewBasePath()
+//                                 + "/"
+//                                 + view
+//                                 + ".html");
+//            log.debug("generate html:" + file.getName());
+//            generator.generate(null, templatePath, file, force);
+//        }
     }
 
     private static void usage(Options options) {

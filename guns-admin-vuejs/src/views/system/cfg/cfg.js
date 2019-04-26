@@ -5,7 +5,6 @@ export default {
     return {
       formVisible: false,
       formTitle: this.$t('config.add'),
-      deptList: [],
       isAdd: true,
       form: {
         id: '',

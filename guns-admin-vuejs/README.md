@@ -12,9 +12,7 @@ PanJiaChen同学提供了全面的文档，开发过程可以参考这里：[htt
 
 ```bash 
 
-# Install dependencies
-npm install
-
+# Install dependencies 
 # 建议不要用cnpm  安装有各种诡异的bug 可以通过如下操作解决npm速度慢的问题
 npm install --registry=https://registry.npm.taobao.org
 

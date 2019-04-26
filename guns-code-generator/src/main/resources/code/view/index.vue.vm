@@ -14,13 +14,12 @@
         <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row
                   @current-change="handleCurrentChange">
 #foreach ($column in $table.LabeledColumns)
-
-#end
             <el-table-column label="${column.label}">
                 <template slot-scope="scope">
                     {{scope.row.${column.FieldName}}}
                 </template>
             </el-table-column>
+#end
         </el-table>
 
         <el-pagination
@@ -41,23 +40,13 @@
                 width="70%">
             <el-form ref="form" :model="form" :rules="rules" label-width="150px">
                 <el-row>
+#foreach ($column in $table.LabeledColumns)
                     <el-col :span="12">
-                        <el-form-item :label="$t('config.name')" prop="cfgName">
-                            <el-input v-model="form.cfgName" minlength=1></el-input>
+                        <el-form-item label="${column.label}"  >
+                            <el-input v-model="form.${column.FieldName}" minlength=1></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
-                        <el-form-item :label="$t('config.value')" prop="cfgValue">
-                            <el-input v-model="form.cfgValue"  minlength=1></el-input>
-                        </el-form-item>
-                    </el-col>
-
-
-                    <el-col :span="12">
-                        <el-form-item :label="$t('config.descript')" prop="cfgDesc">
-                            <el-input v-model="form.cfgDesc"></el-input>
-                        </el-form-item>
-                    </el-col>
+#end
                 </el-row>
                 <el-form-item>
                     <el-button type="primary" @click="save">{{ $t('button.submit') }}</el-button>
