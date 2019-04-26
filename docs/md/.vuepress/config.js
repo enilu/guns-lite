@@ -12,6 +12,10 @@ module.exports = {
             {text: '案例',link:'https://github.com/enilu/guns-lite/issues/4'},
             {text: '捐赠',link:'/donate'},
             {text: '资源',link:'/resource'},
+            {text: '周边',
+                items:[
+                {text: '代码生成',link:'/ecosystem/code-generator'},
+            ]},
             {text: '项目主页', link: 'https://github.com/enilu/guns-lite'},
 
 

@@ -15,7 +15,7 @@
         <module>guns-service</module>
         <module>guns-admin</module>
         <module>guns-api</module>
-        <module>guns-code-generator</module>
+        <!--<module>guns-code-generator</module>-->
     </modules>
 
     <properties>
