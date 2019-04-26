@@ -11,7 +11,9 @@ module.exports = {
             {text: '公告', link: 'https://www.oschina.net/p/guns-lite'},
             {text: '案例',link:'https://github.com/enilu/guns-lite/issues/4'},
             {text: '捐赠',link:'/donate'},
+            {text: '资源',link:'/resource'},
             {text: '项目主页', link: 'https://github.com/enilu/guns-lite'},
+
 
         ],
         sidebar: [
