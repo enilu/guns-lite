@@ -110,7 +110,6 @@ export const componentsMap = {
   '/article': () => import('@/views/cms/article/index'),
   '/contacts': () => import('@/views/cms/contacts/index'),
   '/fileMgr': () => import('@/views/cms/file/index'),
-  '/boyMgr': () => import('@/views/test/boy/index'),
-  '/girMgr': () => import('@/views/test/girl/index')
+  '/boyMgr': () => import('@/views/test/boy/index')
 }
 export default permission
