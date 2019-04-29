@@ -9,7 +9,6 @@ import cn.enilu.guns.bean.vo.node.Node;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.MenuRepository;
 import cn.enilu.guns.utils.ToolUtil;
-import org.nutz.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +102,6 @@ public class MenuService {
             MenuNode menuNode = entry.getValue();
 
             if(menuNode.getParentId().intValue()!=0){
-                System.out.println(Json.toJson(menuNode));
                 MenuNode parentNode = map.get(menuNode.getParentId());
                 parentNode.getChildren().add(menuNode);
             }else{
