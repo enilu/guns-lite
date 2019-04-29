@@ -6,25 +6,27 @@
  - guns-lite是一个基于spring boot的后台管理系统。
 
 ## 分支
-- admin-flat 该分支将guns-admin页面更改为扁平化风格，去掉iframe+标签页的形式:
+- master，主分支，稳定版
+- admin-flat 该分支将guns-admin页面更改为扁平化风格，去掉iframe+标签页的形式，（已经停止维护，不再添加新功能和修复bug）
 
  ![flat](https://user-images.githubusercontent.com/3115814/38806871-49f57248-41ad-11e8-932b-e06dc1941107.jpg)
 
-- oracle, 该分支将底层数据使用oracle。
+- oracle, 该分支将底层数据使用oracle。(已停止维护该分支-，建议用户如果需要用到oracle，可以基于master分支进行改造，改造过程可以参考该分支)
+- dev,开发分支，新功能都会再改分支上开发，不建议使用该分支，不稳定
 
 ## 目录说明
 - guns-admin 一个成熟的后台管理系统，完全具备了后台管理系统的基本功能
 - guns-admin-vuejs 基于vuejs的后台管理,如果你想要前后端分离，那么该目录和下面的guns-api可以帮到你，这两个模块共同实现了上面guns-admin实现了的功能
 - guns-api 基于vuejs后台管理的api服务
-- guns-h5 移动端内容系统，基于后台管理CMS内容管理模块的内容进行展示。
+- guns-h5 移动端内容系统，基于后台管理CMS内容管理模块的内容进行展示。基于vux开发
 - guns-utils 工具包
 - guns-dao  dao层
 - guns-entity 实体层
 - guns-service 服务层
 
 ## 演示
-- 后台管理(vue版本) http://106.75.35.53:8082/vue
-- 前端 http://106.75.35.53:8082/mobile/#/index
+- 后台管理(vue版本) http://47.104.84.62:8080/vue
+- 手机端 http://47.104.84.62:8080/mobile/#/index
 
 
 ## 技术选型
