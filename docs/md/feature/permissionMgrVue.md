@@ -49,40 +49,60 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     }
 }
-```
+``` 
 
 ## 左侧菜单导航的权限控制
 用户登陆成功后，会根据用户所拥有的角色配置的菜单生成路由表数据返回到前端：cn.enilu.guns.api.controller.AccountController：
 ```java
 //获取用户可以操作的菜单列表
-List<MenuNode> menuNodes =  menuService.getMenusTreeByRoleIds(shiroUser.getRoleList());
-//返回（根据拥有操作权限的菜单列表构造）路由信息
-map.put("routers",generateRouters(menuNodes));
+List menus = menuRepository.getMenusByRoleIds(shiroUser.getRoleList());
+map.put("menus",menus);
 ```
-前端接收到路由表信息后使用组件映射表来根据路由表信息生成前端路由信息：src/store/modules/permission.js：
+前端接收到菜单列表信息后根据是否有这些菜单列表的操作权限来生成路由表：src/store/modules/permission.js：
 
 ```javascript
+
 /**
- * 组件映射表
- * @type
+ * 通过route.path判断用户是否有对改菜单的操作权限
+ * @param roles
+ * @param route
  */
-export const componentsMap = {
-  '/mgr': () => import('@/views/system/user/index'),
-  '/menu': () => import('@/views/system/menu/index'),
-  '/role': () => import('@/views/system/role/index'),
-  '/dept': () => import('@/views/system/dept/index'),
-  '/dict': () => import('@/views/system/dict/index'),
-  '/log': () => import('@/views/system/log/index'),
-  '/loginLog': () => import('@/views/system/loginLog/index'),
-  '/cfg': () => import('@/views/system/cfg/index'),
-  '/task': () => import('@/views/system/task/index'),
-  '/banner': () => import('@/views/cms/banner/index'),
-  '/channel': () => import('@/views/cms/channel/index'),
-  '/article': () => import('@/views/cms/article/index'),
-  '/contacts': () => import('@/views/cms/contacts/index'),
-  '/fileMgr': () => import('@/views/cms/file/index')
+function hasMenu(menus, route) {
+  if (route.path) {
+    return menus.some(menu => (menu[4].indexOf(route.path) >= 0) )
+  } else {
+    return true
+  }
+}
+
+/**
+ * 递归过滤异步路由表，返回后台菜单列表包含的路由表
+ * @param asyncRouterMap
+ * @param menus
+ * @returns {*}
+ */
+function filterAsyncRouterByMenu(asyncRouterMap, menus) {
+  const accessedRouters = asyncRouterMap.filter(route => {
+    if (hasMenu(menus, route)) {
+      if (route.children && route.children.length) {
+        route.children = filterAsyncRouterByMenu(route.children, menus)
+      }
+      return true
+    }
+    console.log(route.path)
+    return false
+  })
+  return accessedRouters
 }
 ```
+
+
+| 特性 | 旧版 | 新版 |
+| ------ | ------ | ------ |
+| 菜单国际化 | 不支持 | 支持 |
+| 菜单文本内容动态改变 | 支持(通过菜单管理可以更改菜单内容) | 不支持（写死在前端） |
+| 菜单国际化 | 不支持 | 支持 |
+
 
 ## 页面功能（按钮）的权限控制
 
