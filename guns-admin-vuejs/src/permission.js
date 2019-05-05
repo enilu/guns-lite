@@ -23,9 +23,15 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.roles.length === 0) {
         store.dispatch('GetInfo').then(res => { // 拉取用户信息
+          //原始的菜单列表数据
+          const menus = res.data.menus
+          //后台构造好的路由
           const routers = res.data.routers
+          //角色列表
+          const roles = res.data.roles
+
           //根据后台返回的路由信息调用GenerateRoutes方法生成路由表
-          store.dispatch('GenerateRoutes', { routers }).then(() => { // 根据roles权限生成可访问的路由表
+          store.dispatch('GenerateRoutes', { roles:roles,routers:routers,menus:menus }).then(() => { // 根据roles权限生成可访问的路由表
             // 添加可访问路由表
             router.addRoutes(store.getters.addRouters)
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record

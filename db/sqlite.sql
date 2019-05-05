@@ -1,4 +1,7 @@
 /*
+如果使用sqlite脚本，使用改数据库脚本，改版本截至2018-12-22日后不再维护，建议参考下面文档自行将mysql数据库脚本转换为sqlite：
+http://enilu.gitee.io/guns-lite/action/sqlite.html
+
 Navicat SQLite Data Transfer
 
 Source Server         : guns-lite

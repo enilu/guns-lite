@@ -111,7 +111,6 @@ export default {
         })
       }
       getList().then(response => {
-        console.log(response.data)
         this.options = response.data
       })
     },
@@ -181,7 +180,6 @@ export default {
     save() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          console.log(this.form)
           save({
             id: this.form.id,
             title: this.form.title,
@@ -224,8 +222,6 @@ export default {
       this.loadingInstance.close()
       if (response.code === 20000) {
         this.form.img = response.data.id
-        console.log(response.data)
-        console.log(this.form)
       } else {
         this.$message({
           message: this.$t('common.uploadError'),

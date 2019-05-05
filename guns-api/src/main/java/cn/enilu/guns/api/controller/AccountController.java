@@ -114,6 +114,9 @@ public class AccountController extends BaseController{
             String token = getToken(request);
             ShiroUser shiroUser = tokenCache.getUser(token);
             Map map = Maps.newHashMap("name",user.getName(),"role","admin","roles", shiroUser.getRoleCodes());
+
+            List menus = menuRepository.getMenusByRoleIds(shiroUser.getRoleList());
+            map.put("menus",menus);
             //获取用户可以操作的菜单列表
             List<MenuNode> menuNodes =  menuService.getMenusTreeByRoleIds(shiroUser.getRoleList());
             //返回（根据拥有操作权限的菜单列表构造）路由信息

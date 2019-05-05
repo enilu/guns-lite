@@ -41,22 +41,6 @@ export const constantRouterMap = [
       hidden: true,
       meta: { title: '修改密码' }
 
-    },
-    {
-      path: '/system/taskLog',
-      name: '任务日志',
-      component: () => import('@/views/system/task/log/index'),
-      hidden: true,
-      meta: { title: '任务日志' }
-
-    },
-    {
-      path: '/cms/article/edit',
-      name: '编辑文章',
-      component: () => import('@/views/cms/article/edit.vue'),
-      hidden: true,
-      meta: { title: '编辑文章' }
-
     }
     ]
   },
@@ -69,4 +53,146 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
+
+
+
+
+export const asyncRouterMap = [
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '#',
+    name: 'System',
+    alwaysShow: true,
+    meta: {
+      roles: ['administrator'],
+      title: 'systemMgr',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: 'menu',
+        name: 'Menu',
+        component: () => import('@/views/system/menu/index'),
+        meta: {
+          title: 'menuMgr'
+        }
+      },
+      {
+        path: 'dept',
+        name: 'Department',
+        component: () => import('@/views/system/dept/index'),
+        meta: {
+          title: 'deptMgr'
+        }
+      },
+      {
+        path: 'mgr',
+        name: 'Account',
+        component: () => import('@/views/system/user/index'),
+        meta: {title: 'userMgr' }
+      },
+      {
+        path: 'role',
+        name: 'roleMgr',
+        component: () => import('@/views/system/role/index'),
+        meta: { title: 'roleMgr' }
+      },
+      {
+        path: 'task',
+        name: 'Task',
+        component: () => import('@/views/system/task/index'),
+        meta: { title: 'taskMgr' },
+      },
+      {
+        path: 'taskLog',
+        name: 'taskLog',
+        component: () => import('@/views/system/task/taskLog.vue'),
+        hidden: true,
+        meta: { title: 'taskLog' }
+
+      },
+      {
+        path: 'dict',
+        name: 'Dict',
+        component: () => import('@/views/system/dict/index'),
+        meta: { title: 'dictMgr' }
+      },
+      {
+        path: 'loginLog',
+        name: 'Login Log',
+        component: () => import('@/views/system/loginLog/index'),
+        meta: { title: 'loginLog' }
+      },
+      {
+        path: 'log',
+        name: 'Bussiness Log',
+        component: () => import('@/views/system/log/index'),
+        meta: { title: 'bussinessLog' }
+      },
+      {
+        path: 'config',
+        name: 'Config',
+        component: () => import('@/views/system/cfg/index'),
+        meta: {
+          title: 'configMgr'
+        }
+      }
+    ]
+  },
+  {
+    path: '/cms',
+    component: Layout,
+    redirect: '#',
+    name: 'Cms',
+    alwaysShow: true,
+    meta: {
+      roles: ['administrator', 'developer'],
+      title: 'cmsMgr',
+      icon: 'documentation'
+    },
+    children: [
+      {
+        path: 'banner',
+        name: 'Banner',
+        component: () => import('@/views/cms/banner/index'),
+        meta: { title: 'bannerMgr' }
+      },
+      {
+        path: 'channel',
+        name: 'Channel',
+        component: () => import('@/views/cms/channel/index'),
+        meta: { title: 'channelMgr' }
+      },
+      {
+        path: 'article',
+        name: 'Article',
+        component: () => import('@/views/cms/article/index'),
+        meta: { title: 'articleMgr' }
+      },
+      {
+        path: 'article/edit',
+        name: 'Edit Article',
+        component: () => import('@/views/cms/article/edit.vue'),
+        hidden: true,
+        meta: { title: 'editArticle' }
+      },
+      {
+        path: 'contacts',
+        name: 'Contacts',
+        component:() => import('@/views/cms/contacts/index'),
+        meta: { title: 'contactsMgr' }
+      },
+      {
+        path: 'file',
+        name: 'File',
+        component:  () => import('@/views/cms/file/index'),
+        meta: {
+          title: 'fileMgr'
+        }
+      }
+    ]
+  },
+  {path: '/404', component: () => import('@/views/404'), hidden: true}
+];
 

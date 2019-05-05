@@ -37,7 +37,6 @@
               <el-upload
                 class="upload-demo"
                 drag
-                multiple=false
                 :action="uploadUrl"
                 :headers="uploadHeaders"
                 :before-upload="handleBeforeUpload"

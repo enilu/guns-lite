@@ -1,4 +1,5 @@
 /*
+如果你使用非vue版本后台管理(即使用guns-admin)，请初始化改数据库脚本
 Navicat MySQL Data Transfer
 
 Source Server         : localhost

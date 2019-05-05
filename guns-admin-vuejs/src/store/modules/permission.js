@@ -1,7 +1,39 @@
-import { constantRouterMap } from '@/router'
 
-import Layout from '../../views/layout/Layout'
+import { asyncRouterMap, constantRouterMap } from '@/router'
 
+
+/**
+ * 通过route.path判断用户是否有对改菜单的操作权限
+ * @param roles
+ * @param route
+ */
+function hasMenu(menus, route) {
+  if (route.path) {
+    return menus.some(menu => (menu[4].indexOf(route.path) >= 0) )
+  } else {
+    return true
+  }
+}
+
+/**
+ * 递归过滤异步路由表，返回后台菜单列表包含的路由表
+ * @param asyncRouterMap
+ * @param menus
+ * @returns {*}
+ */
+function filterAsyncRouterByMenu(asyncRouterMap, menus) {
+  const accessedRouters = asyncRouterMap.filter(route => {
+    if (hasMenu(menus, route)) {
+      if (route.children && route.children.length) {
+        route.children = filterAsyncRouterByMenu(route.children, menus)
+      }
+      return true
+    }
+    console.log(route.path)
+    return false
+  })
+  return accessedRouters
+}
 /**
  * 通过meta.role判断是否与当前用户权限匹配
  * @param roles
@@ -22,16 +54,17 @@ function hasPermission(roles, route) {
  */
 function filterAsyncRouter(asyncRouterMap, roles) {
   const accessedRouters = asyncRouterMap.filter(route => {
-    // if (hasPermission(roles, route)) {
-    if (route.children && route.children.length) {
-      route.children = filterAsyncRouter(route.children, roles)
+    if (hasPermission(roles, route)) {
+      if (route.children && route.children.length) {
+        route.children = filterAsyncRouter(route.children, roles)
+      }
+      return true
     }
-    return true
-    // }
     return false
   })
   return accessedRouters
 }
+
 
 const permission = {
   state: {
@@ -47,68 +80,20 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
-        const asyncRouterMapFromServer = data.routers
-        const asyncRouterMap = convertRouter(asyncRouterMapFromServer)
-        commit('SET_ROUTERS', asyncRouterMap)
+        const roles = data.roles
+        const routers = data.routers
+        const menus = data.menus
+        let accessedRouters = null
+        if (roles.indexOf('admin') >= 0) {
+          accessedRouters = asyncRouterMap
+        } else {
+          accessedRouters = filterAsyncRouterByMenu(asyncRouterMap, menus)
+        }
+        commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
     }
   }
 }
 
-/**
- *将后台的路由表进行格式化
- * @param {*} asyncRouterMap
- */
-function convertRouter(asyncRouterMap) {
-  const accessedRouters = []
-  if (asyncRouterMap) {
-    // 默认支持二级菜单，如果需要生成三级菜单路由表，需要在这里做调整
-    asyncRouterMap.forEach(item => {
-      var parent = generateRouter(item, true)
-      var children = []
-      if (item.children) {
-        item.children.forEach(child => {
-          const router = generateRouter(child, false)
-          children.push(router)
-        })
-      }
-      parent.children = children
-      accessedRouters.push(parent)
-    })
-  }
-  return accessedRouters
-}
-
-function generateRouter(item, isParent) {
-  const router = {
-    path: item.path,
-    name: item.name,
-    meta: { title: item.name },
-    children: item.children,
-    component: isParent ? Layout : componentsMap[item.path]
-  }
-  return router
-}
-
-/**
- * 组件映射表
- * @type
- */
-export const componentsMap = {
-  '/mgr': () => import('@/views/system/user/index'),
-  '/menu': () => import('@/views/system/menu/index'),
-  '/role': () => import('@/views/system/role/index'),
-  '/dept': () => import('@/views/system/dept/index'),
-  '/dict': () => import('@/views/system/dict/index'),
-  '/log': () => import('@/views/system/log/index'),
-  '/loginLog': () => import('@/views/system/loginLog/index'),
-  '/cfg': () => import('@/views/system/cfg/index'),
-  '/task': () => import('@/views/system/task/index'),
-  '/banner': () => import('@/views/cms/banner/index'),
-  '/channel': () => import('@/views/cms/channel/index'),
-  '/article': () => import('@/views/cms/article/index'),
-  '/contacts': () => import('@/views/cms/contacts/index'),
-  '/fileMgr': () => import('@/views/cms/file/index')
-}
 export default permission
