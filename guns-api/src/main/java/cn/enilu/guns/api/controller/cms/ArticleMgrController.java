@@ -12,7 +12,10 @@ import cn.enilu.guns.utils.Maps;
 import cn.enilu.guns.utils.factory.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 文章管理
@@ -28,7 +31,17 @@ public class ArticleMgrController extends BaseController {
     @BussinessLog(value = "编辑文章",key="name",dict = CommonDict.class)
     public Object save(){
         Article article = getFromJson(Article.class);
-        articleRepository.save(article);
+        if(article.getId()!=null){
+            Article old = articleRepository.findById(article.getId()).get();
+            old.setAuthor(article.getAuthor());
+            old.setContent(article.getContent());
+            old.setIdChannel(article.getIdChannel());
+            old.setImg(article.getImg());
+            old.setTitle(article.getTitle());
+            articleRepository.save(old);
+        }else {
+            articleRepository.save(article);
+        }
         return Rets.success();
     }
     @RequestMapping(method = RequestMethod.DELETE)
