@@ -14,8 +14,10 @@ module.exports = {
             {text: '资源',link:'/resource'},
             {text: '周边',
                 items:[
-                {text: '代码生成',link:'/ecosystem/code-generator'},
-            ]},
+                    {text: '代码生成',link:'/ecosystem/code-generator'},
+                    {text: '数据库文档生成',link:'/ecosystem/database-doc-generator'},
+                ]
+            },
             {text: '项目主页', link: 'https://github.com/enilu/guns-lite'},
 
 
