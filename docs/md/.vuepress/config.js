@@ -3,9 +3,14 @@ module.exports = {
     description: '使用guns-lite快速构建web应用程序',
     base: '/guns-lite/',
     evergreen: true,
+    editLinkText:'在 GitHub 上编辑此页',
     port: 8081,
     ga: 'UA-71886989-13',
     themeConfig: {
+        // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
+        repo: 'enilu/guns-lite',
+        editLinks: true,
+        editLinkText: '帮助我们改善此页面！',
         nav: [
             {text: '文档', link: '/'},
             {text: '公告', link: 'https://www.oschina.net/p/guns-lite'},
@@ -82,6 +87,12 @@ module.exports = {
                     '/action/task',
                     '/action/jpaauditing.md'
 
+                ]
+            },{
+                title: '其他',
+                collapsable: false,
+                children:[
+                    '/other/faq'
                 ]
             }
         ]
