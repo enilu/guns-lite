@@ -2,6 +2,7 @@ module.exports = {
     title: 'guns-lite',
     description: '使用guns-lite快速构建web应用程序',
     base: '/guns-lite/',
+
     evergreen: true,
     editLinkText:'在 GitHub 上编辑此页',
     port: 8081,
@@ -9,8 +10,9 @@ module.exports = {
     themeConfig: {
         // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
         repo: 'enilu/guns-lite',
+        docsDir: 'docs',
         editLinks: true,
-        editLinkText: '帮助我们改善此页面！',
+        editLinkText: '编辑此页面！',
         nav: [
             {text: '文档', link: '/'},
             {text: '公告', link: 'https://www.oschina.net/p/guns-lite'},
