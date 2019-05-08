@@ -75,7 +75,8 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 
 ## 文档
 
-[http://www.enilu.cn/guns-lite/](http://www.enilu.cn/guns-lite/)
+[http://enilu.github.io/guns-lite](http://enilu.github.io/guns-lite)
+[http://enilu.gitee.io/guns-lite/](http://enilu.gitee.io/guns-lite/)
 
 ## 感谢
 
