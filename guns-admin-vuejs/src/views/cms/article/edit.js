@@ -145,7 +145,6 @@ export default {
             this.hasChange = true
             const content = editor.getContent()
             this.form.content = content
-            // this.$emit('input', content)
           })
         },
         setup(editor) {
@@ -180,12 +179,13 @@ export default {
     save() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          const content = this.form.content.split('%').join('%25')
           save({
             id: this.form.id,
             title: this.form.title,
             author: this.form.author,
             idChannel: this.form.idChannel,
-            content: this.form.content,
+            content: content,
             img: this.form.img
           }).then(response => {
             this.$message({
