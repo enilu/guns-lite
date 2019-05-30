@@ -4,9 +4,8 @@
 
 ## guns-lite模块
 
-guns-lite包含6个核心模块：
+guns-lite包含5个核心模块：
 - guns-admin
-- guns-admin-vuejs
 - guns-utils
 - guns-dao
 - guns-entity

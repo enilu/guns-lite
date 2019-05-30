@@ -35,8 +35,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/base/jdkAndMaven',
-                    '/base/modules',
-                    '/base/guns-admin-vuejs.md'
+                    '/base/modules'
                 ]
             },
 
@@ -74,7 +73,6 @@ module.exports = {
                     '/feature/dict',
                     '/feature/log',
                     '/feature/permissionMgr',
-                    '/feature/permissionMgrVue',
                     '/feature/monitor',
                     '/feature/sysConfig',
                     '/feature/fileMgr'

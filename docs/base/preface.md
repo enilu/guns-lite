@@ -23,17 +23,11 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 
 ## 目录说明
 - guns-admin 一个成熟的后台管理系统，完全具备了后台管理系统的基本功能
-- guns-admin-vuejs 基于vuejs的后台管理,如果你想要前后端分离，那么该目录和下面的guns-api可以帮到你，这两个模块共同实现了上面guns-admin实现了的功能
-- guns-api 基于vuejs后台管理的api服务
-- guns-h5 移动端内容系统，基于后台管理CMS内容管理模块的内容进行展示。
 - guns-utils 工具包
 - guns-dao  dao层
 - guns-entity 实体层
 - guns-service 服务层
 
-## 演示
-- 后台管理(vue版本) http://47.104.84.62:8080/vue
-- 手机端 http://47.104.84.62:8080/mobile/#/index
 
 ## 技术选型
 
@@ -42,8 +36,6 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 - 安全框架：Shiro
 - 数据库连接池：Druid
 - 缓存：Ehcache
-- 前端(guns-admin)：Beetl模版+Bootstrap
-- 前端(分离版)：element ui(vuejs)
 
 
 ## 包含的功能
@@ -62,8 +54,6 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 
 **后续考虑添加的功能**
 - 消息管理：配置并发送消息的功能，短信类型可以包括：短信，邮件，微信模版消息，钉钉提醒等。
-- cms内容管理功能[完善中]
-- 移动端方案[完善中]
 
 ## 使用
 
@@ -72,11 +62,6 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 - 创建数据库：guns-lite，将guns-admin/sql/guns-lite.sql导入数据库中，更改相应数据库配置
 - 启动guns-admin
 - 访问 https://localhost:8080，   登录，用户名密码:admin/admin ![demo](../demo.gif)
-- 另外附上vue版本效果图![vue](../vuejs.gif)
-- vue版本用法如下：
-  - 启动guns-api，运行ApiApplication启动即可
-  - 启动guns-admin-vuejs
-  - 访问http://localhost:8082
 ## 文档
 
 [http://www.enilu.cn/guns-lite/](http://www.enilu.cn/guns-lite/)
@@ -84,7 +69,6 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 ## 感谢
 
 - [stylefeng](https://github.com/stylefeng) 没有他就没有guns，没有guns就没有这个guns-lite
-- [PanJiaChen](https://github.com/PanJiaChen) guns-admin-vuejs克隆在他的[vue-admin-template](https://github.com/PanJiaChen/vue-admin-template)
 
 ## 交流
 - Bugs: [Issues](https://github.com/enilu/guns-lite/issues/new)

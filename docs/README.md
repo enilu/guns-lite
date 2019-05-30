@@ -25,11 +25,11 @@ footer: MIT Licensed | Copyright © 2018-present enilu
   </div>
   <div class="feature">
       <h2>最新技术栈</h2>
-      <p>使用spring boot+jpa构建后端服务，<br>使用bootstrap,vue/element构建前端</p>
+      <p>使用spring boot+jpa构建后端服务，使用Beetl+Bootstrap构建页面</p>
    </div>
    <div class="feature">
-      <h2>前后端分离</h2>
-      <p>提供由vue构建的纯前端系统和后台api服务做交互</p>
+      <h2>成熟方案</h2>
+      <p>基于改系统已经上线了很多大大小小的后管系统，方案成熟，坑少</p>
    </div>
   <div class="feature">
      <h2>最佳实践</h2>
