@@ -2,7 +2,9 @@ module.exports = {
     title: 'guns-lite',
     description: '使用guns-lite快速构建web应用程序',
     base: '/guns-lite/',
-
+    head: [
+        ['link', { rel: 'shortcut icon', type: "image/x-icon", href: './favicon.ico' }]
+    ],
     evergreen: true,
     editLinkText:'在 GitHub 上编辑此页',
     port: 8081,
