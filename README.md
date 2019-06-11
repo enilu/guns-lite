@@ -4,7 +4,7 @@
 
  - guns-lite是在[guns](https://github.com/stylefeng/Guns)的基础上将数据库层由mybatis替换为spring data jpa的系统。
  - guns-lite是一个基于spring boot的后台管理系统。
- - 另提供前后端分离（vue）版本[web-falsh](https://github.com/enilu/web-flash)
+ - 另提供前后端分离（vue）版本[web-flash](https://github.com/enilu/web-flash)
 
 ## 分支
 - master，主分支，稳定版
