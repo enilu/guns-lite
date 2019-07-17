@@ -3,7 +3,7 @@ package cn.enilu.guns.bean.constant.factory;
 import cn.enilu.guns.bean.constant.state.Order;
 import cn.enilu.guns.utils.HttpKit;
 import cn.enilu.guns.utils.StringUtils;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.utils.ToolUtil;
 
 import javax.servlet.http.HttpServletRequest;

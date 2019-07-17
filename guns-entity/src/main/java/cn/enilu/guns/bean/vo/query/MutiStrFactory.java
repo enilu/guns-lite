@@ -1,4 +1,4 @@
-package cn.enilu.guns.utils.factory;
+package cn.enilu.guns.bean.vo.query;
 
 
 import cn.enilu.guns.utils.ToolUtil;

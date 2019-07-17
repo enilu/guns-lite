@@ -1,5 +1,6 @@
-package cn.enilu.guns.utils.factory;
+package cn.enilu.guns.bean.vo.query;
 
+import cn.enilu.guns.utils.Lists;
 import cn.enilu.guns.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -306,6 +307,8 @@ public class Page<T>  {
      */
     private transient Map<String, Object> condition;
 
+    private transient  List<SearchFilter> filters;
+
 
     public List<T> getRecords() {
         return records;
@@ -323,6 +326,25 @@ public class Page<T>  {
     public Page<T> setCondition(Map<String, Object> condition) {
         this.condition = condition;
         return this;
+    }
+
+
+    public List<SearchFilter> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(List<SearchFilter> filters) {
+        this.filters = filters;
+    }
+    public void addFilter(SearchFilter filter){
+        if(filter==null){
+            return ;
+        }
+        if(filters==null){
+            filters = Lists.newArrayList();
+        }
+        filters.add(filter);
+
     }
 
     @Override
