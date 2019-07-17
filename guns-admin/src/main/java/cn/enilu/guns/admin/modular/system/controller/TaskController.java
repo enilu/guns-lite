@@ -9,7 +9,7 @@ import cn.enilu.guns.bean.entity.system.TaskLog;
 import cn.enilu.guns.dao.system.TaskRepository;
 import cn.enilu.guns.service.task.TaskService;
 import cn.enilu.guns.utils.StringUtils;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

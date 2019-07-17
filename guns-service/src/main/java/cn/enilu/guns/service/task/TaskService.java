@@ -8,7 +8,7 @@ import cn.enilu.guns.bean.exception.GunsExceptionEnum;
 import cn.enilu.guns.bean.vo.QuartzJob;
 import cn.enilu.guns.dao.system.TaskLogRepository;
 import cn.enilu.guns.dao.system.TaskRepository;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

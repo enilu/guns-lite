@@ -1,6 +1,7 @@
 package cn.enilu.guns.service.cms;
 
 import cn.enilu.guns.bean.entity.cms.Contacts;
+import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.dao.cms.ContactsRepository;
 import cn.enilu.guns.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ContactsService {
     @Autowired
     private ContactsRepository contactsRepository;
 
-    public cn.enilu.guns.utils.factory.Page findPage(cn.enilu.guns.utils.factory.Page<Contacts> page, final Map<String, String> params) {
+    public Page findPage(Page<Contacts> page, final Map<String, String> params) {
         Pageable pageable  = new PageRequest(page.getCurrent() - 1, page.getSize(),Sort.Direction.DESC,"id");
         org.springframework.data.domain.Page<Contacts> pageResult = contactsRepository.findAll(new Specification<Contacts>() {
             @Override

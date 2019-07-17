@@ -2,10 +2,13 @@ package cn.enilu.guns.admin.modular.system.controller;
 
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.constant.factory.PageFactory;
 import cn.enilu.guns.bean.dictmap.CfgDict;
 import cn.enilu.guns.bean.entity.system.Cfg;
-import cn.enilu.guns.dao.system.CfgRepository;
+import cn.enilu.guns.bean.vo.query.Page;
+import cn.enilu.guns.bean.vo.query.SearchFilter;
 import cn.enilu.guns.service.system.CfgService;
+import cn.enilu.guns.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/cfg")
 public class CfgController extends BaseController {
-    @Autowired
-    private CfgRepository cfgRepository;
     @Autowired
     private CfgService cfgService;
     private static String PREFIX = "/system/cfg/";
@@ -60,8 +61,16 @@ public class CfgController extends BaseController {
      */
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Object list() {
-        return cfgRepository.findAll();
+    public Object list(@RequestParam(required = false) String cfgName, @RequestParam(required = false) String cfgValue) {
+        Page<Cfg> page = new PageFactory<Cfg>().defaultPage();
+        if(StringUtils.isNotEmpty(cfgName)){
+            page.addFilter(SearchFilter.build("cfgName", SearchFilter.Operator.LIKE, cfgName));
+        }
+        if(StringUtils.isNotEmpty(cfgValue)){
+            page.addFilter(SearchFilter.build("cfgValue", SearchFilter.Operator.LIKE, cfgValue));
+        }
+        page = cfgService.queryPage(page);
+        return packForBT(page);
     }
 
     /**
@@ -71,7 +80,7 @@ public class CfgController extends BaseController {
     @ResponseBody
     @BussinessLog(value = "添加参数", key = "cfgName",dict = CfgDict.class)
     public Object add(Cfg cfg) {
-        cfgRepository.save(cfg);
+       cfgService.saveOrUpdate(cfg);
         return SUCCESS_TIP;
     }
 
@@ -82,7 +91,7 @@ public class CfgController extends BaseController {
     @ResponseBody
     @BussinessLog(value = "删除参数", key = "cfgId",dict = CfgDict.class)
     public Object delete(@RequestParam Long cfgId) {
-        cfgRepository.deleteById(cfgId);
+        cfgService.delete(cfgId);
         return SUCCESS_TIP;
     }
 
@@ -93,7 +102,7 @@ public class CfgController extends BaseController {
     @ResponseBody
     @BussinessLog(value = "编辑参数", key = "cfgName",dict = CfgDict.class)
     public Object update(Cfg cfg) {
-        cfgRepository.save(cfg);
+       cfgService.update(cfg);
         return SUCCESS_TIP;
     }
 

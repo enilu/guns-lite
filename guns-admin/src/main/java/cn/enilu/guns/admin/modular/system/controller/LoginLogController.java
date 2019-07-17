@@ -9,7 +9,7 @@ import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.warpper.LogWarpper;
 import cn.enilu.guns.bean.entity.system.LoginLog;
 import cn.enilu.guns.dao.system.LoginLogRepository;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.service.system.LoginLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

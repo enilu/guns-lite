@@ -4,7 +4,7 @@ import cn.enilu.guns.bean.entity.system.User;
 import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.utils.DateUtil;
 import cn.enilu.guns.utils.StringUtils;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

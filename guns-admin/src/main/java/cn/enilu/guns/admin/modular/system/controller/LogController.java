@@ -11,7 +11,7 @@ import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.warpper.LogWarpper;
 import cn.enilu.guns.bean.entity.system.OperationLog;
 import cn.enilu.guns.dao.system.OperationLogRepository;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.service.system.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -6,7 +6,7 @@ import cn.enilu.guns.dao.cache.ConfigCache;
 import cn.enilu.guns.dao.cache.TokenCache;
 import cn.enilu.guns.dao.system.FileInfoRepository;
 import cn.enilu.guns.utils.StringUtils;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

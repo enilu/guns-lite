@@ -3,7 +3,7 @@ package cn.enilu.guns.service.system;
 import cn.enilu.guns.bean.entity.system.Dict;
 import cn.enilu.guns.dao.cache.DictCache;
 import cn.enilu.guns.dao.system.DictRepository;
-import cn.enilu.guns.utils.factory.MutiStrFactory;
+import cn.enilu.guns.bean.vo.query.MutiStrFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

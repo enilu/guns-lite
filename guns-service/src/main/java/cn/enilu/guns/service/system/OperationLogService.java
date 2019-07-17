@@ -3,7 +3,7 @@ package cn.enilu.guns.service.system;
 import cn.enilu.guns.bean.entity.system.OperationLog;
 import cn.enilu.guns.dao.system.OperationLogRepository;
 import cn.enilu.guns.utils.DateUtil;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

@@ -2,12 +2,9 @@
 package cn.enilu.guns.dao.system;
 
 import cn.enilu.guns.bean.entity.system.Cfg;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import cn.enilu.guns.dao.BaseRepository;
 
-public interface CfgRepository extends PagingAndSortingRepository<Cfg,Long>
-        ,JpaRepository<Cfg,Long>,JpaSpecificationExecutor<Cfg> {
+public interface CfgRepository extends BaseRepository<Cfg,Long> {
 
     Cfg findByCfgName(String cfgName);
 }
