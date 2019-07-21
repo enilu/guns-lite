@@ -7,6 +7,7 @@ import cn.enilu.guns.bean.vo.node.Node;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.RelationRepository;
 import cn.enilu.guns.dao.system.RoleRepository;
+import cn.enilu.guns.service.BaseService;
 import cn.enilu.guns.utils.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import java.util.Optional;
  * @author enilu
  */
 @Service
-public class RoleService {
+public class RoleService extends BaseService<Role,Long,RoleRepository> {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -101,5 +102,9 @@ public class RoleService {
             return optional.get();
         }
         return null;
+    }
+
+    public List findByName(String roleName) {
+        return roleRepository.findByName(roleName);
     }
 }

@@ -2,10 +2,11 @@ package cn.enilu.guns.service.system;
 
 
 import cn.enilu.guns.bean.entity.system.LoginLog;
+import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.dao.system.LoginLogRepository;
+import cn.enilu.guns.service.BaseService;
 import cn.enilu.guns.utils.DateUtil;
 import cn.enilu.guns.utils.StringUtils;
-import cn.enilu.guns.bean.vo.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ import java.util.List;
  * @author enilu
  */
 @Service
-public class LoginLogService {
+public class LoginLogService extends BaseService<LoginLog,Long,LoginLogRepository> {
 
     @Autowired
     private LoginLogRepository loginLogRepository;

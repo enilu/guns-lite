@@ -2,7 +2,7 @@ package cn.enilu.guns.dao.system;
 
 
 import cn.enilu.guns.bean.entity.system.Notice;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import cn.enilu.guns.dao.BaseRepository;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author enilu
  */
-public interface SysNoticeRepository extends PagingAndSortingRepository<Notice,Long> {
+public interface SysNoticeRepository extends BaseRepository<Notice,Long> {
     List<Notice> findByTitleLike(String name);
 }

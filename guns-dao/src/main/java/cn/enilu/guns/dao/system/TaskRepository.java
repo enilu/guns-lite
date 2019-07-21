@@ -3,11 +3,11 @@ package cn.enilu.guns.dao.system;
 
 
 import cn.enilu.guns.bean.entity.system.Task;
-import org.springframework.data.jpa.repository.JpaRepository;
+import cn.enilu.guns.dao.BaseRepository;
 
 import java.util.List;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends BaseRepository<Task, Long> {
 
     long countByNameLike(String name);
 

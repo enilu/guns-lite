@@ -4,6 +4,7 @@ import cn.enilu.guns.bean.entity.system.Dict;
 import cn.enilu.guns.dao.cache.DictCache;
 import cn.enilu.guns.dao.system.DictRepository;
 import cn.enilu.guns.bean.vo.query.MutiStrFactory;
+import cn.enilu.guns.service.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.Optional;
  * @date 2017-04-27 17:00
  */
 @Service
-public class DictService {
+public class DictService extends BaseService<Dict,Long,DictRepository> {
     private Logger logger = LoggerFactory.getLogger(DictService.class);
     @Resource
     DictRepository dictRepository;
@@ -87,5 +88,9 @@ public class DictService {
             return optional.get();
         }
         return null;
+    }
+
+    public List<Dict> queryByPid(Long pid) {
+        return dictRepository.findByPid(pid);
     }
 }

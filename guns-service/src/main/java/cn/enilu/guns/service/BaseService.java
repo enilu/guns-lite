@@ -1,10 +1,10 @@
 package cn.enilu.guns.service;
 
 import cn.enilu.guns.bean.vo.query.DynamicSpecifications;
+import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.bean.vo.query.SearchFilter;
 import cn.enilu.guns.dao.BaseRepository;
 import cn.enilu.guns.utils.Lists;
-import cn.enilu.guns.bean.vo.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -105,4 +105,5 @@ public abstract  class BaseService<T, ID extends Serializable, R extends BaseRep
     public void clear() {
         dao.deleteAllInBatch();
     }
+
 }

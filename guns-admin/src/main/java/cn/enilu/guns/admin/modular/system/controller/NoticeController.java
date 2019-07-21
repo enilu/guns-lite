@@ -6,8 +6,8 @@ import cn.enilu.guns.bean.dictmap.NoticeMap;
 import cn.enilu.guns.bean.entity.system.Notice;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
-import cn.enilu.guns.dao.system.SysNoticeRepository;
 import cn.enilu.guns.service.system.LogObjectHolder;
+import cn.enilu.guns.service.system.NoticeService;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.utils.ToolUtil;
@@ -36,7 +36,7 @@ public class NoticeController extends BaseController {
     private String PREFIX = "/system/notice/";
 
     @Resource
-    private SysNoticeRepository sysNoticeRepository;
+    private NoticeService noticeService;
 
 
 
@@ -72,7 +72,7 @@ public class NoticeController extends BaseController {
      */
     @RequestMapping("/hello")
     public String hello() {
-        List<Notice> notices = (List<Notice>) sysNoticeRepository.findAll();
+        List<Notice> notices = (List<Notice>) noticeService.queryAll();
         super.setAttr("noticeList",notices);
         return "/blackboard.html";
     }
@@ -85,9 +85,9 @@ public class NoticeController extends BaseController {
     public Object list(String condition) {
         List<Notice> list = null;
         if(Strings.isNullOrEmpty(condition)) {
-         list = (List<Notice>) this.sysNoticeRepository.findAll();
+         list = (List<Notice>) this.noticeService.queryAll();
         }else{
-            list = sysNoticeRepository.findByTitleLike("%"+condition+"%");
+            list = noticeService.findByTitleLike("%"+condition+"%");
         }
         return super.warpObject(new NoticeWrapper(BeanUtil.objectsToMaps(list)));
     }
@@ -102,7 +102,7 @@ public class NoticeController extends BaseController {
         if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-       sysNoticeRepository.save(notice);
+       noticeService.saveOrUpdate(notice);
         return SUCCESS_TIP;
     }
 
@@ -117,7 +117,7 @@ public class NoticeController extends BaseController {
         //缓存通知名称
         LogObjectHolder.me().set(ConstantFactory.me().getNoticeTitle(noticeId));
 
-        this.sysNoticeRepository.deleteById(noticeId);
+        this.noticeService.delete(noticeId);
 
         return SUCCESS_TIP;
     }
@@ -135,7 +135,7 @@ public class NoticeController extends BaseController {
         Notice old = ConstantFactory.me().getNotice(notice.getId());
         old.setTitle(notice.getTitle());
         old.setContent(notice.getContent());
-        sysNoticeRepository.save(old);
+        noticeService.update(old);
         return SUCCESS_TIP;
     }
 

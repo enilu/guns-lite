@@ -8,13 +8,13 @@ import cn.enilu.guns.bean.entity.system.Dept;
 import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
-import cn.enilu.guns.dao.system.DeptRepository;
 import cn.enilu.guns.service.system.DeptService;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
 import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.utils.ToolUtil;
 import cn.enilu.guns.warpper.DeptWarpper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -37,10 +36,8 @@ public class DeptController extends BaseController {
 
     private String PREFIX = "/system/dept/";
 
-    @Resource
+    @Autowired
     DeptService deptService;
-    @Resource
-    DeptRepository deptRepository;
 
 
     /**
@@ -96,7 +93,7 @@ public class DeptController extends BaseController {
         }
         //完善pids,根据pid拿到pid的pids
         deptService.deptSetPids(dept);
-        return this.deptRepository.save(dept);
+        return deptService.saveOrUpdate(dept);
     }
 
     /**
@@ -132,7 +129,7 @@ public class DeptController extends BaseController {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
         deptService.deptSetPids(dept);
-        deptRepository.save(dept);
+        deptService.saveOrUpdate(dept);
         return SUCCESS_TIP;
     }
 
