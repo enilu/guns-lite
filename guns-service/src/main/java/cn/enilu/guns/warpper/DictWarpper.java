@@ -26,7 +26,7 @@ public class DictWarpper extends BaseControllerWarpper {
         List<Dict> dicts = ConstantFactory.me().findInDict(id);
         if(dicts != null){
             for (Dict dict : dicts) {
-                detail.append(dict.getNum() + ":" +dict.getName() + ",");
+                detail.append(dict.getValue() + ":" +dict.getName() + ",");
             }
             map.put("detail", ToolUtil.removeSuffix(detail.toString(),","));
         }

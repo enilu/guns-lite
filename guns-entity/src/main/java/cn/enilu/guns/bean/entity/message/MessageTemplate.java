@@ -28,4 +28,8 @@ public class MessageTemplate extends BaseEntity {
     @JoinColumn(name="id_message_sender", referencedColumnName = "id",  columnDefinition = "BIGINT comment '发送者id'", insertable = false, updatable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     private MessageSender messageSender;
+    @Transient
+    public String getTypeName(){
+        return type==0?"短信":"邮件";
+    }
 }

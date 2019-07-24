@@ -42,19 +42,19 @@ public class DictService extends BaseService<Dict,Long,DictRepository> {
         //添加字典
         Dict dict = new Dict();
         dict.setName(dictName);
-        dict.setNum("0");
+        dict.setValue("0");
         dict.setPid(0L);
         this.dictRepository.save(dict);
 
         //添加字典条目
         for (Map<String, String> item : items) {
-            String num = item.get(MutiStrFactory.MUTI_STR_KEY);
+            String val = item.get(MutiStrFactory.MUTI_STR_KEY);
             String name = item.get(MutiStrFactory.MUTI_STR_VALUE);
             Dict itemDict = new Dict();
             itemDict.setPid(dict.getId());
             itemDict.setName(name);
             try {
-                itemDict.setNum(num);
+                itemDict.setValue(val);
             }catch (NumberFormatException e){
                 logger.error(e.getMessage(),e);
             }

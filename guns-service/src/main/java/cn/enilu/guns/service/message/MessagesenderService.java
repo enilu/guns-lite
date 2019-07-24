@@ -3,6 +3,8 @@ package cn.enilu.guns.service.message;
 
 import cn.enilu.guns.bean.entity.message.MessageSender;
 import cn.enilu.guns.bean.entity.message.MessageTemplate;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.dao.message.MessagesenderRepository;
 import cn.enilu.guns.dao.message.MessagetemplateRepository;
 import cn.enilu.guns.service.BaseService;
@@ -31,12 +33,13 @@ public class MessagesenderService extends BaseService<MessageSender,Long, Messag
         messageSenderRepository.save(messageSender);
     }
     @Override
-    public void  delete(Long id){
+    public void  delete(Long id) throws GunsException {
         List<MessageTemplate> templateList = messagetemplateRepository.findByIdMessageSender(id);
         if(templateList.isEmpty()) {
             messageSenderRepository.deleteById(id);
+        }else{
+            throw  new GunsException(BizExceptionEnum.CAN_NOT_DELETE);
         }
-        throw new RuntimeException("有模板使用该发送器，无法删除");
     }
 
 }

@@ -33,7 +33,7 @@
 	<logger name="cn.enilu.guns" level="DEBUG" />
 
 	<!-- root级别的logger -->
-	<root level="INFO">
+	<root level="DEBUG">
 		<appender-ref ref="file" />
 		<appender-ref ref="stdout" />
 	</root>

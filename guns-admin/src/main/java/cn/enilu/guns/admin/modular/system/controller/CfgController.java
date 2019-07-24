@@ -42,7 +42,7 @@ public class CfgController extends BaseController {
      * 跳转到添加参数
      */
     @RequestMapping("/cfg_add")
-    public String orgAdd() {
+    public String add() {
         return PREFIX + "cfg_add.html";
     }
 
@@ -50,7 +50,7 @@ public class CfgController extends BaseController {
      * 跳转到修改参数
      */
     @RequestMapping("/cfg_update/{cfgId}")
-    public String orgUpdate(@PathVariable Long cfgId, Model model) {
+    public String update(@PathVariable Long cfgId, Model model) {
         Cfg cfg = cfgService.get(cfgId);
         model.addAttribute("item",cfg);
         return PREFIX + "cfg_edit.html";

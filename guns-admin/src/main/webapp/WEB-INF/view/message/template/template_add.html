@@ -1,0 +1,45 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <input type="hidden" id="id" value="">
+            <div class="row">
+                <div class="col-sm-6">
+                    <#input id="code" name="编号"/>
+                </div>
+                <div class="col-sm-6">
+                <#input id="title" name="标题"/>
+                </div>
+                <div class="col-sm-6">
+                    <#select id="type" name="消息类型">
+                        @for(dict in constant.getDicts('消息类型')){
+                        <option value="${dict.value}">${dict.name}</option>
+                        @}
+                    </#select>
+                </div>
+                <div class="col-sm-6">
+                    <#select id="idMessageSender" name="发送器">
+                        @for(dict in messageSenderList){
+                        <option value="${dict.id}">${dict.name}</option>
+                        @}
+                    </#select>
+                </div>
+
+                <div class="col-sm-6">
+                    <#textarea id="cond" name="发送条件" rows="3" cols="50"/>
+                </div>
+                <div class="col-sm-6">
+                    <#textarea id="content" name="内容"  rows="3" cols="50"/>
+                </div>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="MessageTemplateInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="MessageTemplateInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/message/template/template_info.js"></script>
+@}

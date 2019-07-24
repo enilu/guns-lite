@@ -58,6 +58,9 @@
 		clear : function () {
 			this.data = {};
 			return this;
+		},
+		setType: function(type){
+			this.type = type;
 		}
 	};
 	

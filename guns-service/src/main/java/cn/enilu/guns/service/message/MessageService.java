@@ -49,11 +49,32 @@ public class MessageService extends BaseService<Message,Long, MessageRepository>
         return true;
     }
 
+    /**
+     * 发送复杂模板的邮件
+     * @param tplCode
+     * @param from
+     * @param to
+     * @param cc
+     * @param title
+     * @param dataMap
+     */
     public void sendTplEmail(String tplCode, String from, String to, String cc, String title, Map<String, Object> dataMap) {
         MessageTemplate messageTemplate = messagetemplateRepository.findByCode(tplCode);
         String content = getContent(messageTemplate.getContent(), dataMap);
         sendEmailMessage(tplCode,from,to,cc,title,content,messageTemplate,null,null);
     }
+
+    /**
+     * 发送带附件的邮件
+     * @param tplCode
+     * @param from
+     * @param to
+     * @param cc
+     * @param title
+     * @param attachmentFilename
+     * @param inputStreamSource
+     * @param dataMap
+     */
     public void sendTplEmail(String tplCode, String from, String to, String cc, String title,
                              String attachmentFilename, InputStreamSource inputStreamSource,
                              Map<String, Object> dataMap) {
@@ -62,11 +83,27 @@ public class MessageService extends BaseService<Message,Long, MessageRepository>
         sendEmailMessage(tplCode,from,to,cc,title,content,messageTemplate,attachmentFilename,inputStreamSource);
     }
 
+    /**
+     * 发送简单模板邮件
+     * @param tplCode
+     * @param from
+     * @param to
+     * @param cc
+     * @param title
+     * @param args
+     */
     public void sendSimpleEmail(String tplCode, String from, String to, String cc, String title, String... args) {
         MessageTemplate messageTemplate = messagetemplateRepository.findByCode(tplCode);
         String content = getContent(messageTemplate.getContent(), args);
         sendEmailMessage(tplCode,from,to,cc,title,content,messageTemplate,null,null);
     }
+
+    /**
+     * 发送短信
+     * @param tplCode
+     * @param receiver
+     * @param args
+     */
     public void sendSms(String tplCode, String receiver, String... args) {
         MessageTemplate messageTemplate = messagetemplateRepository.findByCode(tplCode);
         String content = getContent(messageTemplate.getContent(), args);

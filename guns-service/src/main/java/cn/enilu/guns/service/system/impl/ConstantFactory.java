@@ -232,7 +232,7 @@ public class ConstantFactory implements IConstantFactory {
         if (dicts != null) {
             for (int i = 0; i < dicts.size(); i++) {
                 Dict dict = dicts.get(i);
-                DictVo dictVo = new DictVo(dict.getNum(), dict.getName());
+                DictVo dictVo = new DictVo(dict.getValue(), dict.getName());
                 list.add(dictVo);
             }
         }
@@ -281,7 +281,7 @@ public class ConstantFactory implements IConstantFactory {
         }
         List<Dict> dicts = dictCache.getDictsByPname(name);
         for (Dict item : dicts) {
-            if (item.getNum() != null && item.getNum().equals(val)) {
+            if (item.getValue() != null && item.getValue().equals(val)) {
                 result = item.getName();
                 set(CacheKey.DICT_NAME + name + val, result);
                 return result;
