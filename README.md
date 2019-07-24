@@ -60,7 +60,7 @@ guns-lite包含了成熟的后台管理功能guns-admin
 - guns-dmin启动的时候回自动创建表并导入src/main/resources/import.sql到数据库中，所以无需开发人员自己初始化表结构
 - 启动guns-admin
 - 访问 http://localhost:8080，   登录，用户名密码:admin/admin
-- ![demo](docs/md/demo.gif)
+- ![demo](docs/demo.gif)
 
 ## 文档
 
