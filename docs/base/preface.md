@@ -7,6 +7,8 @@ guns-lite项目本身有readme文件，如果你有使用spring boot的和beetl�
 
 但是考虑到有的开发者可能初次使用上述组件，有的甚至刚接触java不久，那么本文当将引导你一步步使用本系统搭建一个后台管理系统，并做二次开发。
 
+## 演示
+- http://guns-lite.enilu.cn/
 
 ## 版本说明
 
@@ -65,7 +67,8 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 - 访问 https://localhost:8080，   登录，用户名密码:admin/admin ![demo](../demo.gif)
 ## 文档
 
-[http://www.enilu.cn/guns-lite/](http://www.enilu.cn/guns-lite/)
+- [http://enilu.github.io/guns-lite](http://enilu.github.io/guns-lite)
+- [http://enilu.gitee.io/guns-lite](http://enilu.gitee.io/guns-lite)
 
 ## 感谢
 
@@ -78,3 +81,5 @@ guns-lite包含了成熟的后台管理功能guns-admin，以及前后端分离�
 
 
 也欢迎你在github给该项目点个赞：[https://github.com/enilu/guns-lite](https://github.com/enilu/guns-lite)
+
+另提供了他的前后端分离版（vuejs)：[http://enilu.gitee.io/web-flash](http://enilu.gitee.io/web-flash)

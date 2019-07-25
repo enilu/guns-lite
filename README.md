@@ -23,9 +23,7 @@
 - guns-service 服务层
 
 ## 演示
-- 后台管理(vue版本) http://47.104.84.62:8080/vue
-- 手机端 http://47.104.84.62:8080/mobile/#/index
-
+- http://guns-lite.enilu.cn/
 
 ## 技术选型
 
@@ -56,7 +54,15 @@ guns-lite包含了成熟的后台管理功能guns-admin
 
 - 克隆本项目
 - 导入idea或者eclipse，确保开发工具安装了lombok插件，如果不了解该插件，请自行google
-- 创建数据库：guns-lite，更改相应数据库配置
+- 创建数据库： 
+```sql
+CREATE DATABASE IF NOT EXISTS gunslite DEFAULT CHARSET utf8 COLLATE utf8_general_ci; 
+CREATE USER 'gunslite'@'%' IDENTIFIED BY 'gunslite123';
+GRANT ALL privileges ON gunslite.* TO 'gunslite'@'%';
+flush privileges;
+
+```
+- 更改配置文件中相应数据库配置
 - guns-dmin启动的时候回自动创建表并导入src/main/resources/import.sql到数据库中，所以无需开发人员自己初始化表结构
 - 启动guns-admin
 - 访问 http://localhost:8080，   登录，用户名密码:admin/admin
