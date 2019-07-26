@@ -35,112 +35,110 @@ import java.util.List;
 @RequestMapping("/notice")
 public class NoticeController extends BaseController {
 
-    private String PREFIX = "/system/notice/";
+	private String PREFIX = "/system/notice/";
 
-    @Resource
-    private SysNoticeRepository sysNoticeRepository;
+	@Resource
+	private SysNoticeRepository sysNoticeRepository;
 
+	/**
+	 * 跳转到通知列表首页
+	 */
+	@RequestMapping("")
+	public String index() {
+		return PREFIX + "notice.html";
+	}
 
+	/**
+	 * 跳转到添加通知
+	 */
+	@RequestMapping("/notice_add")
+	public String noticeAdd() {
+		return PREFIX + "notice_add.html";
+	}
 
-    /**
-     * 跳转到通知列表首页
-     */
-    @RequestMapping("")
-    public String index() {
-        return PREFIX + "notice.html";
-    }
+	/**
+	 * 跳转到修改通知
+	 */
+	@RequestMapping("/notice_update/{noticeId}")
+	public String noticeUpdate(@PathVariable Integer noticeId, Model model) {
+		Notice notice = sysNoticeRepository.findOne(noticeId);
+		model.addAttribute("notice", notice);
+		LogObjectHolder.me().set(notice);
+		return PREFIX + "notice_edit.html";
+	}
 
-    /**
-     * 跳转到添加通知
-     */
-    @RequestMapping("/notice_add")
-    public String noticeAdd() {
-        return PREFIX + "notice_add.html";
-    }
+	/**
+	 * 跳转到首页通知
+	 */
+	@RequestMapping("/hello")
+	public String hello() {
+		List<Notice> notices = (List<Notice>) sysNoticeRepository.findAll();
+		super.setAttr("noticeList", notices);
+		return "/blackboard.html";
+	}
 
-    /**
-     * 跳转到修改通知
-     */
-    @RequestMapping("/notice_update/{noticeId}")
-    public String noticeUpdate(@PathVariable Integer noticeId, Model model) {
-        Notice notice = sysNoticeRepository.findOne(noticeId);
-        model.addAttribute("notice",notice);
-        LogObjectHolder.me().set(notice);
-        return PREFIX + "notice_edit.html";
-    }
+	/**
+	 * 获取通知列表
+	 */
+	@RequestMapping(value = "/list")
+	@ResponseBody
+	public Object list(String condition) {
+		List<Notice> list = null;
+		if (Strings.isNullOrEmpty(condition)) {
+			list = (List<Notice>) this.sysNoticeRepository.findAll();
+		} else {
+			list = sysNoticeRepository.findByTitleLike("%" + condition + "%");
+		}
+		return super.warpObject(new NoticeWrapper(BeanUtil.objectsToMaps(list)));
+	}
 
-    /**
-     * 跳转到首页通知
-     */
-    @RequestMapping("/hello")
-    public String hello() {
-        List<Notice> notices = (List<Notice>) sysNoticeRepository.findAll();
-        super.setAttr("noticeList",notices);
-        return "/blackboard.html";
-    }
+	/**
+	 * 新增通知
+	 */
+	@RequestMapping(value = "/add")
+	@ResponseBody
+	@BussinessLog(value = "新增通知", key = "title", dict = NoticeMap.class)
+	public Object add(Notice notice) {
+		if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
+			throw new GunsException(BizExceptionEnum.REQUEST_NULL);
+		}
+		notice.setCreater(ShiroKit.getUser().getId().intValue());
+		notice.setCreatetime(new Date());
+		sysNoticeRepository.save(notice);
+		return SUCCESS_TIP;
+	}
 
-    /**
-     * 获取通知列表
-     */
-    @RequestMapping(value = "/list")
-    @ResponseBody
-    public Object list(String condition) {
-        List<Notice> list = null;
-        if(Strings.isNullOrEmpty(condition)) {
-         list = (List<Notice>) this.sysNoticeRepository.findAll();
-        }else{
-            list = sysNoticeRepository.findByTitleLike("%"+condition+"%");
-        }
-        return super.warpObject(new NoticeWrapper(BeanUtil.objectsToMaps(list)));
-    }
+	/**
+	 * 删除通知
+	 */
+	@RequestMapping(value = "/delete")
+	@ResponseBody
+	@BussinessLog(value = "删除通知", key = "noticeId", dict = NoticeMap.class)
+	public Object delete(@RequestParam Integer noticeId) {
 
-    /**
-     * 新增通知
-     */
-    @RequestMapping(value = "/add")
-    @ResponseBody
-    @BussinessLog(value = "新增通知",key = "title",dict = NoticeMap.class)
-    public Object add(Notice notice) {
-        if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
-            throw new GunsException(BizExceptionEnum.REQUEST_NULL);
-        }
-        notice.setCreater(ShiroKit.getUser().getId().intValue());
-        notice.setCreatetime(new Date());
-       sysNoticeRepository.save(notice);
-        return SUCCESS_TIP;
-    }
+		// 缓存通知名称
+		LogObjectHolder.me().set(ConstantFactory.me().getNoticeTitle(noticeId));
 
-    /**
-     * 删除通知
-     */
-    @RequestMapping(value = "/delete")
-    @ResponseBody
-    @BussinessLog(value = "删除通知",key = "noticeId",dict = NoticeMap.class)
-    public Object delete(@RequestParam Integer noticeId) {
+		this.sysNoticeRepository.delete(noticeId);
 
-        //缓存通知名称
-        LogObjectHolder.me().set(ConstantFactory.me().getNoticeTitle(noticeId));
+		return SUCCESS_TIP;
+	}
 
-        this.sysNoticeRepository.delete(noticeId);
-
-        return SUCCESS_TIP;
-    }
-
-    /**
-     * 修改通知
-     */
-    @RequestMapping(value = "/update")
-    @ResponseBody
-    @BussinessLog(value = "修改通知",key = "title",dict = NoticeMap.class)
-    public Object update(Notice notice) {
-        if (ToolUtil.isOneEmpty(notice, notice.getId(), notice.getTitle(), notice.getContent())) {
-            throw new GunsException(BizExceptionEnum.REQUEST_NULL);
-        }
-        Notice old = sysNoticeRepository.findOne(notice.getId());
-        old.setTitle(notice.getTitle());
-        old.setContent(notice.getContent());
-        sysNoticeRepository.save(old);
-        return SUCCESS_TIP;
-    }
+	/**
+	 * 修改通知
+	 */
+	@RequestMapping(value = "/update")
+	@ResponseBody
+	@BussinessLog(value = "修改通知", key = "title", dict = NoticeMap.class)
+	public Object update(Notice notice) {
+		if (ToolUtil.isOneEmpty(notice, notice.getId(), notice.getTitle(), notice.getContent())) {
+			throw new GunsException(BizExceptionEnum.REQUEST_NULL);
+		}
+		Notice old = sysNoticeRepository.findOne(notice.getId());
+		old.setTitle(notice.getTitle());
+		old.setContent(notice.getContent());
+		sysNoticeRepository.save(old);
+		return SUCCESS_TIP;
+	}
 
 }

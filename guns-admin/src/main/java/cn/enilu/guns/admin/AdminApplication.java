@@ -22,28 +22,28 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 @EnableCaching
 @ComponentScan(basePackages = "cn.enilu.guns")
-@EntityScan(basePackages="cn.enilu.guns.bean.entity")
-@EnableJpaRepositories(basePackages= "cn.enilu.guns.dao")
+@EntityScan(basePackages = "cn.enilu.guns.bean.entity")
+@EnableJpaRepositories(basePackages = "cn.enilu.guns.dao")
 public class AdminApplication extends WebMvcConfigurerAdapter {
 
-    protected final static Logger logger = LoggerFactory.getLogger(AdminApplication.class);
+	protected final static Logger logger = LoggerFactory.getLogger(AdminApplication.class);
 
-    @Autowired
-    GunsProperties gunsProperties;
+	@Autowired
+	GunsProperties gunsProperties;
 
-    /**
-     * 增加swagger的支持
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        if (gunsProperties.getSwaggerOpen()) {
-            registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-        }
-    }
+	/**
+	 * 增加swagger的支持
+	 */
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		if (gunsProperties.getSwaggerOpen()) {
+			registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+			registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+		}
+	}
 
-    public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args);
-        logger.info("AdminApplication is success!");
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(AdminApplication.class, args);
+		logger.info("AdminApplication is success!");
+	}
 }

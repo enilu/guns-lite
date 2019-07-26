@@ -15,14 +15,14 @@ import java.util.Map;
  */
 public class MenuWarpper extends BaseControllerWarpper {
 
-    public MenuWarpper(List<Map<String, Object>> list) {
-        super(list);
-    }
+	public MenuWarpper(List<Map<String, Object>> list) {
+		super(list);
+	}
 
-    @Override
-    public void warpTheMap(Map<String, Object> map) {
-        map.put("statusName", ConstantFactory.me().getMenuStatusName((Integer) map.get("status")));
-        map.put("isMenuName", IsMenu.valueOf((Integer) map.get("ismenu")));
-    }
+	@Override
+	public void warpTheMap(Map<String, Object> map) {
+		map.put("statusName", ConstantFactory.me().getMenuStatusName((Integer) map.get("status")));
+		map.put("isMenuName", IsMenu.valueOf((Integer) map.get("ismenu")));
+	}
 
 }

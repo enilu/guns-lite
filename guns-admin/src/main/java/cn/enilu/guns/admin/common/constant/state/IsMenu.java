@@ -8,43 +8,42 @@ package cn.enilu.guns.admin.common.constant.state;
  */
 public enum IsMenu {
 
-    YES(1, "是"),
-    NO(0, "不是");//不是菜单的是按钮
+	YES(1, "是"), NO(0, "不是");// 不是菜单的是按钮
 
-    int code;
-    String message;
+	int code;
+	String message;
 
-    IsMenu(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
+	IsMenu(int code, String message) {
+		this.code = code;
+		this.message = message;
+	}
 
-    public int getCode() {
-        return code;
-    }
+	public int getCode() {
+		return code;
+	}
 
-    public void setCode(int code) {
-        this.code = code;
-    }
+	public void setCode(int code) {
+		this.code = code;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public static String valueOf(Integer status) {
-        if (status == null) {
-            return "";
-        } else {
-            for (IsMenu s : IsMenu.values()) {
-                if (s.getCode() == status) {
-                    return s.getMessage();
-                }
-            }
-            return "";
-        }
-    }
+	public static String valueOf(Integer status) {
+		if (status == null) {
+			return "";
+		} else {
+			for (IsMenu s : IsMenu.values()) {
+				if (s.getCode() == status) {
+					return s.getMessage();
+				}
+			}
+			return "";
+		}
+	}
 }

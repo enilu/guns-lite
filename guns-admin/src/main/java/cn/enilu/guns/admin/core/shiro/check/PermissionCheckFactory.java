@@ -35,39 +35,39 @@ import javax.servlet.http.HttpServletRequest;
 @Transactional(readOnly = true)
 public class PermissionCheckFactory implements ICheck {
 
-    public static ICheck me() {
-        return SpringContextHolder.getBean(ICheck.class);
-    }
+	public static ICheck me() {
+		return SpringContextHolder.getBean(ICheck.class);
+	}
 
-    @Override
-    public boolean check(Object[] permissions) {
-        ShiroUser user = ShiroKit.getUser();
-        if (null == user) {
-            return false;
-        }
-        String join = CollectionKit.join(permissions, ",");
-        if (ShiroKit.hasAnyRoles(join)) {
-            return true;
-        }
-        return false;
-    }
+	@Override
+	public boolean check(Object[] permissions) {
+		ShiroUser user = ShiroKit.getUser();
+		if (null == user) {
+			return false;
+		}
+		String join = CollectionKit.join(permissions, ",");
+		if (ShiroKit.hasAnyRoles(join)) {
+			return true;
+		}
+		return false;
+	}
 
-    @Override
-    public boolean checkAll() {
-        HttpServletRequest request = HttpKit.getRequest();
-        ShiroUser user = ShiroKit.getUser();
-        if (null == user) {
-            return false;
-        }
-        String requestURI = request.getRequestURI().replaceFirst(ConfigListener.getConf().get("contextPath"), "");
-        String[] str = requestURI.split("/");
-        if (str.length > 3) {
-            requestURI = "/" + str[1] + "/" + str[2];
-        }
-        if (ShiroKit.hasPermission(requestURI)) {
-            return true;
-        }
-        return false;
-    }
+	@Override
+	public boolean checkAll() {
+		HttpServletRequest request = HttpKit.getRequest();
+		ShiroUser user = ShiroKit.getUser();
+		if (null == user) {
+			return false;
+		}
+		String requestURI = request.getRequestURI().replaceFirst(ConfigListener.getConf().get("contextPath"), "");
+		String[] str = requestURI.split("/");
+		if (str.length > 3) {
+			requestURI = "/" + str[1] + "/" + str[2];
+		}
+		if (ShiroKit.hasPermission(requestURI)) {
+			return true;
+		}
+		return false;
+	}
 
 }

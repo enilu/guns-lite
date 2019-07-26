@@ -22,24 +22,25 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(prefix = "guns", name = "session-open", havingValue = "true")
 public class SessionTimeoutInterceptor extends BaseController {
 
-    @Pointcut("execution(* cn.enilu.guns.admin.*..controller.*.*(..))")
-    public void cutService() {
-    }
+	@Pointcut("execution(* cn.enilu.guns.admin.*..controller.*.*(..))")
+	public void cutService() {
+	}
 
-    @Around("cutService()")
-    public Object sessionTimeoutValidate(ProceedingJoinPoint point) throws Throwable {
+	@Around("cutService()")
+	public Object sessionTimeoutValidate(ProceedingJoinPoint point) throws Throwable {
 
-        String servletPath = HttpKit.getRequest().getServletPath();
+		String servletPath = HttpKit.getRequest().getServletPath();
 
-        if (servletPath.equals("/kaptcha") || servletPath.equals("/login") || servletPath.equals("/global/sessionError")) {
-            return point.proceed();
-        }else{
-            if(ShiroKit.getSession().getAttribute("sessionFlag") == null){
-                ShiroKit.getSubject().logout();
-                throw new InvalidSessionException();
-            }else{
-                return point.proceed();
-            }
-        }
-    }
+		if (servletPath.equals("/kaptcha") || servletPath.equals("/login")
+				|| servletPath.equals("/global/sessionError")) {
+			return point.proceed();
+		} else {
+			if (ShiroKit.getSession().getAttribute("sessionFlag") == null) {
+				ShiroKit.getSubject().logout();
+				throw new InvalidSessionException();
+			} else {
+				return point.proceed();
+			}
+		}
+	}
 }

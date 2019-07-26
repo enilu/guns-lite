@@ -8,19 +8,19 @@ package cn.enilu.guns.admin.common.constant.state;
  */
 public enum Order {
 
-    ASC("asc"), DESC("desc");
+	ASC("asc"), DESC("desc");
 
-    private String des;
+	private String des;
 
-    Order(String des) {
-        this.des = des;
-    }
+	Order(String des) {
+		this.des = des;
+	}
 
-    public String getDes() {
-        return des;
-    }
+	public String getDes() {
+		return des;
+	}
 
-    public void setDes(String des) {
-        this.des = des;
-    }
+	public void setDes(String des) {
+		this.des = des;
+	}
 }

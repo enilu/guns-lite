@@ -19,16 +19,16 @@ import java.util.List;
 @RequestMapping("/blackboard")
 public class BlackboardController extends BaseController {
 
-    @Autowired
-    SysNoticeRepository sysNoticeRepository;
+	@Autowired
+	SysNoticeRepository sysNoticeRepository;
 
-    /**
-     * 跳转到黑板
-     */
-    @RequestMapping("")
-    public String blackboard(Model model) {
-        List notices = (List) sysNoticeRepository.findAll();
-        model.addAttribute("noticeList",notices);
-        return "/blackboard.html";
-    }
+	/**
+	 * 跳转到黑板
+	 */
+	@RequestMapping("")
+	public String blackboard(Model model) {
+		List notices = (List) sysNoticeRepository.findAll();
+		model.addAttribute("noticeList", notices);
+		return "/blackboard.html";
+	}
 }

@@ -14,25 +14,25 @@ import java.io.IOException;
  */
 public class ResKit {
 
-    /**
-     * @Description 批量获取ClassPath下的资源文件
-     * @author fengshuonan
-     */
-    public static Resource[] getClassPathResources(String pattern) {
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        try {
-            return resolver.getResources(pattern);
-        } catch (IOException e) {
-            throw new RuntimeException("加载resource文件时,找不到文件,所找文件为：" + pattern);
-        }
-    }
+	/**
+	 * @Description 批量获取ClassPath下的资源文件
+	 * @author fengshuonan
+	 */
+	public static Resource[] getClassPathResources(String pattern) {
+		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		try {
+			return resolver.getResources(pattern);
+		} catch (IOException e) {
+			throw new RuntimeException("加载resource文件时,找不到文件,所找文件为：" + pattern);
+		}
+	}
 
-    /**
-     * @Description 批量获取ClassPath下的资源文件
-     * @author fengshuonan
-     */
-    public static String getClassPathFile(String file) {
-		//return ResKit.class.getClassLoader().getResource(file).getPath();
-        return Thread.currentThread().getContextClassLoader().getResource(file).getPath();
-    }
+	/**
+	 * @Description 批量获取ClassPath下的资源文件
+	 * @author fengshuonan
+	 */
+	public static String getClassPathFile(String file) {
+		// return ResKit.class.getClassLoader().getResource(file).getPath();
+		return Thread.currentThread().getContextClassLoader().getResource(file).getPath();
+	}
 }

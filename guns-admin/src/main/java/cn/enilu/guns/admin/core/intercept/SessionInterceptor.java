@@ -25,32 +25,33 @@ import java.util.List;
 @Aspect
 @Component
 public class SessionInterceptor extends BaseController {
-    @Autowired
-    MenuService menuService;
-    @Pointcut("execution(* cn.enilu.guns.admin.*..controller.*.*(..))")
-    public void cutService() {
-    }
+	@Autowired
+	MenuService menuService;
 
-    @Around("cutService()")
-    public Object sessionKit(ProceedingJoinPoint point) throws Throwable {
-        HttpServletRequest request = super.getHttpServletRequest();
-        HttpSessionHolder.put(request.getSession());
-       try{
-           List<Integer> roleList = ShiroKit.getUser().getRoleList();
-           List<MenuNode> menuNodes =  menuService.getMenusByRoleIds(roleList);
-           List<MenuNode> titles = MenuNode.buildTitle(menuNodes);
-           titles = ApiMenuFilter.build(titles);
+	@Pointcut("execution(* cn.enilu.guns.admin.*..controller.*.*(..))")
+	public void cutService() {
+	}
 
-           request.setAttribute("titles", titles);
-       }catch (Exception e){
+	@Around("cutService()")
+	public Object sessionKit(ProceedingJoinPoint point) throws Throwable {
+		HttpServletRequest request = super.getHttpServletRequest();
+		HttpSessionHolder.put(request.getSession());
+		try {
+			List<Integer> roleList = ShiroKit.getUser().getRoleList();
+			List<MenuNode> menuNodes = menuService.getMenusByRoleIds(roleList);
+			List<MenuNode> titles = MenuNode.buildTitle(menuNodes);
+			titles = ApiMenuFilter.build(titles);
 
-       }
+			request.setAttribute("titles", titles);
+		} catch (Exception e) {
 
-        try {
-            return point.proceed();
+		}
 
-        } finally {
-            HttpSessionHolder.remove();
-        }
-    }
+		try {
+			return point.proceed();
+
+		} finally {
+			HttpSessionHolder.remove();
+		}
+	}
 }

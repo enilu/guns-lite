@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target({ ElementType.METHOD })
 public @interface Permission {
-    String[] value() default {};
+	String[] value() default {};
 }

@@ -30,52 +30,49 @@ import java.util.List;
 @ConditionalOnWebApplication
 public class DefaultFastjsonConfig {
 
-    @Bean
-    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
-        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        converter.setFastJsonConfig(fastjsonConfig());
-        converter.setSupportedMediaTypes(getSupportedMediaType());
-        return converter;
-    }
+	@Bean
+	public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
+		FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+		converter.setFastJsonConfig(fastjsonConfig());
+		converter.setSupportedMediaTypes(getSupportedMediaType());
+		return converter;
+	}
 
-    /**
-     * fastjson的配置
-     */
-    public FastJsonConfig fastjsonConfig() {
-        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.PrettyFormat,
-                SerializerFeature.WriteMapNullValue,
-                SerializerFeature.WriteEnumUsingToString
-        );
-        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
-        ValueFilter valueFilter = new ValueFilter() {
-            public Object process(Object o, String s, Object o1) {
-                if (null == o1) {
-                    o1 = "";
-                }
-                return o1;
-            }
-        };
-        fastJsonConfig.setCharset(Charset.forName("utf-8"));
-        fastJsonConfig.setSerializeFilters(valueFilter);
+	/**
+	 * fastjson的配置
+	 */
+	public FastJsonConfig fastjsonConfig() {
+		FastJsonConfig fastJsonConfig = new FastJsonConfig();
+		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
+				SerializerFeature.WriteEnumUsingToString);
+		fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+		ValueFilter valueFilter = new ValueFilter() {
+			public Object process(Object o, String s, Object o1) {
+				if (null == o1) {
+					o1 = "";
+				}
+				return o1;
+			}
+		};
+		fastJsonConfig.setCharset(Charset.forName("utf-8"));
+		fastJsonConfig.setSerializeFilters(valueFilter);
 
-        //解决Long转json精度丢失的问题
-        SerializeConfig serializeConfig = SerializeConfig.globalInstance;
-        serializeConfig.put(BigInteger.class, ToStringSerializer.instance);
-        serializeConfig.put(Long.class, ToStringSerializer.instance);
-        serializeConfig.put(Long.TYPE, ToStringSerializer.instance);
-        fastJsonConfig.setSerializeConfig(serializeConfig);
-        return fastJsonConfig;
-    }
+		// 解决Long转json精度丢失的问题
+		SerializeConfig serializeConfig = SerializeConfig.globalInstance;
+		serializeConfig.put(BigInteger.class, ToStringSerializer.instance);
+		serializeConfig.put(Long.class, ToStringSerializer.instance);
+		serializeConfig.put(Long.TYPE, ToStringSerializer.instance);
+		fastJsonConfig.setSerializeConfig(serializeConfig);
+		return fastJsonConfig;
+	}
 
-    /**
-     * 支持的mediaType类型
-     */
-    public List<MediaType> getSupportedMediaType() {
-        ArrayList<MediaType> mediaTypes = new ArrayList<>();
-        mediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-        return mediaTypes;
-    }
+	/**
+	 * 支持的mediaType类型
+	 */
+	public List<MediaType> getSupportedMediaType() {
+		ArrayList<MediaType> mediaTypes = new ArrayList<>();
+		mediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+		return mediaTypes;
+	}
 
 }

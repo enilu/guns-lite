@@ -14,14 +14,14 @@ import java.util.Map;
  */
 public class RoleWarpper extends BaseControllerWarpper {
 
-    public RoleWarpper(List<Map<String, Object>> list) {
-        super(list);
-    }
+	public RoleWarpper(List<Map<String, Object>> list) {
+		super(list);
+	}
 
-    @Override
-    public void warpTheMap(Map<String, Object> map) {
-        map.put("pName", ConstantFactory.me().getSingleRoleName((Integer) map.get("pid")));
-        map.put("deptName", ConstantFactory.me().getDeptName((Integer) map.get("deptid")));
-    }
+	@Override
+	public void warpTheMap(Map<String, Object> map) {
+		map.put("pName", ConstantFactory.me().getSingleRoleName((Integer) map.get("pid")));
+		map.put("deptName", ConstantFactory.me().getDeptName((Integer) map.get("deptid")));
+	}
 
 }

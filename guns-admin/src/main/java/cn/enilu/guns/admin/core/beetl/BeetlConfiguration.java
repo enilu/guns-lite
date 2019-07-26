@@ -7,14 +7,14 @@ import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 
 public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
 
-    @Override
-    public void initOther() {
+	@Override
+	public void initOther() {
 
-        groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
-        groupTemplate.registerFunctionPackage("tool", new ToolUtil());
-        groupTemplate.registerFunctionPackage("kaptcha", new KaptchaUtil());
-        groupTemplate.registerFunctionPackage("constant",ConstantFactory.me());
+		groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
+		groupTemplate.registerFunctionPackage("tool", new ToolUtil());
+		groupTemplate.registerFunctionPackage("kaptcha", new KaptchaUtil());
+		groupTemplate.registerFunctionPackage("constant", ConstantFactory.me());
 
-    }
+	}
 
 }

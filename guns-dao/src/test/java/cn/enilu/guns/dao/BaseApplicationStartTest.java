@@ -17,12 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AppConfiguration.class)
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ComponentScan(basePackages = "cn.enilu.guns")
-@TestPropertySource(locations = {"classpath:application-test.properties"})
+@TestPropertySource(locations = { "classpath:application-test.properties" })
 public class BaseApplicationStartTest {
-    protected final Logger log= LoggerFactory.getLogger(getClass());
-
-
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 }

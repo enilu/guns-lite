@@ -10,7 +10,7 @@ import java.util.Date;
  * @author stylefeng
  * @Date 2017/5/5 22:40
  */
-public class UserDto{
+public class UserDto {
 
 	private Integer id;
 	private String account;
@@ -30,8 +30,6 @@ public class UserDto{
 	private Date createtime;
 	private Integer version;
 	private String avatar;
-
-
 
 	public Integer getId() {
 		return id;

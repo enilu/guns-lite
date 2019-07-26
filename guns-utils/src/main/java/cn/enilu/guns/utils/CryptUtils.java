@@ -1,8 +1,5 @@
 package cn.enilu.guns.utils;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -12,7 +9,10 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
 /**
  * 加密工具类
@@ -231,36 +231,29 @@ public class CryptUtils {
 	 * BASE64加密
 	 */
 	public static String encryptBASE64(byte[] key) throws Exception {
-//		return (new Base64()).encodeToString(key);
-		return (new BASE64Encoder()).encodeBuffer(key);
+		return Base64.getEncoder().encodeToString(key);
 	}
 
 	/**
 	 * BASE64解密
 	 */
 	public static byte[] decryptBASE64(String key) throws Exception {
-//		return (new Base64()).decode(key);
-		return (new BASE64Decoder()).decodeBuffer(key);
+		return Base64.getDecoder().decode(key);
 	}
 
 	public static String encodeBASE64(String str) {
-		BASE64Encoder encoder = new BASE64Encoder();
-		String encode = encoder.encode(str.getBytes());
-		return encode;
+		return Base64.getEncoder().encodeToString(str.getBytes());
 	}
 
 	public static String encodeBASE64(byte[] bytes) {
-		BASE64Encoder encoder = new BASE64Encoder();
-		String encode = encoder.encode(bytes);
-		encode = encode.replaceAll("\n", "");
-		return encode;
+		return Base64.getEncoder().encodeToString(bytes);
 	}
 
 	/**
 	 * 文件内容生成BASE64编码的字符串
 	 */
 	public static String encodeBASE64(File file) {
-		BASE64Encoder encoder = new BASE64Encoder();
+		Encoder encoder = Base64.getEncoder();
 		StringBuilder sb = new StringBuilder();
 		InputStream input = null;
 		try {
@@ -289,12 +282,12 @@ public class CryptUtils {
 	/**
 	 * BASE64编码的字符串解码为文件
 	 */
-	public static void decodeBASE64(String encoder, File file) {
-		BASE64Decoder decoder = new BASE64Decoder();
+	public static void decodeBASE64(String src, File file) {
+		Decoder decoder = Base64.getDecoder();
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(file);
-			byte[] decoderBytes = decoder.decodeBuffer(encoder);
+			byte[] decoderBytes = decoder.decode(src);
 			fos.write(decoderBytes);
 			fos.flush();
 		} catch (Exception e) {
@@ -311,17 +304,20 @@ public class CryptUtils {
 	}
 
 	public static byte[] decodeBASE64(String encoder) {
-		BASE64Decoder decoder = new BASE64Decoder();
+		Decoder decoder = Base64.getDecoder();
+		
 		try {
-			return decoder.decodeBuffer(encoder);
-		} catch (IOException e) {
+			return decoder.decode(encoder);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	public static String getSign(String privateKey) {
 		return getSign(privateKey, new Date());
 	}
+
 	public static String getMD5ofStr(String inStr) {
 		MessageDigest md5 = null;
 		try {
@@ -346,12 +342,14 @@ public class CryptUtils {
 
 		return "";
 	}
+
 	public static String getSign(String privateKey, Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String sign = getMD5ofStr(privateKey + sdf.format(date));
 
 		return sign;
 	}
+
 	public static void main(String[] args) {
 		System.out.println("-->>" + decode("BED75B6020FFB7F2"));
 

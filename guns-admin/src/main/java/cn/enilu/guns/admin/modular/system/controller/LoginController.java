@@ -34,94 +34,94 @@ import java.util.List;
  */
 @Controller
 public class LoginController extends BaseController {
-    Logger logger = LoggerFactory.getLogger(LoginController.class);
-    @Autowired
-    MenuRepository menuRepository;
-    @Autowired
-    MenuService menuService;
-    @Autowired
-    UserRepository userRepository;
+	Logger logger = LoggerFactory.getLogger(LoginController.class);
+	@Autowired
+	MenuRepository menuRepository;
+	@Autowired
+	MenuService menuService;
+	@Autowired
+	UserRepository userRepository;
 
-    @Autowired
-    SysNoticeRepository sysNoticeRepository;
+	@Autowired
+	SysNoticeRepository sysNoticeRepository;
 
-    /**
-     * 跳转到主页
-     */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model) {
-        //获取菜单列表
-        List<Integer> roleList = ShiroKit.getUser().getRoleList();
-        if (roleList == null || roleList.size() == 0) {
-            ShiroKit.getSubject().logout();
-            model.addAttribute("tips", "该用户没有角色，无法登陆");
-            return "/login.html";
-        }
-        List notices = (List) sysNoticeRepository.findAll();
-        model.addAttribute("noticeList",notices);
-        return "/index.html";
-    }
+	/**
+	 * 跳转到主页
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Model model) {
+		// 获取菜单列表
+		List<Integer> roleList = ShiroKit.getUser().getRoleList();
+		if (roleList == null || roleList.size() == 0) {
+			ShiroKit.getSubject().logout();
+			model.addAttribute("tips", "该用户没有角色，无法登陆");
+			return "/login.html";
+		}
+		List notices = (List) sysNoticeRepository.findAll();
+		model.addAttribute("noticeList", notices);
+		return "/index.html";
+	}
 
-    /**
-     * 跳转到登录页面
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        if (ShiroKit.isAuthenticated() || ShiroKit.getUser() != null) {
-            return REDIRECT + "/";
-        } else {
-            return "/login.html";
-        }
-    }
+	/**
+	 * 跳转到登录页面
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+		if (ShiroKit.isAuthenticated() || ShiroKit.getUser() != null) {
+			return REDIRECT + "/";
+		} else {
+			return "/login.html";
+		}
+	}
 
-    /**
-     * 点击登录执行的动作
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginVali() {
+	/**
+	 * 点击登录执行的动作
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginVali() {
 
-        String username = super.getPara("username").trim();
-        String password = super.getPara("password").trim();
-        String remember = super.getPara("remember");
+		String username = super.getPara("username").trim();
+		String password = super.getPara("password").trim();
+		String remember = super.getPara("remember");
 
-        //验证验证码是否正确
-        if (KaptchaUtil.getKaptchaOnOff()) {
-            String kaptcha = super.getPara("kaptcha").trim();
-            String code = (String) super.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-            if (ToolUtil.isEmpty(kaptcha) || !kaptcha.equalsIgnoreCase(code)) {
-                throw new InvalidKaptchaException();
-            }
-        }
+		// 验证验证码是否正确
+		if (KaptchaUtil.getKaptchaOnOff()) {
+			String kaptcha = super.getPara("kaptcha").trim();
+			String code = (String) super.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+			if (ToolUtil.isEmpty(kaptcha) || !kaptcha.equalsIgnoreCase(code)) {
+				throw new InvalidKaptchaException();
+			}
+		}
 
-        Subject currentUser = ShiroKit.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password.toCharArray());
+		Subject currentUser = ShiroKit.getSubject();
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password.toCharArray());
 
-        if ("on".equals(remember)) {
-            token.setRememberMe(true);
-        } else {
-            token.setRememberMe(false);
-        }
+		if ("on".equals(remember)) {
+			token.setRememberMe(true);
+		} else {
+			token.setRememberMe(false);
+		}
 
-        currentUser.login(token);
+		currentUser.login(token);
 
-        ShiroUser shiroUser = ShiroKit.getUser();
-        super.getSession().setAttribute("shiroUser", shiroUser);
-        super.getSession().setAttribute("username", shiroUser.getAccount());
+		ShiroUser shiroUser = ShiroKit.getUser();
+		super.getSession().setAttribute("shiroUser", shiroUser);
+		super.getSession().setAttribute("username", shiroUser.getAccount());
 
-        LogManager.me().executeLog(LogTaskFactory.loginLog(shiroUser.getId(), HttpKit.getIp()));
+		LogManager.me().executeLog(LogTaskFactory.loginLog(shiroUser.getId(), HttpKit.getIp()));
 
-        ShiroKit.getSession().setAttribute("sessionFlag", true);
+		ShiroKit.getSession().setAttribute("sessionFlag", true);
 
-        return REDIRECT + "/";
-    }
+		return REDIRECT + "/";
+	}
 
-    /**
-     * 退出登录
-     */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logOut() {
-        LogManager.me().executeLog(LogTaskFactory.exitLog(ShiroKit.getUser().getId(), HttpKit.getIp()));
-        ShiroKit.getSubject().logout();
-        return REDIRECT + "/login";
-    }
+	/**
+	 * 退出登录
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logOut() {
+		LogManager.me().executeLog(LogTaskFactory.exitLog(ShiroKit.getUser().getId(), HttpKit.getIp()));
+		ShiroKit.getSubject().logout();
+		return REDIRECT + "/login";
+	}
 }

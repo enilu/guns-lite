@@ -1,3 +1,30 @@
+# References
+[1] https://www.twblogs.net/c/5b7b86802b71770a43d8b338/
+[2] https://gitee.com/wuburen/guns
+[3] https://blog.mimimi.fun/mysql-set-default-charset-to-utf8mb4-to-support-chinese-characters/
+[4] https://blog.csdn.net/zhangpeterx/article/details/93462861
+[5] http://seanlook.com/2016/10/23/mysql-utf8mb4/
+
+
+# day 1
+
+CREATE DATABASE foodsource 
+  CHARACTER SET = 'utf8mb4'
+  COLLATE = 'utf8mb4_unicode_ci';
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
 /*
 Navicat MySQL Data Transfer
 

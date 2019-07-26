@@ -29,53 +29,53 @@ import java.lang.reflect.Method;
 @ConditionalOnProperty(prefix = "guns", name = "muti-datasource-open", havingValue = "true")
 public class MultiSourceExAop implements Ordered {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    MutiDataSourceProperties mutiDataSourceProperties;
+	@Autowired
+	MutiDataSourceProperties mutiDataSourceProperties;
 
-    @Pointcut(value = "@annotation(cn.enilu.guns.admin.core.mutidatasource.annotion.DataSource)")
-    private void cut() {
+	@Pointcut(value = "@annotation(cn.enilu.guns.admin.core.mutidatasource.annotion.DataSource)")
+	private void cut() {
 
-    }
+	}
 
-    @Around("cut()")
-    public Object around(ProceedingJoinPoint point) throws Throwable {
+	@Around("cut()")
+	public Object around(ProceedingJoinPoint point) throws Throwable {
 
-        Signature signature = point.getSignature();
-        MethodSignature methodSignature = null;
-        if (!(signature instanceof MethodSignature)) {
-            throw new IllegalArgumentException("该注解只能用于方法");
-        }
-        methodSignature = (MethodSignature) signature;
+		Signature signature = point.getSignature();
+		MethodSignature methodSignature = null;
+		if (!(signature instanceof MethodSignature)) {
+			throw new IllegalArgumentException("该注解只能用于方法");
+		}
+		methodSignature = (MethodSignature) signature;
 
-        Object target = point.getTarget();
-        Method currentMethod = target.getClass().getMethod(methodSignature.getName(), methodSignature.getParameterTypes());
+		Object target = point.getTarget();
+		Method currentMethod = target.getClass().getMethod(methodSignature.getName(),
+				methodSignature.getParameterTypes());
 
-        DataSource datasource = currentMethod.getAnnotation(DataSource.class);
-        if (datasource != null) {
-            DataSourceContextHolder.setDataSourceType(datasource.name());
-            log.debug("设置数据源为：" + datasource.name());
-        } else {
-            DataSourceContextHolder.setDataSourceType(mutiDataSourceProperties.getDefaultDataSourceName());
-            log.debug("设置数据源为：dataSourceCurrent");
-        }
+		DataSource datasource = currentMethod.getAnnotation(DataSource.class);
+		if (datasource != null) {
+			DataSourceContextHolder.setDataSourceType(datasource.name());
+			log.debug("设置数据源为：" + datasource.name());
+		} else {
+			DataSourceContextHolder.setDataSourceType(mutiDataSourceProperties.getDefaultDataSourceName());
+			log.debug("设置数据源为：dataSourceCurrent");
+		}
 
-        try {
-            return point.proceed();
-        } finally {
-            log.debug("清空数据源信息！");
-            DataSourceContextHolder.clearDataSourceType();
-        }
-    }
+		try {
+			return point.proceed();
+		} finally {
+			log.debug("清空数据源信息！");
+			DataSourceContextHolder.clearDataSourceType();
+		}
+	}
 
-
-    /**
-     * aop的顺序要早于spring的事务
-     */
-    @Override
-    public int getOrder() {
-        return 1;
-    }
+	/**
+	 * aop的顺序要早于spring的事务
+	 */
+	@Override
+	public int getOrder() {
+		return 1;
+	}
 
 }

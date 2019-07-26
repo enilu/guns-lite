@@ -11,6 +11,7 @@ import java.util.Locale;
 
 /**
  * 时间工具类
+ * 
  * @author xiaoleilu
  */
 public class DateTimeKit {
@@ -39,29 +40,33 @@ public class DateTimeKit {
 	public final static String HTTP_DATETIME_PATTERN = "EEE, dd MMM yyyy HH:mm:ss z";
 
 	/** 标准日期（不含时间）格式化器 */
-	// private final static SimpleDateFormat NORM_DATE_FORMAT = new SimpleDateFormat(NORM_DATE_PATTERN);
-	private static ThreadLocal<SimpleDateFormat> NORM_DATE_FORMAT = new ThreadLocal<SimpleDateFormat>(){
+	// private final static SimpleDateFormat NORM_DATE_FORMAT = new
+	// SimpleDateFormat(NORM_DATE_PATTERN);
+	private static ThreadLocal<SimpleDateFormat> NORM_DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
 		synchronized protected SimpleDateFormat initialValue() {
 			return new SimpleDateFormat(NORM_DATE_PATTERN);
 		};
 	};
 	/** 标准时间格式化器 */
-	// private final static SimpleDateFormat NORM_TIME_FORMAT = new SimpleDateFormat(NORM_TIME_PATTERN);
-	private static ThreadLocal<SimpleDateFormat> NORM_TIME_FORMAT = new ThreadLocal<SimpleDateFormat>(){
+	// private final static SimpleDateFormat NORM_TIME_FORMAT = new
+	// SimpleDateFormat(NORM_TIME_PATTERN);
+	private static ThreadLocal<SimpleDateFormat> NORM_TIME_FORMAT = new ThreadLocal<SimpleDateFormat>() {
 		synchronized protected SimpleDateFormat initialValue() {
 			return new SimpleDateFormat(NORM_TIME_PATTERN);
 		};
 	};
 	/** 标准日期时间格式化器 */
-	// private final static SimpleDateFormat NORM_DATETIME_FORMAT = new SimpleDateFormat(NORM_DATETIME_PATTERN);
-	private static ThreadLocal<SimpleDateFormat> NORM_DATETIME_FORMAT = new ThreadLocal<SimpleDateFormat>(){
+	// private final static SimpleDateFormat NORM_DATETIME_FORMAT = new
+	// SimpleDateFormat(NORM_DATETIME_PATTERN);
+	private static ThreadLocal<SimpleDateFormat> NORM_DATETIME_FORMAT = new ThreadLocal<SimpleDateFormat>() {
 		synchronized protected SimpleDateFormat initialValue() {
 			return new SimpleDateFormat(NORM_DATETIME_PATTERN);
 		};
 	};
 	/** HTTP日期时间格式化器 */
-	// private final static SimpleDateFormat HTTP_DATETIME_FORMAT = new SimpleDateFormat(HTTP_DATETIME_PATTERN, Locale.US);
-	private static ThreadLocal<SimpleDateFormat> HTTP_DATETIME_FORMAT = new ThreadLocal<SimpleDateFormat>(){
+	// private final static SimpleDateFormat HTTP_DATETIME_FORMAT = new
+	// SimpleDateFormat(HTTP_DATETIME_PATTERN, Locale.US);
+	private static ThreadLocal<SimpleDateFormat> HTTP_DATETIME_FORMAT = new ThreadLocal<SimpleDateFormat>() {
 		synchronized protected SimpleDateFormat initialValue() {
 			return new SimpleDateFormat(HTTP_DATETIME_PATTERN, Locale.US);
 		};
@@ -183,7 +188,7 @@ public class DateTimeKit {
 	 * 获得指定日期区间内的年份和季节<br>
 	 *
 	 * @param startDate 其实日期（包含）
-	 * @param endDate 结束日期（包含）
+	 * @param endDate   结束日期（包含）
 	 * @return Season列表 ，元素类似于 20132
 	 */
 	public static LinkedHashSet<String> yearAndSeasons(Date startDate, Date endDate) {
@@ -213,11 +218,12 @@ public class DateTimeKit {
 		return seasons;
 	}
 
-	// ------------------------------------ Format start ----------------------------------------------
+	// ------------------------------------ Format start
+	// ----------------------------------------------
 	/**
 	 * 根据特定格式格式化日期
 	 *
-	 * @param date 被格式化的日期
+	 * @param date   被格式化的日期
 	 * @param format 格式
 	 * @return 格式化后的字符串
 	 */
@@ -232,7 +238,7 @@ public class DateTimeKit {
 	 * @return 格式化后的日期
 	 */
 	public static String formatDateTime(Date date) {
-		if(null == date){
+		if (null == date) {
 			return null;
 		}
 		return NORM_DATETIME_FORMAT.get().format(date);
@@ -245,7 +251,7 @@ public class DateTimeKit {
 	 * @return 格式化后的字符串
 	 */
 	public static String formatDate(Date date) {
-		if(null == date){
+		if (null == date) {
 			return null;
 		}
 		return NORM_DATE_FORMAT.get().format(date);
@@ -258,19 +264,21 @@ public class DateTimeKit {
 	 * @return HTTP标准形式日期字符串
 	 */
 	public static String formatHttpDate(Date date) {
-		if(null == date){
+		if (null == date) {
 			return null;
 		}
 		return HTTP_DATETIME_FORMAT.get().format(date);
 	}
-	// ------------------------------------ Format end ----------------------------------------------
+	// ------------------------------------ Format end
+	// ----------------------------------------------
 
-	// ------------------------------------ Parse start ----------------------------------------------
+	// ------------------------------------ Parse start
+	// ----------------------------------------------
 
 	/**
 	 * 构建DateTime对象
 	 *
-	 * @param dateStr Date字符串
+	 * @param dateStr          Date字符串
 	 * @param simpleDateFormat 格式化器
 	 * @return DateTime对象
 	 */
@@ -278,7 +286,8 @@ public class DateTimeKit {
 		try {
 			return new DateTime(simpleDateFormat.parse(dateStr));
 		} catch (Exception e) {
-			throw new ToolBoxException(StrKit.format("Parse [{}] with format [{}] error!", dateStr, simpleDateFormat.toPattern()), e);
+			throw new ToolBoxException(
+					StrKit.format("Parse [{}] with format [{}] error!", dateStr, simpleDateFormat.toPattern()), e);
 		}
 	}
 
@@ -286,7 +295,7 @@ public class DateTimeKit {
 	 * 将特定格式的日期转换为Date对象
 	 *
 	 * @param dateString 特定格式的日期
-	 * @param format 格式，例如yyyy-MM-dd
+	 * @param format     格式，例如yyyy-MM-dd
 	 * @return 日期对象
 	 */
 	public static DateTime parse(String dateString, String format) {
@@ -358,9 +367,11 @@ public class DateTimeKit {
 		// 没有更多匹配的时间格式
 		throw new ToolBoxException(StrKit.format(" [{}] format is not fit for date pattern!", dateStr));
 	}
-	// ------------------------------------ Parse end ----------------------------------------------
+	// ------------------------------------ Parse end
+	// ----------------------------------------------
 
-	// ------------------------------------ Offset start ----------------------------------------------
+	// ------------------------------------ Offset start
+	// ----------------------------------------------
 	/**
 	 * 获取某天的开始时间
 	 *
@@ -423,7 +434,7 @@ public class DateTimeKit {
 	/**
 	 * 偏移天
 	 *
-	 * @param date 日期
+	 * @param date    日期
 	 * @param offsite 偏移天数，正数向未来偏移，负数向历史偏移
 	 * @return 偏移后的日期
 	 */
@@ -434,7 +445,7 @@ public class DateTimeKit {
 	/**
 	 * 偏移周
 	 *
-	 * @param date 日期
+	 * @param date    日期
 	 * @param offsite 偏移周数，正数向未来偏移，负数向历史偏移
 	 * @return 偏移后的日期
 	 */
@@ -445,7 +456,7 @@ public class DateTimeKit {
 	/**
 	 * 偏移月
 	 *
-	 * @param date 日期
+	 * @param date    日期
 	 * @param offsite 偏移月数，正数向未来偏移，负数向历史偏移
 	 * @return 偏移后的日期
 	 */
@@ -456,9 +467,9 @@ public class DateTimeKit {
 	/**
 	 * 获取指定日期偏移指定时间后的时间
 	 *
-	 * @param date 基准日期
+	 * @param date          基准日期
 	 * @param calendarField 偏移的粒度大小（小时、天、月等）使用Calendar中的常数
-	 * @param offsite 偏移量，正数为向后偏移，负数为向前偏移
+	 * @param offsite       偏移量，正数为向后偏移，负数为向前偏移
 	 * @return 偏移后的日期
 	 */
 	public static DateTime offsiteDate(Date date, int calendarField, int offsite) {
@@ -467,15 +478,16 @@ public class DateTimeKit {
 		cal.add(calendarField, offsite);
 		return new DateTime(cal.getTime());
 	}
-	// ------------------------------------ Offset end ----------------------------------------------
+	// ------------------------------------ Offset end
+	// ----------------------------------------------
 
 	/**
 	 * 判断两个日期相差的时长<br/>
 	 * 返回 minuend - subtrahend 的差
 	 * 
 	 * @param subtrahend 减数日期
-	 * @param minuend 被减数日期
-	 * @param diffField 相差的选项：相差的天、小时
+	 * @param minuend    被减数日期
+	 * @param diffField  相差的选项：相差的天、小时
 	 * @return 日期差
 	 */
 	public static long diff(Date subtrahend, Date minuend, long diffField) {
@@ -517,7 +529,7 @@ public class DateTimeKit {
 	 * 计算指定指定时间区间内的周数
 	 * 
 	 * @param start 开始时间
-	 * @param end 结束时间
+	 * @param end   结束时间
 	 * @return 周数
 	 */
 	public static int weekCount(Date start, Date end) {
@@ -548,9 +560,10 @@ public class DateTimeKit {
 		return new Timer();
 
 	}
-	
+
 	/**
 	 * 生日转为年龄，计算法定年龄
+	 * 
 	 * @param birthDay 生日，标准日期字符串
 	 * @return 年龄
 	 * @throws Exception
@@ -561,17 +574,19 @@ public class DateTimeKit {
 
 	/**
 	 * 生日转为年龄，计算法定年龄
+	 * 
 	 * @param birthDay 生日
 	 * @return 年龄
 	 * @throws Exception
 	 */
 	public static int ageOfNow(Date birthDay) {
-		return age(birthDay,date());
+		return age(birthDay, date());
 	}
-	
+
 	/**
 	 * 计算相对于dateToCompare的年龄，长用于计算指定生日在某年的年龄
-	 * @param birthDay 生日
+	 * 
+	 * @param birthDay      生日
 	 * @param dateToCompare 需要对比的日期
 	 * @return 年龄
 	 * @throws Exception
@@ -590,16 +605,16 @@ public class DateTimeKit {
 
 		cal.setTime(birthDay);
 		int age = year - cal.get(Calendar.YEAR);
-		
+
 		int monthBirth = cal.get(Calendar.MONTH);
 		if (month == monthBirth) {
 			int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
 			if (dayOfMonth < dayOfMonthBirth) {
-				//如果生日在当月，但是未达到生日当天的日期，年龄减一
+				// 如果生日在当月，但是未达到生日当天的日期，年龄减一
 				age--;
 			}
-		} else if (month < monthBirth){
-			//如果当前月份未达到生日的月份，年龄计算减一
+		} else if (month < monthBirth) {
+			// 如果当前月份未达到生日的月份，年龄计算减一
 			age--;
 		}
 
@@ -652,7 +667,8 @@ public class DateTimeKit {
 		}
 	}
 
-	// ------------------------------------------------------------------------ Private method start
+	// ------------------------------------------------------------------------
+	// Private method start
 	/**
 	 * 获得指定日期年份和季节<br>
 	 * 格式：[20131]表示2013年第一季度
@@ -662,5 +678,6 @@ public class DateTimeKit {
 	private static String yearAndSeason(Calendar cal) {
 		return new StringBuilder().append(cal.get(Calendar.YEAR)).append(cal.get(Calendar.MONTH) / 3 + 1).toString();
 	}
-	// ------------------------------------------------------------------------ Private method end
+	// ------------------------------------------------------------------------
+	// Private method end
 }

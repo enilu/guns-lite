@@ -27,11 +27,11 @@ import java.util.List;
  * Ehcache缓存工厂
  */
 public class EhcacheFactory extends BaseCacheFactory {
-	
+
 	private static CacheManager cacheManager;
 	private static volatile Object locker = new Object();
 	private static final Logger log = LoggerFactory.getLogger(EhcacheFactory.class);
-	
+
 	private static CacheManager getCacheManager() {
 		if (cacheManager == null) {
 			synchronized (EhcacheFactory.class) {
@@ -42,12 +42,12 @@ public class EhcacheFactory extends BaseCacheFactory {
 		}
 		return cacheManager;
 	}
-	
+
 	static Cache getOrAddCache(String cacheName) {
 		CacheManager cacheManager = getCacheManager();
 		Cache cache = cacheManager.getCache(cacheName);
 		if (cache == null) {
-			synchronized(locker) {
+			synchronized (locker) {
 				cache = cacheManager.getCache(cacheName);
 				if (cache == null) {
 					log.warn("无法找到缓存 [" + cacheName + "]的配置, 使用默认配置.");
@@ -59,26 +59,26 @@ public class EhcacheFactory extends BaseCacheFactory {
 		}
 		return cache;
 	}
-	
+
 	public void put(String cacheName, Object key, Object value) {
 		getOrAddCache(cacheName).put(new Element(key, value));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <T> T get(String cacheName, Object key) {
 		Element element = getOrAddCache(cacheName).get(key);
-		return element != null ? (T)element.getObjectValue() : null;
+		return element != null ? (T) element.getObjectValue() : null;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public List getKeys(String cacheName) {
 		return getOrAddCache(cacheName).getKeys();
 	}
-	
+
 	public void remove(String cacheName, Object key) {
 		getOrAddCache(cacheName).remove(key);
 	}
-	
+
 	public void removeAll(String cacheName) {
 		getOrAddCache(cacheName).removeAll();
 	}

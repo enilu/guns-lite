@@ -15,7 +15,6 @@
  */
 package cn.enilu.guns.admin.core.cache;
 
-
 /**
  * 缓存工厂基类
  */

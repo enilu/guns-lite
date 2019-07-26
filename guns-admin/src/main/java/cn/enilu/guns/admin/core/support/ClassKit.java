@@ -1,6 +1,5 @@
 package cn.enilu.guns.admin.core.support;
 
-
 import cn.enilu.guns.admin.core.support.exception.ToolBoxException;
 import cn.enilu.guns.utils.StrKit;
 
@@ -8,18 +7,18 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
- * 类工具类
- * 1、扫描指定包下的所有类<br>
+ * 类工具类 1、扫描指定包下的所有类<br>
  * 参考 http://www.oschina.net/code/snippet_234657_22722
+ * 
  * @author seaside_hi, xiaoleilu, chill
  *
  */
 public class ClassKit {
-	
+
 	private ClassKit() {
 		// 静态类不可实例化
 	}
-	
+
 	/**
 	 * 是否为标准的类<br>
 	 * 这个类必须：<br>
@@ -29,10 +28,11 @@ public class ClassKit {
 	 * @return 是否为标准类
 	 */
 	public static boolean isNormalClass(Class<?> clazz) {
-		return null != clazz && false == clazz.isInterface() && false == isAbstract(clazz) && false == clazz.isEnum() && false == clazz.isArray() && false == clazz.isAnnotation() && false == clazz
-				.isSynthetic() && false == clazz.isPrimitive();
+		return null != clazz && false == clazz.isInterface() && false == isAbstract(clazz) && false == clazz.isEnum()
+				&& false == clazz.isArray() && false == clazz.isAnnotation() && false == clazz.isSynthetic()
+				&& false == clazz.isPrimitive();
 	}
-	
+
 	/**
 	 * 是否为抽象类
 	 * 
@@ -42,7 +42,7 @@ public class ClassKit {
 	public static boolean isAbstract(Class<?> clazz) {
 		return Modifier.isAbstract(clazz.getModifiers());
 	}
-	
+
 	/**
 	 * 实例化对象
 	 * 
@@ -94,20 +94,21 @@ public class ClassKit {
 			throw new ToolBoxException(StrKit.format("Instance class [{}] error!", clazz), e);
 		}
 	}
-	
+
 	/**
 	 * 获得对象数组的类数组
+	 * 
 	 * @param objects 对象数组
 	 * @return 类数组
 	 */
-	public static Class<?>[] getClasses(Object... objects){
+	public static Class<?>[] getClasses(Object... objects) {
 		Class<?>[] classes = new Class<?>[objects.length];
 		for (int i = 0; i < objects.length; i++) {
 			classes[i] = objects[i].getClass();
 		}
 		return classes;
 	}
-	
+
 	/**
 	 * 检查目标类是否可以从原类转化<br>
 	 * 转化包括：<br>
@@ -145,7 +146,7 @@ public class ClassKit {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 设置方法为可访问
 	 * 
@@ -158,7 +159,7 @@ public class ClassKit {
 		}
 		return method;
 	}
-	
+
 	/**
 	 * 指定类是否为非public
 	 * 
@@ -178,7 +179,7 @@ public class ClassKit {
 	public static boolean isNotPublic(Method method) {
 		return false == isPublic(method);
 	}
-	
+
 	/**
 	 * 指定类是否为Public
 	 * 
@@ -191,7 +192,7 @@ public class ClassKit {
 		}
 		return Modifier.isPublic(clazz.getModifiers());
 	}
-	
+
 	/**
 	 * 指定方法是否为Public
 	 * 
