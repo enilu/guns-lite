@@ -29,7 +29,7 @@ footer: MIT Licensed | Copyright © 2018-present enilu
    </div>
    <div class="feature">
       <h2>成熟方案</h2>
-      <p>基于改系统已经上线了很多大大小小的后管系统，方案成熟，坑少</p>
+      <p>基于该系统已经上线了很多大大小小的后管系统，方案成熟，坑少</p>
    </div>
   <div class="feature">
      <h2>最佳实践</h2>

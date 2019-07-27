@@ -13,7 +13,7 @@
  ![flat](https://user-images.githubusercontent.com/3115814/38806871-49f57248-41ad-11e8-932b-e06dc1941107.jpg)
 
 - oracle, 该分支将底层数据使用oracle。(已停止维护该分支-，建议用户如果需要用到oracle，可以基于master分支进行改造，改造过程可以参考该分支)
-- dev,开发分支，新功能都会再改分支上开发，不建议使用该分支，不稳定
+- dev,开发分支，新功能都会在改分支上开发，不建议使用该分支，不稳定
 
 ## 目录说明
 - guns-admin 一个成熟的后台管理系统，完全具备了后台管理系统的基本功能
@@ -66,7 +66,7 @@ flush privileges;
 - guns-dmin启动的时候回自动创建表并导入src/main/resources/import.sql到数据库中，所以无需开发人员自己初始化表结构
 - 启动guns-admin
 - 访问 http://localhost:8080，   登录，用户名密码:admin/admin
-- ![demo](docs/demo.gif)
+- ![demo](http://www.enilu.cn/github/guns-lite.gif)
 
 ## 文档
 
