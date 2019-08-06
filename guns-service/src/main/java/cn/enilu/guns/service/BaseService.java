@@ -47,7 +47,7 @@ public abstract  class BaseService<T, ID extends Serializable, R extends BaseRep
 
     @Override
     public T get(ID id) {
-        return  dao.getOne(id);
+        return  dao.findById(id).get();
     }
 
     @Override
