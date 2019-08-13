@@ -19,11 +19,11 @@ import javax.persistence.EntityListeners;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 public class Cfg  extends BaseEntity {
-    @Column(name = "cfg_name")
+    @Column(name = "cfg_name",columnDefinition = "VARCHAR(256) COMMENT '参数名'")
     private String cfgName;
-    @Column(name = "cfg_value")
+    @Column(name = "cfg_value",columnDefinition = "VARCHAR(512) COMMENT '参数值'")
     private String cfgValue;
-    @Column(name = "cfg_desc")
+    @Column(name = "cfg_desc",columnDefinition = "TEXT COMMENT '备注'")
     private String cfgDesc;
 
 }
