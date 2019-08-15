@@ -41,6 +41,5 @@ public class CacheListener implements CommandLineRunner {
             }
         });
         thread.start();
-        logger.info("...................cache listener end......................");
     }
 }
