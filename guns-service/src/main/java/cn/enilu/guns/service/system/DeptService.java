@@ -73,7 +73,10 @@ public class DeptService extends BaseService<Dept,Long,DeptRepository> {
         } else {
             Long pid = dept.getPid();
             Dept temp = get(pid);
-            String pids = temp.getPids();
+            String pids = "";
+            if(temp!=null){
+                pids = temp.getPids();
+            }
             dept.setPid(pid);
             dept.setPids(pids + "[" + pid + "],");
         }
