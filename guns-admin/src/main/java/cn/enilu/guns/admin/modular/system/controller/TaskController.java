@@ -44,7 +44,7 @@ public class TaskController extends BaseController {
      * 跳转到添加定时任务管理
      */
     @RequestMapping("/task_add")
-    public String orgAdd() {
+    public String add() {
         return PREFIX + "task_add.html";
     }
 
@@ -52,7 +52,7 @@ public class TaskController extends BaseController {
      * 跳转到修改定时任务管理
      */
     @RequestMapping("/task_update/{taskId}")
-    public String orgUpdate(@PathVariable Long taskId, Model model) {
+    public String update(@PathVariable Long taskId, Model model) {
         Task task = taskService.get(taskId);
         model.addAttribute("item",task);
         return PREFIX + "task_edit.html";
@@ -115,11 +115,11 @@ public class TaskController extends BaseController {
     @ResponseBody
     @BussinessLog(value = "编辑定时任务", key = "name",dict = TaskDict.class)
     public Object update(Task task) {
-
         Task old = taskService.get(task.getId());
         old.setName(task.getName());
         old.setCron(task.getCron());
         old.setNote(task.getNote());
+        old.setJobClass(task.getJobClass());
         old.setData(task.getData());
         taskService.update(old);
          return SUCCESS_TIP;
@@ -144,7 +144,6 @@ public class TaskController extends BaseController {
     @ResponseBody
     public Object listList(@PathVariable("taskId") Long taskId) {
         Page<TaskLog> page = new PageFactory<TaskLog>().defaultPage();
-
         page = taskService.getTaskLogs(page,taskId);
         return super.packForBT(page);
     }
