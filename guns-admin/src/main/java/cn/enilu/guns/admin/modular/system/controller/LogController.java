@@ -13,7 +13,6 @@ import cn.enilu.guns.bean.vo.query.SearchFilter;
 import cn.enilu.guns.service.system.OperationLogService;
 import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.utils.DateUtil;
-import cn.enilu.guns.utils.StringUtils;
 import cn.enilu.guns.warpper.LogWarpper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,16 +56,9 @@ public class LogController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String logName, @RequestParam(required = false) Integer logType) {
         Page<OperationLog> page = new PageFactory<OperationLog>().defaultPage();
-        if(StringUtils.isNotEmpty(beginTime)){
-            page.addFilter(SearchFilter.build("createTime", SearchFilter.Operator.GTE, DateUtil.parse(beginTime,"yyyy-MM-dd")));
-        }
-        if(StringUtils.isNotEmpty(endTime)){
-            page.addFilter(SearchFilter.build("createTime", SearchFilter.Operator.LTE, DateUtil.parse(endTime,"yyyy-MM-dd")));
-        }
-
-        if(StringUtils.isNotEmpty(logName)){
-            page.addFilter(SearchFilter.build("logname", SearchFilter.Operator.LIKE, logName));
-        }
+        page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parseDate(beginTime));
+        page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parseDate(endTime));
+        page.addFilter( "logname", SearchFilter.Operator.LIKE, logName);
         if(logType!=0) {
             page.addFilter(SearchFilter.build("logtype", SearchFilter.Operator.EQ, BizLogType.valueOf(logType)));
         }

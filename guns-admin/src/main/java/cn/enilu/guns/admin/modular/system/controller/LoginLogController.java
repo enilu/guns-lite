@@ -10,7 +10,7 @@ import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.bean.vo.query.SearchFilter;
 import cn.enilu.guns.service.system.LoginLogService;
 import cn.enilu.guns.utils.BeanUtil;
-import cn.enilu.guns.utils.StringUtils;
+import cn.enilu.guns.utils.DateUtil;
 import cn.enilu.guns.warpper.LogWarpper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,19 +51,12 @@ public class LoginLogController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String logName) {
         Page<LoginLog> page = new PageFactory<LoginLog>().defaultPage();
-        if(StringUtils.isNotEmpty(beginTime)){
-            page.addFilter(SearchFilter.build("createtime", SearchFilter.Operator.GTE, beginTime));
-        }
-        if(StringUtils.isNotEmpty(endTime)){
-            page.addFilter(SearchFilter.build("createtime", SearchFilter.Operator.LTE, endTime));
-        }
 
-        if(StringUtils.isNotEmpty(logName)){
-            page.addFilter(SearchFilter.build("logname", SearchFilter.Operator.LIKE, logName));
-        }
+        page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parseDate(beginTime));
+        page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parseDate(endTime));
+        page.addFilter( "logname", SearchFilter.Operator.LIKE, logName);
 
         page = loginlogService.queryPage(page);
-//        page = loginlogService.getLoginLogs(page, beginTime, endTime, logName);
         page.setRecords((List<LoginLog>) new LogWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp());
         return super.packForBT(page);
 

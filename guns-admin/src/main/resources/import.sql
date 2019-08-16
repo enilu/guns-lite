@@ -30,10 +30,16 @@ INSERT INTO `t_sys_cfg` VALUES ('5', null, null, '1', '2019-04-15 21:36:17', '�
 -- ----------------------------
 -- Records of t_sys_dept
 -- ----------------------------
-INSERT INTO `t_sys_dept` (`id`, `num`, `pid`, `pids`, `simplename`, `fullname`, `tips`, `version`, `create_time`, `create_by`, `modify_time`, `modify_by`) VALUES ('24', '1', '0', '[0],', '总公司', '总公司', '', null, null, null, null, null);
-INSERT INTO `t_sys_dept` (`id`, `num`, `pid`, `pids`, `simplename`, `fullname`, `tips`, `version`, `create_time`, `create_by`, `modify_time`, `modify_by`) VALUES ('25', '2', '24', '[0],[24],', '开发部', '开发部', '', null, null, null, null, null);
-INSERT INTO `t_sys_dept` (`id`, `num`, `pid`, `pids`, `simplename`, `fullname`, `tips`, `version`, `create_time`, `create_by`, `modify_time`, `modify_by`) VALUES ('26', '3', '24', '[0],[24],', '运营部', '运营部', '', null, null, null, null, null);
-INSERT INTO `t_sys_dept` (`id`, `num`, `pid`, `pids`, `simplename`, `fullname`, `tips`, `version`, `create_time`, `create_by`, `modify_time`, `modify_by`) VALUES ('27', '4', '24', '[0],[24],', '战略部', '战略部', '', null, null, null, null, null);
+INSERT INTO `t_sys_dept` VALUES ('1', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '山迪亚集团', '1', '0', '[0],', '总公司', '', null);
+INSERT INTO `t_sys_dept` VALUES ('2', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '开发部', '2', '1', '[0],[1],', '开发部', null, null);
+INSERT INTO `t_sys_dept` VALUES ('3', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '运营部', '3', '1', '[0],[1],', '运营部', null, null);
+INSERT INTO `t_sys_dept` VALUES ('4', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '战略部', '4', '1', '[0],[1],', '战略部', null, null);
+INSERT INTO `t_sys_dept` VALUES ('5', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '人事部', '5', '1', '[0],[1],', '人事部', null, null);
+INSERT INTO `t_sys_dept` VALUES ('6', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '行政部', '6', '1', '[0],[1],', '行政部', null, null);
+INSERT INTO `t_sys_dept` VALUES ('7', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '山迪亚上海有限责任公司', '7', '1', '[0],[1],', '上海分公司', '', null);
+INSERT INTO `t_sys_dept` VALUES ('8', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '运维部', '8', '7', '[0],[1],[7],', '运维部', null, null);
+INSERT INTO `t_sys_dept` VALUES ('9', '1', '2019-08-15 16:31:13', '1', '2019-08-15 16:31:13', '销售部', '9', '7', '[0],[1],[7],', '销售部', null, null);
+
 
 -- ----------------------------
 -- Records of t_sys_login_log
@@ -102,7 +108,7 @@ INSERT INTO `t_sys_menu` VALUES ('56', '1', '2019-03-11 22:30:17', '1', '2019-03
 INSERT INTO `t_sys_menu` VALUES ('3', null, null, '47', '2019-06-02 10:09:09', 'operationMgr', 'fa-wrench', '1', null, '1', '运维管理', '3', '0', '[0],', '1', null, '/optionMgr');
 INSERT INTO `t_sys_menu` VALUES ('64', '47', '2019-06-02 10:10:20', '47', '2019-06-02 10:10:20', 'druid', '', '1', null, '2', '数据库监控', '1', 'operationMgr', '[0],[operationMgr],', '1', null, '/druid');
 INSERT INTO `t_sys_menu` VALUES ('65', '47', '2019-06-02 10:10:20', '47', '2019-06-02 10:10:20', 'swagger', null, '1', null, '2', '接口文档', '2', 'operationMgr', '[0],[operationMgr],', '1', null, '/swagger-ui.html');
-INSERT INTO `t_sys_menu` VALUES ('66', '1', '2019-06-10 21:26:52', '1', '2019-06-10 21:26:52', 'messageMgr', 'fa-envelope', '1', null, '1', '消息管理', '5', '0', '[0],', '1', null, '/message');
+INSERT INTO `t_sys_menu` VALUES ('66', '1', '2019-06-10 21:26:52', '1', '2019-06-10 21:26:52', 'messageMgr', 'fa-envelope-o', '1', null, '1', '消息管理', '5', '0', '[0],', '1', null, '/message');
 INSERT INTO `t_sys_menu` VALUES ('67', '1', '2019-06-10 21:27:34', '1', '2019-06-10 21:27:34', 'historyMessage', null, '1', null, '2', '历史消息', '1', 'messageMgr', '[0],[messageMgr],', '1', null, '/message/history');
 INSERT INTO `t_sys_menu` VALUES ('68', '1', '2019-06-10 21:27:56', '1', '2019-06-10 21:27:56', 'messageTemplate', null, '1', null, '2', '消息模板', '2', 'messageMgr', '[0],[messageMgr],', '1', null, '/message/template');
 INSERT INTO `t_sys_menu` VALUES ('69', '1', '2019-06-10 21:28:21', '1', '2019-06-10 21:28:21', 'messageSender', null, '1', null, '2', '消息发送器', '3', 'messageMgr', '[0],[messageMgr],', '1', null, '/message/sender');
@@ -206,9 +212,9 @@ INSERT INTO `t_sys_task` (`id`, `name`, `job_group`, `job_class`, `note`, `cron`
 -- Records of t_sys_user
 -- ----------------------------
 
-INSERT INTO `t_sys_user` VALUES ('-1', null, null, null, null, 'system', null, null, null, null, '应用系统', null, null, null, null, null, null, null);
-INSERT INTO `t_sys_user` VALUES ('1', null, '2016-01-29 08:49:53', '1', '2019-03-20 23:45:24', 'admin', null, '2017-05-05 00:00:00', '27', 'eniluzt@qq.com', '管理员', '6ab1f386d715cfb6be85de941d438b02', null, '1', '8pgby', '2', '1', '25');
-INSERT INTO `t_sys_user` VALUES ('2', null, '2018-09-13 17:21:02', '1', '2019-01-09 23:05:51', 'developer', null, '2017-12-31 00:00:00', '25', 'eniluzt@qq.com', '网站管理员', '4552805b07a4bf92ce1cea0373aab868', '', '2,', 'vscp9', '1', '1', null);
+INSERT INTO `t_sys_user` VALUES ('-1', null, null, null, null, 'system', null, null, null, null, '应用系统', 'avatar.png', null, null, null, null, null, null);
+INSERT INTO `t_sys_user` VALUES ('1', null, '2016-01-29 08:49:53', '1', '2019-03-20 23:45:24', 'admin', 'avatar.png', '2017-05-05 00:00:00', '3', 'eniluzt@qq.com', '管理员', '6ab1f386d715cfb6be85de941d438b02', null, '1', '8pgby', '2', '1', '25');
+INSERT INTO `t_sys_user` VALUES ('2', null, '2018-09-13 17:21:02', '1', '2019-01-09 23:05:51', 'developer', 'avatar.png', '2017-12-31 00:00:00', '4', 'eniluzt@qq.com', '网站管理员', '4552805b07a4bf92ce1cea0373aab868', '', '2', 'vscp9', '1', '1', null);
 
 -- ----------------------------
 -- Records of t_test_boy

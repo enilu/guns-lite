@@ -36,7 +36,7 @@ public class OperationLog {
     private Date createTime;
     @Column
     private String succeed;
-    @Column
+    @Column(columnDefinition = "TEXT COMMENT '详细信息'")
     private String message;
 
 }
