@@ -2,12 +2,12 @@ package cn.enilu.guns.bean.entity.system;
 
 import cn.enilu.guns.bean.entity.BaseEntity;
 import lombok.Data;
+import org.hibernate.annotations.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -15,8 +15,8 @@ import java.util.Date;
  *
  * @author enilu
  */
-@Entity
-@Table(name = "t_sys_user")
+@Entity(name = "t_sys_user")
+@Table(appliesTo = "t_sys_user",comment = "系统管理员")
 @Data
 @EntityListeners(AuditingEntityListener.class)
 public class User  extends BaseEntity {

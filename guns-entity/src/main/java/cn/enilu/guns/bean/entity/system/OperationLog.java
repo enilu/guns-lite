@@ -1,8 +1,12 @@
 package cn.enilu.guns.bean.entity.system;
 
 import lombok.Data;
+import org.hibernate.annotations.Table;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -10,8 +14,8 @@ import java.util.Date;
  *
  * @author enilu
  */
-@Entity
-@Table(name = "t_sys_operation_log")
+@Entity(name = "t_sys_operation_log")
+@Table(appliesTo= "t_sys_operation_log",comment = "操作日志")
 @Data
 public class OperationLog {
 

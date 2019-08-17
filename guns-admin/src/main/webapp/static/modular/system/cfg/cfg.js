@@ -88,13 +88,19 @@ Cfg.delete = function () {
  */
 Cfg.search = function () {
     var queryData = {};
-    queryData['condition'] = $("#condition").val();
+    queryData['cfgName'] = $("#cfgName").val();
+    queryData['cfgValue'] = $("#cfgValue").val();
     Cfg.table.refresh({query: queryData});
 };
 
+Cfg.reset = function () {
+    $("#cfgName").val("");
+    $("#cfgValue").val("");
+    this.search();
+};
 $(function () {
     var defaultColunms = Cfg.initColumn();
     var table = new BSTable(Cfg.id, "/cfg/list", defaultColunms);
-    table.setPaginationType("client");
+    table.setPaginationType("server");
     Cfg.table = table.init();
 });

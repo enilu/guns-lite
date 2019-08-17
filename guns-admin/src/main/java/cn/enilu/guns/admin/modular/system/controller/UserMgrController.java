@@ -1,28 +1,27 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
-import cn.enilu.guns.bean.annotion.core.BussinessLog;
-import cn.enilu.guns.bean.annotion.core.Permission;
-import cn.enilu.guns.bean.constant.Const;
-import cn.enilu.guns.bean.dictmap.UserDict;
-import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
 import cn.enilu.guns.admin.config.properties.GunsProperties;
 import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.admin.core.base.tips.Tip;
-import cn.enilu.guns.bean.exception.GunsException;
-import cn.enilu.guns.shiro.ShiroKit;
-import cn.enilu.guns.utils.BeanUtil;
-import cn.enilu.guns.factory.UserFactory;
-import cn.enilu.guns.bean.dto.UserDto;
-import cn.enilu.guns.warpper.UserWarpper;
+import cn.enilu.guns.bean.annotion.core.BussinessLog;
+import cn.enilu.guns.bean.annotion.core.Permission;
+import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.constant.state.ManagerStatus;
 import cn.enilu.guns.bean.core.ShiroUser;
+import cn.enilu.guns.bean.dictmap.UserDict;
+import cn.enilu.guns.bean.dto.UserDto;
 import cn.enilu.guns.bean.entity.system.User;
-import cn.enilu.guns.dao.system.UserRepository;
+import cn.enilu.guns.bean.enumeration.BizExceptionEnum;
+import cn.enilu.guns.bean.exception.GunsException;
+import cn.enilu.guns.factory.UserFactory;
 import cn.enilu.guns.service.system.LogObjectHolder;
 import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.service.system.impl.ConstantFactory;
+import cn.enilu.guns.shiro.ShiroKit;
+import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.utils.MD5;
 import cn.enilu.guns.utils.ToolUtil;
+import cn.enilu.guns.warpper.UserWarpper;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,10 @@ import javax.annotation.Resource;
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 系统管理员控制器
@@ -51,11 +53,7 @@ public class UserMgrController extends BaseController {
 
     @Resource
     private GunsProperties gunsProperties;
-    @Autowired
 
-
-    @Resource
-    private UserRepository userRepository;
     @Autowired
     private UserService userService;
 
@@ -78,7 +76,6 @@ public class UserMgrController extends BaseController {
     /**
      * 跳转到角色分配页面
      */
-    //@RequiresPermissions("/mgr/role_assign")  //利用shiro自带的权限检查
     @Permission
     @RequestMapping("/role_assign/{userId}")
     public String roleAssign(@PathVariable Long userId, Model model) {
@@ -151,7 +148,7 @@ public class UserMgrController extends BaseController {
         if (user.getPassword().equals(oldMd5)) {
             String newMd5 = MD5.md5(newPwd, user.getSalt());
             user.setPassword(newMd5);
-          userRepository.save(user);
+          userService.saveOrUpdate(user);
             return SUCCESS_TIP;
         } else {
             throw new GunsException(BizExceptionEnum.OLD_PWD_NOT_RIGHT);
@@ -202,7 +199,7 @@ public class UserMgrController extends BaseController {
         }
 
         // 判断账号是否重复
-        User theUser = userRepository.findByAccount(user.getAccount());
+        User theUser = userService.findByAccount(user.getAccount());
         if (theUser != null) {
             throw new GunsException(BizExceptionEnum.USER_ALREADY_REG);
         }
@@ -212,7 +209,7 @@ public class UserMgrController extends BaseController {
         user.setPassword(MD5.md5(user.getPassword(), user.getSalt()));
         user.setStatus(ManagerStatus.OK.getCode());
 
-        this.userRepository.save(UserFactory.createUser(user,new User()));
+        this.userService.insert(UserFactory.createUser(user,new User()));
         return SUCCESS_TIP;
     }
 
@@ -230,13 +227,13 @@ public class UserMgrController extends BaseController {
         }
         User oldUser = userService.get(user.getId());
         if (ShiroKit.hasRole(Const.ADMIN_NAME)) {
-            this.userRepository.save(UserFactory.updateUser(user,oldUser));
+            userService.update(UserFactory.updateUser(user,oldUser));
             return SUCCESS_TIP;
         } else {
             assertAuth(user.getId());
             ShiroUser shiroUser = ShiroKit.getUser();
             if (shiroUser.getId().equals(user.getId())) {
-                this.userRepository.save(UserFactory.updateUser(user,oldUser));
+                userService.update(UserFactory.updateUser(user,oldUser));
                 return SUCCESS_TIP;
             } else {
                 throw new GunsException(BizExceptionEnum.NO_PERMITION);
@@ -262,7 +259,7 @@ public class UserMgrController extends BaseController {
         assertAuth(userId);
         User user = userService.get(userId);
         user.setStatus(ManagerStatus.DELETED.getCode());
-        userRepository.save(user);
+        userService.update(user);
         return SUCCESS_TIP;
     }
 
@@ -294,7 +291,7 @@ public class UserMgrController extends BaseController {
         User user = userService.get(userId);
         user.setSalt(ToolUtil.getRandomString(5));
         user.setPassword(MD5.md5(Const.DEFAULT_PWD, user.getSalt()));
-        this.userRepository.save(user);
+        userService.update(user);
         return SUCCESS_TIP;
     }
 
@@ -316,7 +313,7 @@ public class UserMgrController extends BaseController {
         assertAuth(userId);
         User user = userService.get(userId);
         user.setStatus(ManagerStatus.FREEZED.getCode());
-        userRepository.save(user);
+        userService.update(user);
         return SUCCESS_TIP;
     }
 
@@ -334,7 +331,7 @@ public class UserMgrController extends BaseController {
         assertAuth(userId);
         User user = userService.get(userId);
         user.setStatus(ManagerStatus.OK.getCode());
-        userRepository.save(user);
+        userService.update(user);
         return SUCCESS_TIP;
     }
 
@@ -342,7 +339,7 @@ public class UserMgrController extends BaseController {
      * 分配角色
      */
     @RequestMapping("/setRole")
-    @BussinessLog(value = "分配角色", key = "userId,roleIds", dict = UserDict.class)
+    @BussinessLog(value = "分配角色", key = "userId", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public Tip setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") String roleIds) {
@@ -356,7 +353,7 @@ public class UserMgrController extends BaseController {
         assertAuth(userId);
         User user = userService.get(userId);
         user.setRoleid(roleIds);
-        userRepository.save(user);
+        userService.update(user);
         return SUCCESS_TIP;
     }
 

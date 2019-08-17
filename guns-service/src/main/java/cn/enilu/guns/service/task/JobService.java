@@ -4,6 +4,7 @@ import cn.enilu.guns.bean.entity.system.Task;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.exception.GunsExceptionEnum;
 import cn.enilu.guns.bean.vo.QuartzJob;
+import cn.enilu.guns.bean.vo.query.SearchFilter;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +25,8 @@ public class JobService {
     private static final Logger logger = LoggerFactory.getLogger(JobService.class);
     @Autowired
     private Scheduler scheduler;
+    @Autowired
+    private TaskService taskService;
 
     /**
      * 获取单个任务
@@ -54,7 +59,14 @@ public class JobService {
         return job;
     }
 
-
+    public List<QuartzJob> getTaskList() {
+        List<Task> tasks = taskService.queryAll(SearchFilter.build("disabled", SearchFilter.Operator.EQ,false));
+        List<QuartzJob> jobs = new ArrayList<>();
+        for (Task task : tasks) {
+            jobs.add(getJob(task));
+        }
+        return jobs;
+    }
 
     public QuartzJob getJob(Task task) {
         QuartzJob job = null;

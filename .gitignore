@@ -1,9 +1,9 @@
 *.iml
 .vuepress/*
 ./**/target/*
-docs/md/node_modules/*
-docs/md/*.log
-docs/md/dist/*
+docs/node_modules/*
+docs/*.log
+docs/.vuepress/dist/*
 **/target/*
 *.project
 *.classpath

@@ -24,7 +24,7 @@
                                 <#button name="修改" icon="fa-edit" clickFun="Role.openChangeRole()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/role/remove")){
-                                <#button name="删除" icon="fa-remove" clickFun="Role.delRole()" space="true"/>
+                                <#button name="删除" icon="fa-remove" btnCss="danger" clickFun="Role.delRole()" space="true"/>
                             @}
                             @if(shiro.hasPermission("/role/setAuthority")){
                                 <#button name="权限配置" icon="fa-user-secret" clickFun="Role.assign()" space="true"/>

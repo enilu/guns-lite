@@ -27,7 +27,7 @@
 	</appender>
 
 	<!-- druid连接池的日志级别 -->
-	<logger name="com.alibaba.druid" level="INFO" />
+	<logger name="com.alibaba.druid" level="DEBUG" />
 
 	<!-- snow_credit的日志级别 -->
 	<logger name="cn.enilu.guns" level="DEBUG" />

@@ -14,7 +14,6 @@
         <module>guns-utils</module>
         <module>guns-service</module>
         <module>guns-admin</module>
-        <module>guns-api</module>
     </modules>
 
     <properties>
@@ -305,6 +304,18 @@
                 <artifactId>quartz-jobs</artifactId>
                 <version>${quartz.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.nutz</groupId>
+                <artifactId>nutz</artifactId>
+                <version>1.r.60</version>
+            </dependency>
+            <!-- message  start-->
+            <dependency>
+                <groupId>com.github.qcloudsms</groupId>
+                <artifactId>qcloudsms</artifactId>
+                <version>1.0.6</version>
+            </dependency>
+            <!-- message end-->
         </dependencies>
 
     </dependencyManagement>

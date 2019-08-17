@@ -3,7 +3,8 @@ package cn.enilu.guns.service.system;
 import cn.enilu.guns.bean.entity.system.Dict;
 import cn.enilu.guns.dao.cache.DictCache;
 import cn.enilu.guns.dao.system.DictRepository;
-import cn.enilu.guns.utils.factory.MutiStrFactory;
+import cn.enilu.guns.bean.vo.query.MutiStrFactory;
+import cn.enilu.guns.service.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.Optional;
  * @date 2017-04-27 17:00
  */
 @Service
-public class DictService {
+public class DictService extends BaseService<Dict,Long,DictRepository> {
     private Logger logger = LoggerFactory.getLogger(DictService.class);
     @Resource
     DictRepository dictRepository;
@@ -41,19 +42,19 @@ public class DictService {
         //添加字典
         Dict dict = new Dict();
         dict.setName(dictName);
-        dict.setNum("0");
+        dict.setValue("0");
         dict.setPid(0L);
         this.dictRepository.save(dict);
 
         //添加字典条目
         for (Map<String, String> item : items) {
-            String num = item.get(MutiStrFactory.MUTI_STR_KEY);
+            String val = item.get(MutiStrFactory.MUTI_STR_KEY);
             String name = item.get(MutiStrFactory.MUTI_STR_VALUE);
             Dict itemDict = new Dict();
             itemDict.setPid(dict.getId());
             itemDict.setName(name);
             try {
-                itemDict.setNum(num);
+                itemDict.setValue(val);
             }catch (NumberFormatException e){
                 logger.error(e.getMessage(),e);
             }
@@ -87,5 +88,9 @@ public class DictService {
             return optional.get();
         }
         return null;
+    }
+
+    public List<Dict> queryByPid(Long pid) {
+        return dictRepository.findByPid(pid);
     }
 }

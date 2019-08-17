@@ -1,23 +1,23 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
+import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.annotion.core.Permission;
 import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.constant.factory.PageFactory;
-import cn.enilu.guns.admin.core.base.controller.BaseController;
-import cn.enilu.guns.utils.BeanUtil;
-import cn.enilu.guns.warpper.LogWarpper;
 import cn.enilu.guns.bean.entity.system.LoginLog;
-import cn.enilu.guns.dao.system.LoginLogRepository;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
+import cn.enilu.guns.bean.vo.query.SearchFilter;
 import cn.enilu.guns.service.system.LoginLogService;
+import cn.enilu.guns.utils.BeanUtil;
+import cn.enilu.guns.utils.StringUtils;
+import cn.enilu.guns.warpper.LogWarpper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -32,8 +32,6 @@ public class LoginLogController extends BaseController {
 
     private static String PREFIX = "/system/log/";
 
-    @Resource
-    private LoginLogRepository loginLogRepository;
     @Autowired
     private LoginLogService loginlogService;
 
@@ -53,8 +51,19 @@ public class LoginLogController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String logName) {
         Page<LoginLog> page = new PageFactory<LoginLog>().defaultPage();
+        if(StringUtils.isNotEmpty(beginTime)){
+            page.addFilter(SearchFilter.build("createtime", SearchFilter.Operator.GTE, beginTime));
+        }
+        if(StringUtils.isNotEmpty(endTime)){
+            page.addFilter(SearchFilter.build("createtime", SearchFilter.Operator.LTE, endTime));
+        }
 
-        page = loginlogService.getLoginLogs(page, beginTime, endTime, logName);
+        if(StringUtils.isNotEmpty(logName)){
+            page.addFilter(SearchFilter.build("logname", SearchFilter.Operator.LIKE, logName));
+        }
+
+        page = loginlogService.queryPage(page);
+//        page = loginlogService.getLoginLogs(page, beginTime, endTime, logName);
         page.setRecords((List<LoginLog>) new LogWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp());
         return super.packForBT(page);
 
@@ -68,7 +77,7 @@ public class LoginLogController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public Object delLog() {
-        loginLogRepository.clear();
+        loginlogService.clear();
         return SUCCESS_TIP;
     }
 }

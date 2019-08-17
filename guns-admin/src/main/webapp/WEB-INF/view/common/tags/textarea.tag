@@ -13,7 +13,7 @@
 @if(isNotEmpty(value)){
 ${value}
 @}
-            </textarea>
+</textarea>
 
     </div>
 </div>

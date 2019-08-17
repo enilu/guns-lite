@@ -4,6 +4,7 @@ import cn.enilu.guns.bean.entity.system.Dept;
 import cn.enilu.guns.bean.vo.node.DeptNode;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.DeptRepository;
+import cn.enilu.guns.service.BaseService;
 import cn.enilu.guns.utils.ToolUtil;
 import com.google.common.base.Strings;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * @author enilu
  */
 @Service
-public class DeptService {
+public class DeptService extends BaseService<Dept,Long,DeptRepository> {
     @Autowired
     private DeptRepository deptRepository;
 
@@ -60,10 +61,8 @@ public class DeptService {
         deptRepository.deleteAll(subDepts);
         deptRepository.delete(dept);
     }
-
-    public List<DeptNode> queryAll() {
-        List<Dept> list = (List<Dept>) deptRepository.findAll();
-
+    public List<DeptNode> queryAllNode() {
+        List<Dept> list = queryAll();
         return generateTree(list);
     }
 
@@ -74,7 +73,10 @@ public class DeptService {
         } else {
             Long pid = dept.getPid();
             Dept temp = get(pid);
-            String pids = temp.getPids();
+            String pids = "";
+            if(temp!=null){
+                pids = temp.getPids();
+            }
             dept.setPid(pid);
             dept.setPids(pids + "[" + pid + "],");
         }

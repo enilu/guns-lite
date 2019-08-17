@@ -1,16 +1,21 @@
 package cn.enilu.guns.bean.entity.system;
 
 import lombok.Data;
+import org.hibernate.annotations.Table;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 
 /**
  * Created  on 2018/4/2 0002.
  *
  * @author enilu
  */
-@Entity
-@Table(name = "t_sys_relation")
+@Entity(name="t_sys_relation")
+@Table(appliesTo = "t_sys_relation",comment = "角色菜单关系")
 @Data
 public class Relation {
     @Id

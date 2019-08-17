@@ -1,18 +1,20 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
+import cn.enilu.guns.admin.core.base.controller.BaseController;
+import cn.enilu.guns.admin.core.support.BeanKit;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.annotion.core.Permission;
 import cn.enilu.guns.bean.constant.Const;
 import cn.enilu.guns.bean.constant.factory.PageFactory;
 import cn.enilu.guns.bean.constant.state.BizLogType;
-import cn.enilu.guns.admin.core.base.controller.BaseController;
-import cn.enilu.guns.admin.core.support.BeanKit;
-import cn.enilu.guns.utils.BeanUtil;
-import cn.enilu.guns.warpper.LogWarpper;
 import cn.enilu.guns.bean.entity.system.OperationLog;
-import cn.enilu.guns.dao.system.OperationLogRepository;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
+import cn.enilu.guns.bean.vo.query.SearchFilter;
 import cn.enilu.guns.service.system.OperationLogService;
+import cn.enilu.guns.utils.BeanUtil;
+import cn.enilu.guns.utils.DateUtil;
+import cn.enilu.guns.utils.StringUtils;
+import cn.enilu.guns.warpper.LogWarpper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +37,6 @@ public class LogController extends BaseController {
 
     private static String PREFIX = "/system/log/";
 
-    @Resource
-    private OperationLogRepository operationLogRepository;
     @Autowired
     private OperationLogService operationLogService;
 
@@ -58,8 +57,20 @@ public class LogController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String logName, @RequestParam(required = false) Integer logType) {
         Page<OperationLog> page = new PageFactory<OperationLog>().defaultPage();
+        if(StringUtils.isNotEmpty(beginTime)){
+            page.addFilter(SearchFilter.build("createTime", SearchFilter.Operator.GTE, DateUtil.parse(beginTime,"yyyy-MM-dd")));
+        }
+        if(StringUtils.isNotEmpty(endTime)){
+            page.addFilter(SearchFilter.build("createTime", SearchFilter.Operator.LTE, DateUtil.parse(endTime,"yyyy-MM-dd")));
+        }
 
-        page = operationLogService.getOperationLogs(page, beginTime, endTime, logName, BizLogType.valueOf(logType));
+        if(StringUtils.isNotEmpty(logName)){
+            page.addFilter(SearchFilter.build("logname", SearchFilter.Operator.LIKE, logName));
+        }
+        if(logType!=0) {
+            page.addFilter(SearchFilter.build("logtype", SearchFilter.Operator.EQ, BizLogType.valueOf(logType)));
+        }
+        page = operationLogService.queryPage(page);
         page.setRecords((List<OperationLog>) new LogWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp());
         return super.packForBT(page);
     }
@@ -84,8 +95,7 @@ public class LogController extends BaseController {
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public Object delLog() {
-
-        operationLogRepository.clear();
+        operationLogService.clear();
         return SUCCESS_TIP;
     }
 }

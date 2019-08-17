@@ -1,7 +1,7 @@
 package cn.enilu.guns.admin.core.page;
 
 
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.bean.vo.query.Page;
 
 import java.util.List;
 

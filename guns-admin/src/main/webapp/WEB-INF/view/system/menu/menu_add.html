@@ -16,7 +16,7 @@
 							selectFlag="true" selectId="pcodeTreeDiv" selectTreeId="pcodeTree" selectStyle="width:244px !important;"/>
 					<#select id="ismenu" name="是否是菜单">
 						@for(dict in constant.getDicts('是否')){
-						<option value="${dict.num}">${dict.name}</option>
+						<option value="${dict.value}">${dict.name}</option>
 						@}
 					</#select>
 				</div>

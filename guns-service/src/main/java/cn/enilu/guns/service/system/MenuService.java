@@ -8,6 +8,7 @@ import cn.enilu.guns.bean.vo.node.MenuNode;
 import cn.enilu.guns.bean.vo.node.Node;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.MenuRepository;
+import cn.enilu.guns.service.BaseService;
 import cn.enilu.guns.utils.ToolUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ import java.util.*;
  * @author enilu
  */
 @Service
-public class MenuService {
+public class MenuService  extends BaseService<Menu,Long,MenuRepository> {
 
     private Logger logger = LoggerFactory.getLogger(MenuService.class);
     @Autowired
@@ -31,7 +32,7 @@ public class MenuService {
 
     public void delMenu(Long menuId) {
         //删除菜单
-        menuRepository.deleteById(menuId);
+        delete(menuId);
         //删除关联的relation
         menuRepository.deleteRelationByMenu(menuId);
 
@@ -173,7 +174,7 @@ public class MenuService {
             menu.setLevels(1);
         } else {
 
-            Menu pMenu = menuRepository.findById(Long.valueOf(menu.getPcode())).get();
+            Menu pMenu = menuRepository.findByCode(menu.getPcode());
             Integer pLevels = pMenu.getLevels();
             menu.setPcode(pMenu.getCode());
 
@@ -222,5 +223,25 @@ public class MenuService {
             return optiona.get();
         }
         return null;
+    }
+
+    public Menu findByCode(String code) {
+        return menuRepository.findByCode(code);
+    }
+
+    public List<Menu> findByNameLikeAndLevels(String name, Integer level) {
+        return menuRepository.findByNameLikeAndLevels(name,level);
+    }
+
+    public List<Menu> findByNameLike(String name) {
+        return menuRepository.findByNameLike(name);
+    }
+
+    public List<Menu> findByLevels(Integer level) {
+        return menuRepository.findByLevels(level);
+    }
+
+    public List<Long> getMenuIdsByRoleId(Integer roleId) {
+        return menuRepository.getMenuIdsByRoleId(roleId);
     }
 }

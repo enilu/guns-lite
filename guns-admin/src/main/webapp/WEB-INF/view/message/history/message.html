@@ -1,0 +1,35 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>历史消息列表</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="Message.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="MessageTableToolbar" role="group">
+                            @if(shiro.hasPermission("/message/history")){
+                                <#button name="查看" icon="fa-edit" clickFun="Message.openDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/message/history/clear")){
+                                <#button name="清空" icon="fa-remove"  btnCss="danger" clickFun="Message.clear()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="MessageTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/message/history/message.js"></script>
+@}

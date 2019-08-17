@@ -1,0 +1,20 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <input type="hidden" id="id" value="${item.id}">
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input  name="自增主键" value="${item.id}" underline="true"  readonly="readonly"/>
+                            <#input name="消息模板" value="${item.tplCode}"  readonly="readonly"/>
+                </div>
+                <div class="col-sm-6">
+                            <#input name="接收人" value="${item.receiver}" underline="true"  readonly="readonly"/>
+                            <#input  name="消息内容" value="${item.content}"  readonly="readonly"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@}

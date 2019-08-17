@@ -6,9 +6,10 @@ import cn.enilu.guns.bean.entity.system.TaskLog;
 import cn.enilu.guns.bean.exception.GunsException;
 import cn.enilu.guns.bean.exception.GunsExceptionEnum;
 import cn.enilu.guns.bean.vo.QuartzJob;
+import cn.enilu.guns.bean.vo.query.Page;
 import cn.enilu.guns.dao.system.TaskLogRepository;
 import cn.enilu.guns.dao.system.TaskRepository;
-import cn.enilu.guns.utils.factory.Page;
+import cn.enilu.guns.service.BaseService;
 import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +26,12 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 任务计划服务
  */
 @Service
-public class TaskService {
+public class TaskService extends BaseService<Task,Long,TaskRepository> {
 	private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
 	@Autowired
 	private TaskRepository taskRepository;
@@ -52,8 +52,8 @@ public class TaskService {
 		return task;
 	}
 
-
-	public boolean update(Task task) {
+	@Override
+	public Task update(Task task) {
 		logger.info("更新定时任务{}", task.getName());
 		taskRepository.save(task);
 		try {
@@ -65,8 +65,7 @@ public class TaskService {
 		} catch (SchedulerException e) {
 			logger.error(e.getMessage(), e);
 		}
-
-		return true;
+		return task;
 	}
 
 
@@ -75,13 +74,6 @@ public class TaskService {
 		return true;
 	}
 
-	public Task get(Long id) {
-		Optional<Task> optional = taskRepository.findById(id);
-		if (optional.isPresent()) {
-			return optional.get();
-		}
-		return null;
-	}
 
 	public Task disable(Long id) {
 		Task task = get(id);
@@ -119,8 +111,8 @@ public class TaskService {
 		return task;
 	}
 
-
-	public Task delete(Long id) {
+	@Override
+	public void delete(Long id) {
 		Task task = get(id);
 		task.setDisabled(true);
 		taskRepository.delete(task);
@@ -134,7 +126,6 @@ public class TaskService {
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		return task;
 	}
 
 
@@ -160,5 +151,9 @@ public class TaskService {
 		page.setTotal(Integer.valueOf(taskLogPage.getTotalElements()+""));
 		page.setRecords(taskLogPage.getContent());
 		return page;
+	}
+
+	public Object findByNameLike(String name) {
+		return taskRepository.findByNameLike(name);
 	}
 }

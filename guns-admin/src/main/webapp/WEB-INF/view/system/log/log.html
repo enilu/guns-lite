@@ -32,7 +32,7 @@
                         <div class="hidden-xs" id="OptLogTableToolbar" role="group">
                             <#button name="查看详情" icon="fa-plus" clickFun="OptLog.detail()"/>
                             @if(shiro.hasPermission("/log/delLog")){
-                                <#button name="清空日志" icon="fa-minus" clickFun="OptLog.delLog()" space="true"/>
+                                <#button name="清空日志" icon="fa-remove" btnCss="danger"  clickFun="OptLog.delLog()" space="true"/>
                             @}
                         </div>
                         <#table id="OptLogTable"/>

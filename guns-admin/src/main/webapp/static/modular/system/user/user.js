@@ -177,7 +177,6 @@ MgrUser.resetSearch = function () {
     $("#name").val("");
     $("#beginTime").val("");
     $("#endTime").val("");
-
     MgrUser.search();
 }
 

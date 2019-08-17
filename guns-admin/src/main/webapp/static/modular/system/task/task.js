@@ -23,7 +23,7 @@ Task.initColumn = function () {
             {title: '最近执行结果',field:'execResult',visible:true,align:'center',valign:'middle'},
             {title: '操作', field: 'disabled', visible: true, align: 'center', valign: 'middle',
             formatter:function(data,row){
-                let button = "<button class='btn btn-primary' onclick='Task.viewLog("+row['id']+")'>查看日志</button>";
+                var button = "<button class='btn btn-primary' onclick='Task.viewLog("+row['id']+")'>查看日志</button>";
                 if(data){
                     button += "<button class='btn btn-primary' onclick='Task.enable("+row['id']+")'>启用</button>";
                 }else{
