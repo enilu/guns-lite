@@ -1,0 +1,99 @@
+package ${packageName};
+
+import ${table.EntityFullClassName};
+import ${table.ServiceFullClassName};
+
+import ${table.basePackageName}.bean.annotion.core.BussinessLog;
+import ${table.basePackageName}.bean.constant.factory.PageFactory;
+import ${table.basePackageName}.bean.dictmap.CommonDict;
+import ${table.basePackageName}.admin.core.base.controller.BaseController;
+import ${table.basePackageName}.bean.exception.GunsException;
+
+import ${table.basePackageName}.bean.vo.query.Page;
+import ${table.basePackageName}.bean.vo.query.SearchFilter;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("${table.UriPrefix}")
+public class ${table.ControllerClassName} extends BaseController {
+	private  Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired
+	private ${table.ServiceClassName} ${table.ServiceInstanceName};
+
+	private static String PREFIX = "${table.UriPrefix}/";
+
+	/**
+	* 跳转到首页
+	*/
+	@RequestMapping(value="",method = RequestMethod.GET)
+		public String index() {
+		return PREFIX + "index.html";
+	}
+
+	/**
+	* 跳转到添加页面
+	*/
+	@RequestMapping(value = "/add",method = RequestMethod.GET)
+		public String add() {
+		return PREFIX + "add.html";
+	}
+
+	/**
+	* 跳转到修改页面
+	*/
+	@RequestMapping("/edit/{id}")
+	public String edit(@PathVariable Long id, Model model) {
+		${table.EntityClassName} entity = ${table.ServiceInstanceName}.get(id);
+		model.addAttribute("item",entity);
+		return PREFIX + "edit.html";
+	}
+	@RequestMapping(value = "/list",method = RequestMethod.POST)
+	@ResponseBody
+	public Object list(@RequestParam(required = false) String name) {
+		Page<${table.EntityClassName}> page = new PageFactory<${table.EntityClassName}>().defaultPage();
+		page.addFilter("name", SearchFilter.Operator.EQ,name);
+		page = ${table.ServiceInstanceName}.queryPage(page);
+		return super.packForBT(page);
+	}
+	/**
+	* 新增${table.label}
+	*/
+	@RequestMapping(value = "/add",method = RequestMethod.POST)
+	@ResponseBody
+	@BussinessLog(value = "新增${table.label}", key = "name",dict= CommonDict.class)
+	public Object add(${table.EntityClassName} ${table.entityNameLowerFirstChar}) {
+		${table.ServiceInstanceName}.insert(${table.entityNameLowerFirstChar});
+		return SUCCESS_TIP;
+	}
+
+	/**
+	* 删除${table.label}
+	*/
+	@RequestMapping(value = "/delete")
+	@ResponseBody
+	@BussinessLog(value = "删除${table.label}", key = "id",dict= CommonDict.class)
+	public Object delete(@RequestParam Long id) {
+		${table.ServiceInstanceName}.delete(id);
+		return SUCCESS_TIP;
+	}
+
+	/**
+	* 修改${table.label}
+	*/
+	@RequestMapping(value = "/update")
+	@ResponseBody
+	@BussinessLog(value = "修改${table.label}", key = "name",dict= CommonDict.class)
+	public Object update(${table.EntityClassName} ${table.entityNameLowerFirstChar}) {
+		${table.ServiceInstanceName}.update(${table.entityNameLowerFirstChar});
+		return SUCCESS_TIP;
+	}
+
+}

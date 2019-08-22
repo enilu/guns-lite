@@ -146,6 +146,7 @@ public class MenuService  extends BaseService<Menu,Long,MenuRepository> {
             node.setpId(Long.valueOf(source[1].toString()));
             node.setName(source[2].toString());
             node.setIsOpen(Boolean.valueOf(source[3].toString()));
+            node.setCode(source[4].toString());
             nodes.add(node);
         }
         return nodes;

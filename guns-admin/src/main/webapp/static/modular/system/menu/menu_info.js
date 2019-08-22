@@ -147,7 +147,7 @@ MenuInfoDlg.editSubmit = function () {
  */
 MenuInfoDlg.onClickDept = function (e, treeId, treeNode) {
     $("#pcodeName").attr("value", MenuInfoDlg.ztreeInstance.getSelectedVal());
-    $("#pcode").attr("value", treeNode.id);
+    $("#pcode").attr("value", treeNode.code);
 };
 
 

@@ -1,12 +1,12 @@
 {
   "codeConfig": {
-    "type": "cn.enilu.sbvue.code.CodeConfig",
+    "type": "cn.enilu.flash.code.CodeConfig",
     "fields": {
       entityModel: "guns-entity",
-      daoModel: "guns-dao1",
-      serviceModel: "guns-service2",
-      controllerModel: "guns-api",
-      viewModel: "guns-admin-vuejs"
+      daoModel: "guns-dao",
+      serviceModel: "guns-service",
+      controllerModel: "guns-admin",
+      viewModel: "guns-admin"
     }
   }
 }

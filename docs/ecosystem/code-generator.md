@@ -1,76 +1,27 @@
 # guns-lite代码生成工具
+# 代码生成
 
-## 使用方法
-
-- 准备工作
-```shell
-
--- 克隆本项目
-git clone https://github.com/enilu/sbvue-coder.git
-
--- 安装到本地仓库
-cd sbvue-coder
-mvn install
-
---在guns-lite的guns-entity的pom.xml文件中添加依赖：guns-lite/guns-entity/pom.xml
-
+## 用法
+- 在guns-entity/pom.xml中添加依赖
+```xml
 <dependency>
     <groupId>cn.enilu</groupId>
-    <artifactId>sbvue-coder</artifactId>
-    <version>1.0</version>
+    <artifactId>guns-generator</artifactId>
+    <version>${project.version}</version>
 </dependency>
 ```
+- 下载intellij代码生成插件，在插件中心搜索并安装插件:webflash-generator
 
-- 在Intellij IDEA中新建一个Run Config，如下图所示
-![run config](./doc/run_config.jpg)
-    - 上图三个配置分别为
-        - 1，运行的代码生成主类
-        - 2，代码生成参数,详见下面说明
-        - 3，在哪个模块中执行代码生成：guns-entity，因为代码生成是通过读取guns-entity中的实体类的注解实现，所以这里选择guns-entity
-
-- 新建配置文件：guns-entity/src/main/resources/code/code.json,配置文件内容如下，下面内容指定了生成的相关代码分别放在哪个模块下，考虑到有的同学可能会更改项目名和模块名，增加该配置，开发人员可以自行配置模块名
-```json
-{
-  "codeConfig": {
-    "type": "cn.enilu.sbvue.code.CodeConfig",
-    "fields": {
-      entityModel: "guns-entity",
-      daoModel: "guns-dao",
-      serviceModel: "guns-service",
-      controllerModel: "guns-api",
-      viewModel: "guns-admin-vuejs"
-    }
-  }
-}
-```   
-
-## 代码生成参数
-执行生成的时候，在Program arguments配置为：-h 运行后将会输出下面参数帮助提示
-
-```shell
-usage: Generator [options] [all|entity|service|controller|view]
- -f,--force               force generate file even if file exists
- -h,--help                show help message
- -i,--include <arg>       include table pattern
- -module,--module <arg>   current module name
- -p,--package <arg>       base package name,default:cn.enilu.guns
- -u,--base-uri <arg>      base uri prefix, default is /
- -x,--exclude <arg>       exclude table pattern
-```   
-
-比如在Program arguments配置 -mudule test 将会根据guns-entity/src/main/java/cn/enilu/guns/bean/entity/test/目录下所有的java类生成其CRUD相关代码
-
-如果程序运行参数更改为 -mudule test -i t_test_boy 将会根据上述目录下的Boy实体生成其相关CRUD代码，注意这里-i 后面的参数值是实体中配置的表名称，而不是实体名本身。
-
-测试实体Boy内容如下
+- 写好实体类，例如：
 ```java
 package cn.enilu.guns.bean.entity.test;
 import cn.enilu.guns.bean.entity.BaseEntity;
 import lombok.Data;
 import org.hibernate.annotations.Table;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+ 
 @Entity(name="t_test_boy")
 @Table(appliesTo = "t_test_boy",comment = "男孩")
 @Data
@@ -84,19 +35,21 @@ public class Boy extends BaseEntity {
     @Column(name = "has_girl_friend",columnDefinition = "TINYINT COMMENT '是否有女朋友'")
     private Boolean hasGirFriend;
 }
-```
-注意如果要根据实体生成代码,实体中的@Table注解要配置为@org.hibernate.annotations.Table而不是能配置为：@javax.persistence.Table,因为前者可以配置注释comment
+``` 
+- 上面实体类注意事项
+    - @Table注解要使用org.hibernate.annotations.Table 不要使用javax.persistence.Table
+    - @Table注解 必须配置表名(applyiesTo)和注释(comment)
+    - @Column注解必须配置columnDefinition来表述列信息(英文全部大写)：包括类型,注释COMMENT
+    - 实体类必须继承BaseEntity
+- 实体类准备好了后,打开实体类，右键点击“Generator"-->"web-flash-mvc"，弹出如下图所示对话框
+![code-generator](./doc/code-generate.png)    
+**注意**不用更改对话框中的配置(大部分没有什么作用)
+- 运行生成代码后，将会生成controller,service,repository，以及对应的增上改查页面和js,以Boy为例,生成的代码如下所示：
+![generate-result](./doc/generate-result.png)
+- 代码生成后，在系统中配置对应的菜单和权限，即可使用
+![菜单配置](./doc/menu1.png)
+![菜单配置](./doc/menu2.png)
+![菜单配置](./doc/menu-list.png)
+![权限配置](./doc/role.png)
 
-以Boy实体为例,执行代码生成后将会生成如下文件：
-![run code_add](./doc/code_add.jpg)
-
-代码生成后，在guns-admin-vuejs的路由配置文件中guns-admin-vuejs/src/store/modules/permission.js，增加如下红框内容：
-
-![run router](./doc/router.jpg)
-
-启动guns-api和guns-admin-vuejs,配置和菜单和角色权限后就可以访问刚刚生成的代码功能了
-![run code_result](./doc/code_result.jpg)
-
-
-        
-        
+![功能预览](./doc/boy.png)

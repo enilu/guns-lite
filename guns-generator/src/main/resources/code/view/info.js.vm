@@ -1,0 +1,97 @@
+/**
+ * 初始化系统参数详情对话框
+ */
+var ${table.entityClassName}InfoDlg = {
+    ${table.entityNameLowerFirstChar}InfoData : {}
+};
+
+/**
+ * 清除数据
+ */
+${table.entityClassName}InfoDlg.clearData = function() {
+    this.${table.entityNameLowerFirstChar}InfoData = {};
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+${table.entityClassName}InfoDlg.set = function(key, val) {
+    this.${table.entityNameLowerFirstChar}InfoData[key] = (typeof val == "undefined") ? $("#" + key).val() : val;
+    return this;
+}
+
+/**
+ * 设置对话框中的数据
+ *
+ * @param key 数据的名称
+ * @param val 数据的具体值
+ */
+${table.entityClassName}InfoDlg.get = function(key) {
+    return $("#" + key).val();
+}
+
+/**
+ * 关闭此对话框
+ */
+${table.entityClassName}InfoDlg.close = function() {
+    parent.layer.close(window.parent.${table.entityClassName}.layerIndex);
+}
+
+/**
+ * 收集数据
+ */
+${table.entityClassName}InfoDlg.collectData = function() {
+    this
+        .set('id')
+#foreach ($column in ${table.LabeledColumns})
+        .set('${column.FieldName}')
+#end
+    ;
+}
+
+/**
+ * 提交添加
+ */
+${table.entityClassName}InfoDlg.addSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "${table.UriPrefix}/add", function(data){
+        Feng.success("添加成功!");
+        window.parent.${table.entityClassName}.table.refresh();
+        ${table.entityClassName}InfoDlg.close();
+    },function(data){
+        Feng.error("添加失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.${table.entityNameLowerFirstChar}InfoData);
+    ajax.start();
+}
+
+/**
+ * 提交修改
+ */
+${table.entityClassName}InfoDlg.editSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "${table.UriPrefix}/update", function(data){
+        Feng.success("修改成功!");
+        window.parent.${table.entityClassName}.table.refresh();
+        ${table.entityClassName}InfoDlg.close();
+    },function(data){
+        Feng.error("修改失败!" + data.responseJSON.message + "!");
+    });
+    ajax.set(this.${table.entityNameLowerFirstChar}InfoData);
+    ajax.start();
+}
+
+$(function() {
+
+});

@@ -36,7 +36,7 @@ public interface MenuRepository extends BaseRepository<Menu,Long> {
     List getMenus();
     @Query(nativeQuery = true,value="select menuid from t_sys_relation where roleid=?1")
     List getMenuIdsByRoleId(Integer roleId);
-    @Query(nativeQuery = true,value = "SELECT m1.id AS id, ( CASE WHEN (m2.id = 0 OR m2.id IS NULL) THEN 0 ELSE m2.id END ) AS pId, m1. NAME AS NAME, ( CASE WHEN (m2.id = 0 OR m2.id IS NULL) THEN 'true' ELSE 'false' END ) AS isOpen FROM t_sys_menu m1 LEFT JOIN t_sys_menu m2 ON m1.pcode = m2. CODE ORDER BY m1.id ASC")
+    @Query(nativeQuery = true,value = "SELECT m1.id AS id, ( CASE WHEN (m2.id = 0 OR m2.id IS NULL) THEN 0 ELSE m2.id END ) AS pId, m1. NAME AS NAME, ( CASE WHEN (m2.id = 0 OR m2.id IS NULL) THEN 'true' ELSE 'false' END ) AS isOpen,m1.code FROM t_sys_menu m1 LEFT JOIN t_sys_menu m2 ON m1.pcode = m2. CODE ORDER BY m1.id ASC")
     List menuTreeList();
     @Query(nativeQuery = true,value = "SELECT m1.id AS id, ( CASE WHEN (m2.id = 0 OR m2.id IS NULL) THEN 0 ELSE m2.id END ) AS pId, m1. NAME AS NAME, ( CASE WHEN (m2.id = 0 OR m2.id IS NULL) THEN 'true' ELSE 'false' END ) AS isOpen, ( CASE WHEN (m3.ID = 0 OR m3.ID IS NULL) THEN 'false' ELSE 'true' END ) \"checked\" FROM t_sys_menu m1 LEFT JOIN t_sys_menu m2 ON m1.pcode = m2. CODE LEFT JOIN ( SELECT ID FROM t_sys_menu WHERE ID IN (?1)) m3 ON m1.id = m3.id ORDER BY m1.id ASC")
     List menuTreeListByMenuIds(List<Long> menuIds);

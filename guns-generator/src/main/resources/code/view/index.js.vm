@@ -1,0 +1,107 @@
+/**
+ * ${table.Label}管理初始化
+ */
+var ${table.entityClassName} = {
+    id: "${table.entityClassName}Table",
+    seItem: null,
+    table: null,
+    layerIndex: -1
+};
+
+/**
+ * 初始化表格的列
+ */
+${table.entityClassName}.initColumn = function () {
+    return [
+        {field: 'selectItem', radio: true},
+        {title: 'ID', field: 'id', visible: true, align: 'center', valign: 'middle'},
+#foreach ($column in $table.LabeledColumns)
+        {title: '${column.label}', field: '${column.FieldName}', visible: true, align: 'center', valign: 'middle'},
+#end
+    ];
+};
+
+/**
+ * 检查是否选中
+ */
+${table.entityClassName}.check = function () {
+    var selected = $('#' + this.id).bootstrapTable('getSelections');
+    if(selected.length == 0){
+        Feng.info("请先选中表格中的某一记录！");
+        return false;
+    }else{
+        ${table.entityClassName}.seItem = selected[0];
+        return true;
+    }
+};
+
+/**
+ * 点击添加${table.Label}
+ */
+${table.entityClassName}.openAdd${table.entityClassName} = function () {
+    var index = layer.open({
+        type: 2,
+        title: '添加${table.Label}',
+        area: ['85%', '85%'], //宽高
+        fix: false, //不固定
+        maxmin: true,
+        content: Feng.ctxPath + '${table.UriPrefix}/add'
+    });
+    this.layerIndex = index;
+};
+
+/**
+ * 打开查看${table.Label}详情
+ */
+${table.entityClassName}.open${table.entityClassName}Detail = function () {
+    if (this.check()) {
+        var index = layer.open({
+            type: 2,
+            title: '系统参数详情',
+            area: ['85%', '85%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: Feng.ctxPath + '${table.UriPrefix}/edit/' + ${table.entityClassName}.seItem.id
+        });
+        this.layerIndex = index;
+    }
+};
+
+/**
+ * 删除${table.Label}
+ */
+${table.entityClassName}.delete = function () {
+    if (this.check()) {
+        var ajax = new $ax(Feng.ctxPath + "${table.UriPrefix}/delete", function (data) {
+            Feng.success("删除成功!");
+            ${table.entityClassName}.table.refresh();
+        }, function (data) {
+            Feng.error("删除失败!" + data.responseJSON.message + "!");
+        });
+        ajax.set("id",this.seItem.id);
+        ajax.start();
+    }
+};
+
+/**
+ * 查询${table.Label}列表
+ */
+${table.entityClassName}.search = function () {
+    var queryData = {};
+    queryData['name'] = $("#name").val();
+    ${table.entityClassName}.table.refresh({query: queryData});
+};
+/**
+ * 重置查询条件
+ */
+Boy.reset = function () {
+    $('#name').val('');
+    this.search();
+};
+
+$(function () {
+    var defaultColunms = ${table.entityClassName}.initColumn();
+    var table = new BSTable(${table.entityClassName}.id, "${table.UriPrefix}/list", defaultColunms);
+    table.setPaginationType("server");
+    ${table.entityClassName}.table = table.init();
+});

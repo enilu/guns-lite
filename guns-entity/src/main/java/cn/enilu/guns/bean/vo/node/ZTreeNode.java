@@ -14,6 +14,7 @@ public class ZTreeNode {
 	private Long pId;//父节点id
 	
 	private String name;//节点名称
+	private String code;//节点编号
 	
 	private Boolean open;//是否打开节点
 	
@@ -43,6 +44,14 @@ public class ZTreeNode {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Boolean getOpen() {
