@@ -124,8 +124,9 @@ public class Generator {
                 excludePattern = Pattern.compile(commandLine.getOptionValue("x"),
                                                  Pattern.CASE_INSENSITIVE);
             }
-            if(commandLine.hasOption("module")){
-                module =  commandLine.getOptionValue("module");
+            if(commandLine.hasOption("mod")){
+                module =  commandLine.getOptionValue("mod");
+                module = module.split("\\.")[module.split("\\.").length-1];
                 controllerPackageName = "admin.modular."+module;
                 servicePackageName = "service."+module;
                 repositoryPackageName = "dao."+module;
