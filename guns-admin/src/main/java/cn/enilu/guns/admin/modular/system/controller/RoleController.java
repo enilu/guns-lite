@@ -1,5 +1,6 @@
 package cn.enilu.guns.admin.modular.system.controller;
 
+import cn.enilu.guns.admin.core.base.tips.ErrorTip;
 import cn.enilu.guns.bean.annotion.core.BussinessLog;
 import cn.enilu.guns.bean.annotion.core.Permission;
 import cn.enilu.guns.bean.constant.Const;
@@ -9,6 +10,7 @@ import cn.enilu.guns.admin.core.base.controller.BaseController;
 import cn.enilu.guns.admin.core.base.tips.Tip;
 import cn.enilu.guns.admin.core.cache.CacheKit;
 import cn.enilu.guns.bean.exception.GunsException;
+import cn.enilu.guns.bean.vo.query.SearchFilter;
 import cn.enilu.guns.service.system.UserService;
 import cn.enilu.guns.utils.BeanUtil;
 import cn.enilu.guns.warpper.RoleWarpper;
@@ -162,8 +164,12 @@ public class RoleController extends BaseController {
         }
 
         //不能删除超级管理员角色
-        if(roleId.equals(Const.ADMIN_ROLE_ID)){
+        if(roleId.intValue() ==Const.ADMIN_ROLE_ID){
             throw new GunsException(BizExceptionEnum.CANT_DELETE_ADMIN);
+        }
+        List<User> userList = userService.queryAll(SearchFilter.build("roleid", SearchFilter.Operator.EQ,String.valueOf(roleId)));
+        if(!userList.isEmpty()){
+            return new ErrorTip(400,"有用户使用该角色，禁止删除");
         }
 
         //缓存被删除的角色名称

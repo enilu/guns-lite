@@ -23,6 +23,7 @@ public enum GunsExceptionEnum implements ServiceExceptionEnum{
 	 * 错误的请求
 	 */
 	REQUEST_NULL(400, "请求有错误"),
+	NOT_ALLOW(400, "不允许该操作"),
 	SERVER_ERROR(500, "服务器异常"),
 
 	TASK_CONFIG_ERROR(500, "定时任务配置错误");

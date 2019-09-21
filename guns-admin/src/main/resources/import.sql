@@ -116,7 +116,8 @@ INSERT INTO `t_sys_menu` VALUES ('69', '1', '2019-06-10 21:28:21', '1', '2019-06
 -- ----------------------------
 -- Records of t_sys_notice
 -- ----------------------------
-INSERT INTO `t_sys_notice` (`id`, `title`, `type`, `content`, `create_time`, `create_by`, `modify_time`, `modify_by`) VALUES ('1', '世界', '10', '欢迎使用guns-lite后台管理系统，点击查看<a href=\"http://enilu.gitee.io/guns-lite\" target=\"_blank\">官方文档</a>', '2017-01-11 08:53:20', '1', '2019-01-08 23:30:58', '1');
+INSERT INTO `t_sys_notice` VALUES ('1', '1', '2017-01-11 08:53:20', '1', '2019-01-08 23:30:58', '欢迎使用guns-lite后台管理系统，点击查看<a href=\"http://enilu.gitee.io/guns-lite\" target=\"_blank\">官方文档</a>', '世界', '10');
+INSERT INTO `t_sys_notice` VALUES ('2', '1', '2017-01-11 08:53:20', '1', '2019-01-08 23:30:58', '最高￥2000元阿里云产品通用代金券，<a href=\"https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=alts44ap\" target=\"_blank\">点击查看</a>', '最高￥2000元阿里云产品通用代金券，<a href=\"https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=alts44ap\" target=\"_blank\">点击查看</a>', '10');
 
 -- ----------------------------
 -- Records of t_sys_operation_log

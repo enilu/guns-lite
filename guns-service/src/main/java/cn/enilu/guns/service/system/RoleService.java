@@ -3,10 +3,14 @@ package cn.enilu.guns.service.system;
 
 import cn.enilu.guns.bean.entity.system.Relation;
 import cn.enilu.guns.bean.entity.system.Role;
+import cn.enilu.guns.bean.entity.system.User;
+import cn.enilu.guns.bean.exception.GunsException;
+import cn.enilu.guns.bean.exception.GunsExceptionEnum;
 import cn.enilu.guns.bean.vo.node.Node;
 import cn.enilu.guns.bean.vo.node.ZTreeNode;
 import cn.enilu.guns.dao.system.RelationRepository;
 import cn.enilu.guns.dao.system.RoleRepository;
+import cn.enilu.guns.dao.system.UserRepository;
 import cn.enilu.guns.service.BaseService;
 import cn.enilu.guns.utils.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,8 @@ public class RoleService extends BaseService<Role,Long,RoleRepository> {
     private RoleRepository roleRepository;
     @Autowired
     private RelationRepository relationRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public List<ZTreeNode> roleTreeList() {
         List list = roleRepository.roleTreeList();
@@ -75,6 +81,10 @@ public class RoleService extends BaseService<Role,Long,RoleRepository> {
     }
 
     public void delRoleById(Long roleId) {
+        List<User> list = userRepository.findByRoleid(String.valueOf(roleId));
+        if(!list.isEmpty()){
+            throw  new GunsException(GunsExceptionEnum.NOT_ALLOW);
+        }
         //删除角色
         roleRepository.deleteById(roleId);
 
