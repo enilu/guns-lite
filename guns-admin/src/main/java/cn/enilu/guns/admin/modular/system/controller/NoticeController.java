@@ -102,7 +102,11 @@ public class NoticeController extends BaseController {
         if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-       noticeService.saveOrUpdate(notice);
+        if(notice.getId()==null){
+            noticeService.insert(notice);
+        }else {
+            noticeService.update(notice);
+        }
         return SUCCESS_TIP;
     }
 

@@ -103,7 +103,8 @@ public class MenuController extends BaseController {
         //设置父级菜单编号
         menuService.menuSetPcode(menu);
         menu.setStatus(MenuStatus.ENABLE.getCode());
-        this.menuService.saveOrUpdate(menu);
+
+        menuService.update(menu);
         return SUCCESS_TIP;
     }
 
@@ -115,16 +116,16 @@ public class MenuController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(required = false) String menuName, @RequestParam(required = false) String level) {
         List<Menu> menus = null;
-        if(Strings.isNullOrEmpty(menuName)&&Strings.isNullOrEmpty(level)) {
+        if (Strings.isNullOrEmpty(menuName) && Strings.isNullOrEmpty(level)) {
             menus = (List<Menu>) this.menuService.queryAll();
         }
-        if(!Strings.isNullOrEmpty(menuName)&&!Strings.isNullOrEmpty(level)) {
-            menus = this.menuService.findByNameLikeAndLevels("%"+menuName+"%", Integer.valueOf(level));
+        if (!Strings.isNullOrEmpty(menuName) && !Strings.isNullOrEmpty(level)) {
+            menus = this.menuService.findByNameLikeAndLevels("%" + menuName + "%", Integer.valueOf(level));
         }
-        if(!Strings.isNullOrEmpty(menuName)&&Strings.isNullOrEmpty(level)) {
-            menus = this.menuService.findByNameLike("%"+menuName+"%");
+        if (!Strings.isNullOrEmpty(menuName) && Strings.isNullOrEmpty(level)) {
+            menus = this.menuService.findByNameLike("%" + menuName + "%");
         }
-        if(Strings.isNullOrEmpty(menuName)&&!Strings.isNullOrEmpty(level)) {
+        if (Strings.isNullOrEmpty(menuName) && !Strings.isNullOrEmpty(level)) {
             menus = this.menuService.findByLevels(Integer.valueOf(level));
         }
 
@@ -152,7 +153,7 @@ public class MenuController extends BaseController {
         //设置父级菜单编号
         menuService.menuSetPcode(menu);
         menu.setStatus(MenuStatus.ENABLE.getCode());
-        this.menuService.saveOrUpdate(menu);
+        menuService.insert(menu);
         return SUCCESS_TIP;
     }
 

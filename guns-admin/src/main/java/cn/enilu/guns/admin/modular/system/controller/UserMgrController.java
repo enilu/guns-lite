@@ -148,7 +148,7 @@ public class UserMgrController extends BaseController {
         if (user.getPassword().equals(oldMd5)) {
             String newMd5 = MD5.md5(newPwd, user.getSalt());
             user.setPassword(newMd5);
-          userService.saveOrUpdate(user);
+          userService.update(user);
             return SUCCESS_TIP;
         } else {
             throw new GunsException(BizExceptionEnum.OLD_PWD_NOT_RIGHT);
