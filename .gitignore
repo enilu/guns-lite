@@ -1,9 +1,11 @@
 *.iml
-.vuepress/*
+.vuepress
+.classpath
+.factorypath
 ./**/target/*
-docs/node_modules/*
+docs/node_modules
 docs/*.log
-docs/.vuepress/dist/*
+docs/.vuepress/dist
 **/target/*
 *.project
 *.classpath
@@ -19,3 +21,4 @@ log/*
 guns-h5/node_modules/*
 guns-h5/.idea/*
 guns-h5/dist/*
+.DS_Store
