@@ -57,7 +57,7 @@
         <hutool.version>4.0.0</hutool.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <github.kaptcha.version>1.0.0</github.kaptcha.version>
-        <lombok.version>1.16.20</lombok.version>
+        <lombok.version>1.18.2</lombok.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -71,7 +71,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <scope>compile</scope>
+                <scope>provided</scope>
                 <version>${lombok.version}</version>
             </dependency>
 
