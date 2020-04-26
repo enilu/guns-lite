@@ -66,6 +66,7 @@ public class ConfigCacheImpl implements ConfigCache {
     @Override
     public void cache() {
         logger.info("reset config cache");
+
         List<Cfg> list = cfgRepository.findAll();
         if (list != null && !list.isEmpty()) {
             for (Cfg cfg : list) {

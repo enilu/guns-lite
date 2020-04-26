@@ -1,10 +1,12 @@
 package cn.enilu.guns.service.system;
 
 import cn.enilu.guns.bean.entity.system.Dict;
+import cn.enilu.guns.bean.vo.SpringContextHolder;
+import cn.enilu.guns.bean.vo.query.MutiStrFactory;
 import cn.enilu.guns.dao.cache.DictCache;
 import cn.enilu.guns.dao.system.DictRepository;
-import cn.enilu.guns.bean.vo.query.MutiStrFactory;
 import cn.enilu.guns.service.BaseService;
+import cn.enilu.guns.service.system.impl.ConstantFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,7 @@ public class DictService extends BaseService<Dict,Long,DictRepository> {
             }
             this.dictRepository.save(itemDict);
         }
+        SpringContextHolder.getBean(ConstantFactory.class).clearLocalCache();
         dictCache.cache();
     }
 
@@ -69,7 +72,7 @@ public class DictService extends BaseService<Dict,Long,DictRepository> {
 
         //重新添加新的字典
         this.addDict(dictName,dicts);
-
+        SpringContextHolder.getBean(ConstantFactory.class).clearLocalCache();
         dictCache.cache();
     }
 
@@ -79,7 +82,7 @@ public class DictService extends BaseService<Dict,Long,DictRepository> {
         dictRepository.deleteAll(subList);
         //删除这个词典
         dictRepository.deleteById(dictId);
-
+        SpringContextHolder.getBean(ConstantFactory.class).clearLocalCache();
         dictCache.cache();
     }
     public Dict get(Long id) {

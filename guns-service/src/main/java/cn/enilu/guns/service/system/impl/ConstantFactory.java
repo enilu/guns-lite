@@ -430,4 +430,8 @@ public class ConstantFactory implements IConstantFactory {
         return null;
     }
 
+    @Override
+    public void clearLocalCache() {
+        cache.cleanup();
+    }
 }
