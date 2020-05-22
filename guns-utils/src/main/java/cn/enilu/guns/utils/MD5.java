@@ -29,24 +29,12 @@ public class MD5 {
 	/**
 	 * 循环次数
 	 */
-	public final static int hashIterations = 1024;
+	public final static int HASH_ITERATIONS = 1024;
 	/**
 	 * 加盐参数
 	 */
-	public final static String hashAlgorithmName = "MD5";
-	/**
-	 * 指定算法为MD5的MessageDigest
-	 */
-	private static MessageDigest messageDigest = null;
+	public final static String HASH_ALGORITHM_NAME = "MD5";
 
-	/** 初始化messageDigest的加密算法为MD5 */
-	static {
-		try {
-			messageDigest = MessageDigest.getInstance("MD5");
-		} catch (Exception e) {
-			LOG.error(e.getMessage(), e);
-		}
-	}
 
 	/**
 	 * * MD5加密字符串
@@ -70,8 +58,14 @@ public class MD5 {
 	 */
 
 	public static String getMD5String(byte[] bytes) {
-		messageDigest.update(bytes);
-		return bytesToHex(messageDigest.digest());
+		try {
+			MessageDigest MESSAGE_DIGEST = MessageDigest.getInstance(HASH_ALGORITHM_NAME);
+			MESSAGE_DIGEST.update(bytes);
+			return bytesToHex(MESSAGE_DIGEST.digest());
+		}catch (Exception e){
+			LOG.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 	/**
@@ -85,11 +79,12 @@ public class MD5 {
 		FileInputStream in = null;
 		FileChannel ch = null;
 		try {
+			MessageDigest MESSAGE_DIGEST = MessageDigest.getInstance(HASH_ALGORITHM_NAME);
 			in = new FileInputStream(file);
 			ch = in.getChannel();
 			ByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
-			messageDigest.update(byteBuffer);
-			ret = bytesToHex(messageDigest.digest());
+			MESSAGE_DIGEST.update(byteBuffer);
+			ret = bytesToHex(MESSAGE_DIGEST.digest());
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 		} finally {
@@ -147,16 +142,44 @@ public class MD5 {
 	}
 
 
-
 	/**
 	 * shiro密码加密工具类
 	 *
 	 * @param credentials 密码
-	 * @param saltSource 密码盐
+	 * @param salt        密码盐
 	 * @return
 	 */
-	public static String md5(String credentials, String saltSource) {
-		ByteSource salt = new Md5Hash(saltSource);
-		return new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations).toString();
+	public static String md5(String credentials, String salt) {
+		MessageDigest messageDigest = null;
+		try {
+			messageDigest = MessageDigest.getInstance("MD5");
+			messageDigest.reset();
+			//先加盐
+			messageDigest.update(salt.getBytes("UTF-8"));
+			//再放需要被加密的数据
+			messageDigest.update(credentials.getBytes("UTF-8"));
+		} catch (NoSuchAlgorithmException e) {
+			System.out.println("NoSuchAlgorithmException caught!");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		byte[] byteArray = messageDigest.digest();
+
+		StringBuffer md5StrBuff = new StringBuffer();
+
+		for (int i = 0; i < byteArray.length; i++) {
+			if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {
+				md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));
+			} else {
+				md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+			}
+		}
+
+		return md5StrBuff.toString();
+	}
+
+	public static void main(String[] args) {
+		System.out.println(MD5.md5("admin", "8pgby"));
 	}
 }
