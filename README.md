@@ -80,5 +80,6 @@ flush privileges;
 ## 交流
 - Bugs: [Issues](https://github.com/enilu/guns-lite/issues/new)
 - QQ: 欢迎加入qq交流群 740230743
+- 论坛提问:[http://bbs.enilu.cn](http://bbs.enilu.cn)
 - 微信:myenilu
 - Gitter: [Gitter channel](https://gitter.im/guns-lite/community)
