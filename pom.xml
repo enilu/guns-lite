@@ -33,7 +33,7 @@
         <file_encoding>UTF-8</file_encoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--driver libs-->
-        <mysql.connector.java.version>5.1.45</mysql.connector.java.version>
+        <mysql.connector.java.version>8.0.16</mysql.connector.java.version>
         <!--auth libs-->
         <shiro.version>1.4.0</shiro.version>
         <spring.security.jwt.version>1.0.9.RELEASE</spring.security.jwt.version>
