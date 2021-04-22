@@ -35,7 +35,7 @@
         <!--driver libs-->
         <mysql.connector.java.version>5.1.45</mysql.connector.java.version>
         <!--auth libs-->
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.1</shiro.version>
         <spring.security.jwt.version>1.0.9.RELEASE</spring.security.jwt.version>
         <spring.security.oauth2.version>2.2.0.RELEASE</spring.security.oauth2.version>
         <!--util libs-->
