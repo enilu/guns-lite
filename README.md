@@ -57,7 +57,7 @@ guns-lite包含了成熟的后台管理功能guns-admin
 - 创建数据库： 
 ```sql
 CREATE DATABASE IF NOT EXISTS gunslite DEFAULT CHARSET utf8 COLLATE utf8_general_ci; 
-CREATE USER 'gunslite'@'%' IDENTIFIED BY 'gunslite123';
+CREATE USER 'gunslite'@'%' IDENTIFIED BY 'gunsLITE@123';
 GRANT ALL privileges ON gunslite.* TO 'gunslite'@'%';
 flush privileges;
 
