@@ -1,7 +1,7 @@
 package cn.enilu.guns.utils;
 
 public interface Constants {
-
+    String SEPARATOR = ";;;";
     long SYSTEM_USER_ID=-1;
 
     /**
