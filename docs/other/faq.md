@@ -10,6 +10,6 @@ java -Dfile.encoding=utf-8 -jar xxxxxxx.jar
 ## 打包guns-admin-vuejs总是下载依赖包失败
 使用淘宝源
 ```shell
-npm install --registry=https://registry.npm.taobao.org
+npm install --registry=https://registry.npmmirror.com
 ```
 
